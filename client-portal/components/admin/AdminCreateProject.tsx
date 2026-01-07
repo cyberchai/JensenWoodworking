@@ -4,7 +4,7 @@ import { useState, FormEvent } from 'react';
 import { ProjectStatus, store, generateToken } from '@/lib/mockStore';
 
 interface AdminCreateProjectProps {
-  onProjectCreated: (token: string) => void;
+  onProjectCreated: () => void;
 }
 
 export default function AdminCreateProject({ onProjectCreated }: AdminCreateProjectProps) {
@@ -26,9 +26,9 @@ export default function AdminCreateProject({ onProjectCreated }: AdminCreateProj
       finalPaid: false,
     });
 
-    const link = `${window.location.origin}/p/${project.token}`;
+    const link = `${window.location.origin}/client/p/${project.token}`;
     setGeneratedLink(link);
-    onProjectCreated(project.token);
+    onProjectCreated();
     
     // Reset form
     setClientLabel('');

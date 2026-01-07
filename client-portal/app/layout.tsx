@@ -17,12 +17,12 @@ export default function RootLayout({
       <body>
         <nav className="bg-white border-b border-gray-200 py-4 px-6">
           <div className="max-w-6xl mx-auto flex items-center justify-between">
-            <Link href="/project" className="text-xl font-normal text-black no-underline">
+            <Link href="/client/project" className="text-xl font-normal text-black no-underline">
               <span className="block">Jensen</span>
               <span className="block">Woodworking</span>
             </Link>
             <div className="flex gap-6">
-              <Link href="/project" className="text-sm text-site-gray hover:text-black uppercase transition-colors">
+              <Link href="/client/project" className="text-sm text-site-gray hover:text-black uppercase transition-colors">
                 Your Project
               </Link>
               <Link href="/admin" className="text-sm text-site-gray hover:text-black uppercase transition-colors">

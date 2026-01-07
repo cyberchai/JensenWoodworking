@@ -29,6 +29,16 @@ export interface Feedback {
   clientName?: string;
 }
 
+export interface ContactRequest {
+  id: string;
+  name: string;
+  email: string;
+  phone?: string;
+  message: string;
+  status: 'new' | 'read' | 'replied' | 'archived';
+  createdAt: number;
+}
+
 const statusOrder: ProjectStatus[] = [
   'quote',
   'approved',
@@ -41,6 +51,7 @@ const statusOrder: ProjectStatus[] = [
 // In-memory store
 const mockProjects = new Map<string, Project>();
 const mockFeedback = new Map<string, Feedback>();
+const mockContactRequests = new Map<string, ContactRequest>();
 
 // Helper function to generate random token
 export function generateToken(): string {
@@ -174,6 +185,35 @@ export const store = {
   deleteFeedback(id: string): boolean {
     return mockFeedback.delete(id);
   },
+
+  // Contact Request operations
+  getAllContactRequests(): ContactRequest[] {
+    return Array.from(mockContactRequests.values()).sort((a, b) => b.createdAt - a.createdAt);
+  },
+
+  createContactRequest(data: Omit<ContactRequest, 'id' | 'createdAt'>): ContactRequest {
+    const id = `contact_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    const request: ContactRequest = {
+      ...data,
+      id,
+      createdAt: Date.now(),
+    };
+    mockContactRequests.set(id, request);
+    return request;
+  },
+
+  updateContactRequest(id: string, updates: Partial<Omit<ContactRequest, 'id' | 'createdAt'>>): ContactRequest | undefined {
+    const request = mockContactRequests.get(id);
+    if (!request) return undefined;
+    
+    const updated = { ...request, ...updates };
+    mockContactRequests.set(id, updated);
+    return updated;
+  },
+
+  deleteContactRequest(id: string): boolean {
+    return mockContactRequests.delete(id);
+  },
 };
 
 // Initialize with example feedback after store is defined
@@ -217,4 +257,40 @@ function initializeFeedback() {
 }
 
 initializeFeedback();
+
+// Initialize with example contact requests
+function initializeContactRequests() {
+  const now = Date.now();
+  
+  mockContactRequests.set('contact1', {
+    id: 'contact1',
+    name: 'John Smith',
+    email: 'john.smith@example.com',
+    phone: '(555) 123-4567',
+    message: 'I\'m interested in a custom dining table. Could we schedule a consultation?',
+    status: 'new',
+    createdAt: now - 86400000 * 2,
+  });
+
+  mockContactRequests.set('contact2', {
+    id: 'contact2',
+    name: 'Emily Johnson',
+    email: 'emily.j@example.com',
+    phone: '(555) 987-6543',
+    message: 'Looking for a quote on a kitchen island. What\'s your typical timeline?',
+    status: 'read',
+    createdAt: now - 86400000 * 5,
+  });
+
+  mockContactRequests.set('contact3', {
+    id: 'contact3',
+    name: 'Robert Chen',
+    email: 'r.chen@example.com',
+    message: 'Do you do custom furniture restoration? I have an antique table that needs work.',
+    status: 'replied',
+    createdAt: now - 86400000 * 10,
+  });
+}
+
+initializeContactRequests();
 

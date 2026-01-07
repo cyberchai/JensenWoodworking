@@ -1,4 +1,4 @@
-import ProjectLookupForm from '@/components/ProjectLookupForm';
+import ProjectLookupForm from '@/components/client/ProjectLookupForm';
 import Link from 'next/link';
 
 export default function ProjectPage() {

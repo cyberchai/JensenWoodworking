@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Project, store } from '@/lib/mockStore';
-import ProjectStatusTimeline from '@/components/ProjectStatusTimeline';
-import PaymentPanel from '@/components/PaymentPanel';
-import FeedbackForm from '@/components/FeedbackForm';
+import ProjectStatusTimeline from '@/components/client/ProjectStatusTimeline';
+import PaymentPanel from '@/components/client/PaymentPanel';
+import FeedbackForm from '@/components/client/FeedbackForm';
 
 export default function ProjectDetailPage() {
   const params = useParams();
@@ -17,7 +17,7 @@ export default function ProjectDetailPage() {
 
   useEffect(() => {
     const found = store.getProject(token);
-    setProject(found);
+    setProject(found ?? null);
     setLoading(false);
   }, [token]);
 
@@ -36,7 +36,7 @@ export default function ProjectDetailPage() {
           <h1 className="text-3xl font-normal text-black">Project not found</h1>
           <p className="text-site-gray-light">The project code you entered does not exist.</p>
           <Link
-            href="/project"
+            href="/client/project"
             className="relative inline-block bg-site-gold text-black py-3 px-8 font-normal uppercase overflow-hidden transition-all duration-300 hover:text-white group"
           >
             <span className="relative z-10">Back to Project Lookup</span>
@@ -56,7 +56,7 @@ export default function ProjectDetailPage() {
             <p className="text-sm text-site-gray-light mt-1">Project Code: {project.token}</p>
           </div>
           <Link
-            href="/project"
+            href="/client/project"
             className="text-sm text-site-gray hover:text-black transition-colors"
           >
             ← Back

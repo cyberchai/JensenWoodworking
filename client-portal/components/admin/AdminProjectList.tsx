@@ -26,12 +26,12 @@ export default function AdminProjectList({ projects, onUpdate }: AdminProjectLis
   };
 
   const copyLink = (token: string) => {
-    const link = `${window.location.origin}/p/${token}`;
+    const link = `${window.location.origin}/client/p/${token}`;
     navigator.clipboard.writeText(link);
   };
 
   const openProject = (token: string) => {
-    router.push(`/p/${token}`);
+    router.push(`/client/p/${token}`);
   };
 
   return (

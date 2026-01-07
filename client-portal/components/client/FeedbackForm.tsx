@@ -29,7 +29,7 @@ export default function FeedbackForm({ projectToken, projectName }: FeedbackForm
       });
     }
     
-    router.push('/feedback/success');
+    router.push('/client/feedback/success');
   };
 
   return (

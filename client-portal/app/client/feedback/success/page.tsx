@@ -29,7 +29,7 @@ export default function FeedbackSuccessPage() {
             </p>
           </div>
           <Link
-            href="/project"
+            href="/client/project"
             className="relative inline-block bg-site-gold text-black py-3 px-8 font-normal uppercase overflow-hidden transition-all duration-300 hover:text-white group"
           >
             <span className="relative z-10">Back to Project Lookup</span>

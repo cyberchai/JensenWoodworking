@@ -18,7 +18,7 @@ export default function ProjectLookupForm() {
     }
 
     setError('');
-    router.push(`/p/${trimmed}`);
+    router.push(`/client/p/${trimmed}`);
   };
 
   return (
