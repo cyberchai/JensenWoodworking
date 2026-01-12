@@ -38,8 +38,14 @@ export default function AdminCreateProject({ onProjectCreated }: AdminCreateProj
       }
       
       // Convert date string to timestamp if provided
+      // Fix timezone issue: date picker gives YYYY-MM-DD which is treated as UTC midnight
+      // Parse the date string and create a date at local midnight to avoid day shift
       const startDateTimestamp = projectStartDate 
-        ? new Date(projectStartDate).getTime() 
+        ? (() => {
+            const [year, month, day] = projectStartDate.split('-').map(Number);
+            // Create date at local midnight (month is 0-indexed in Date constructor)
+            return new Date(year, month - 1, day).getTime();
+          })()
         : undefined;
       
       // Payment handles are securely set in the store layer - not passed from UI

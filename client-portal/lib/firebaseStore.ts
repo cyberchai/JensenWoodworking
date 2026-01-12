@@ -91,7 +91,7 @@ const docToContactRequest = (docSnap: QueryDocumentSnapshot<DocumentData>): Cont
     id: docSnap.id,
     name: data.name,
     email: data.email,
-    phone: data.phone,
+    phone: data.phone || undefined,
     message: data.message,
     status: data.status || 'new',
     createdAt: timestampToNumber(data.createdAt),
@@ -325,10 +325,20 @@ export const firebaseStore = {
   },
 
   async createFeedback(data: Omit<Feedback, 'id' | 'createdAt'>): Promise<Feedback> {
-    const feedbackData = {
-      ...data,
+    const feedbackData: any = {
+      projectToken: data.projectToken,
+      projectName: data.projectName,
+      rating: data.rating,
+      comment: data.comment,
+      allowTestimonial: data.allowTestimonial,
+      isTestimonial: data.isTestimonial,
       createdAt: numberToTimestamp(Date.now()),
     };
+    
+    // Only include clientName if it's provided
+    if (data.clientName && data.clientName.trim()) {
+      feedbackData.clientName = data.clientName.trim();
+    }
     
     const docRef = await addDoc(collection(db, FEEDBACK_COLLECTION), feedbackData);
     
@@ -379,10 +389,18 @@ export const firebaseStore = {
   },
 
   async createContactRequest(data: Omit<ContactRequest, 'id' | 'createdAt'>): Promise<ContactRequest> {
-    const requestData = {
-      ...data,
+    const requestData: any = {
+      name: data.name,
+      email: data.email,
+      message: data.message,
+      status: 'new',
       createdAt: numberToTimestamp(Date.now()),
     };
+    
+    // Only include phone if it's provided
+    if (data.phone && data.phone.trim()) {
+      requestData.phone = data.phone.trim();
+    }
     
     const docRef = await addDoc(collection(db, CONTACT_REQUESTS_COLLECTION), requestData);
     

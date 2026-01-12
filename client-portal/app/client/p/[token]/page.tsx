@@ -69,7 +69,7 @@ export default function ProjectDetailPage() {
             </button>
             <h2 className="text-5xl font-serif text-ebony tracking-tighter leading-none">{project.clientLabel}</h2>
             <div className="flex items-center space-x-6 text-[10px] font-bold uppercase tracking-[0.2em] text-brass">
-              <span>Started {project.projectStartDate ? new Date(project.projectStartDate).toLocaleDateString() : 'Recently'}</span>
+              <span>Started {project.projectStartDate ? new Date(project.projectStartDate).toLocaleDateString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' }) : 'Recently'}</span>
               <span className="w-1 h-1 bg-stone-200 rounded-full"></span>
               <span>Project Code: {project.token}</span>
             </div>

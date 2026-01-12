@@ -2,6 +2,8 @@
 
 import { Feedback } from '@/lib/mockStore';
 import { store } from '@/lib/store';
+import DeleteConfirmModal from './DeleteConfirmModal';
+import { useState } from 'react';
 
 interface AdminAllFeedbackProps {
   feedback: Feedback[];
@@ -9,14 +11,17 @@ interface AdminAllFeedbackProps {
 }
 
 export default function AdminAllFeedback({ feedback, onUpdate }: AdminAllFeedbackProps) {
+  const [deleteConfirm, setDeleteConfirm] = useState<{ id: string; clientName?: string } | null>(null);
+
   const toggleTestimonial = async (id: string, currentValue: boolean) => {
     await store.updateFeedback(id, { isTestimonial: !currentValue });
     onUpdate();
   };
 
-  const deleteFeedback = async (id: string) => {
-    if (confirm('Are you sure you want to delete this feedback?')) {
-      await store.deleteFeedback(id);
+  const deleteFeedback = async () => {
+    if (deleteConfirm) {
+      await store.deleteFeedback(deleteConfirm.id);
+      setDeleteConfirm(null);
       onUpdate();
     }
   };
@@ -30,8 +35,17 @@ export default function AdminAllFeedback({ feedback, onUpdate }: AdminAllFeedbac
       ) : (
         <div className="space-y-4">
           {feedback.map((item) => (
-            <div key={item.id} className="border border-gray-200 p-4 space-y-3">
-              <div className="flex items-start justify-between">
+            <div key={item.id} className="border border-gray-200 p-4 space-y-3 relative">
+              {/* Delete button in top right corner */}
+              <button
+                onClick={() => setDeleteConfirm({ id: item.id, clientName: item.clientName })}
+                className="absolute top-4 right-4 text-stone-300 hover:text-red-600 transition-colors text-xs"
+                title="Delete feedback"
+              >
+                ×
+              </button>
+
+              <div className="flex items-start justify-between pr-8">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
                     <div className="flex gap-1">
@@ -51,11 +65,6 @@ export default function AdminAllFeedback({ feedback, onUpdate }: AdminAllFeedbac
                         {item.clientName}
                       </span>
                     )}
-                    {item.isTestimonial && (
-                      <span className="px-2 py-1 bg-site-gold text-black text-xs font-normal uppercase">
-                        Testimonial
-                      </span>
-                    )}
                   </div>
                   <p className="text-sm text-site-gray-light leading-relaxed mb-2">
                     "{item.comment}"
@@ -68,36 +77,32 @@ export default function AdminAllFeedback({ feedback, onUpdate }: AdminAllFeedbac
                   </div>
                 </div>
               </div>
-              <div className="flex gap-2 pt-2 border-t border-gray-200">
-                {!item.isTestimonial && item.allowTestimonial && (
-                  <button
-                    onClick={() => {
-                      toggleTestimonial(item.id, false);
-                    }}
-                    className="px-4 py-2 bg-site-gold text-black hover:bg-black hover:text-white transition-colors text-sm font-normal uppercase"
-                  >
-                    Add to Testimonials
-                  </button>
-                )}
-                {item.isTestimonial && (
-                  <button
-                    onClick={() => toggleTestimonial(item.id, true)}
-                    className="px-4 py-2 bg-gray-200 text-site-gray hover:bg-black hover:text-white transition-colors text-sm font-normal uppercase"
-                  >
-                    Remove from Testimonials
-                  </button>
-                )}
-                <button
-                  onClick={() => deleteFeedback(item.id)}
-                  className="px-4 py-2 bg-gray-200 text-site-gray hover:bg-red-100 hover:text-red-700 transition-colors text-sm font-normal uppercase"
+              
+              {/* Featured/Hidden toggle */}
+              <div className="flex items-center justify-end pt-2 border-t border-gray-200">
+                <button 
+                  onClick={() => toggleTestimonial(item.id, item.isTestimonial)}
+                  className={`text-[9px] font-black uppercase tracking-[0.2em] px-3 py-1.5 border rounded-full transition-all ${
+                    item.isTestimonial 
+                      ? 'border-brass text-brass bg-brass/10 hover:bg-brass/20' 
+                      : 'border-stone-200 text-stone-300 hover:border-stone-300 hover:text-stone-400'
+                  }`}
                 >
-                  Delete
+                  {item.isTestimonial ? 'Featured' : 'Hidden'}
                 </button>
               </div>
             </div>
           ))}
         </div>
       )}
+
+      <DeleteConfirmModal
+        isOpen={deleteConfirm !== null}
+        onClose={() => setDeleteConfirm(null)}
+        onConfirm={deleteFeedback}
+        title="Delete Feedback"
+        message={`Are you sure you want to delete this feedback${deleteConfirm?.clientName ? ` from ${deleteConfirm.clientName}` : ''}? This action cannot be undone.`}
+      />
     </div>
   );
 }

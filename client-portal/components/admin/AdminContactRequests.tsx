@@ -2,6 +2,8 @@
 
 import { ContactRequest } from '@/lib/mockStore';
 import { store } from '@/lib/store';
+import DeleteConfirmModal from './DeleteConfirmModal';
+import { useState } from 'react';
 
 interface AdminContactRequestsProps {
   contactRequests: ContactRequest[];
@@ -9,45 +11,19 @@ interface AdminContactRequestsProps {
 }
 
 export default function AdminContactRequests({ contactRequests, onUpdate }: AdminContactRequestsProps) {
+  const [deleteConfirm, setDeleteConfirm] = useState<{ id: string; name: string } | null>(null);
+  const [expandedRequest, setExpandedRequest] = useState<string | null>(null);
+
   const updateStatus = async (id: string, status: ContactRequest['status']) => {
     await store.updateContactRequest(id, { status });
     onUpdate();
   };
 
-  const deleteRequest = async (id: string) => {
-    if (confirm('Are you sure you want to delete this contact request?')) {
-      await store.deleteContactRequest(id);
+  const deleteRequest = async () => {
+    if (deleteConfirm) {
+      await store.deleteContactRequest(deleteConfirm.id);
+      setDeleteConfirm(null);
       onUpdate();
-    }
-  };
-
-  const getStatusColor = (status: ContactRequest['status']) => {
-    switch (status) {
-      case 'new':
-        return 'bg-blue-100 text-blue-700';
-      case 'read':
-        return 'bg-gray-100 text-gray-700';
-      case 'replied':
-        return 'bg-green-100 text-green-700';
-      case 'archived':
-        return 'bg-gray-200 text-gray-600';
-      default:
-        return 'bg-gray-100 text-gray-700';
-    }
-  };
-
-  const getStatusLabel = (status: ContactRequest['status']) => {
-    switch (status) {
-      case 'new':
-        return 'New';
-      case 'read':
-        return 'Read';
-      case 'replied':
-        return 'Replied';
-      case 'archived':
-        return 'Archived';
-      default:
-        return status;
     }
   };
 
@@ -56,95 +32,98 @@ export default function AdminContactRequests({ contactRequests, onUpdate }: Admi
       year: 'numeric',
       month: 'short',
       day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
     });
   };
 
-  const newRequests = contactRequests.filter(r => r.status === 'new').length;
-
   return (
-    <div className="space-y-6">
-      {newRequests > 0 && (
-        <div className="bg-blue-50 border border-blue-200 p-4">
-          <p className="text-sm text-blue-700">
-            You have {newRequests} new {newRequests === 1 ? 'request' : 'requests'}
-          </p>
-        </div>
-      )}
-
-      {contactRequests.length === 0 ? (
-        <div className="bg-white border border-gray-200 p-6">
-          <p className="text-site-gray-light text-sm">No contact requests yet.</p>
-        </div>
-      ) : (
-        <div className="space-y-4">
-          {contactRequests.map((request) => (
-            <div key={request.id} className="bg-white border border-gray-200 p-6 space-y-4">
-              <div className="flex items-start justify-between">
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-2">
-                    <h3 className="text-lg font-normal text-black">{request.name}</h3>
-                    <span className={`px-2 py-1 text-xs font-normal uppercase ${getStatusColor(request.status)}`}>
-                      {getStatusLabel(request.status)}
-                    </span>
+    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4">
+      <h2 className="text-[11px] font-black tracking-[0.3em] uppercase text-brass">Commission Inquiries</h2>
+      <div className="bg-white border border-stone-100 overflow-hidden shadow-sm">
+        <table className="w-full text-left text-[11px] font-bold uppercase tracking-widest">
+          <thead className="bg-stone-50 border-b border-stone-100 text-stone-400">
+            <tr>
+              <th className="px-8 py-6">Inquirer</th>
+              <th className="px-8 py-6">Intent</th>
+              <th className="px-8 py-6">Date</th>
+              <th className="px-8 py-6">Status</th>
+              <th className="px-8 py-6">Management</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-stone-50">
+            {contactRequests.map((request) => (
+              <tr key={request.id} className="hover:bg-stone-50 transition-colors">
+                <td className="px-8 py-6">
+                  <div className="text-ebony mb-1">{request.name}</div>
+                  <div className="text-[9px] text-stone-300 normal-case tracking-normal font-normal">{request.email}</div>
+                  {request.phone && (
+                    <div className="text-[9px] text-stone-300 normal-case tracking-normal font-normal">{request.phone}</div>
+                  )}
+                </td>
+                <td className="px-8 py-6 text-stone-600 italic font-serif normal-case tracking-normal max-w-xs">
+                  <div className="line-clamp-2">{request.message}</div>
+                  {request.message.length > 100 && (
+                    <button
+                      onClick={() => setExpandedRequest(expandedRequest === request.id ? null : request.id)}
+                      className="text-[9px] text-brass hover:text-ebony mt-1 uppercase tracking-widest"
+                    >
+                      {expandedRequest === request.id ? 'Show Less' : 'View Full Message'}
+                    </button>
+                  )}
+                  {expandedRequest === request.id && (
+                    <div className="mt-2 p-3 bg-stone-50 border border-stone-100 text-stone-600 italic font-serif normal-case tracking-normal whitespace-pre-wrap text-sm">
+                      {request.message}
+                    </div>
+                  )}
+                </td>
+                <td className="px-8 py-6 text-stone-300">{formatDate(request.createdAt)}</td>
+                <td className="px-8 py-6">
+                  <select
+                    value={request.status}
+                    onChange={(e) => updateStatus(request.id, e.target.value as ContactRequest['status'])}
+                    className="text-[9px] font-bold uppercase tracking-widest bg-transparent border-b border-stone-200 focus:border-brass focus:outline-none text-ebony"
+                  >
+                    <option value="new">New</option>
+                    <option value="read">Read</option>
+                    <option value="replied">Replied</option>
+                    <option value="archived">Archived</option>
+                  </select>
+                </td>
+                <td className="px-8 py-6">
+                  <div className="flex items-center gap-3">
+                    <a
+                      href={`mailto:${request.email}?subject=Re: Your Inquiry`}
+                      className="text-brass hover:text-ebony transition-colors text-[9px] font-bold uppercase tracking-widest"
+                    >
+                      Reply
+                    </a>
+                    <button
+                      onClick={() => setDeleteConfirm({ id: request.id, name: request.name })}
+                      className="text-red-600 hover:text-red-800 transition-colors text-[9px] font-bold uppercase tracking-widest"
+                    >
+                      Delete
+                    </button>
                   </div>
-                  <div className="space-y-1 text-sm text-site-gray-light">
-                    <p>
-                      <span className="font-medium">Email:</span>{' '}
-                      <a href={`mailto:${request.email}`} className="text-site-gold hover:text-black transition-colors">
-                        {request.email}
-                      </a>
-                    </p>
-                    {request.phone && (
-                      <p>
-                        <span className="font-medium">Phone:</span>{' '}
-                        <a href={`tel:${request.phone}`} className="text-site-gold hover:text-black transition-colors">
-                          {request.phone}
-                        </a>
-                      </p>
-                    )}
-                    <p>
-                      <span className="font-medium">Date:</span> {formatDate(request.createdAt)}
-                    </p>
-                  </div>
-                </div>
-              </div>
+                </td>
+              </tr>
+            ))}
+            {contactRequests.length === 0 && (
+              <tr>
+                <td colSpan={5} className="px-8 py-12 text-center text-stone-300 italic font-serif normal-case tracking-normal">
+                  No recent inquiries found in the archives.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
 
-              <div className="pt-3 border-t border-gray-200">
-                <p className="text-sm text-site-gray-light leading-relaxed whitespace-pre-wrap">
-                  {request.message}
-                </p>
-              </div>
-
-              <div className="flex gap-2 pt-3 border-t border-gray-200">
-                <select
-                  value={request.status}
-                  onChange={(e) => updateStatus(request.id, e.target.value as ContactRequest['status'])}
-                  className="px-4 py-2 text-sm border-0 border-b border-gray-300 bg-white focus:outline-none focus:border-site-gold transition-colors"
-                >
-                  <option value="new">New</option>
-                  <option value="read">Read</option>
-                  <option value="replied">Replied</option>
-                  <option value="archived">Archived</option>
-                </select>
-                <a
-                  href={`mailto:${request.email}?subject=Re: Your Inquiry`}
-                  className="px-4 py-2 bg-site-gold text-black hover:bg-black hover:text-white transition-colors text-sm font-normal uppercase"
-                >
-                  Reply
-                </a>
-                <button
-                  onClick={() => deleteRequest(request.id)}
-                  className="px-4 py-2 bg-gray-200 text-site-gray hover:bg-red-100 hover:text-red-700 transition-colors text-sm font-normal uppercase"
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
+      <DeleteConfirmModal
+        isOpen={deleteConfirm !== null}
+        onClose={() => setDeleteConfirm(null)}
+        onConfirm={deleteRequest}
+        title="Delete Contact Request"
+        message={`Are you sure you want to delete the contact request from "${deleteConfirm?.name}"? This action cannot be undone.`}
+      />
     </div>
   );
 }
