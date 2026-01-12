@@ -22,11 +22,8 @@ export default function ProjectLookupForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div>
-        <label htmlFor="projectCode" className="block text-sm font-medium text-site-gray mb-2 uppercase tracking-wide">
-          Project Code
-        </label>
+    <form onSubmit={handleSubmit} className="max-w-md mx-auto">
+      <div className="relative mb-8">
         <input
           id="projectCode"
           type="text"
@@ -35,19 +32,18 @@ export default function ProjectLookupForm() {
             setProjectCode(e.target.value);
             setError('');
           }}
-          placeholder="Enter your project code"
-          className="w-full px-4 py-2 border-0 border-b border-gray-300 bg-white focus:outline-none focus:border-site-gold transition-colors"
+          placeholder="PROJECT CODE"
+          className={`w-full py-6 bg-stone-50 border-b-2 text-center text-2xl font-serif tracking-[0.2em] uppercase focus:outline-none transition-all ${
+            error ? 'border-red-200' : 'border-stone-100 focus:border-brass'
+          }`}
         />
-        {error && (
-          <p className="mt-2 text-sm text-red-600">{error}</p>
-        )}
       </div>
+      {error && <p className="text-red-500 text-[10px] font-black uppercase tracking-widest mb-6">{error}</p>}
       <button
         type="submit"
-        className="relative w-full bg-site-gold text-black py-3 px-8 font-normal uppercase overflow-hidden transition-all duration-300 hover:text-white group"
+        className="w-full bg-ebony text-white font-black text-xs tracking-[0.3em] uppercase py-6 hover:bg-brass transition-all shadow-xl"
       >
-        <span className="relative z-10">View Project</span>
-        <span className="absolute inset-0 bg-black opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+        View Project
       </button>
     </form>
   );

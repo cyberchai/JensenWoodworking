@@ -16,60 +16,64 @@ export default function PaymentPanel({
   projectName,
 }: PaymentPanelProps) {
   return (
-    <div className="space-y-4">
-      <h2 className="text-xl font-normal text-black mb-6">Payment Status</h2>
-      
-      <div className="space-y-3">
-        <div className="flex items-center justify-between py-3 border-b border-gray-200">
-          <span className="text-sm font-normal text-site-gray uppercase">Deposit</span>
+    <div className="space-y-12">
+      <div className="space-y-6">
+        <div className="flex items-center justify-between py-4 border-b border-stone-100">
+          <span className="text-[10px] font-black uppercase tracking-widest text-stone-400">Deposit</span>
           <span
-            className={`px-3 py-1 text-xs font-normal uppercase ${
+            className={`px-4 py-2 text-[10px] font-black uppercase tracking-widest ${
               depositPaid
-                ? 'bg-site-gold text-black'
-                : 'bg-gray-200 text-site-gray'
+                ? 'bg-brass text-ebony'
+                : 'bg-stone-100 text-stone-400'
             }`}
           >
-            {depositPaid ? 'Paid' : 'Unpaid'}
+            {depositPaid ? 'Paid' : 'Pending'}
           </span>
         </div>
         
-        <div className="flex items-center justify-between py-3 border-b border-gray-200">
-          <span className="text-sm font-normal text-site-gray uppercase">Final Payment</span>
+        <div className="flex items-center justify-between py-4 border-b border-stone-100">
+          <span className="text-[10px] font-black uppercase tracking-widest text-stone-400">Final Payment</span>
           <span
-            className={`px-3 py-1 text-xs font-normal uppercase ${
+            className={`px-4 py-2 text-[10px] font-black uppercase tracking-widest ${
               finalPaid
-                ? 'bg-site-gold text-black'
-                : 'bg-gray-200 text-site-gray'
+                ? 'bg-brass text-ebony'
+                : 'bg-stone-100 text-stone-400'
             }`}
           >
-            {finalPaid ? 'Paid' : 'Unpaid'}
+            {finalPaid ? 'Paid' : 'Pending'}
           </span>
         </div>
       </div>
 
-      <div className="pt-4 space-y-3">
-        <a
-          href={`https://venmo.com/u/${venmoHandle}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="relative block w-full bg-site-gold text-black py-3 px-8 font-normal uppercase overflow-hidden transition-all duration-300 hover:text-white group text-center"
-        >
-          <span className="relative z-10">Pay with Venmo</span>
-          <span className="absolute inset-0 bg-black opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-        </a>
-        <a
-          href={`https://paypal.me/${paypalHandle}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="relative block w-full bg-site-gold text-black py-3 px-8 font-normal uppercase overflow-hidden transition-all duration-300 hover:text-white group text-center"
-        >
-          <span className="relative z-10">Pay with PayPal</span>
-          <span className="absolute inset-0 bg-black opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-        </a>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
+        <div className="group p-8 border border-stone-100 hover:border-brass transition-all">
+          <h4 className="font-serif text-2xl text-ebony mb-4">PayPal</h4>
+          <p className="text-stone-400 text-sm mb-8 italic">Preferred for international transactions.</p>
+          <a 
+            href={`https://paypal.me/${paypalHandle}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block text-center py-4 bg-stone-50 text-ebony text-[10px] font-black uppercase tracking-widest border border-transparent group-hover:bg-ebony group-hover:text-white transition-all"
+          >
+            Proceed to PayPal
+          </a>
+        </div>
+        <div className="group p-8 border border-stone-100 hover:border-brass transition-all">
+          <h4 className="font-serif text-2xl text-ebony mb-4">Venmo</h4>
+          <p className="text-stone-400 text-sm mb-8 italic">Best for domestic payments.</p>
+          <a 
+            href={`https://venmo.com/u/${venmoHandle}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block text-center py-4 bg-stone-50 text-ebony text-[10px] font-black uppercase tracking-widest border border-transparent group-hover:bg-ebony group-hover:text-white transition-all"
+          >
+            Open Venmo
+          </a>
+        </div>
       </div>
-
-      <p className="text-xs text-site-gray-light pt-2">
-        Use your project name in the payment note.
+      
+      <p className="text-[10px] text-stone-400 uppercase tracking-widest text-center">
+        Please include your project name in the payment note.
       </p>
     </div>
   );

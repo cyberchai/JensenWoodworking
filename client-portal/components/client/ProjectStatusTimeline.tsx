@@ -1,62 +1,56 @@
 'use client';
 
-import { ProjectStatus } from '@/lib/mockStore';
-import { store } from '@/lib/mockStore';
+import { StatusUpdate } from '@/lib/mockStore';
+import { Calendar } from '@/components/icons';
 
 interface ProjectStatusTimelineProps {
-  currentStatus: ProjectStatus;
+  statusUpdates: StatusUpdate[];
 }
 
-export default function ProjectStatusTimeline({ currentStatus }: ProjectStatusTimelineProps) {
-  const statusOrder = store.getStatusOrder();
-  const currentIndex = statusOrder.indexOf(currentStatus);
+export default function ProjectStatusTimeline({ statusUpdates }: ProjectStatusTimelineProps) {
+  const formatDate = (timestamp: number) => {
+    return new Date(timestamp).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  };
+
+  // Sort by date, newest first
+  const sortedUpdates = [...statusUpdates].sort((a, b) => b.createdAt - a.createdAt);
 
   return (
-    <div className="space-y-4">
-      <h2 className="text-xl font-normal text-black mb-6">Project Status</h2>
-      <div className="space-y-3">
-        {statusOrder.map((status, index) => {
-          const isCompleted = index <= currentIndex;
-          const isCurrent = index === currentIndex;
+    <div className="space-y-32">
+      {sortedUpdates.map((update, idx) => (
+        <div key={update.id} className="relative">
+          <div className="absolute left-[-40px] top-0 bottom-[-128px] w-px bg-stone-100 hidden md:block">
+            <div className="w-2 h-2 rounded-full bg-brass absolute top-0 left-[-4px]"></div>
+          </div>
           
-          return (
-            <div key={status} className="flex items-start gap-3">
-              <div className="flex flex-col items-center">
-                <div
-                  className={`w-3 h-3 ${
-                    isCompleted
-                      ? 'bg-site-gold'
-                      : 'bg-gray-300'
-                  }`}
-                />
-                {index < statusOrder.length - 1 && (
-                  <div
-                    className={`w-0.5 h-8 ${
-                      isCompleted
-                        ? 'bg-site-gold'
-                        : 'bg-gray-300'
-                    }`}
-                  />
-                )}
-              </div>
-              <div className="flex-1 pb-4">
-                <p
-                  className={`text-sm font-normal ${
-                    isCurrent
-                      ? 'text-black'
-                      : isCompleted
-                      ? 'text-site-gray'
-                      : 'text-gray-400'
-                  }`}
-                >
-                  {store.getStatusLabel(status)}
-                </p>
+          <div className="space-y-10">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+              <div>
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-stone-300 block mb-2">Update {sortedUpdates.length - idx}</span>
+                <h4 className="text-4xl font-serif text-ebony">{update.title}</h4>
               </div>
             </div>
-          );
-        })}
-      </div>
+
+            {update.photos && update.photos.length > 0 && (
+              <div className="aspect-video bg-stone-50 overflow-hidden shadow-2xl rounded-sm">
+                <img src={update.photos[0]} alt={update.title} className="w-full h-full object-cover" />
+              </div>
+            )}
+
+            <div className="max-w-2xl">
+              <p className="text-stone-600 text-xl font-serif leading-relaxed italic">"{update.message}"</p>
+            </div>
+            
+            <div className="text-[9px] font-black uppercase tracking-[0.2em] text-stone-300 flex items-center">
+              <Calendar size={12} className="mr-2" /> {formatDate(update.createdAt)}
+            </div>
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
-

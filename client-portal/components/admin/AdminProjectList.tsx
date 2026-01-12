@@ -1,8 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { Project, ProjectStatus, store } from '@/lib/mockStore';
+import { Project, StatusUpdate } from '@/lib/mockStore';
+import { store } from '@/lib/store';
 import { useRouter } from 'next/navigation';
+import AdminStatusUpdateForm from './AdminStatusUpdateForm';
+import AdminStatusUpdateEditForm from './AdminStatusUpdateEditForm';
+import DeleteConfirmModal from './DeleteConfirmModal';
 
 interface AdminProjectListProps {
   projects: Project[];
@@ -11,18 +15,51 @@ interface AdminProjectListProps {
 
 export default function AdminProjectList({ projects, onUpdate }: AdminProjectListProps) {
   const router = useRouter();
+  const [expandedProjects, setExpandedProjects] = useState<Set<string>>(new Set());
+  const [editingUpdate, setEditingUpdate] = useState<{ token: string; update: StatusUpdate } | null>(null);
+  const [deleteConfirm, setDeleteConfirm] = useState<{ token: string; updateId: string; title: string } | null>(null);
 
-  const handleStatusChange = (token: string, newStatus: ProjectStatus) => {
-    store.updateProject(token, { status: newStatus });
-    onUpdate();
+  const toggleExpanded = (token: string) => {
+    const newExpanded = new Set(expandedProjects);
+    if (newExpanded.has(token)) {
+      newExpanded.delete(token);
+    } else {
+      newExpanded.add(token);
+    }
+    setExpandedProjects(newExpanded);
   };
 
-  const handlePaymentToggle = (token: string, field: 'depositPaid' | 'finalPaid') => {
-    const project = store.getProject(token);
+  const handlePaymentToggle = async (token: string, field: 'depositPaid' | 'finalPaid') => {
+    const project = await store.getProject(token);
     if (project) {
-      store.updateProject(token, { [field]: !project[field] });
+      await store.updateProject(token, { [field]: !project[field] });
       onUpdate();
     }
+  };
+
+  const handleDeleteClick = (token: string, updateId: string, title: string) => {
+    setDeleteConfirm({ token, updateId, title });
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (deleteConfirm) {
+      await store.deleteStatusUpdate(deleteConfirm.token, deleteConfirm.updateId);
+      setDeleteConfirm(null);
+      onUpdate();
+    }
+  };
+
+  const handleEditClick = (token: string, update: StatusUpdate) => {
+    setEditingUpdate({ token, update });
+  };
+
+  const handleEditCancel = () => {
+    setEditingUpdate(null);
+  };
+
+  const handleEditSave = () => {
+    setEditingUpdate(null);
+    onUpdate();
   };
 
   const copyLink = (token: string) => {
@@ -32,6 +69,16 @@ export default function AdminProjectList({ projects, onUpdate }: AdminProjectLis
 
   const openProject = (token: string) => {
     router.push(`/client/p/${token}`);
+  };
+
+  const formatDate = (timestamp: number) => {
+    return new Date(timestamp).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
   };
 
   return (
@@ -52,23 +99,6 @@ export default function AdminProjectList({ projects, onUpdate }: AdminProjectLis
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-normal text-site-gray mb-1 uppercase tracking-wide">
-                  Status
-                </label>
-                <select
-                  value={project.status}
-                  onChange={(e) => handleStatusChange(project.token, e.target.value as ProjectStatus)}
-                  className="w-full px-3 py-2 text-sm border-0 border-b border-gray-300 bg-white focus:outline-none focus:border-site-gold transition-colors"
-                >
-                  {store.getStatusOrder().map((s) => (
-                    <option key={s} value={s}>
-                      {store.getStatusLabel(s)}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
               <div className="space-y-2">
                 <label className="block text-xs font-normal text-site-gray mb-1 uppercase tracking-wide">
                   Payments
@@ -96,7 +126,92 @@ export default function AdminProjectList({ projects, onUpdate }: AdminProjectLis
               </div>
             </div>
 
-            <div className="flex gap-2 pt-2">
+            <div className="pt-4 border-t border-gray-200">
+              <div className="flex items-center justify-between mb-3">
+                <h4 className="text-sm font-normal text-black uppercase tracking-wide">
+                  Status Updates ({project.statusUpdates.length})
+                </h4>
+                <button
+                  onClick={() => toggleExpanded(project.token)}
+                  className="text-xs text-site-gray hover:text-black transition-colors uppercase"
+                >
+                  {expandedProjects.has(project.token) ? 'Collapse' : 'Expand'}
+                </button>
+              </div>
+
+              {expandedProjects.has(project.token) && (
+                <div className="space-y-4">
+                  <AdminStatusUpdateForm projectToken={project.token} onUpdateAdded={onUpdate} />
+                  
+                  {project.statusUpdates.length > 0 && (
+                    <div className="space-y-3 mt-4">
+                      {project.statusUpdates
+                        .sort((a, b) => b.createdAt - a.createdAt)
+                        .map((update) => {
+                          const isEditing = editingUpdate?.token === project.token && editingUpdate?.update.id === update.id;
+                          
+                          if (isEditing) {
+                            return (
+                              <AdminStatusUpdateEditForm
+                                key={update.id}
+                                projectToken={project.token}
+                                update={update}
+                                onUpdateSaved={handleEditSave}
+                                onCancel={handleEditCancel}
+                              />
+                            );
+                          }
+
+                          return (
+                            <div key={update.id} className="border border-gray-200 p-3 space-y-2">
+                              <div className="flex items-start justify-between">
+                                <div className="flex-1">
+                                  <p className="text-sm font-normal text-black">{update.title}</p>
+                                  <p className="text-xs text-site-gray-light mt-1">
+                                    {formatDate(update.createdAt)}
+                                  </p>
+                                </div>
+                                <div className="flex items-center gap-3">
+                                  <button
+                                    onClick={() => handleEditClick(project.token, update)}
+                                    className="text-xs text-brass hover:text-ebony transition-colors font-black uppercase tracking-widest"
+                                  >
+                                    Edit
+                                  </button>
+                                  <button
+                                    onClick={() => handleDeleteClick(project.token, update.id, update.title)}
+                                    className="text-xs text-red-600 hover:text-red-800 transition-colors"
+                                  >
+                                    Delete
+                                  </button>
+                                </div>
+                              </div>
+                              <p className="text-xs text-site-gray-light leading-relaxed">
+                                {update.message}
+                              </p>
+                              {update.photos && update.photos.length > 0 && (
+                                <div className="mt-2 grid grid-cols-3 gap-2">
+                                  {update.photos.map((photo, photoIndex) => (
+                                    <div key={photoIndex} className="aspect-square bg-gray-100 rounded overflow-hidden">
+                                      <img
+                                        src={photo}
+                                        alt={`${update.title} - Photo ${photoIndex + 1}`}
+                                        className="w-full h-full object-cover"
+                                      />
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+
+            <div className="flex gap-2 pt-2 border-t border-gray-200">
               <button
                 onClick={() => copyLink(project.token)}
                 className="flex-1 px-4 py-2 bg-gray-200 text-site-gray hover:bg-site-gold hover:text-black transition-colors text-sm font-normal uppercase"
@@ -114,6 +229,14 @@ export default function AdminProjectList({ projects, onUpdate }: AdminProjectLis
           </div>
         ))}
       </div>
+
+      <DeleteConfirmModal
+        isOpen={deleteConfirm !== null}
+        onClose={() => setDeleteConfirm(null)}
+        onConfirm={handleDeleteConfirm}
+        title="Delete Status Update"
+        message={`Are you sure you want to delete "${deleteConfirm?.title}"? This action cannot be undone.`}
+      />
     </div>
   );
 }

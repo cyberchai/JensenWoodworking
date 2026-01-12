@@ -4,19 +4,27 @@ import Link from 'next/link';
 export default function ProjectPage() {
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-12 bg-white">
-      <div className="w-full max-w-md">
-        <div className="bg-white border border-gray-200 p-8">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-normal text-black mb-2">Your Project</h1>
-            <p className="text-sm text-site-gray-light">Enter your project code to view details</p>
+      <div className="w-full max-w-2xl">
+        <div className="bg-white border border-stone-100 rounded-sm p-16 lg:p-24 text-center shadow-2xl">
+          <div className="w-24 h-24 bg-stone-50 text-brass rounded-full flex items-center justify-center mx-auto mb-10 border border-stone-100">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
           </div>
+          <h2 className="text-5xl font-serif text-ebony mb-6 tracking-tight">Your Project</h2>
+          <p className="text-stone-400 mb-12 max-w-lg mx-auto font-serif italic text-xl">
+            Please enter your project code to view your project timeline and updates.
+          </p>
+          
           <ProjectLookupForm />
-          <div className="mt-6 text-center">
+          
+          <div className="mt-8 text-center">
             <Link
-              href="/admin"
-              className="text-sm text-site-gray hover:text-black transition-colors"
+              href="/"
+              className="text-[10px] font-black uppercase tracking-widest text-stone-300 hover:text-brass transition-colors"
             >
-              Admin Dashboard
+              ← Back to Home
             </Link>
           </div>
         </div>

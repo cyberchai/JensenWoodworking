@@ -2,7 +2,8 @@
 
 import { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
-import { store } from '@/lib/mockStore';
+import { store } from '@/lib/store';
+import { Star, CheckCircle2 } from '@/components/icons';
 
 interface FeedbackFormProps {
   projectToken?: string;
@@ -10,91 +11,75 @@ interface FeedbackFormProps {
 }
 
 export default function FeedbackForm({ projectToken, projectName }: FeedbackFormProps) {
-  const [rating, setRating] = useState<number>(0);
+  const [rating, setRating] = useState<number>(5);
   const [comment, setComment] = useState('');
   const [allowTestimonial, setAllowTestimonial] = useState(false);
+  const [feedbackSubmitted, setFeedbackSubmitted] = useState(false);
   const router = useRouter();
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     
-    if (projectToken && projectName) {
-      store.createFeedback({
+    if (projectToken && projectName && comment.trim()) {
+      await store.createFeedback({
         projectToken,
         projectName,
         rating,
-        comment,
+        comment: comment.trim(),
         allowTestimonial,
         isTestimonial: false, // Admin must approve for testimonials
       });
+      setFeedbackSubmitted(true);
     }
-    
-    router.push('/client/feedback/success');
   };
 
-  return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div>
-        <h2 className="text-xl font-normal text-black mb-6">Feedback</h2>
-        
-        <div className="space-y-4">
-          <div>
-            <label className="block text-sm font-normal text-site-gray mb-2 uppercase tracking-wide">
-              Rating
-            </label>
-            <div className="flex gap-2">
-              {[1, 2, 3, 4, 5].map((num) => (
-                <button
-                  key={num}
-                  type="button"
-                  onClick={() => setRating(num)}
-                  className={`w-10 h-10 border-2 transition-colors ${
-                    rating >= num
-                      ? 'bg-site-gold text-black border-site-gold'
-                      : 'bg-white text-site-gray-light border-gray-300 hover:border-site-gold'
-                  }`}
-                >
-                  {num}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <label htmlFor="comment" className="block text-sm font-normal text-site-gray mb-2 uppercase tracking-wide">
-              Comments
-            </label>
-            <textarea
-              id="comment"
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-              rows={4}
-              className="w-full px-4 py-2 border-0 border-b border-gray-300 bg-white focus:outline-none focus:border-site-gold transition-colors resize-none"
-              placeholder="Share your experience..."
-            />
-          </div>
-
-          <div className="flex items-start gap-2">
-            <input
-              id="testimonial"
-              type="checkbox"
-              checked={allowTestimonial}
-              onChange={(e) => setAllowTestimonial(e.target.checked)}
-              className="mt-1 w-4 h-4 text-site-gold border-gray-300 focus:ring-site-gold"
-            />
-            <label htmlFor="testimonial" className="text-sm text-site-gray">
-              OK to use as testimonial
-            </label>
-          </div>
-        </div>
+  if (feedbackSubmitted) {
+    return (
+      <div className="text-center py-10">
+        <CheckCircle2 size={32} className="text-brass mx-auto mb-4" />
+        <p className="font-serif italic text-ebony text-xl">Thank you for your feedback!</p>
       </div>
+    );
+  }
 
-      <button
-        type="submit"
-        className="relative w-full bg-site-gold text-black py-3 px-8 font-normal uppercase overflow-hidden transition-all duration-300 hover:text-white group"
+  return (
+    <form onSubmit={handleSubmit} className="space-y-8">
+      <div className="flex space-x-2">
+        {[1, 2, 3, 4, 5].map(s => (
+          <button 
+            key={s} 
+            type="button" 
+            onClick={() => setRating(s)} 
+            className={`transition-colors ${s <= rating ? 'text-brass' : 'text-stone-100'}`}
+          >
+            <Star size={20} fill={s <= rating} />
+          </button>
+        ))}
+      </div>
+      <textarea 
+        value={comment} 
+        onChange={e => setComment(e.target.value)} 
+        placeholder="Share your experience with this project..." 
+        className="w-full bg-stone-50 p-4 font-serif italic text-stone-600 focus:outline-none border-b border-stone-100 h-32" 
+        required 
+      />
+      <div className="flex items-start gap-2">
+        <input
+          id="testimonial"
+          type="checkbox"
+          checked={allowTestimonial}
+          onChange={(e) => setAllowTestimonial(e.target.checked)}
+          className="mt-1 w-4 h-4 text-brass border-stone-200 focus:ring-brass"
+        />
+        <label htmlFor="testimonial" className="text-[10px] text-stone-400 uppercase tracking-widest">
+          OK to use as testimonial on our website
+        </label>
+      </div>
+      <button 
+        type="submit" 
+        className="w-full py-5 bg-ebony text-white text-[11px] font-black uppercase tracking-widest shadow-xl hover:bg-brass transition-all"
       >
-        <span className="relative z-10">Submit Feedback</span>
-        <span className="absolute inset-0 bg-black opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+        Submit Feedback
       </button>
     </form>
   );

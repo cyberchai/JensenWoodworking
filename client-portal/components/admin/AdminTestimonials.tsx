@@ -1,6 +1,7 @@
 'use client';
 
-import { Feedback, store } from '@/lib/mockStore';
+import { Feedback } from '@/lib/mockStore';
+import { store } from '@/lib/store';
 
 interface AdminTestimonialsProps {
   feedback: Feedback[];
@@ -8,14 +9,14 @@ interface AdminTestimonialsProps {
 }
 
 export default function AdminTestimonials({ feedback, onUpdate }: AdminTestimonialsProps) {
-  const toggleTestimonial = (id: string, currentValue: boolean) => {
-    store.updateFeedback(id, { isTestimonial: !currentValue });
+  const toggleTestimonial = async (id: string, currentValue: boolean) => {
+    await store.updateFeedback(id, { isTestimonial: !currentValue });
     onUpdate();
   };
 
-  const deleteFeedback = (id: string) => {
+  const deleteFeedback = async (id: string) => {
     if (confirm('Are you sure you want to delete this feedback?')) {
-      store.deleteFeedback(id);
+      await store.deleteFeedback(id);
       onUpdate();
     }
   };

@@ -1,6 +1,7 @@
 'use client';
 
-import { ContactRequest, store } from '@/lib/mockStore';
+import { ContactRequest } from '@/lib/mockStore';
+import { store } from '@/lib/store';
 
 interface AdminContactRequestsProps {
   contactRequests: ContactRequest[];
@@ -8,14 +9,14 @@ interface AdminContactRequestsProps {
 }
 
 export default function AdminContactRequests({ contactRequests, onUpdate }: AdminContactRequestsProps) {
-  const updateStatus = (id: string, status: ContactRequest['status']) => {
-    store.updateContactRequest(id, { status });
+  const updateStatus = async (id: string, status: ContactRequest['status']) => {
+    await store.updateContactRequest(id, { status });
     onUpdate();
   };
 
-  const deleteRequest = (id: string) => {
+  const deleteRequest = async (id: string) => {
     if (confirm('Are you sure you want to delete this contact request?')) {
-      store.deleteContactRequest(id);
+      await store.deleteContactRequest(id);
       onUpdate();
     }
   };

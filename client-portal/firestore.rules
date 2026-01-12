@@ -1,0 +1,69 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper function to check if user is admin
+    // For now, allow unauthenticated access (can be secured later with Firebase Auth)
+    function isAdmin() {
+      // TODO: Implement proper authentication
+      // For development, allow all operations
+      // In production, uncomment the auth check:
+      // return request.auth != null 
+      //   && (request.auth.token.email == 'kpnjensen@gmail.com'
+      //       || request.auth.token.email == 'chairachananharder@gmail.com');
+      return true;
+    }
+    
+    // Projects Collection
+    match /projects/{projectToken} {
+      // Anyone can read projects (for token lookup)
+      allow read: if true;
+      
+      // Allow create with secure payment handles
+      allow create: if request.resource.data.venmoHandle == '@Klaus-Jensen'
+        && request.resource.data.paypalHandle == '@Klausduxbury';
+      
+      // Allow update (prevent payment handles from being modified)
+      allow update: if !('venmoHandle' in request.resource.data.diff(resource.data).affectedKeys())
+        && !('paypalHandle' in request.resource.data.diff(resource.data).affectedKeys());
+      
+      // Allow delete
+      allow delete: if isAdmin();
+    }
+    
+    // Feedback Collection
+    match /feedback/{feedbackId} {
+      // Anyone can create feedback
+      allow create: if request.resource.data.keys().hasAll(['projectToken', 'projectName', 'rating', 'comment', 'createdAt'])
+        && request.resource.data.rating is int
+        && request.resource.data.rating >= 1
+        && request.resource.data.rating <= 5;
+      
+      // Allow read for admin operations
+      allow read: if isAdmin();
+      
+      // Allow update for admin operations
+      allow update: if isAdmin();
+      
+      // Allow delete for admin operations
+      allow delete: if isAdmin();
+    }
+    
+    // Contact Requests Collection
+    match /contactRequests/{requestId} {
+      // Anyone can create contact requests
+      allow create: if request.resource.data.keys().hasAll(['name', 'email', 'message', 'createdAt'])
+        && request.resource.data.status == 'new';
+      
+      // Allow read for admin operations
+      allow read: if isAdmin();
+      
+      // Allow update for admin operations
+      allow update: if isAdmin();
+      
+      // Allow delete for admin operations
+      allow delete: if isAdmin();
+    }
+  }
+}
+

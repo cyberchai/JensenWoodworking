@@ -1,6 +1,7 @@
 'use client';
 
-import { Feedback, store } from '@/lib/mockStore';
+import { Feedback } from '@/lib/mockStore';
+import { store } from '@/lib/store';
 
 interface AdminFeedbackListProps {
   feedback: Feedback[];
