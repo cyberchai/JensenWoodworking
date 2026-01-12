@@ -25,6 +25,10 @@ export default function ProjectDetailPage() {
     const loadProject = async () => {
       const found = await store.getProject(token);
       setProject(found ?? null);
+      // If no payment PIN is set, automatically authorize payment access
+      if (found && !found.paymentCode) {
+        setPayAuthorized(true);
+      }
       setLoading(false);
     };
     loadProject();
@@ -80,14 +84,15 @@ export default function ProjectDetailPage() {
 
         {showPaymentArea && (
           <div className="bg-white p-12 lg:p-20 shadow-2xl border border-stone-50 rounded-sm">
-            {!payAuthorized ? (
+            {!payAuthorized && project.paymentCode ? (
               <div className="text-center space-y-8">
                 <h3 className="text-3xl font-serif text-ebony">Payment Access</h3>
                 <p className="text-stone-400 font-serif italic text-lg max-w-sm mx-auto">Access to payment information requires your project PIN code.</p>
                 <form onSubmit={(e) => {
                   e.preventDefault();
-                  // For now, accept any code - in production this would check against project.paymentCode
-                  if (payCode.length >= 4) { 
+                  const projectPaymentCode = project.paymentCode || '';
+                  // If no PIN is set, allow access; otherwise require matching PIN
+                  if (!projectPaymentCode || payCode === projectPaymentCode) { 
                     setPayAuthorized(true); 
                     setPayError(false); 
                   } else { 

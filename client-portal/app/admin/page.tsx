@@ -4,8 +4,7 @@ import { useState, useEffect } from 'react';
 import { Project, Feedback, ContactRequest } from '@/lib/mockStore';
 import { store } from '@/lib/store';
 import AdminTabs from '@/components/admin/AdminTabs';
-import AdminCreateProject from '@/components/admin/AdminCreateProject';
-import AdminProjectList from '@/components/admin/AdminProjectList';
+import AdminProjectsView from '@/components/admin/AdminProjectsView';
 import AdminTestimonials from '@/components/admin/AdminTestimonials';
 import AdminAllFeedback from '@/components/admin/AdminAllFeedback';
 import AdminContactRequests from '@/components/admin/AdminContactRequests';
@@ -96,10 +95,7 @@ export default function AdminPage() {
 
         <AdminTabs activeTab={activeTab} onTabChange={setActiveTab}>
           {activeTab === 'projects' && (
-            <div className="space-y-6">
-              <AdminCreateProject onProjectCreated={refreshProjects} />
-              <AdminProjectList projects={projects} onUpdate={refreshProjects} />
-            </div>
+            <AdminProjectsView projects={projects} onUpdate={refreshProjects} />
           )}
 
           {activeTab === 'feedback' && (

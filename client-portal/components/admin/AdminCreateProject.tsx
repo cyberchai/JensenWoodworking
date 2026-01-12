@@ -12,6 +12,7 @@ export default function AdminCreateProject({ onProjectCreated }: AdminCreateProj
   const [description, setDescription] = useState('');
   const [projectStartDate, setProjectStartDate] = useState('');
   const [projectTokenCode, setProjectTokenCode] = useState('');
+  const [paymentCode, setPaymentCode] = useState('');
   const [generatedLink, setGeneratedLink] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [autoGenerateToken, setAutoGenerateToken] = useState(true);
@@ -47,10 +48,11 @@ export default function AdminCreateProject({ onProjectCreated }: AdminCreateProj
         description: description.trim() || undefined,
         projectStartDate: startDateTimestamp,
         projectTokenCode: autoGenerateToken ? undefined : normalizeToken(projectTokenCode.trim()) || undefined,
+        paymentCode: paymentCode.trim() || undefined,
         statusUpdates: [],
         depositPaid: false,
         finalPaid: false,
-      });
+      } as any);
 
       const link = `${window.location.origin}/client/p/${project.token}`;
       setGeneratedLink(link);
@@ -61,6 +63,7 @@ export default function AdminCreateProject({ onProjectCreated }: AdminCreateProj
       setDescription('');
       setProjectStartDate('');
       setProjectTokenCode('');
+      setPaymentCode('');
       setAutoGenerateToken(true);
     } catch (err: any) {
       setError(err.message || 'Failed to create project. Please try again.');
@@ -75,6 +78,7 @@ export default function AdminCreateProject({ onProjectCreated }: AdminCreateProj
     setDescription('');
     setProjectStartDate('');
     setProjectTokenCode('');
+    setPaymentCode('');
     setAutoGenerateToken(true);
     setGeneratedLink(null);
     setError(null);
@@ -235,6 +239,24 @@ export default function AdminCreateProject({ onProjectCreated }: AdminCreateProj
               </div>
             )}
           </div>
+        </div>
+
+        <div>
+          <label htmlFor="paymentCode" className="block text-sm font-normal text-site-gray mb-2 uppercase tracking-wide">
+            Payment PIN (Optional)
+          </label>
+          <input
+            id="paymentCode"
+            type="text"
+            value={paymentCode}
+            onChange={(e) => setPaymentCode(e.target.value)}
+            className="w-full px-4 py-2 border-0 border-b border-gray-300 bg-white focus:outline-none focus:border-site-gold transition-colors"
+            placeholder="e.g., 1234"
+            maxLength={10}
+          />
+          <p className="text-xs text-site-gray-light mt-1">
+            PIN code clients will use to access payment information. Leave blank if not needed.
+          </p>
         </div>
 
         <div className="flex gap-2">

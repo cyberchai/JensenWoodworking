@@ -45,10 +45,12 @@ export default function AdminLogin() {
       
       <div className="max-w-md w-full z-10 animate-in fade-in duration-1000">
         <div className="bg-white border border-stone-100 rounded-sm p-16 lg:p-24 text-center shadow-2xl">
-          <div className="w-24 h-24 bg-stone-50 text-brass rounded-full flex items-center justify-center mx-auto mb-10 border border-stone-100">
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
+          <div className="w-24 h-24 bg-stone-50 rounded-full flex items-center justify-center mx-auto mb-10 border border-stone-100 p-4">
+            <img 
+              src="/images/logo.webp" 
+              alt="Jensen Woodworking" 
+              className="h-full w-auto"
+            />
           </div>
           
           <h2 className="text-4xl font-serif text-ebony mb-6 tracking-tight">Admin Access</h2>

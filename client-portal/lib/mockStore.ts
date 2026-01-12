@@ -12,6 +12,7 @@ export interface Project {
   description?: string;
   projectStartDate?: number; // Unix timestamp
   projectTokenCode?: string; // User-provided optional token code
+  paymentCode?: string; // PIN code for payment access
   statusUpdates: StatusUpdate[];
   depositPaid: boolean;
   finalPaid: boolean;

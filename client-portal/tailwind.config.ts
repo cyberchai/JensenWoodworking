@@ -9,11 +9,11 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'site-gold': '#ffe1a0',
+        'site-gold': '#8B6F47',
         'site-gray': '#666',
         'site-gray-light': '#777',
         'ebony': '#0a0a0a',
-        'brass': '#ffe1a0',
+        'brass': '#8B6F47',
         'stone': {
           50: '#fafaf9',
           100: '#f5f5f4',

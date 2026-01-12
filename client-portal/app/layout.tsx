@@ -25,10 +25,12 @@ export default function RootLayout({
                 href="/"
                 className="flex items-center group"
               >
-                <div className="bg-ebony p-2.5 rounded-sm text-white transition-all group-hover:bg-brass">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
+                <div className="p-2.5 rounded-sm transition-all group-hover:opacity-80">
+                  <img 
+                    src="/images/logo.webp" 
+                    alt="Jensen Woodworking" 
+                    className="h-12 w-auto"
+                  />
                 </div>
                 <div className="ml-4 flex flex-col">
                   <span className="text-xl font-serif font-bold tracking-widest text-ebony leading-none uppercase">Jensen Woodworking</span>

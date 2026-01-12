@@ -7,6 +7,7 @@ import {
   setDoc,
   updateDoc, 
   deleteDoc, 
+  deleteField,
   query, 
   orderBy, 
   Timestamp,
@@ -57,6 +58,7 @@ const docToProject = (docSnap: QueryDocumentSnapshot<DocumentData>): Project => 
     description: data.description,
     projectStartDate: data.projectStartDate ? timestampToNumber(data.projectStartDate) : undefined,
     projectTokenCode: data.projectTokenCode,
+    paymentCode: data.paymentCode,
     statusUpdates: data.statusUpdates || [],
     depositPaid: data.depositPaid || false,
     finalPaid: data.finalPaid || false,
@@ -189,11 +191,17 @@ export const firebaseStore = {
       projectData.projectTokenCode = data.projectTokenCode.trim();
     }
     
+    // Only include paymentCode if it was provided and not empty (not undefined)
+    if ((data as any).paymentCode && (data as any).paymentCode.trim()) {
+      projectData.paymentCode = (data as any).paymentCode.trim();
+    }
+    
     const docRef = doc(db, PROJECTS_COLLECTION, token);
     await setDoc(docRef, projectData);
     
     return {
       ...data,
+      paymentCode: (data as any).paymentCode,
       venmoHandle: secureHandles.venmoHandle,
       paypalHandle: secureHandles.paypalHandle,
       token,
@@ -213,6 +221,17 @@ export const firebaseStore = {
         updateData.projectStartDate = numberToTimestamp(updates.projectStartDate);
       }
       if (updates.projectTokenCode !== undefined) updateData.projectTokenCode = updates.projectTokenCode;
+      // Handle paymentCode: if undefined or empty string, delete the field; otherwise save the trimmed value
+      if ((updates as any).paymentCode !== undefined) {
+        const paymentCodeValue = (updates as any).paymentCode;
+        if (paymentCodeValue === null || paymentCodeValue === undefined || (typeof paymentCodeValue === 'string' && paymentCodeValue.trim() === '')) {
+          // Delete the field if it's null, undefined, or empty string
+          updateData.paymentCode = deleteField();
+        } else {
+          // Save the trimmed value
+          updateData.paymentCode = typeof paymentCodeValue === 'string' ? paymentCodeValue.trim() : paymentCodeValue;
+        }
+      }
       if (updates.statusUpdates !== undefined) updateData.statusUpdates = updates.statusUpdates;
       if (updates.depositPaid !== undefined) updateData.depositPaid = updates.depositPaid;
       if (updates.finalPaid !== undefined) updateData.finalPaid = updates.finalPaid;
