@@ -3,6 +3,7 @@
 import { Feedback } from '@/lib/mockStore';
 import { store } from '@/lib/store';
 import { Star } from '@/components/icons';
+import AdminAddFeedbackForm from './AdminAddFeedbackForm';
 
 interface AdminTestimonialsProps {
   feedback: Feedback[];
@@ -17,7 +18,11 @@ export default function AdminTestimonials({ feedback, onUpdate }: AdminTestimoni
 
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4">
-      <h2 className="text-[11px] font-black tracking-[0.3em] uppercase text-brass">Client Testimonials</h2>
+      <div className="flex items-center justify-between">
+        <h2 className="text-[11px] font-black tracking-[0.3em] uppercase text-brass">Client Testimonials</h2>
+      </div>
+      
+      <AdminAddFeedbackForm onFeedbackAdded={onUpdate} />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
         {feedback.length === 0 ? (
           <div className="col-span-2 py-12 text-center border-2 border-dashed border-stone-200 rounded-sm">

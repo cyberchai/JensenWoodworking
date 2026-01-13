@@ -55,7 +55,7 @@ export default function RootLayout({
         </main>
         <footer className="bg-stone-50 border-t border-stone-200 py-12 mt-auto">
           <div className="max-w-7xl mx-auto px-6 lg:px-12 text-center">
-            <p className="font-serif italic text-stone-400 text-lg mb-4">"Handcrafted furniture made with quality and care."</p>
+            <p className="font-serif italic text-stone-400 text-lg mb-4">Premium nordic woodworking from New England.</p>
             <div className="text-[10px] uppercase tracking-[0.4em] text-stone-300">
               Est. 1994 &bull; Duxbury, Massachusetts
             </div>
