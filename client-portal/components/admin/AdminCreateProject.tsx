@@ -106,38 +106,39 @@ export default function AdminCreateProject({ onProjectCreated }: AdminCreateProj
 
   if (!isOpen) {
     return (
-      <div className="bg-white border border-gray-200 p-6">
-        <button
-          onClick={() => setIsOpen(true)}
-          className="w-full px-4 py-2 bg-site-gold text-black hover:bg-black hover:text-white transition-colors text-sm font-normal uppercase"
-        >
-          + Create New Project
-        </button>
-      </div>
+      <button
+        onClick={() => setIsOpen(true)}
+        className="text-[10px] font-black uppercase tracking-widest text-stone-400 hover:text-ebony transition-colors border-b border-transparent hover:border-stone-300 pb-1"
+      >
+        + Create New Project
+      </button>
     );
   }
 
   return (
-    <div className="bg-white border border-gray-200 p-6 space-y-6">
-      <div className="flex items-center justify-between">
-        <h2 className="text-xl font-normal text-black">Create Project</h2>
+    <div className="bg-white border border-stone-100 p-8 shadow-sm space-y-6">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-[11px] font-black uppercase tracking-[0.3em] text-ebony">Create Project</h3>
         <button
           onClick={handleCancel}
-          className="text-sm text-site-gray hover:text-black transition-colors"
+          className="text-stone-400 hover:text-ebony transition-colors"
         >
-          Close
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
         </button>
       </div>
       
       {error && (
-        <div className="bg-red-50 border border-red-200 p-4 rounded">
+        <div className="bg-red-50 border border-red-200 p-4 rounded-sm">
           <p className="text-sm text-red-700">{error}</p>
         </div>
       )}
       
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label htmlFor="clientLabel" className="block text-sm font-normal text-site-gray mb-2 uppercase tracking-wide">
+          <label htmlFor="clientLabel" className="block text-[11px] font-black uppercase tracking-widest text-ebony mb-2">
             Project Name *
           </label>
           <input
@@ -146,13 +147,13 @@ export default function AdminCreateProject({ onProjectCreated }: AdminCreateProj
             value={clientLabel}
             onChange={(e) => setClientLabel(e.target.value)}
             required
-            className="w-full px-4 py-2 border-0 border-b border-gray-300 bg-white focus:outline-none focus:border-site-gold transition-colors"
+            className="w-full px-4 py-2 border-0 border-b border-stone-300 bg-white focus:outline-none focus:border-brass transition-colors"
             placeholder="e.g., Custom Walnut Dining Table"
           />
         </div>
 
         <div>
-          <label htmlFor="description" className="block text-sm font-normal text-site-gray mb-2 uppercase tracking-wide">
+          <label htmlFor="description" className="block text-[11px] font-black uppercase tracking-widest text-ebony mb-2">
             Project Description
           </label>
           <textarea
@@ -160,13 +161,13 @@ export default function AdminCreateProject({ onProjectCreated }: AdminCreateProj
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             rows={3}
-            className="w-full px-4 py-2 border-0 border-b border-gray-300 bg-white focus:outline-none focus:border-site-gold transition-colors resize-none"
+            className="w-full px-4 py-2 border-0 border-b border-stone-300 bg-white focus:outline-none focus:border-brass transition-colors resize-none"
             placeholder="Optional description of the project..."
           />
         </div>
 
         <div>
-          <label htmlFor="projectStartDate" className="block text-sm font-normal text-site-gray mb-2 uppercase tracking-wide">
+          <label htmlFor="projectStartDate" className="block text-[11px] font-black uppercase tracking-widest text-ebony mb-2">
             Project Start Date
           </label>
           <input
@@ -174,12 +175,12 @@ export default function AdminCreateProject({ onProjectCreated }: AdminCreateProj
             type="date"
             value={projectStartDate}
             onChange={(e) => setProjectStartDate(e.target.value)}
-            className="w-full px-4 py-2 border-0 border-b border-gray-300 bg-white focus:outline-none focus:border-site-gold transition-colors"
+            className="w-full px-4 py-2 border-0 border-b border-stone-300 bg-white focus:outline-none focus:border-brass transition-colors"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-normal text-site-gray mb-2 uppercase tracking-wide">
+          <label className="block text-[11px] font-black uppercase tracking-widest text-ebony mb-2">
             Project Token Code
           </label>
           <div className="space-y-2">
@@ -194,9 +195,9 @@ export default function AdminCreateProject({ onProjectCreated }: AdminCreateProj
                     setProjectTokenCode('');
                   }
                 }}
-                className="w-4 h-4 text-site-gold border-gray-300 focus:ring-site-gold"
+                className="w-4 h-4 text-brass border-stone-300 rounded focus:ring-brass focus:ring-2"
               />
-              <label htmlFor="autoGenerateToken" className="text-sm text-site-gray">
+              <label htmlFor="autoGenerateToken" className="text-[11px] font-black uppercase tracking-widest text-ebony">
                 Auto-generate secure token
               </label>
             </div>
@@ -222,7 +223,7 @@ export default function AdminCreateProject({ onProjectCreated }: AdminCreateProj
                   className={`w-full px-4 py-2 border-0 border-b bg-white focus:outline-none transition-colors ${
                     tokenError 
                       ? 'border-red-300 focus:border-red-500' 
-                      : 'border-gray-300 focus:border-site-gold'
+                      : 'border-stone-300 focus:border-brass'
                   }`}
                   placeholder="JW-XXXX-XXXX-XXXX"
                   pattern="JW-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}"
@@ -230,15 +231,15 @@ export default function AdminCreateProject({ onProjectCreated }: AdminCreateProj
                 {tokenError && (
                   <p className="text-xs text-red-600">{tokenError}</p>
                 )}
-                <div className="flex gap-2">
+                <div className="flex gap-3 items-center">
                   <button
                     type="button"
                     onClick={handleGenerateToken}
-                    className="px-4 py-2 bg-gray-200 text-site-gray hover:bg-site-gold hover:text-black transition-colors text-sm font-normal uppercase"
+                    className="px-4 py-2 bg-stone-100 text-stone-600 hover:bg-stone-200 transition-all text-[11px] font-black uppercase tracking-widest"
                   >
                     Generate Token
                   </button>
-                  <p className="text-xs text-site-gray-light self-center">
+                  <p className="text-xs text-stone-400">
                     Format: JW-XXXX-XXXX-XXXX
                   </p>
                 </div>
@@ -248,7 +249,7 @@ export default function AdminCreateProject({ onProjectCreated }: AdminCreateProj
         </div>
 
         <div>
-          <label htmlFor="paymentCode" className="block text-sm font-normal text-site-gray mb-2 uppercase tracking-wide">
+          <label htmlFor="paymentCode" className="block text-[11px] font-black uppercase tracking-widest text-ebony mb-2">
             Payment PIN (Optional)
           </label>
           <input
@@ -256,28 +257,27 @@ export default function AdminCreateProject({ onProjectCreated }: AdminCreateProj
             type="text"
             value={paymentCode}
             onChange={(e) => setPaymentCode(e.target.value)}
-            className="w-full px-4 py-2 border-0 border-b border-gray-300 bg-white focus:outline-none focus:border-site-gold transition-colors"
+            className="w-full px-4 py-2 border-0 border-b border-stone-300 bg-white focus:outline-none focus:border-brass transition-colors"
             placeholder="e.g., 1234"
             maxLength={10}
           />
-          <p className="text-xs text-site-gray-light mt-1">
+          <p className="text-xs text-stone-400 mt-1">
             PIN code clients will use to access payment information. Leave blank if not needed.
           </p>
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex gap-3 pt-4">
           <button
             type="submit"
             disabled={isSubmitting}
-            className="flex-1 relative bg-site-gold text-black py-3 px-8 font-normal uppercase overflow-hidden transition-all duration-300 hover:text-white group disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-6 py-2 bg-brass text-ebony hover:bg-ebony hover:text-white transition-all text-[11px] font-black uppercase tracking-widest shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <span className="relative z-10">{isSubmitting ? 'Creating...' : 'Create Project'}</span>
-            <span className="absolute inset-0 bg-black opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+            {isSubmitting ? 'Creating...' : 'Create Project'}
           </button>
           <button
             type="button"
             onClick={handleCancel}
-            className="flex-1 px-4 py-2 bg-gray-200 text-site-gray hover:bg-gray-300 transition-colors text-sm font-normal uppercase"
+            className="px-6 py-2 bg-stone-100 text-stone-600 hover:bg-stone-200 transition-all text-[11px] font-black uppercase tracking-widest"
           >
             Cancel
           </button>
@@ -285,19 +285,19 @@ export default function AdminCreateProject({ onProjectCreated }: AdminCreateProj
       </form>
 
       {generatedLink && (
-        <div className="pt-4 border-t border-gray-200 space-y-2">
-          <p className="text-sm font-normal text-site-gray uppercase tracking-wide">Share Link:</p>
-          <div className="flex gap-2">
+        <div className="pt-6 border-t border-stone-100 space-y-3">
+          <p className="text-[11px] font-black uppercase tracking-widest text-ebony">Share Link:</p>
+          <div className="flex gap-3">
             <input
               type="text"
               value={generatedLink}
               readOnly
-              className="flex-1 px-4 py-2 border-0 border-b border-gray-300 bg-white text-sm"
+              className="flex-1 px-4 py-2 border-0 border-b border-stone-300 bg-white text-sm"
             />
             <button
               type="button"
               onClick={copyToClipboard}
-              className="px-4 py-2 bg-gray-200 text-site-gray hover:bg-site-gold hover:text-black transition-colors text-sm font-normal uppercase"
+              className="px-6 py-2 bg-stone-100 text-stone-600 hover:bg-stone-200 transition-all text-[11px] font-black uppercase tracking-widest"
             >
               Copy
             </button>

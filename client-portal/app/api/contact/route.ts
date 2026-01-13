@@ -60,6 +60,7 @@ export async function POST(request: NextRequest) {
       email: email.trim(),
       phone: phone.trim() || undefined,
       message: fullMessage.trim(),
+      status: 'new',
     });
 
     return NextResponse.json(
