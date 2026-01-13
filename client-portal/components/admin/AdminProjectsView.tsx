@@ -26,6 +26,7 @@ export default function AdminProjectsView({ projects, onUpdate }: AdminProjectsV
   const [isEditingDescription, setIsEditingDescription] = useState(false);
   const [editTitle, setEditTitle] = useState('');
   const [editDescription, setEditDescription] = useState('');
+  const [tokenCopied, setTokenCopied] = useState(false);
   
   // Use refs to preserve unsaved changes when saving other fields
   const preservedTitleRef = useRef<string | null>(null);
@@ -193,6 +194,16 @@ export default function AdminProjectsView({ projects, onUpdate }: AdminProjectsV
     navigator.clipboard.writeText(token);
   };
 
+  const copyProjectToken = async (token: string) => {
+    try {
+      await navigator.clipboard.writeText(token);
+      setTokenCopied(true);
+      setTimeout(() => setTokenCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy token:', err);
+    }
+  };
+
   const formatDate = (timestamp: number) => {
     return new Date(timestamp).toLocaleDateString('en-US', {
       year: 'numeric',
@@ -307,7 +318,22 @@ export default function AdminProjectsView({ projects, onUpdate }: AdminProjectsV
                       </button>
                     </div>
                   )}
-                  <span className="text-[10px] font-bold tracking-widest text-brass uppercase">Project Token: {selectedProject.token}</span>
+                  <button
+                    onClick={() => copyProjectToken(selectedProject.token)}
+                    className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm text-[10px] font-bold tracking-widest text-brass uppercase hover:text-ebony hover:bg-brass/10 border border-transparent hover:border-brass/30 transition-all cursor-pointer relative group"
+                    title="Click to copy token"
+                  >
+                    <span>Project Token: {selectedProject.token}</span>
+                    <Copy 
+                      size={12} 
+                      className="opacity-0 group-hover:opacity-100 transition-opacity text-brass" 
+                    />
+                    {tokenCopied && (
+                      <span className="absolute left-0 top-full mt-2 px-2 py-1 bg-brass text-ebony text-[9px] font-black uppercase tracking-widest whitespace-nowrap rounded-sm shadow-sm z-10">
+                        Copied!
+                      </span>
+                    )}
+                  </button>
                 </div>
                 <div className="text-right">
                   {isEditingPIN ? (

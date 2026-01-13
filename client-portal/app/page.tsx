@@ -28,9 +28,6 @@ export default function HomePage() {
               Custom Woodworking in Duxbury, MA
             </p>
           </div>
-          <p className="text-xl md:text-2xl font-serif italic text-stone-200 max-w-2xl mx-auto leading-relaxed">
-            "Handcrafted furniture made with quality and care"
-          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-3xl mx-auto">
