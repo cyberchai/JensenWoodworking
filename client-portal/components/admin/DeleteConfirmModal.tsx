@@ -8,6 +8,7 @@ interface DeleteConfirmModalProps {
   onConfirm: () => void;
   title: string;
   message: string;
+  confirmButtonText?: string;
 }
 
 export default function DeleteConfirmModal({
@@ -16,12 +17,16 @@ export default function DeleteConfirmModal({
   onConfirm,
   title,
   message,
+  confirmButtonText = 'Delete',
 }: DeleteConfirmModalProps) {
   if (!isOpen) return null;
 
   const handleConfirm = () => {
     onConfirm();
-    onClose();
+    // Only close if this is the final confirmation (check if button text indicates final step)
+    if (confirmButtonText === 'Delete Permanently') {
+      onClose();
+    }
   };
 
   return (
@@ -49,7 +54,7 @@ export default function DeleteConfirmModal({
               onClick={handleConfirm}
               className="flex-1 bg-red-600 text-white font-black text-[11px] tracking-widest uppercase py-4 shadow-xl hover:bg-red-700 transition-all"
             >
-              Delete
+              {confirmButtonText}
             </button>
           </div>
         </div>

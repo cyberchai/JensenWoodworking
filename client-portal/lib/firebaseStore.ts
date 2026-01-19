@@ -16,7 +16,7 @@ import {
 } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
 import { db, storage } from './firebase';
-import { Project, Feedback, ContactRequest, StatusUpdate } from './mockStore';
+import { Project, Feedback, ContactRequest, StatusUpdate, PastProject, StatusUpdatePhoto } from './mockStore';
 import { getSecurePaymentHandles, validatePaymentHandles } from './paymentHandles';
 import { generateSecureToken, validateTokenFormat, normalizeToken } from './tokenGenerator';
 
@@ -35,6 +35,7 @@ const numberToTimestamp = (num: number): Timestamp => {
 const PROJECTS_COLLECTION = 'projects';
 const FEEDBACK_COLLECTION = 'feedback';
 const CONTACT_REQUESTS_COLLECTION = 'contactRequests';
+const PAST_PROJECTS_COLLECTION = 'pastProjects';
 
 // Generate random token
 export function generateToken(): string {
@@ -62,6 +63,7 @@ const docToProject = (docSnap: QueryDocumentSnapshot<DocumentData>): Project => 
     statusUpdates: data.statusUpdates || [],
     depositPaid: data.depositPaid || false,
     finalPaid: data.finalPaid || false,
+    isCompleted: data.isCompleted || false,
     venmoHandle: secureHandles.venmoHandle, // Enforce secure handle
     paypalHandle: secureHandles.paypalHandle, // Enforce secure handle
     createdAt: timestampToNumber(data.createdAt),
@@ -93,8 +95,26 @@ const docToContactRequest = (docSnap: QueryDocumentSnapshot<DocumentData>): Cont
     email: data.email,
     phone: data.phone || undefined,
     message: data.message,
+    budget: data.budget || undefined,
+    contractorInvolved: data.contractorInvolved || undefined,
+    designerInvolved: data.designerInvolved || undefined,
+    additionalDetails: data.additionalDetails || undefined,
     status: data.status || 'new',
     createdAt: timestampToNumber(data.createdAt),
+  };
+};
+
+// Convert Firestore document to PastProject
+const docToPastProject = (docSnap: QueryDocumentSnapshot<DocumentData>): PastProject => {
+  const data = docSnap.data();
+  return {
+    id: docSnap.id,
+    projectToken: data.projectToken,
+    title: data.title,
+    description: data.description,
+    selectedImages: data.selectedImages || [],
+    createdAt: timestampToNumber(data.createdAt),
+    completedAt: timestampToNumber(data.completedAt),
   };
 };
 
@@ -175,6 +195,7 @@ export const firebaseStore = {
       statusUpdates: data.statusUpdates || [],
       depositPaid: data.depositPaid || false,
       finalPaid: data.finalPaid || false,
+      isCompleted: data.isCompleted || false,
     };
     
     // Only include optional fields if they have values (Firestore doesn't allow undefined)
@@ -235,6 +256,7 @@ export const firebaseStore = {
       if (updates.statusUpdates !== undefined) updateData.statusUpdates = updates.statusUpdates;
       if (updates.depositPaid !== undefined) updateData.depositPaid = updates.depositPaid;
       if (updates.finalPaid !== undefined) updateData.finalPaid = updates.finalPaid;
+      if (updates.isCompleted !== undefined) updateData.isCompleted = updates.isCompleted;
       
       // Prevent payment handles from being updated
       // If someone tries to update them, validate and reject
@@ -397,9 +419,25 @@ export const firebaseStore = {
       createdAt: numberToTimestamp(Date.now()),
     };
     
-    // Only include phone if it's provided
+    // Only include optional fields if they're provided
     if (data.phone && data.phone.trim()) {
       requestData.phone = data.phone.trim();
+    }
+    
+    if (data.budget && data.budget.trim()) {
+      requestData.budget = data.budget.trim();
+    }
+    
+    if (data.contractorInvolved !== undefined) {
+      requestData.contractorInvolved = data.contractorInvolved;
+    }
+    
+    if (data.designerInvolved !== undefined) {
+      requestData.designerInvolved = data.designerInvolved;
+    }
+    
+    if (data.additionalDetails && data.additionalDetails.trim()) {
+      requestData.additionalDetails = data.additionalDetails.trim();
     }
     
     const docRef = await addDoc(collection(db, CONTACT_REQUESTS_COLLECTION), requestData);
@@ -462,6 +500,108 @@ export const firebaseStore = {
       return true;
     } catch (error) {
       console.error('Error deleting photo:', error);
+      return false;
+    }
+  },
+
+  // Past Projects operations
+  async getAllPastProjects(): Promise<PastProject[]> {
+    try {
+      const q = query(collection(db, PAST_PROJECTS_COLLECTION), orderBy('completedAt', 'desc'));
+      const querySnapshot = await getDocs(q);
+      return querySnapshot.docs.map(doc => docToPastProject(doc as QueryDocumentSnapshot<DocumentData>));
+    } catch (error) {
+      console.error('Error getting past projects:', error);
+      return [];
+    }
+  },
+
+  async getPastProject(id: string): Promise<PastProject | undefined> {
+    try {
+      const docRef = doc(db, PAST_PROJECTS_COLLECTION, id);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        return docToPastProject(docSnap as QueryDocumentSnapshot<DocumentData>);
+      }
+      return undefined;
+    } catch (error) {
+      console.error('Error getting past project:', error);
+      return undefined;
+    }
+  },
+
+  async getPastProjectByToken(projectToken: string): Promise<PastProject | undefined> {
+    try {
+      const q = query(collection(db, PAST_PROJECTS_COLLECTION), orderBy('completedAt', 'desc'));
+      const querySnapshot = await getDocs(q);
+      const pastProject = querySnapshot.docs
+        .map(doc => docToPastProject(doc as QueryDocumentSnapshot<DocumentData>))
+        .find(p => p.projectToken === projectToken);
+      return pastProject;
+    } catch (error) {
+      console.error('Error getting past project by token:', error);
+      return undefined;
+    }
+  },
+
+  async createPastProject(data: Omit<PastProject, 'id' | 'createdAt' | 'completedAt'>): Promise<PastProject> {
+    const pastProjectData: any = {
+      projectToken: data.projectToken,
+      title: data.title,
+      selectedImages: data.selectedImages || [],
+      createdAt: numberToTimestamp(Date.now()),
+      completedAt: numberToTimestamp(Date.now()),
+    };
+    
+    if (data.description && data.description.trim()) {
+      pastProjectData.description = data.description.trim();
+    }
+    
+    const docRef = await addDoc(collection(db, PAST_PROJECTS_COLLECTION), pastProjectData);
+    
+    return {
+      ...data,
+      id: docRef.id,
+      createdAt: Date.now(),
+      completedAt: Date.now(),
+    };
+  },
+
+  async updatePastProject(id: string, updates: Partial<Omit<PastProject, 'id' | 'createdAt' | 'completedAt' | 'projectToken'>>): Promise<PastProject | undefined> {
+    try {
+      const docRef = doc(db, PAST_PROJECTS_COLLECTION, id);
+      const updateData: any = {};
+      
+      if (updates.title !== undefined) updateData.title = updates.title;
+      if (updates.description !== undefined) {
+        if (updates.description === null || updates.description === undefined || (typeof updates.description === 'string' && updates.description.trim() === '')) {
+          updateData.description = deleteField();
+        } else {
+          updateData.description = typeof updates.description === 'string' ? updates.description.trim() : updates.description;
+        }
+      }
+      if (updates.selectedImages !== undefined) updateData.selectedImages = updates.selectedImages;
+      
+      await updateDoc(docRef, updateData);
+      
+      const updatedDoc = await getDoc(docRef);
+      if (updatedDoc.exists()) {
+        return docToPastProject(updatedDoc as QueryDocumentSnapshot<DocumentData>);
+      }
+      return undefined;
+    } catch (error) {
+      console.error('Error updating past project:', error);
+      return undefined;
+    }
+  },
+
+  async deletePastProject(id: string): Promise<boolean> {
+    try {
+      const docRef = doc(db, PAST_PROJECTS_COLLECTION, id);
+      await deleteDoc(docRef);
+      return true;
+    } catch (error) {
+      console.error('Error deleting past project:', error);
       return false;
     }
   },

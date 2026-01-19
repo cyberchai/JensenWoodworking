@@ -1,8 +1,13 @@
+export interface StatusUpdatePhoto {
+  url: string;
+  isFeatured: boolean; // Whether to display on main website
+}
+
 export interface StatusUpdate {
   id: string;
   title: string;
   message: string;
-  photos: string[]; // Array of photo URLs (up to 3)
+  photos: (string | StatusUpdatePhoto)[]; // Array of photo URLs (up to 3) - can be string (legacy) or StatusUpdatePhoto
   createdAt: number;
 }
 
@@ -16,9 +21,27 @@ export interface Project {
   statusUpdates: StatusUpdate[];
   depositPaid: boolean;
   finalPaid: boolean;
+  isCompleted?: boolean; // Whether project is completed and moved to past projects
   venmoHandle: string;
   paypalHandle: string;
   createdAt: number;
+}
+
+export interface PastProject {
+  id: string;
+  projectToken: string; // Reference to original project token
+  title: string;
+  description?: string;
+  selectedImages: PastProjectImage[]; // Selected images from media gallery
+  createdAt: number;
+  completedAt: number; // When project was marked as completed
+}
+
+export interface PastProjectImage {
+  url: string;
+  fileId?: string; // ImageKit file ID if applicable
+  name: string;
+  isFeatured: boolean; // Whether to display on main website
 }
 
 export interface Feedback {
@@ -39,6 +62,10 @@ export interface ContactRequest {
   email: string;
   phone?: string;
   message: string;
+  budget?: string;
+  contractorInvolved?: boolean;
+  designerInvolved?: boolean;
+  additionalDetails?: string;
   status: 'new' | 'read' | 'replied' | 'archived';
   createdAt: number;
 }
@@ -48,6 +75,7 @@ export interface ContactRequest {
 const mockProjects = new Map<string, Project>();
 const mockFeedback = new Map<string, Feedback>();
 const mockContactRequests = new Map<string, ContactRequest>();
+const mockPastProjects = new Map<string, PastProject>();
 
 // Import secure token generator
 import { generateSecureToken, validateTokenFormat, normalizeToken } from './tokenGenerator';
@@ -336,6 +364,44 @@ export const store = {
 
   deleteContactRequest(id: string): boolean {
     return mockContactRequests.delete(id);
+  },
+
+  // Past Projects operations
+  getAllPastProjects(): PastProject[] {
+    return Array.from(mockPastProjects.values()).sort((a, b) => b.completedAt - a.completedAt);
+  },
+
+  getPastProject(id: string): PastProject | undefined {
+    return mockPastProjects.get(id);
+  },
+
+  getPastProjectByToken(projectToken: string): PastProject | undefined {
+    return Array.from(mockPastProjects.values()).find(p => p.projectToken === projectToken);
+  },
+
+  createPastProject(data: Omit<PastProject, 'id' | 'createdAt' | 'completedAt'>): PastProject {
+    const id = `past_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    const pastProject: PastProject = {
+      ...data,
+      id,
+      createdAt: Date.now(),
+      completedAt: Date.now(),
+    };
+    mockPastProjects.set(id, pastProject);
+    return pastProject;
+  },
+
+  updatePastProject(id: string, updates: Partial<Omit<PastProject, 'id' | 'createdAt' | 'completedAt' | 'projectToken'>>): PastProject | undefined {
+    const pastProject = mockPastProjects.get(id);
+    if (!pastProject) return undefined;
+    
+    const updated = { ...pastProject, ...updates };
+    mockPastProjects.set(id, updated);
+    return updated;
+  },
+
+  deletePastProject(id: string): boolean {
+    return mockPastProjects.delete(id);
   },
 };
 

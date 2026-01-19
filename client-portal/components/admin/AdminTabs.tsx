@@ -11,6 +11,7 @@ interface AdminTabsProps {
 export default function AdminTabs({ activeTab, onTabChange, children }: AdminTabsProps) {
   const tabs = [
     { id: 'projects', label: 'Projects' },
+    { id: 'past-projects', label: 'Past Projects' },
     { id: 'feedback', label: 'Testimonials' },
     { id: 'contact', label: 'Contact Requests' },
     { id: 'media', label: 'Media Gallery' },

@@ -2,7 +2,7 @@
 
 import { useState, FormEvent, useRef, useEffect } from 'react';
 import { store } from '@/lib/store';
-import { StatusUpdate } from '@/lib/mockStore';
+import { StatusUpdate, StatusUpdatePhoto } from '@/lib/mockStore';
 import { X } from '@/components/icons';
 
 interface AdminStatusUpdateEditFormProps {
@@ -18,15 +18,21 @@ export default function AdminStatusUpdateEditForm({
   onUpdateSaved,
   onCancel,
 }: AdminStatusUpdateEditFormProps) {
+  // Helper to convert photos to string array (extract URLs)
+  const photosToStringArray = (photos: (string | StatusUpdatePhoto)[] | undefined): string[] => {
+    if (!photos) return [];
+    return photos.map(photo => typeof photo === 'string' ? photo : photo.url);
+  };
+
   const [title, setTitle] = useState(update.title);
   const [message, setMessage] = useState(update.message);
-  const [photos, setPhotos] = useState<string[]>(update.photos || []);
+  const [photos, setPhotos] = useState<string[]>(photosToStringArray(update.photos));
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     setTitle(update.title);
     setMessage(update.message);
-    setPhotos(update.photos || []);
+    setPhotos(photosToStringArray(update.photos));
   }, [update]);
 
   const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -89,8 +95,9 @@ export default function AdminStatusUpdateEditForm({
     await store.updateProject(projectToken, { statusUpdates: updatedStatusUpdates });
 
     // Clean up any new blob URLs
+    const originalPhotoUrls = photosToStringArray(update.photos);
     photos.forEach(photo => {
-      if (photo.startsWith('blob:') && !update.photos?.includes(photo)) {
+      if (photo.startsWith('blob:') && !originalPhotoUrls.includes(photo)) {
         URL.revokeObjectURL(photo);
       }
     });
@@ -100,8 +107,9 @@ export default function AdminStatusUpdateEditForm({
 
   const handleCancel = () => {
     // Clean up any new blob URLs that weren't in the original
+    const originalPhotoUrls = photosToStringArray(update.photos);
     photos.forEach(photo => {
-      if (photo.startsWith('blob:') && !update.photos?.includes(photo)) {
+      if (photo.startsWith('blob:') && !originalPhotoUrls.includes(photo)) {
         URL.revokeObjectURL(photo);
       }
     });

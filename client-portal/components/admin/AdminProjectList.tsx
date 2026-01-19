@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Project, StatusUpdate } from '@/lib/mockStore';
+import { Project, StatusUpdate, StatusUpdatePhoto } from '@/lib/mockStore';
 import { store } from '@/lib/store';
 import { useRouter } from 'next/navigation';
 import AdminStatusUpdateForm from './AdminStatusUpdateForm';
@@ -191,15 +191,18 @@ export default function AdminProjectList({ projects, onUpdate }: AdminProjectLis
                               </p>
                               {update.photos && update.photos.length > 0 && (
                                 <div className="mt-2 grid grid-cols-3 gap-2">
-                                  {update.photos.map((photo, photoIndex) => (
-                                    <div key={photoIndex} className="aspect-square bg-gray-100 rounded overflow-hidden">
-                                      <img
-                                        src={photo}
-                                        alt={`${update.title} - Photo ${photoIndex + 1}`}
-                                        className="w-full h-full object-cover"
-                                      />
-                                    </div>
-                                  ))}
+                                  {update.photos.map((photo, photoIndex) => {
+                                    const photoUrl = typeof photo === 'string' ? photo : photo.url;
+                                    return (
+                                      <div key={photoIndex} className="aspect-square bg-gray-100 rounded overflow-hidden">
+                                        <img
+                                          src={photoUrl}
+                                          alt={`${update.title} - Photo ${photoIndex + 1}`}
+                                          className="w-full h-full object-cover"
+                                        />
+                                      </div>
+                                    );
+                                  })}
                                 </div>
                               )}
                             </div>

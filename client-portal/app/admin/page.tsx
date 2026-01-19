@@ -9,6 +9,7 @@ import AdminTestimonials from '@/components/admin/AdminTestimonials';
 import AdminAllFeedback from '@/components/admin/AdminAllFeedback';
 import AdminContactRequests from '@/components/admin/AdminContactRequests';
 import AdminMedia from '@/components/admin/AdminMedia';
+import AdminPastProjects from '@/components/admin/AdminPastProjects';
 import Link from 'next/link';
 import { useAuth } from '@/components/auth/AuthProvider';
 import AdminLogin from '@/components/auth/AdminLogin';
@@ -96,6 +97,10 @@ export default function AdminPage() {
         <AdminTabs activeTab={activeTab} onTabChange={setActiveTab}>
           {activeTab === 'projects' && (
             <AdminProjectsView projects={projects} onUpdate={refreshProjects} />
+          )}
+
+          {activeTab === 'past-projects' && (
+            <AdminPastProjects />
           )}
 
           {activeTab === 'feedback' && (

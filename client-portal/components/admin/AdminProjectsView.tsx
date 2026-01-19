@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, FormEvent, useRef } from 'react';
-import { Project, StatusUpdate } from '@/lib/mockStore';
+import { Project, StatusUpdate, StatusUpdatePhoto } from '@/lib/mockStore';
 import { store } from '@/lib/store';
 import { useRouter } from 'next/navigation';
 import AdminStatusUpdateForm from './AdminStatusUpdateForm';
@@ -71,6 +71,58 @@ export default function AdminProjectsView({ projects, onUpdate }: AdminProjectsV
         const updated = await store.getProject(token);
         if (updated) setSelectedProject(updated);
       }
+    }
+  };
+
+  const handleCompletionToggle = async (token: string) => {
+    const project = await store.getProject(token);
+    if (!project) return;
+
+    const newCompletionStatus = !project.isCompleted;
+
+    if (newCompletionStatus) {
+      // Moving to past projects - create past project entry
+      const existingPastProject = await store.getPastProjectByToken(token);
+      
+      if (!existingPastProject) {
+        // Collect all photos from status updates
+        const allPhotos: { url: string; name: string; isFeatured: boolean }[] = [];
+        project.statusUpdates.forEach((update: StatusUpdate) => {
+          update.photos.forEach(photo => {
+            if (typeof photo === 'string') {
+              allPhotos.push({ url: photo, name: 'Project Photo', isFeatured: false });
+            } else {
+              allPhotos.push({ url: photo.url, name: 'Project Photo', isFeatured: photo.isFeatured || false });
+            }
+          });
+        });
+
+        await store.createPastProject({
+          projectToken: token,
+          title: project.clientLabel,
+          description: project.description,
+          selectedImages: allPhotos.map(photo => ({
+            url: photo.url,
+            name: photo.name,
+            isFeatured: photo.isFeatured,
+          })),
+        });
+      }
+    } else {
+      // Moving back to active projects - delete past project entry
+      const existingPastProject = await store.getPastProjectByToken(token);
+      if (existingPastProject) {
+        await store.deletePastProject(existingPastProject.id);
+      }
+    }
+
+    // Update project completion status
+    await store.updateProject(token, { isCompleted: newCompletionStatus });
+    onUpdate();
+    
+    if (selectedProject?.token === token) {
+      const updated = await store.getProject(token);
+      if (updated) setSelectedProject(updated);
     }
   };
 
@@ -184,6 +236,43 @@ export default function AdminProjectsView({ projects, onUpdate }: AdminProjectsV
     }
   };
 
+  const handleTogglePhotoFeatured = async (token: string, updateId: string, photoIndex: number) => {
+    const project = await store.getProject(token);
+    if (!project) return;
+
+    const update = project.statusUpdates.find((u: StatusUpdate) => u.id === updateId);
+    if (!update || !update.photos || photoIndex >= update.photos.length) return;
+
+    const updatedPhotos = [...update.photos];
+    const photo = updatedPhotos[photoIndex];
+    
+    if (typeof photo === 'string') {
+      // Convert legacy string to StatusUpdatePhoto object with featured = true
+      updatedPhotos[photoIndex] = {
+        url: photo,
+        isFeatured: true,
+      };
+    } else {
+      // Toggle featured status
+      updatedPhotos[photoIndex] = {
+        ...photo,
+        isFeatured: !photo.isFeatured,
+      };
+    }
+
+    const updatedStatusUpdates = project.statusUpdates.map((u: StatusUpdate) =>
+      u.id === updateId ? { ...u, photos: updatedPhotos } : u
+    );
+
+    await store.updateProject(token, { statusUpdates: updatedStatusUpdates });
+    onUpdate();
+    
+    if (selectedProject?.token === token) {
+      const updated = await store.getProject(token);
+      if (updated) setSelectedProject(updated);
+    }
+  };
+
   const copyLink = (token: string) => {
     const link = `${window.location.origin}/client/p/${token}`;
     navigator.clipboard.writeText(link);
@@ -229,12 +318,12 @@ export default function AdminProjectsView({ projects, onUpdate }: AdminProjectsV
         
         <h2 className="text-[11px] font-bold tracking-[0.3em] uppercase text-brass mb-6">Active Projects</h2>
 
-        {projects.length === 0 ? (
+        {projects.filter(p => !p.isCompleted).length === 0 ? (
           <div className="p-8 border border-stone-200 text-center rounded-sm">
             <p className="text-stone-400 text-sm font-serif italic">No current projects.</p>
           </div>
         ) : (
-          projects.map(project => (
+          projects.filter(p => !p.isCompleted).map(project => (
             <div
               key={project.token}
               onClick={() => {
@@ -419,6 +508,27 @@ export default function AdminProjectsView({ projects, onUpdate }: AdminProjectsV
                 </div>
               </div>
 
+              {/* Project Completion */}
+              <div className="mb-10 pb-10 border-b border-stone-100">
+                <label className="text-[10px] font-black uppercase tracking-widest text-stone-400 mb-2 block">Project Completion</label>
+                <label className="flex items-center gap-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={selectedProject.isCompleted || false}
+                    onChange={() => handleCompletionToggle(selectedProject.token)}
+                    className="w-5 h-5 text-brass border-stone-300 focus:ring-brass rounded"
+                  />
+                  <span className="text-sm font-serif text-ebony">
+                    {selectedProject.isCompleted ? 'Project Completed' : 'Mark as Completed'}
+                  </span>
+                </label>
+                {selectedProject.isCompleted && (
+                  <p className="text-xs text-stone-400 mt-2 ml-8">
+                    This project has been moved to Past Projects. You can manage it from the Past Projects tab.
+                  </p>
+                )}
+              </div>
+
               {/* Project Description */}
               <div className="mb-10 pb-10 border-b border-stone-100">
                 <div className="flex items-center justify-between mb-2">
@@ -537,16 +647,34 @@ export default function AdminProjectsView({ projects, onUpdate }: AdminProjectsV
                               "{update.message}"
                             </p>
                             {update.photos && update.photos.length > 0 && (
-                              <div className="mt-4 grid grid-cols-3 gap-3">
-                                {update.photos.map((photo, photoIndex) => (
-                                  <div key={photoIndex} className="aspect-square bg-stone-100 rounded-sm overflow-hidden">
-                                    <img
-                                      src={photo}
-                                      alt={`${update.title} - Photo ${photoIndex + 1}`}
-                                      className="w-full h-full object-cover"
-                                    />
-                                  </div>
-                                ))}
+                              <div className="mt-4 space-y-3">
+                                <div className="grid grid-cols-3 gap-3">
+                                  {update.photos.map((photo, photoIndex) => {
+                                    const photoUrl = typeof photo === 'string' ? photo : photo.url;
+                                    const isFeatured = typeof photo === 'object' ? (photo.isFeatured || false) : false;
+                                    return (
+                                      <div key={photoIndex} className="relative group">
+                                        <div className="aspect-square bg-stone-100 rounded-sm overflow-hidden">
+                                          <img
+                                            src={photoUrl}
+                                            alt={`${update.title} - Photo ${photoIndex + 1}`}
+                                            className="w-full h-full object-cover"
+                                          />
+                                        </div>
+                                        <button
+                                          onClick={() => handleTogglePhotoFeatured(selectedProject.token, update.id, photoIndex)}
+                                          className={`absolute top-2 right-2 text-[8px] font-black uppercase tracking-[0.2em] px-2 py-1 border rounded-full transition-all ${
+                                            isFeatured
+                                              ? 'border-brass text-brass bg-brass/90 hover:bg-brass'
+                                              : 'border-white/80 text-white bg-black/50 hover:bg-black/70'
+                                          }`}
+                                        >
+                                          {isFeatured ? 'Featured' : 'Hidden'}
+                                        </button>
+                                      </div>
+                                    );
+                                  })}
+                                </div>
                               </div>
                             )}
                           </div>

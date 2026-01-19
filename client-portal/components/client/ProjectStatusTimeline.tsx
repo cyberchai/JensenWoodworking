@@ -1,6 +1,6 @@
 'use client';
 
-import { StatusUpdate } from '@/lib/mockStore';
+import { StatusUpdate, StatusUpdatePhoto } from '@/lib/mockStore';
 import { Calendar } from '@/components/icons';
 
 interface ProjectStatusTimelineProps {
@@ -37,7 +37,11 @@ export default function ProjectStatusTimeline({ statusUpdates }: ProjectStatusTi
 
             {update.photos && update.photos.length > 0 && (
               <div className="aspect-video bg-stone-50 overflow-hidden shadow-2xl rounded-sm">
-                <img src={update.photos[0]} alt={update.title} className="w-full h-full object-cover" />
+                <img 
+                  src={typeof update.photos[0] === 'string' ? update.photos[0] : update.photos[0].url} 
+                  alt={update.title} 
+                  className="w-full h-full object-cover" 
+                />
               </div>
             )}
 

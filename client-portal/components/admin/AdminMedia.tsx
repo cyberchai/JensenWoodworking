@@ -22,6 +22,7 @@ export default function AdminMedia() {
   const [error, setError] = useState<string | null>(null);
   const [deleteConfirm, setDeleteConfirm] = useState<{ id: string; fileId: string; name: string } | null>(null);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
 
   // Load existing media items (you might want to store these in Firestore)
   useEffect(() => {
@@ -168,6 +169,13 @@ export default function AdminMedia() {
     return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
   };
 
+  // Filter media items based on search query
+  const filteredMediaItems = mediaItems.filter((item) => {
+    if (!searchQuery.trim()) return true;
+    const query = searchQuery.toLowerCase();
+    return item.name.toLowerCase().includes(query);
+  });
+
   if (loading) {
     return (
       <div className="bg-white border border-gray-200 p-6">
@@ -221,17 +229,47 @@ export default function AdminMedia() {
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-normal text-black">Media Library</h2>
           <span className="text-sm text-site-gray-light">
-            {mediaItems.length} {mediaItems.length === 1 ? 'item' : 'items'}
+            {filteredMediaItems.length} {filteredMediaItems.length === 1 ? 'item' : 'items'}
+            {searchQuery && filteredMediaItems.length !== mediaItems.length && (
+              <span className="ml-2">of {mediaItems.length}</span>
+            )}
           </span>
         </div>
+
+        {mediaItems.length > 0 && (
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Search media by name..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full px-4 py-2 border-0 border-b border-gray-300 bg-white focus:outline-none focus:border-site-gold transition-colors placeholder:text-site-gray-light"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-site-gray-light hover:text-black transition-colors text-sm"
+                aria-label="Clear search"
+              >
+                ✕
+              </button>
+            )}
+          </div>
+        )}
 
         {mediaItems.length === 0 ? (
           <div className="py-12 text-center border-2 border-dashed border-stone-200 rounded-sm">
             <p className="text-stone-300 font-serif italic">No media uploaded yet.</p>
           </div>
+        ) : filteredMediaItems.length === 0 ? (
+          <div className="py-12 text-center border-2 border-dashed border-stone-200 rounded-sm">
+            <p className="text-stone-300 font-serif italic">
+              No media found matching "{searchQuery}".
+            </p>
+          </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {mediaItems.map((item) => (
+            {filteredMediaItems.map((item) => (
               <div key={item.id} className="border border-gray-200 p-4 space-y-3 relative group">
                 <div className="aspect-video bg-gray-100 flex items-center justify-center overflow-hidden rounded-sm">
                   <img

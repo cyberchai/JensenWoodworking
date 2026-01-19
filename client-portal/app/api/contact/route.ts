@@ -35,31 +35,20 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Build comprehensive message with all form data
-    let fullMessage = mainMessage;
-    
-    if (budget) {
-      fullMessage += `\n\nBudget: ${budget}`;
-    }
-    
-    if (contractorInvolved === 'Yes' || contractorInvolved === 'true') {
-      fullMessage += `\n\nContractor Involved: Yes`;
-    }
-    
-    if (designerInvolved === 'Yes' || designerInvolved === 'true') {
-      fullMessage += `\n\nDesigner Involved: Yes`;
-    }
-    
-    if (additionalDetails) {
-      fullMessage += `\n\nAdditional Details:\n${additionalDetails}`;
-    }
+    // Convert checkbox values to boolean
+    const contractorInvolvedBool = contractorInvolved === 'Yes' || contractorInvolved === 'true';
+    const designerInvolvedBool = designerInvolved === 'Yes' || designerInvolved === 'true';
 
-    // Create contact request in Firestore
+    // Create contact request in Firestore with all fields separate
     await firebaseStore.createContactRequest({
       name: name.trim(),
       email: email.trim(),
       phone: phone.trim() || undefined,
-      message: fullMessage.trim(),
+      message: mainMessage.trim(),
+      budget: budget.trim() || undefined,
+      contractorInvolved: contractorInvolvedBool || undefined,
+      designerInvolved: designerInvolvedBool || undefined,
+      additionalDetails: additionalDetails.trim() || undefined,
       status: 'new',
     });
 
