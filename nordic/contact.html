@@ -397,7 +397,7 @@
 										<li><a href="gallery.html">Gallery</a></li>
 										<li><a href="services.html">Services</a></li>
 										<li class="current"><a href="contact.html">Contact</a></li>
-										<li><a href="../client-portal/project">Your Project</a></li>
+										<li><a href="http://localhost:3000/client/project">Your Project</a></li>
 									</ul>
 								</div>
 
@@ -474,7 +474,7 @@
 							<h6>Send us a message</h6>
 							<div class="contact-form">
 								<div id="form-message"></div>
-								<form id="contact-form" method="POST" action="https://formspree.io/f/mdakqdrd">
+								<form id="contact-form" method="POST">
 									<div class="form-group">
 										<input type="text" name="username" placeholder="Your Name" required>
 									</div>
@@ -718,7 +718,7 @@
 		})();
 	</script>
 
-	<!-- Formspree Form Submission -->
+	<!-- Contact Form Submission to Firestore -->
 	<script>
 		document.addEventListener('DOMContentLoaded', function() {
 			const form = document.getElementById('contact-form');
@@ -753,8 +753,28 @@
 				submitButton.querySelector('.txt').textContent = 'Sending...';
 				messageDiv.classList.remove('show', 'success', 'error');
 				
-				// Submit to Formspree
-				fetch('https://formspree.io/f/mdakqdrd', {
+				// Determine API endpoint based on current location
+				// Handle different deployment scenarios
+				let apiEndpoint;
+				const protocol = window.location.protocol;
+				const hostname = window.location.hostname;
+				
+				if (protocol === 'file:') {
+					// If opened as file://, use localhost (for local testing)
+					// Note: Make sure the Next.js dev server is running on localhost:3000
+					apiEndpoint = 'http://localhost:3000/api/contact';
+				} else if (hostname === 'localhost' || hostname === '127.0.0.1') {
+					// Local development
+					const port = window.location.port || '3000';
+					apiEndpoint = 'http://localhost:' + port + '/api/contact';
+				} else {
+					// Production - adjust this path if your Next.js app is at a different path
+					// Options: '/api/contact' or '/client-portal/api/contact' depending on deployment
+					apiEndpoint = '/api/contact';
+				}
+				
+				// Submit to Firestore via Next.js API
+				fetch(apiEndpoint, {
 					method: 'POST',
 					body: formData,
 					headers: {
