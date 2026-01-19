@@ -1559,18 +1559,32 @@
 	<!-- Dynamic Client Portal URL Script -->
 	<script>
 		(function() {
+			// CONFIGURATION: If client-portal is deployed separately on Vercel, set this to your client-portal URL
+			// Example: const CLIENT_PORTAL_URL = 'https://your-client-portal.vercel.app';
+			const CLIENT_PORTAL_URL = null; // Set to null to auto-detect
+			
 			// Function to get the client portal base URL
 			function getClientPortalBaseUrl() {
+				// If explicitly configured, use that
+				if (CLIENT_PORTAL_URL) {
+					return CLIENT_PORTAL_URL;
+				}
+				
 				const hostname = window.location.hostname;
-				const protocol = window.location.protocol;
 				
 				// If localhost, use localhost:3000 (Next.js dev server)
 				if (hostname === 'localhost' || hostname === '127.0.0.1') {
 					return 'http://localhost:3000';
 				}
 				
-				// In production, use the same origin (assuming client-portal is on the same domain)
-				// If deployed separately, you may need to set a specific base URL here
+				// Check if we're on Vercel (vercel.app domain)
+				if (hostname.includes('vercel.app')) {
+					// If client-portal is deployed separately, replace CLIENT_PORTAL_URL above
+					// For now, assume same domain - adjust if needed
+					return window.location.origin;
+				}
+				
+				// Production - use same origin
 				return window.location.origin;
 			}
 			
@@ -1581,16 +1595,21 @@
 				
 				links.forEach(function(link) {
 					const path = link.getAttribute('data-path') || '/client/project';
-					link.href = baseUrl + path;
+					const fullUrl = baseUrl + path;
+					link.href = fullUrl;
+					console.log('Updated client portal link:', fullUrl);
 				});
 			}
 			
-			// Run on page load
+			// Run immediately and also on DOM ready
+			updateClientPortalLinks();
+			
 			if (document.readyState === 'loading') {
 				document.addEventListener('DOMContentLoaded', updateClientPortalLinks);
-			} else {
-				updateClientPortalLinks();
 			}
+			
+			// Also run after a short delay to catch any late-loading content
+			setTimeout(updateClientPortalLinks, 100);
 		})();
 	</script>
 
