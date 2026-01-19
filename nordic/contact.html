@@ -397,7 +397,7 @@
 										<li><a href="gallery.html">Gallery</a></li>
 										<li><a href="services.html">Services</a></li>
 										<li class="current"><a href="contact.html">Contact</a></li>
-										<li><a href="http://localhost:3000/client/project">Your Project</a></li>
+										<li><a href="#" class="client-portal-link" data-path="/client/project">Your Project</a></li>
 									</ul>
 								</div>
 
@@ -824,6 +824,44 @@
 				});
 			});
 		});
+	</script>
+
+	<!-- Dynamic Client Portal URL Script -->
+	<script>
+		(function() {
+			// Function to get the client portal base URL
+			function getClientPortalBaseUrl() {
+				const hostname = window.location.hostname;
+				const protocol = window.location.protocol;
+				
+				// If localhost, use localhost:3000 (Next.js dev server)
+				if (hostname === 'localhost' || hostname === '127.0.0.1') {
+					return 'http://localhost:3000';
+				}
+				
+				// In production, use the same origin (assuming client-portal is on the same domain)
+				// If deployed separately, you may need to set a specific base URL here
+				return window.location.origin;
+			}
+			
+			// Update all client portal links
+			function updateClientPortalLinks() {
+				const baseUrl = getClientPortalBaseUrl();
+				const links = document.querySelectorAll('a.client-portal-link');
+				
+				links.forEach(function(link) {
+					const path = link.getAttribute('data-path') || '/client/project';
+					link.href = baseUrl + path;
+				});
+			}
+			
+			// Run on page load
+			if (document.readyState === 'loading') {
+				document.addEventListener('DOMContentLoaded', updateClientPortalLinks);
+			} else {
+				updateClientPortalLinks();
+			}
+		})();
 	</script>
 
 </body>

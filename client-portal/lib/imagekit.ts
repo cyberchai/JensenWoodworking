@@ -5,11 +5,11 @@ let imagekitInstance: ImageKit | null = null;
 
 export function getImageKit(): ImageKit {
   if (!imagekitInstance) {
-    const publicKey = process.env.NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY;
+    const publicKey = process.env.IMAGEKIT_PUBLIC_KEY;
     const privateKey = process.env.IMAGEKIT_PRIVATE_KEY;
     
     if (!publicKey || !privateKey) {
-      throw new Error('ImageKit credentials are not configured. Please set NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY and IMAGEKIT_PRIVATE_KEY environment variables.');
+      throw new Error('ImageKit credentials are not configured. Please set IMAGEKIT_PUBLIC_KEY and IMAGEKIT_PRIVATE_KEY environment variables.');
     }
     
     imagekitInstance = new ImageKit({

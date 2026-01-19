@@ -21,9 +21,11 @@ Or install with the `--legacy-peer-deps` flag if needed.
 Add the following to your `.env.local` file:
 
 ```env
-NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY=your_public_key_here
+IMAGEKIT_PUBLIC_KEY=your_public_key_here
 IMAGEKIT_PRIVATE_KEY=your_private_key_here
 ```
+
+**Note:** Both keys are server-side only (no `NEXT_PUBLIC_` prefix) since they're only used in API routes, not in client-side code.
 
 ## Getting Your ImageKit Credentials
 
@@ -35,7 +37,7 @@ IMAGEKIT_PRIVATE_KEY=your_private_key_here
 
 ## Security Notes
 
-- The `IMAGEKIT_PRIVATE_KEY` should NEVER be exposed to the client
+- Both `IMAGEKIT_PUBLIC_KEY` and `IMAGEKIT_PRIVATE_KEY` are server-side only and should NEVER be exposed to the client
 - All uploads and deletes are handled through secure API routes
 - File validation is performed on both client and server side
 - File names are sanitized to prevent path traversal attacks
