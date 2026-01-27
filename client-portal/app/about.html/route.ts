@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
+// Force dynamic rendering - this route reads files at runtime
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     const filePath = join(process.cwd(), 'public', 'nordic', 'about.html');
