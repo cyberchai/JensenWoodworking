@@ -1,9 +1,10 @@
+import { NextResponse } from 'next/server';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
-export default function ServicesPage() {
+export async function GET() {
   try {
-    const filePath = join(process.cwd(), 'public', 'nordic', 'services.html');
+    const filePath = join(process.cwd(), 'public', 'nordic', 'contact.html');
     let html = readFileSync(filePath, 'utf-8');
     
     // Fix asset paths to work from root
@@ -12,9 +13,13 @@ export default function ServicesPage() {
     html = html.replace(/src="images\//g, 'src="/images/');
     html = html.replace(/href="fonts\//g, 'href="/fonts/');
     
-    return <div dangerouslySetInnerHTML={{ __html: html }} />;
+    return new NextResponse(html, {
+      headers: {
+        'Content-Type': 'text/html; charset=utf-8',
+      },
+    });
   } catch (error) {
-    console.error('Error serving nordic services.html:', error);
-    return <div>Error loading page</div>;
+    console.error('Error serving nordic contact.html:', error);
+    return new NextResponse('Not Found', { status: 404 });
   }
 }

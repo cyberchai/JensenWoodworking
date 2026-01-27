@@ -2,6 +2,27 @@
 const nextConfig = {
   async rewrites() {
     return [
+      // Serve nordic HTML files at root paths
+      {
+        source: '/',
+        destination: '/nordic/index.html',
+      },
+      {
+        source: '/about.html',
+        destination: '/nordic/about.html',
+      },
+      {
+        source: '/contact.html',
+        destination: '/nordic/contact.html',
+      },
+      {
+        source: '/gallery.html',
+        destination: '/nordic/gallery.html',
+      },
+      {
+        source: '/services.html',
+        destination: '/nordic/services.html',
+      },
       // Serve nordic static assets at root paths
       {
         source: '/css/:path*',
