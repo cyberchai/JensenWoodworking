@@ -2,11 +2,7 @@
 const nextConfig = {
   async rewrites() {
     return [
-      // Rewrite root to home route handler which serves nordic/index.html
-      {
-        source: '/',
-        destination: '/home',
-      },
+      // Note: Root rewrite is handled by vercel.json (Next.js App Router rewrites don't work for root -> route handler)
       // Serve nordic static assets at root paths
       // HTML files are handled by route handlers (app/*.html/route.ts and app/home/route.ts)
       {
