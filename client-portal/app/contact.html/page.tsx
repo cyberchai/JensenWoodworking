@@ -1,9 +1,9 @@
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
-export default function HomePage() {
+export default function ContactPage() {
   try {
-    const filePath = join(process.cwd(), 'public', 'nordic', 'index.html');
+    const filePath = join(process.cwd(), 'public', 'nordic', 'contact.html');
     let html = readFileSync(filePath, 'utf-8');
     
     // Fix asset paths to work from root
@@ -14,7 +14,7 @@ export default function HomePage() {
     
     return <div dangerouslySetInnerHTML={{ __html: html }} />;
   } catch (error) {
-    console.error('Error serving nordic index.html:', error);
+    console.error('Error serving nordic contact.html:', error);
     return <div>Error loading page</div>;
   }
 }
