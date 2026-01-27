@@ -1563,41 +1563,29 @@
 			// Example: const CLIENT_PORTAL_URL = 'https://your-client-portal.vercel.app';
 			const CLIENT_PORTAL_URL = null; // Set to null to auto-detect
 			
-			// Function to get the client portal base URL
-			function getClientPortalBaseUrl() {
-				// If explicitly configured, use that
-				if (CLIENT_PORTAL_URL) {
-					return CLIENT_PORTAL_URL;
-				}
-				
-				const hostname = window.location.hostname;
-				
-				// If localhost, use localhost:3000 (Next.js dev server)
-				if (hostname === 'localhost' || hostname === '127.0.0.1') {
-					return 'http://localhost:3000';
-				}
-				
-				// Check if we're on Vercel (vercel.app domain)
-				if (hostname.includes('vercel.app')) {
-					// If client-portal is deployed separately, replace CLIENT_PORTAL_URL above
-					// For now, assume same domain - adjust if needed
-					return window.location.origin;
-				}
-				
-				// Production - use same origin
-				return window.location.origin;
-			}
-			
 			// Update all client portal links
 			function updateClientPortalLinks() {
-				const baseUrl = getClientPortalBaseUrl();
+				const hostname = window.location.hostname;
 				const links = document.querySelectorAll('a.client-portal-link');
 				
 				links.forEach(function(link) {
 					const path = link.getAttribute('data-path') || '/client/project';
-					const fullUrl = baseUrl + path;
-					link.href = fullUrl;
-					console.log('Updated client portal link:', fullUrl);
+					
+					// If explicitly configured, use that
+					if (CLIENT_PORTAL_URL) {
+						link.href = CLIENT_PORTAL_URL + path;
+						return;
+					}
+					
+					// If localhost, use localhost:3000 (Next.js dev server)
+					if (hostname === 'localhost' || hostname === '127.0.0.1') {
+						link.href = 'http://localhost:3000' + path;
+					} else {
+						// For production/Vercel, use relative paths (same domain)
+						link.href = path;
+					}
+					
+					console.log('Updated client portal link:', link.href);
 				});
 			}
 			

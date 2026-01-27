@@ -1,0 +1,20 @@
+{
+  "buildCommand": "cd client-portal && npm install && npm run build",
+  "outputDirectory": "client-portal/.next",
+  "installCommand": "cd client-portal && npm install",
+  "framework": "nextjs",
+  "rewrites": [
+    {
+      "source": "/client/:path*",
+      "destination": "/client/:path*"
+    },
+    {
+      "source": "/admin/:path*",
+      "destination": "/admin/:path*"
+    },
+    {
+      "source": "/api/:path*",
+      "destination": "/api/:path*"
+    }
+  ]
+}
