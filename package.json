@@ -1,0 +1,13 @@
+{
+  "name": "jensen-woodworking",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "cd client-portal && npm install && npm run build",
+    "install": "cd client-portal && npm install"
+  },
+  "dependencies": {
+    "next": "^14.2.18"
+  },
+  "devDependencies": {}
+}
