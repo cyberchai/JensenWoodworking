@@ -2,13 +2,13 @@
 const nextConfig = {
   async rewrites() {
     return [
-      // Rewrite root to index route handler
+      // Rewrite root to home route handler which serves nordic/index.html
       {
         source: '/',
-        destination: '/index',
+        destination: '/home',
       },
       // Serve nordic static assets at root paths
-      // HTML files are handled by route handlers (app/*.html/route.ts and app/index/route.ts)
+      // HTML files are handled by route handlers (app/*.html/route.ts and app/home/route.ts)
       {
         source: '/css/:path*',
         destination: '/nordic/css/:path*',
