@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+	<meta charset="UTF-8">
+	<title>About | Jensen Woodworking | Custom Woodworking in Duxbury, MA</title>
+	<meta name="description" content="Learn about Jensen Woodworking - a Scandinavian woodworking business based in Eastern Massachusetts that specializes in custom woodworking projects. Handcrafted furniture made with quality and care by Klaus Jensen in Duxbury, MA." />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="profile" href="https://gmpg.org/xfn/11">
+	<link rel="canonical" href="Replace_with_your_PAGE_URL" />
+
+	<!-- Stylesheets -->
+	<link href="css/bootstrap.css" rel="stylesheet">
+	<link href="css/main.css" rel="stylesheet">
+	<link href="css/responsive.css" rel="stylesheet">
+	
+	<!-- Custom Logo Styles -->
+	<style>
+		.logo a,
+		.nav-logo a {
+			display: block;
+			font-size: 32px;
+			font-weight: 700;
+			line-height: 1.1;
+			color: #fff;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			text-decoration: none;
+		}
+		.logo a span,
+		.nav-logo a span {
+			display: block;
+		}
+		.main-header.fixed-header .logo a,
+		.main-header.fixed-header .nav-logo a {
+			color: #fff;
+		}
+		.mobile-menu .nav-logo a {
+			color: #000;
+		}
+		/* Footer Logo Styling */
+		.main-footer .logo a {
+			color: #000;
+			display: inline-block;
+		}
+		
+		.main-footer .logo a img {
+			max-width: 100%;
+			height: auto;
+			display: block;
+		}
+		
+		/* About Jensen Section Styling */
+		.about-jensen-section {
+			position: relative;
+			padding: 150px 0;
+			background-color: #fff;
+		}
+		
+		.about-jensen-section .row {
+			display: flex;
+			align-items: center;
+		}
+		
+		.about-jensen-section .image-column {
+			padding-right: 60px;
+		}
+		
+		.about-jensen-section .image-column img {
+			width: 100%;
+			height: auto;
+			display: block;
+		}
+		
+		.about-jensen-section .content-column {
+			padding-left: 60px;
+		}
+		
+		.about-jensen-section .content-column p {
+			margin-bottom: 20px;
+			line-height: 1.8;
+			color: #666;
+			font-size: 16px;
+		}
+		
+		.about-jensen-section .content-column p:last-child {
+			margin-bottom: 0;
+		}
+		
+		@media (max-width: 991px) {
+			.about-jensen-section .image-column {
+				padding-right: 0;
+				margin-bottom: 40px;
+			}
+			
+			.about-jensen-section .content-column {
+				padding-left: 0;
+			}
+		}
+		
+		/* Instagram Reels Section */
+		.instagram-reels-section {
+			position: relative;
+			padding: 150px 0;
+			background-color: #f8f8f8;
+			border-top: 1px solid rgba(0, 0, 0, 0.1);
+		}
+		
+		.instagram-reels-grid {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 30px;
+			margin-top: 60px;
+		}
+		
+		.instagram-reels-grid .instagram-embed-wrapper {
+			position: relative;
+			width: 100%;
+			cursor: pointer;
+			transition: all 0.4s ease;
+		}
+		
+		.instagram-reels-grid .instagram-embed-wrapper.minimized {
+			opacity: 0.4;
+			transform: scale(0.85);
+		}
+		
+		.instagram-reels-grid .instagram-embed-wrapper.expanded {
+			opacity: 1;
+			transform: scale(1);
+			z-index: 10;
+		}
+		
+		.instagram-reels-grid iframe {
+			width: 100% !important;
+			max-width: 540px;
+			border-radius: 3px;
+			border: 1px solid rgb(219, 219, 219);
+			box-shadow: none;
+			display: block;
+			margin: 0 auto;
+			transition: all 0.4s ease;
+		}
+		
+		.instagram-reels-grid .instagram-embed-wrapper.minimized iframe {
+			pointer-events: none;
+		}
+		
+		.instagram-reels-grid .instagram-embed-wrapper.minimized::after {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: rgba(255, 255, 255, 0.3);
+			pointer-events: none;
+			border-radius: 3px;
+		}
+		
+		.instagram-reels-grid .instagram-embed-wrapper.expanded iframe {
+			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+		}
+		
+		@media (max-width: 991px) {
+			.instagram-reels-grid {
+				grid-template-columns: 1fr;
+				gap: 40px;
+			}
+			
+			.instagram-reels-grid iframe {
+				max-width: 100%;
+			}
+			
+			.instagram-reels-grid .instagram-embed-wrapper.minimized {
+				transform: scale(0.95);
+			}
+		}
+		
+		/* Scroll to Top Animation */
+		.scroll-to-top {
+			position: fixed;
+			bottom: 85px;
+			right: 15px;
+			width: 60px;
+			height: 60px;
+			color: #fff;
+			font-size: 24px;
+			text-transform: uppercase;
+			line-height: 60px;
+			text-align: center;
+			z-index: 100;
+			cursor: pointer;
+			background: #0a0a0a;
+			display: none;
+			transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+			overflow: hidden;
+			border-radius: 0;
+			clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+		}
+		
+		.scroll-to-top:hover {
+			width: 220px;
+			height: 60px;
+			background: #ffe1a0;
+			color: #000;
+			clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 50%, calc(100% - 20px) 100%, 0 100%);
+		}
+		
+		.scroll-to-top span {
+			display: inline-block;
+			transition: all 0.4s ease;
+			position: relative;
+			z-index: 2;
+		}
+		
+		.scroll-to-top:hover span {
+			transform: translateX(-80px);
+			opacity: 0;
+		}
+		
+		.scroll-to-top::after {
+			content: '↑ take me to the top of page';
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%) translateX(250px);
+			white-space: nowrap;
+			font-size: 11px;
+			opacity: 0;
+			transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+			font-weight: 400;
+			letter-spacing: 0.5px;
+			z-index: 1;
+			color: #000;
+		}
+		
+		.scroll-to-top:hover::after {
+			transform: translate(-50%, -50%) translateX(0);
+			opacity: 1;
+		}
+	</style>
+
+	<!-- Open Graph (OG) meta tags -->
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="About | Jensen Woodworking | Custom Woodworking in Duxbury, MA" />
+	<meta property="og:url" content="PAGE_URL" />
+	<meta property="og:site_name" content="SITE_NAME" />
+	<meta property="og:image" content="#" />
+	<meta property="og:description" content="Learn about Jensen Woodworking - Handcrafted custom countertops, tables, mantels, and restorations by Klaus Jensen in Duxbury, Massachusetts." />
+
+	<!-- Fonts -->
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link
+		href="https://fonts.googleapis.com/css2?family=Heebo:wght@100;300;400;500;600;700;800;900&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+		rel="stylesheet">
+
+	<!-- Add site Favicon -->
+	<link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+	<link rel="icon" href="images/favicon.png" type="image/x-icon">
+	<meta name="msapplication-TileImage" content="images/favicon.png" />
+
+	<!-- Structured Data  -->
+	<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "WebSite",
+  "name": "Jensen Woodworking",
+  "url": "Replace_with_your_site_URL"
+}
+</script>
+
+	<!-- Google Tag Manager -->
+	<script>(function (w, d, s, l, i) {
+			w[l] = w[l] || []; w[l].push({
+				'gtm.start':
+					new Date().getTime(), event: 'gtm.js'
+			}); var f = d.getElementsByTagName(s)[0],
+				j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+					'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-5JCTSSF');</script>
+	<!-- End Google Tag Manager -->
+</head>
+
+<body>
+
+	<!-- Google Tag Manager (noscript) -->
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5JCTSSF" height="0" width="0"
+			style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- End Google Tag Manager (noscript) -->
+
+	<div class="page-wrapper">
+
+		<!-- Main Header-->
+		<header class="main-header">
+
+			<!-- Header Upper -->
+			<div class="header-upper">
+				<div class="outer-container">
+					<div class="inner-container clearfix">
+
+						<div class="pull-left logo-box">
+							<div class="logo"><a href="index.html"><span>Jensen</span><span>Woodworking</span></a></div>
+						</div>
+
+						<div class="nav-outer pull-left clearfix">
+							<!-- Mobile Navigation Toggler -->
+							<div class="mobile-nav-toggler">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+								</svg>
+							</div>
+							<!-- Main Menu -->
+							<nav class="main-menu navbar-expand-md">
+								<div class="navbar-header">
+									<button class="navbar-toggler" type="button" data-toggle="collapse"
+										data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+										aria-label="Toggle navigation">
+										<span class="icon-bar"></span>
+										<span class="icon-bar"></span>
+										<span class="icon-bar"></span>
+									</button>
+								</div>
+
+								<div class="navbar-collapse show collapse clearfix" id="navbarSupportedContent">
+									<ul class="navigation clearfix">
+										<li><a href="index.html">Home</a></li>
+										<li class="current"><a href="about.html">About</a></li>
+										<li><a href="gallery.html">Gallery</a></li>
+										<li><a href="services.html">Services</a></li>
+										<li><a href="contact.html">Contact</a></li>
+										<li><a href="#" class="client-portal-link" data-path="/client/project">Your Project</a></li>
+									</ul>
+								</div>
+
+							</nav>
+
+						</div>
+
+						<!-- Outer Box -->
+						<div class="outer-box clearfix">
+							<!-- Mobile Navigation Toggler -->
+							<div class="mobile-nav-toggler">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+								</svg>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<!--End Header Upper-->
+
+			<!-- Mobile Menu  -->
+			<div class="mobile-menu">
+				<div class="menu-backdrop"></div>
+				<div class="close-btn"><span class="icon lnr lnr-cross"></span></div>
+
+				<nav class="menu-box">
+					<div class="nav-logo"><a href="index.html"><span>Jensen</span><span>Woodworking</span></a></div>
+					<div class="menu-outer">
+						<!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
+					</div>
+				</nav>
+			</div><!-- End Mobile Menu -->
+
+		</header>
+		<!--End Main Header -->
+
+		<!-- Page Banner Section -->
+		<section class="page-banner-section" style="background-image: url(images/main-slider/image-1.jpg)">
+			<div class="auto-container">
+				<div class="title">About</div>
+				<h1>Jensen Woodworking</h1>
+			</div>
+		</section>
+		<!-- End Page Banner Section -->
+
+		<!-- About Section -->
+		<section class="about-section">
+			<div class="auto-container">
+				<div class="row clearfix">
+
+					<!-- Image Column -->
+					<div class="image-column col-lg-6 col-md-12 col-sm-12">
+						<div class="inner-column">
+							<div class="image">
+								<img src="images/resource/about.jpg" alt="" />
+							</div>
+						</div>
+					</div>
+
+					<!-- Content Column -->
+					<div class="content-column col-lg-6 col-md-12 col-sm-12">
+						<div class="inner-column">
+							<!-- Sec Title -->
+							<div class="sec-title">
+								<div class="title">About Jensen Woodworking</div>
+								<h2>Custom woodwork crafted in coastal Massachusetts</h2>
+							</div>
+							<div class="bold-text">Handcrafted furniture made with quality and care</div>
+							<p>I am passionate about creating beautiful and functional pieces that will last for generations. I began woodworking 30 years ago when I started crafting furniture for family and friends. Today, I am inspired by the natural beauty of wood and the satisfaction of creating something that will be cherished for years to come. My workshop is located in the heart of the historic Shipbuilding District in Duxbury - the many shipyards employed some of the finest woodworkers and carpenters back in the day. I also love the story of each piece of wood and finding ways to repurpose fallen trees - giving them a new lease on life.</p>
+							<p>My process is rooted in traditional woodworking techniques and modern technology. I never get tired of a carefully honed blockplane peeling off perfect wood shavings. Or a perfectly cut piece of lumber using modern equipment. I start with carefully selected, sustainably sourced wood and use precision tools to create each piece. I believe that attention to detail and quality craftsmanship are essential to creating furniture that is both beautiful and functional. I focus primarily on kitchen countertops, bartops, mantels and dining tables and kitchen islands. But your imagination is my limit!</p>
+							<a href="contact.html" class="theme-btn btn-style-one"><span class="txt">Start a project</span></a>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</section>
+		<!-- End About Section -->
+
+		<!-- About Jensen Section -->
+		<section class="about-jensen-section">
+			<div class="auto-container">
+				<div class="row clearfix">
+					
+					<!-- Image Column -->
+					<div class="image-column col-lg-6 col-md-12 col-sm-12">
+						<div class="inner-column">
+							<div class="image">
+								<img src="images/pfp.webp" alt="Klaus Jensen" />
+							</div>
+						</div>
+					</div>
+
+					<!-- Content Column -->
+					<div class="content-column col-lg-6 col-md-12 col-sm-12">
+						<div class="inner-column">
+							<!-- Sec Title -->
+							<div class="sec-title">
+								<div class="title">About Klaus Jensen</div>
+								<h2>30 years of care, patience, and doing things properly</h2>
+							</div>
+							<p>I've been working with wood for over 30 years, first making pieces for family and friends, and eventually building a practice around care, patience, and doing things properly. I'm drawn to work that feels quiet but confident—pieces that don't ask for attention, but earn it over time.</p>
+							<p>My Danish background has always shaped how I think about making things: simple forms, honest materials, and a belief that function and beauty should never compete. That sensibility carries through everything I build. I also bring the discipline of an Ivy League education into the shop—an attention to detail, proportion, and process that shows up in the finished work, even when it isn't immediately visible.</p>
+							<p>My workshop sits in Duxbury's historic shipbuilding district, where skilled carpenters once built vessels meant to last at sea. Working here keeps me connected to that tradition. I'm especially drawn to wood with a history—fallen trees, reclaimed material—giving it a second life with intention.</p>
+							<p>I use a mix of traditional hand tools and modern equipment. There's nothing better than a sharp block plane or a perfectly cut joint. I focus mainly on kitchen countertops, dining tables, islands, bartops, and mantels, but many projects start simply with a conversation.</p>
+							<p>If you have something in mind, I'd be glad to talk.</p>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</section>
+		<!-- End About Jensen Section -->
+
+		<!-- Instagram Reels Section -->
+		<section class="instagram-reels-section">
+			<div class="auto-container">
+				<div class="sec-title centered">
+					<h3 style="font-size: 24px; margin-bottom: 10px; color: #000;">Follow Our Process on Instagram</h3>
+					<p style="color: #666; font-size: 16px; line-height: 1.8;">See our latest projects and behind-the-scenes content</p>
+				</div>
+				<div class="instagram-reels-grid">
+					<div class="instagram-embed-wrapper minimized" data-reel="0">
+						<iframe class="instagram-media instagram-media-rendered" id="instagram-embed-0" src="https://www.instagram.com/reel/DNZdNDFNTv8/embed/captioned/?cr=1&amp;v=14&amp;wp=652&amp;rd=https%3A%2F%2Fjensentemplateone.vercel.app&amp;rp=%2F#%7B%22ci%22%3A0%2C%22os%22%3A463.19999998807907%2C%22ls%22%3A224.5%2C%22le%22%3A350.5%7D" allowtransparency="true" allowfullscreen="true" frameborder="0" height="809" data-instgrm-payload-id="instagram-media-payload-0" scrolling="no" style="background: white; max-width: 540px; width: calc(100% - 2px); border-radius: 3px; border: 1px solid rgb(219, 219, 219); box-shadow: none; display: block; margin: 0px 0px 12px; min-width: 326px; padding: 0px;"></iframe>
+					</div>
+					<div class="instagram-embed-wrapper expanded" data-reel="1">
+						<iframe class="instagram-media instagram-media-rendered" id="instagram-embed-1" src="https://www.instagram.com/reel/DRanVLmDmra/embed/captioned/?cr=1&amp;v=14&amp;wp=652&amp;rd=https%3A%2F%2Fjensentemplateone.vercel.app&amp;rp=%2F#%7B%22ci%22%3A1%2C%22os%22%3A465%2C%22ls%22%3A224.5%2C%22le%22%3A350.5%7D" allowtransparency="true" allowfullscreen="true" frameborder="0" height="749" data-instgrm-payload-id="instagram-media-payload-1" scrolling="no" style="background: white; max-width: 540px; width: calc(100% - 2px); border-radius: 3px; border: 1px solid rgb(219, 219, 219); box-shadow: none; display: block; margin: 0px 0px 12px; min-width: 326px; padding: 0px;"></iframe>
+					</div>
+					<div class="instagram-embed-wrapper minimized" data-reel="2">
+						<iframe class="instagram-media instagram-media-rendered" id="instagram-embed-2" src="https://www.instagram.com/reel/DKnVvphPt_t/embed/captioned/?cr=1&amp;v=14&amp;wp=652&amp;rd=https%3A%2F%2Fjensentemplateone.vercel.app&amp;rp=%2F#%7B%22ci%22%3A2%2C%22os%22%3A465.80000001192093%2C%22ls%22%3A224.5%2C%22le%22%3A350.5%7D" allowtransparency="true" allowfullscreen="true" frameborder="0" height="613" data-instgrm-payload-id="instagram-media-payload-2" scrolling="no" style="background: white; max-width: 540px; width: calc(100% - 2px); border-radius: 3px; border: 1px solid rgb(219, 219, 219); box-shadow: none; display: block; margin: 0px 0px 12px; min-width: 326px; padding: 0px;"></iframe>
+					</div>
+				</div>
+				<div style="text-align: center; margin-top: 50px;">
+					<a href="https://www.instagram.com/klauspnjensen/" target="_blank" class="theme-btn btn-style-one"><span class="txt">More Projects on Instagram</span></a>
+				</div>
+			</div>
+		</section>
+		<!-- End Instagram Reels Section -->
+
+		<!-- Partners Section -->
+		<section class="sponsors-section">
+			<div class="auto-container">
+				<div class="sec-title centered">
+					<h2>Favorite Suppliers and Partners</h2>
+				</div>
+				<div class="carousel-outer">
+					<!--Partners Slider-->
+					<ul class="sponsors-carousel owl-carousel owl-theme">
+						<li>
+							<div class="image-box">
+								<h4>Rubio Monocoat</h4>
+								<p>I have been using Rubio Monocoat for years. A hard oil finish that looks great and is very durable. It is also easy to retouch in case you need to. It produces superior results with a smooth satin finish.</p>
+								<a href="https://www.rubiomonocoatusa.com" target="_blank">www.rubiomonocoatusa.com</a>
+							</div>
+						</li>
+						<li>
+							<div class="image-box">
+								<h4>Wildfire Designs</h4>
+								<p>Wildfire Designs offers one of a kind steel table legs built to your unique style and size. Best of all, they can customize their standard designs and they are great to work with.</p>
+								<a href="https://www.wildfiredesigns.com" target="_blank">www.wildfiredesigns.com</a>
+							</div>
+						</li>
+						<li>
+							<div class="image-box">
+								<h4>Readers Hardwood Supply</h4>
+								<p>Domestic and imported hardwoods from around the world. Incredible selection and first rate customer service.</p>
+								<a href="https://www.readershardwoodsupply.com" target="_blank">www.readershardwoodsupply.com</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+
+			</div>
+		</section>
+		<!--End Partners Section-->
+
+		<!-- Main Footer -->
+		<footer class="main-footer">
+			<div class="outer-container">
+				<!--Widgets Section-->
+				<div class="widgets-section">
+					<div class="row clearfix">
+
+						<!-- Footer Column / Logo Widget -->
+						<div class="footer-column">
+							<div class="footer-widget logo-widget">
+								<div class="logo">
+									<a href="index.html"><img src="images/logo.webp" alt="Jensen Woodworking"></a>
+								</div>
+							</div>
+						</div>
+
+						<!-- Footer Column / Contact Widget -->
+						<div class="footer-column">
+							<div class="footer-widget contact-widget">
+								<h3>Contact</h3>
+								<ul>
+									<li>33 Harrison Street, Duxbury, Massachusetts 02332, United States</li>
+									<li><a href="mailto:kpnjensen@gmail.com">kpnjensen@gmail.com</a></li>
+									<li><a href="tel:+16173204287">(617) 320-4287</a></li>
+								</ul>
+							</div>
+						</div>
+
+						<!-- Footer Column / Link Widget -->
+						<div class="footer-column">
+							<div class="footer-widget link-widget">
+								<h3>Quick Links</h3>
+								<ul>
+									<li><a href="gallery.html">Gallery</a></li>
+									<li><a href="services.html">Services</a></li>
+									<li><a href="about.html">Our Story</a></li>
+									<li><a href="contact.html">Contact</a></li>
+									<li><a href="https://www.instagram.com/klauspnjensen/" target="_blank">Instagram</a></li>
+								</ul>
+							</div>
+						</div>
+
+						<!-- Footer Column / Link Widget -->
+						<div class="footer-column">
+							<div class="footer-widget link-widget">
+								<h3>Services</h3>
+								<ul>
+									<li><a href="services.html">Custom Furniture</a></li>
+									<li><a href="services.html">Countertops & Islands</a></li>
+									<li><a href="services.html">Repair & Refinishing</a></li>
+									<li><a href="contact.html">Get a Quote</a></li>
+								</ul>
+							</div>
+						</div>
+
+						<!-- Footer Column / Link Widget -->
+						<div class="footer-column">
+							<div class="footer-widget link-widget">
+								<h3>Information</h3>
+								<ul>
+									<li><a href="about.html">Our Story</a></li>
+									<li><a href="about.html">Our Process</a></li>
+									<li><a href="gallery.html">Gallery</a></li>
+									<li><a href="contact.html">Contact</a></li>
+									<li><a href="https://www.instagram.com/klauspnjensen/" target="_blank">Instagram</a></li>
+								</ul>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<!-- Footer Bottom -->
+				<div class="footer-bottom">
+					<div class="row clearfix">
+
+						<!-- Copy Column -->
+						<div class="copy-column col-lg-4 col-md-12 col-sm-12">
+							<div class="copyright">&copy; <script type="text/javascript">document.write(new Date().getFullYear());</script> Jensen Woodworking. Handcrafted in Duxbury, MA.</div>
+						</div>
+						<!-- Pages Column -->
+						<div class="pages-column col-lg-6 col-md-12 col-sm-12">
+							<ul class="page-nav">
+								<li><a href="https://www.instagram.com/klauspnjensen/" target="_blank">Instagram</a></li>
+								<li><a href="about.html">About</a></li>
+								<li><a href="gallery.html">Gallery</a></li>
+								<li><a href="services.html">Services</a></li>
+								<li><a href="contact.html">Contact</a></li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+		</footer>
+		<!-- End Main Footer -->
+
+	</div>
+	<!--End pagewrapper-->
+
+	<!-- Scroll To Top -->
+	<div class="scroll-to-top scroll-to-target" data-target="html">
+		<span>
+			<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+			</svg>
+		</span>
+	</div>
+
+	<script src="js/jquery.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script src="js/jquery.fancybox.js"></script>
+	<script src="js/appear.js"></script>
+	<script src="js/owl.js"></script>
+	<script src="js/wow.js"></script>
+	<script src="js/parallax.min.js"></script>
+	<script src="js/tilt.jquery.min.js"></script>
+	<script src="js/jquery.paroller.min.js"></script>
+	<script src="js/jquery-ui.js"></script>
+	<script src="js/script.js"></script>
+	
+	<!-- Instagram Embed Script -->
+	<script async src="//www.instagram.com/embed.js"></script>
+	
+	<!-- Instagram Reels Toggle Script -->
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			const reelWrappers = document.querySelectorAll('.instagram-embed-wrapper');
+			
+			reelWrappers.forEach(function(wrapper) {
+				wrapper.addEventListener('click', function(e) {
+					// Don't trigger if clicking directly on the iframe
+					if (e.target.tagName === 'IFRAME') {
+						return;
+					}
+					
+					// Remove expanded class from all wrappers
+					reelWrappers.forEach(function(w) {
+						w.classList.remove('expanded');
+						w.classList.add('minimized');
+					});
+					
+					// Add expanded class to clicked wrapper
+					this.classList.remove('minimized');
+					this.classList.add('expanded');
+				});
+			});
+		});
+	</script>
+
+	<!-- Dynamic Client Portal URL Script -->
+	<script>
+		(function() {
+			// CONFIGURATION: If client-portal is deployed separately on Vercel, set this to your client-portal URL
+			// Example: const CLIENT_PORTAL_URL = 'https://your-client-portal.vercel.app';
+			const CLIENT_PORTAL_URL = null; // Set to null to auto-detect
+			
+			// Update all client portal links
+			function updateClientPortalLinks() {
+				const hostname = window.location.hostname;
+				const links = document.querySelectorAll('a.client-portal-link');
+				
+				links.forEach(function(link) {
+					const path = link.getAttribute('data-path') || '/client/project';
+					
+					// If explicitly configured, use that
+					if (CLIENT_PORTAL_URL) {
+						link.href = CLIENT_PORTAL_URL + path;
+						return;
+					}
+					
+					// If localhost, use localhost:3000 (Next.js dev server)
+					if (hostname === 'localhost' || hostname === '127.0.0.1') {
+						link.href = 'http://localhost:3000' + path;
+					} else {
+						// For production/Vercel, use relative paths (same domain)
+						link.href = path;
+					}
+					
+					console.log('Updated client portal link:', link.href);
+				});
+			}
+			
+			// Run immediately and also on DOM ready
+			updateClientPortalLinks();
+			
+			if (document.readyState === 'loading') {
+				document.addEventListener('DOMContentLoaded', updateClientPortalLinks);
+			}
+			
+			// Also run after a short delay to catch any late-loading content
+			setTimeout(updateClientPortalLinks, 100);
+		})();
+	</script>
+
+</body>
+
+</html>
+

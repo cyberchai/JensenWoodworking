@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Contact | Jensen Woodworking | Custom Woodworking in Duxbury, MA</title>
+	<meta name="description" content="Contact Jensen Woodworking for custom woodworking projects in Duxbury, MA. Get a quote for countertops, tables, mantels, and more." />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="profile" href="https://gmpg.org/xfn/11">
+	<link rel="canonical" href="Replace_with_your_PAGE_URL" />
+
+	<!-- Stylesheets -->
+	<link href="css/bootstrap.css" rel="stylesheet">
+	<link href="css/main.css" rel="stylesheet">
+	<link href="css/responsive.css" rel="stylesheet">
+	
+	<!-- Custom Logo Styles -->
+	<style>
+		.logo a,
+		.nav-logo a {
+			display: block;
+			font-size: 32px;
+			font-weight: 700;
+			line-height: 1.1;
+			color: #fff;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			text-decoration: none;
+		}
+		.logo a span,
+		.nav-logo a span {
+			display: block;
+		}
+		.main-header.fixed-header .logo a,
+		.main-header.fixed-header .nav-logo a {
+			color: #fff;
+		}
+		.mobile-menu .nav-logo a {
+			color: #000;
+		}
+		/* Footer Logo Styling */
+		.main-footer .logo a {
+			color: #000;
+			display: inline-block;
+		}
+		
+		.main-footer .logo a img {
+			max-width: 100%;
+			height: auto;
+			display: block;
+		}
+		
+		/* Contact Page Visual Separation */
+		.contact-page-section .info-column {
+			padding-right: 60px;
+			border-right: 1px solid #e2e2e2;
+		}
+		
+		.contact-page-section .form-column {
+			padding-left: 60px;
+		}
+		
+		@media (max-width: 991px) {
+			.contact-page-section .info-column {
+				padding-right: 0;
+				border-right: none;
+				margin-bottom: 60px;
+				padding-bottom: 60px;
+				border-bottom: 1px solid #e2e2e2;
+			}
+			
+			.contact-page-section .form-column {
+				padding-left: 0;
+			}
+		}
+		
+		/* Copy Address Functionality */
+		.address-copy {
+			position: relative;
+			cursor: pointer;
+			transition: all 0.3s ease;
+		}
+		
+		.address-copy:hover {
+			color: #ffe1a0;
+		}
+		
+		.address-copy::after {
+			content: 'Click to copy';
+			position: absolute;
+			left: 0;
+			bottom: 100%;
+			background-color: #000;
+			color: #fff;
+			padding: 8px 12px;
+			font-size: 12px;
+			white-space: nowrap;
+			opacity: 0;
+			pointer-events: none;
+			transition: opacity 0.3s ease;
+			margin-bottom: 8px;
+			border-radius: 4px;
+		}
+		
+		.address-copy:hover::after {
+			opacity: 1;
+		}
+		
+		.address-copy.copied::after {
+			content: 'Copied!';
+			background-color: #ffe1a0;
+			color: #000;
+		}
+		
+		/* Contact Page Button Font Size */
+		.contact-page-section .theme-btn.btn-style-one {
+			font-size: 18px;
+		}
+		
+		/* Info Tooltip Styling */
+		.info-tooltip-trigger {
+			position: relative;
+		}
+		
+		.info-tooltip-trigger svg {
+			transition: color 0.3s ease;
+		}
+		
+		.info-tooltip-trigger:hover svg {
+			color: #ffe1a0;
+		}
+		
+		.info-tooltip {
+			position: absolute;
+			left: 50%;
+			top: 100%;
+			transform: translateX(-50%);
+			margin-top: 8px;
+			background-color: #000;
+			color: #fff;
+			padding: 12px 16px;
+			font-size: 13px;
+			line-height: 1.6;
+			white-space: normal;
+			width: 280px;
+			border-radius: 0;
+			opacity: 0;
+			pointer-events: none;
+			transition: opacity 0.3s ease, visibility 0.3s ease;
+			visibility: hidden;
+			z-index: 1000;
+			text-align: left;
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+		}
+		
+		.info-tooltip::before {
+			content: '';
+			position: absolute;
+			bottom: 100%;
+			left: 50%;
+			transform: translateX(-50%);
+			border: 6px solid transparent;
+			border-bottom-color: #000;
+		}
+		
+		.info-tooltip-trigger:hover .info-tooltip {
+			opacity: 1;
+			visibility: visible;
+		}
+		
+		/* Toggle Switch Styling */
+		.toggle-switch {
+			position: relative;
+			display: inline-block;
+			width: 50px;
+			height: 26px;
+		}
+		
+		.toggle-switch input {
+			opacity: 0;
+			width: 0;
+			height: 0;
+		}
+		
+		.toggle-slider {
+			position: absolute;
+			cursor: pointer;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: #ccc;
+			transition: 0.4s;
+			border-radius: 26px;
+		}
+		
+		.toggle-slider:before {
+			position: absolute;
+			content: "";
+			height: 20px;
+			width: 20px;
+			left: 3px;
+			bottom: 3px;
+			background-color: white;
+			transition: 0.4s;
+			border-radius: 50%;
+		}
+		
+		.toggle-switch input:checked + .toggle-slider {
+			background-color: #ffe1a0;
+		}
+		
+		.toggle-switch input:focus + .toggle-slider {
+			box-shadow: 0 0 1px #ffe1a0;
+		}
+		
+		.toggle-switch input:checked + .toggle-slider:before {
+			transform: translateX(24px);
+		}
+		
+		/* Form Message Styling */
+		#form-message {
+			display: none;
+			padding: 15px;
+			margin-bottom: 20px;
+			border-radius: 0;
+			text-align: center;
+			font-size: 16px;
+		}
+		
+		#form-message.success {
+			background-color: #d4edda;
+			color: #155724;
+			border: 1px solid #c3e6cb;
+		}
+		
+		#form-message.error {
+			background-color: #f8d7da;
+			color: #721c24;
+			border: 1px solid #f5c6cb;
+		}
+		
+		#form-message.show {
+			display: block;
+		}
+		
+		/* Scroll to Top Animation */
+		.scroll-to-top {
+			position: fixed;
+			bottom: 85px;
+			right: 15px;
+			width: 60px;
+			height: 60px;
+			color: #fff;
+			font-size: 24px;
+			text-transform: uppercase;
+			line-height: 60px;
+			text-align: center;
+			z-index: 100;
+			cursor: pointer;
+			background: #0a0a0a;
+			display: none;
+			transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+			overflow: hidden;
+			border-radius: 0;
+			clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+		}
+		
+		.scroll-to-top:hover {
+			width: 220px;
+			height: 60px;
+			background: #ffe1a0;
+			color: #000;
+			clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 50%, calc(100% - 20px) 100%, 0 100%);
+		}
+		
+		.scroll-to-top span {
+			display: inline-block;
+			transition: all 0.4s ease;
+			position: relative;
+			z-index: 2;
+		}
+		
+		.scroll-to-top:hover span {
+			transform: translateX(-80px);
+			opacity: 0;
+		}
+		
+		.scroll-to-top::after {
+			content: '↑ take me to the top of page';
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%) translateX(250px);
+			white-space: nowrap;
+			font-size: 11px;
+			opacity: 0;
+			transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+			font-weight: 400;
+			letter-spacing: 0.5px;
+			z-index: 1;
+			color: #000;
+		}
+		
+		.scroll-to-top:hover::after {
+			transform: translate(-50%, -50%) translateX(0);
+			opacity: 1;
+		}
+	</style>
+
+	<!-- Open Graph (OG) meta tags -->
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="Contact | Jensen Woodworking | Custom Woodworking in Duxbury, MA" />
+	<meta property="og:url" content="PAGE_URL" />
+	<meta property="og:site_name" content="SITE_NAME" />
+	<meta property="og:image" content="#" />
+	<meta property="og:description" content="Contact Jensen Woodworking for custom woodworking projects." />
+
+	<!-- Fonts -->
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link
+		href="https://fonts.googleapis.com/css2?family=Heebo:wght@100;300;400;500;600;700;800;900&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+		rel="stylesheet">
+
+	<!-- Add site Favicon -->
+	<link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+	<link rel="icon" href="images/favicon.png" type="image/x-icon">
+	<meta name="msapplication-TileImage" content="images/favicon.png" />
+
+	<!-- Structured Data  -->
+	<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "WebSite",
+  "name": "Jensen Woodworking",
+  "url": "Replace_with_your_site_URL"
+}
+</script>
+
+	<!-- Google Tag Manager -->
+	<script>(function (w, d, s, l, i) {
+			w[l] = w[l] || []; w[l].push({
+				'gtm.start':
+					new Date().getTime(), event: 'gtm.js'
+			}); var f = d.getElementsByTagName(s)[0],
+				j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+					'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-5JCTSSF');</script>
+	<!-- End Google Tag Manager -->
+</head>
+
+<body>
+
+	<!-- Google Tag Manager (noscript) -->
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5JCTSSF" height="0" width="0"
+			style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- End Google Tag Manager (noscript) -->
+
+	<div class="page-wrapper">
+
+		<!-- Main Header-->
+		<header class="main-header">
+
+			<!-- Header Upper -->
+			<div class="header-upper">
+				<div class="outer-container">
+					<div class="inner-container clearfix">
+
+						<div class="pull-left logo-box">
+							<div class="logo"><a href="index.html"><span>Jensen</span><span>Woodworking</span></a></div>
+						</div>
+
+						<div class="nav-outer pull-left clearfix">
+							<!-- Mobile Navigation Toggler -->
+							<div class="mobile-nav-toggler">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+								</svg>
+							</div>
+							<!-- Main Menu -->
+							<nav class="main-menu navbar-expand-md">
+								<div class="navbar-header">
+									<button class="navbar-toggler" type="button" data-toggle="collapse"
+										data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+										aria-label="Toggle navigation">
+										<span class="icon-bar"></span>
+										<span class="icon-bar"></span>
+										<span class="icon-bar"></span>
+									</button>
+								</div>
+
+								<div class="navbar-collapse show collapse clearfix" id="navbarSupportedContent">
+									<ul class="navigation clearfix">
+										<li><a href="index.html">Home</a></li>
+										<li><a href="about.html">About</a></li>
+										<li><a href="gallery.html">Gallery</a></li>
+										<li><a href="services.html">Services</a></li>
+										<li class="current"><a href="contact.html">Contact</a></li>
+										<li><a href="#" class="client-portal-link" data-path="/client/project">Your Project</a></li>
+									</ul>
+								</div>
+
+							</nav>
+
+						</div>
+
+						<!-- Outer Box -->
+						<div class="outer-box clearfix">
+							<!-- Mobile Navigation Toggler -->
+							<div class="mobile-nav-toggler">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+								</svg>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<!--End Header Upper-->
+
+			<!-- Mobile Menu  -->
+			<div class="mobile-menu">
+				<div class="menu-backdrop"></div>
+				<div class="close-btn"><span class="icon lnr lnr-cross"></span></div>
+
+				<nav class="menu-box">
+					<div class="nav-logo"><a href="index.html"><span>Jensen</span><span>Woodworking</span></a></div>
+					<div class="menu-outer">
+						<!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
+					</div>
+				</nav>
+			</div><!-- End Mobile Menu -->
+
+		</header>
+		<!--End Main Header -->
+
+		<!-- Page Banner Section -->
+		<section class="page-banner-section" style="background-image: url(images/main-slider/image-1.jpg)">
+			<div class="auto-container">
+				<div class="title">Contact</div>
+				<h1>Get in Touch</h1>
+			</div>
+		</section>
+		<!-- End Page Banner Section -->
+
+		<!-- Contact Page Section -->
+		<section class="contact-page-section">
+			<div class="auto-container">
+				<div class="row clearfix">
+					
+					<!-- Info Column -->
+					<div class="info-column col-lg-6 col-md-12 col-sm-12">
+						<div class="inner-column">
+							<h2>Contact Information</h2>
+							<div class="contact-image" style="margin: 30px 0; width: 100%;">
+								<img src="images/table.jpg" alt="Custom Woodworking" style="width: 100%; height: auto; display: block; border-radius: 4px;" />
+							</div>
+							<h3>Get Started <span>on Your Project</span></h3>
+							<ul>
+								<li><strong>Address:</strong> <span class="address-copy" data-address="33 Harrison Street, Duxbury, Massachusetts 02332, United States">33 Harrison Street, Duxbury, Massachusetts 02332, United States</span></li>
+								<li><strong>Email:</strong> <a href="mailto:kpnjensen@gmail.com">kpnjensen@gmail.com</a></li>
+								<li><strong>Phone:</strong> <a href="tel:+16173204287">(617) 320-4287</a></li>
+								<li><strong>Hours:</strong> Monday - Friday: 9:00 am – 5:00 pm</li>
+							</ul>
+							<a href="mailto:kpnjensen@gmail.com" class="theme-btn btn-style-one"><span class="txt">Send Email</span></a>
+						</div>
+					</div>
+
+					<!-- Form Column -->
+					<div class="form-column col-lg-6 col-md-12 col-sm-12">
+						<div class="inner-column">
+							<h6>Send us a message</h6>
+							<div class="contact-form">
+								<div id="form-message"></div>
+								<form id="contact-form" method="POST">
+									<div class="form-group">
+										<input type="text" name="username" placeholder="Your Name" required>
+									</div>
+									<div class="form-group">
+										<input type="email" name="email" placeholder="Your Email" required>
+									</div>
+									<div class="form-group">
+										<input type="tel" name="phone" placeholder="Your Phone">
+									</div>
+									<div class="form-group">
+										<input type="text" name="budget" placeholder="Budget (Optional)">
+									</div>
+									<div class="form-group">
+										<textarea name="message" placeholder="Your Message" required></textarea>
+									</div>
+									<div class="form-group" style="margin-bottom: 20px;">
+										<div style="display: flex; flex-direction: column; gap: 15px;">
+											<div style="display: flex; align-items: center; justify-content: space-between;">
+												<label for="contractor_involved" style="color: #666; font-size: 14px; margin: 0; cursor: pointer;">Contractor Involved?</label>
+												<label class="toggle-switch">
+													<input type="checkbox" id="contractor_involved" name="contractor_involved">
+													<span class="toggle-slider"></span>
+												</label>
+											</div>
+											<div style="display: flex; align-items: center; justify-content: space-between;">
+												<label for="designer_involved" style="color: #666; font-size: 14px; margin: 0; cursor: pointer;">Designer Involved?</label>
+												<label class="toggle-switch">
+													<input type="checkbox" id="designer_involved" name="designer_involved">
+													<span class="toggle-slider"></span>
+												</label>
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="additional_details" style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: #666; font-size: 14px;">
+											Optional Additional Details
+											<span class="info-tooltip-trigger" style="position: relative; display: inline-flex; align-items: center; cursor: help;">
+												<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: #999;">
+													<circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+													<text x="8" y="11" text-anchor="middle" font-size="11" font-weight="bold" fill="currentColor">i</text>
+												</svg>
+												<span class="info-tooltip">
+													Please share any information about:<br><br>
+													• Timing expectations (project timeline, deadlines)<br>
+													• External collaborators (interior designer, contractor, architect, etc.)<br>
+													• Budget considerations<br>
+													• Design constraints or special requirements
+												</span>
+											</span>
+										</label>
+										<textarea id="additional_details" name="additional_details" placeholder="Please share any information about:&#10;&#10;• Timing expectations (project timeline, deadlines)&#10;• External collaborators (interior designer, contractor, architect, etc.)&#10;• Budget considerations&#10;• Design constraints or special requirements" rows="6"></textarea>
+									</div>
+									<div class="form-group">
+										<button type="submit" class="theme-btn btn-style-one"><span class="txt">Send Message</span></button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</section>
+		<!-- End Contact Page Section -->
+
+		<!-- Main Footer -->
+		<footer class="main-footer">
+			<div class="outer-container">
+				<!--Widgets Section-->
+				<div class="widgets-section">
+					<div class="row clearfix">
+
+						<!-- Footer Column / Logo Widget -->
+						<div class="footer-column">
+							<div class="footer-widget logo-widget">
+								<div class="logo">
+									<a href="index.html"><img src="images/logo.webp" alt="Jensen Woodworking"></a>
+								</div>
+							</div>
+						</div>
+
+						<!-- Footer Column / Contact Widget -->
+						<div class="footer-column">
+							<div class="footer-widget contact-widget">
+								<h3>Contact</h3>
+								<ul>
+									<li>33 Harrison Street, Duxbury, Massachusetts 02332, United States</li>
+									<li><a href="mailto:kpnjensen@gmail.com">kpnjensen@gmail.com</a></li>
+									<li><a href="tel:+16173204287">(617) 320-4287</a></li>
+								</ul>
+							</div>
+						</div>
+
+						<!-- Footer Column / Link Widget -->
+						<div class="footer-column">
+							<div class="footer-widget link-widget">
+								<h3>Quick Links</h3>
+								<ul>
+									<li><a href="gallery.html">Gallery</a></li>
+									<li><a href="services.html">Services</a></li>
+									<li><a href="about.html">Our Story</a></li>
+									<li><a href="contact.html">Contact</a></li>
+									<li><a href="https://www.instagram.com/klauspnjensen/" target="_blank">Instagram</a></li>
+								</ul>
+							</div>
+						</div>
+
+						<!-- Footer Column / Link Widget -->
+						<div class="footer-column">
+							<div class="footer-widget link-widget">
+								<h3>Services</h3>
+								<ul>
+									<li><a href="services.html">Custom Furniture</a></li>
+									<li><a href="services.html">Countertops & Islands</a></li>
+									<li><a href="services.html">Repair & Refinishing</a></li>
+									<li><a href="contact.html">Get a Quote</a></li>
+								</ul>
+							</div>
+						</div>
+
+						<!-- Footer Column / Link Widget -->
+						<div class="footer-column">
+							<div class="footer-widget link-widget">
+								<h3>Information</h3>
+								<ul>
+									<li><a href="about.html">Our Story</a></li>
+									<li><a href="about.html">Our Process</a></li>
+									<li><a href="gallery.html">Gallery</a></li>
+									<li><a href="contact.html">Contact</a></li>
+									<li><a href="https://www.instagram.com/klauspnjensen/" target="_blank">Instagram</a></li>
+								</ul>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<!-- Footer Bottom -->
+				<div class="footer-bottom">
+					<div class="row clearfix">
+
+						<!-- Copy Column -->
+						<div class="copy-column col-lg-4 col-md-12 col-sm-12">
+							<div class="copyright">&copy; <script type="text/javascript">document.write(new Date().getFullYear());</script> Jensen Woodworking. Handcrafted in Duxbury, MA.</div>
+						</div>
+						<!-- Pages Column -->
+						<div class="pages-column col-lg-6 col-md-12 col-sm-12">
+							<ul class="page-nav">
+								<li><a href="https://www.instagram.com/klauspnjensen/" target="_blank">Instagram</a></li>
+								<li><a href="about.html">About</a></li>
+								<li><a href="gallery.html">Gallery</a></li>
+								<li><a href="services.html">Services</a></li>
+								<li><a href="contact.html">Contact</a></li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+		</footer>
+		<!-- End Main Footer -->
+
+	</div>
+	<!--End pagewrapper-->
+
+	<!-- Scroll To Top -->
+	<div class="scroll-to-top scroll-to-target" data-target="html">
+		<span>
+			<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+			</svg>
+		</span>
+	</div>
+
+	<script src="js/jquery.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script src="js/jquery.fancybox.js"></script>
+	<script src="js/appear.js"></script>
+	<script src="js/owl.js"></script>
+	<script src="js/wow.js"></script>
+	<script src="js/parallax.min.js"></script>
+	<script src="js/tilt.jquery.min.js"></script>
+	<script src="js/jquery.paroller.min.js"></script>
+	<script src="js/jquery-ui.js"></script>
+	<script src="js/script.js"></script>
+
+	<!-- Copy Address Functionality -->
+	<script>
+		(function() {
+			const addressCopy = document.querySelector('.address-copy');
+			
+			if (addressCopy) {
+				addressCopy.addEventListener('click', function() {
+					const address = this.getAttribute('data-address');
+					
+					// Copy to clipboard
+					if (navigator.clipboard && navigator.clipboard.writeText) {
+						navigator.clipboard.writeText(address).then(function() {
+							// Show feedback
+							addressCopy.classList.add('copied');
+							setTimeout(function() {
+								addressCopy.classList.remove('copied');
+							}, 2000);
+						}).catch(function(err) {
+							console.error('Failed to copy address:', err);
+							// Fallback for older browsers
+							fallbackCopy(address, addressCopy);
+						});
+					} else {
+						// Fallback for older browsers
+						fallbackCopy(address, addressCopy);
+					}
+				});
+			}
+			
+			function fallbackCopy(text, element) {
+				const textArea = document.createElement('textarea');
+				textArea.value = text;
+				textArea.style.position = 'fixed';
+				textArea.style.left = '-999999px';
+				textArea.style.top = '-999999px';
+				document.body.appendChild(textArea);
+				textArea.focus();
+				textArea.select();
+				
+				try {
+					document.execCommand('copy');
+					element.classList.add('copied');
+					setTimeout(function() {
+						element.classList.remove('copied');
+					}, 2000);
+				} catch (err) {
+					console.error('Fallback copy failed:', err);
+				}
+				
+				document.body.removeChild(textArea);
+			}
+		})();
+	</script>
+
+	<!-- Contact Form Submission to Firestore -->
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			const form = document.getElementById('contact-form');
+			const messageDiv = document.getElementById('form-message');
+			
+			if (!form || !messageDiv) {
+				return;
+			}
+			
+			const submitButton = form.querySelector('button[type="submit"]');
+			const originalButtonText = submitButton ? submitButton.querySelector('.txt').textContent : 'Send Message';
+			
+			form.addEventListener('submit', function(e) {
+				e.preventDefault();
+				
+				// Get form data
+				const formData = new FormData(form);
+				
+				// Handle checkbox values - convert to "Yes" or "No"
+				const contractorCheckbox = form.querySelector('#contractor_involved');
+				const designerCheckbox = form.querySelector('#designer_involved');
+				
+				if (contractorCheckbox) {
+					formData.set('contractor_involved', contractorCheckbox.checked ? 'Yes' : 'No');
+				}
+				if (designerCheckbox) {
+					formData.set('designer_involved', designerCheckbox.checked ? 'Yes' : 'No');
+				}
+				
+				// Show loading state
+				submitButton.disabled = true;
+				submitButton.querySelector('.txt').textContent = 'Sending...';
+				messageDiv.classList.remove('show', 'success', 'error');
+				
+				// Determine API endpoint based on current location
+				// Handle different deployment scenarios
+				let apiEndpoint;
+				const protocol = window.location.protocol;
+				const hostname = window.location.hostname;
+				
+				if (protocol === 'file:') {
+					// If opened as file://, use localhost (for local testing)
+					// Note: Make sure the Next.js dev server is running on localhost:3000
+					apiEndpoint = 'http://localhost:3000/api/contact';
+				} else if (hostname === 'localhost' || hostname === '127.0.0.1') {
+					// Local development
+					const port = window.location.port || '3000';
+					apiEndpoint = 'http://localhost:' + port + '/api/contact';
+				} else {
+					// Production - adjust this path if your Next.js app is at a different path
+					// Options: '/api/contact' or '/client-portal/api/contact' depending on deployment
+					apiEndpoint = '/api/contact';
+				}
+				
+				// Submit to Firestore via Next.js API
+				fetch(apiEndpoint, {
+					method: 'POST',
+					body: formData,
+					headers: {
+						'Accept': 'application/json'
+					}
+				})
+				.then(function(response) {
+					if (response.ok) {
+						// Success
+						messageDiv.textContent = 'Thank you! Your message has been sent successfully. We\'ll get back to you soon.';
+						messageDiv.className = 'show success';
+						form.reset();
+						
+						// Scroll to message
+						messageDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+						
+						// Hide message after 5 seconds
+						setTimeout(function() {
+							messageDiv.classList.remove('show');
+						}, 5000);
+					} else {
+						// Error
+						return response.json().then(function(data) {
+							throw new Error(data.error || 'An error occurred');
+						});
+					}
+				})
+				.catch(function(error) {
+					// Show error message
+					messageDiv.textContent = 'Sorry, there was an error sending your message. Please try again or contact us directly at kpnjensen@gmail.com';
+					messageDiv.className = 'show error';
+					
+					// Scroll to message
+					messageDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+					
+					console.error('Form submission error:', error);
+				})
+				.finally(function() {
+					// Reset button state
+					if (submitButton) {
+						submitButton.disabled = false;
+						const buttonText = submitButton.querySelector('.txt');
+						if (buttonText) {
+							buttonText.textContent = originalButtonText;
+						}
+					}
+				});
+			});
+		});
+	</script>
+
+	<!-- Dynamic Client Portal URL Script -->
+	<script>
+		(function() {
+			// CONFIGURATION: If client-portal is deployed separately on Vercel, set this to your client-portal URL
+			// Example: const CLIENT_PORTAL_URL = 'https://your-client-portal.vercel.app';
+			const CLIENT_PORTAL_URL = null; // Set to null to auto-detect
+			
+			// Update all client portal links
+			function updateClientPortalLinks() {
+				const hostname = window.location.hostname;
+				const links = document.querySelectorAll('a.client-portal-link');
+				
+				links.forEach(function(link) {
+					const path = link.getAttribute('data-path') || '/client/project';
+					
+					// If explicitly configured, use that
+					if (CLIENT_PORTAL_URL) {
+						link.href = CLIENT_PORTAL_URL + path;
+						return;
+					}
+					
+					// If localhost, use localhost:3000 (Next.js dev server)
+					if (hostname === 'localhost' || hostname === '127.0.0.1') {
+						link.href = 'http://localhost:3000' + path;
+					} else {
+						// For production/Vercel, use relative paths (same domain)
+						link.href = path;
+					}
+					
+					console.log('Updated client portal link:', link.href);
+				});
+			}
+			
+			// Run immediately and also on DOM ready
+			updateClientPortalLinks();
+			
+			if (document.readyState === 'loading') {
+				document.addEventListener('DOMContentLoaded', updateClientPortalLinks);
+			}
+			
+			// Also run after a short delay to catch any late-loading content
+			setTimeout(updateClientPortalLinks, 100);
+		})();
+	</script>
+
+</body>
+
+</html>
+

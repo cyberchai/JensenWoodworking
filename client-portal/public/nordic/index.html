@@ -1,0 +1,1920 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Jensen Woodworking | Custom Woodworking in Duxbury, MA</title>
+	<meta name="description" content="Jensen Woodworking is a Scandinavian woodworking business based in Eastern Massachusetts that specializes in custom woodworking projects. Handcrafted furniture made with quality and care by Klaus Jensen in Duxbury, MA." />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="profile" href="https://gmpg.org/xfn/11">
+	<link rel="canonical" href="Replace_with_your_PAGE_URL" />
+
+	<!-- Stylesheets -->
+	<link href="css/bootstrap.css" rel="stylesheet">
+	<link href="css/main.css" rel="stylesheet">
+	<link href="css/responsive.css" rel="stylesheet">
+	
+	<!-- Custom Logo Styles -->
+	<style>
+		.logo a,
+		.nav-logo a {
+			display: block;
+			font-size: 32px;
+			font-weight: 700;
+			line-height: 1.1;
+			color: #fff;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			text-decoration: none;
+		}
+		.logo a span,
+		.nav-logo a span {
+			display: block;
+		}
+		.main-header.fixed-header .logo a,
+		.main-header.fixed-header .nav-logo a {
+			color: #fff;
+		}
+		.mobile-menu .nav-logo a {
+			color: #000;
+		}
+		/* Footer Logo Styling */
+		.main-footer .logo a {
+			color: #000;
+			display: inline-block;
+		}
+		
+		.main-footer .logo a img {
+			max-width: 100%;
+			height: auto;
+			display: block;
+		}
+		
+		/* Banner Section Full Height */
+		.banner-section {
+			height: 100vh;
+			min-height: 100vh;
+		}
+		.banner-section .slide {
+			height: 100vh;
+			min-height: 100vh;
+		}
+		.banner-section .main-slider-carousel {
+			height: 100vh;
+		}
+		.banner-section .owl-stage-outer,
+		.banner-section .owl-stage,
+		.banner-section .owl-item {
+			height: 100vh;
+		}
+		
+		/* Social Box SVG Icons */
+		.social-box a {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: #fff;
+			transition: opacity 0.3s ease;
+		}
+		.social-box a:hover {
+			opacity: 0.7;
+		}
+		.social-box svg {
+			width: 24px;
+			height: 24px;
+		}
+		
+		/* About Section Image Left Edge Styling */
+		.about-section {
+			position: relative;
+		}
+		
+		.about-section .about-image-column {
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 50%;
+			height: 100%;
+			background-size: cover;
+			background-position: center;
+		}
+		
+		.about-section .about-content-column {
+			margin-left: 50%;
+			padding: 80px 60px;
+		}
+		
+		.about-section .about-image-column .image-box {
+			width: 100%;
+			height: 100%;
+			margin: 0;
+		}
+		
+		.about-section .about-image-column .image-box img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+		
+		@media (max-width: 991px) {
+			.about-section .about-image-column {
+				position: relative;
+				width: 100%;
+				height: 400px;
+			}
+			
+			.about-section .about-content-column {
+				margin-left: 0;
+				padding: 60px 30px;
+			}
+		}
+		
+		/* Project Modal Styles */
+		.project-modal {
+			display: none;
+			position: fixed;
+			z-index: 10000;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow-y: auto;
+			background-color: rgba(0, 0, 0, 0.9);
+			opacity: 0;
+			transition: opacity 0.3s ease;
+		}
+		
+		.project-modal.active {
+			display: block;
+			opacity: 1;
+		}
+		
+		.project-modal-content {
+			position: relative;
+			background-color: #fff;
+			max-width: 1200px;
+			margin: 0 auto;
+			width: 100%;
+		}
+		
+		.project-modal-close {
+			position: fixed;
+			top: 30px;
+			right: 30px;
+			color: #fff;
+			font-size: 40px;
+			font-weight: 300;
+			cursor: pointer;
+			z-index: 10001;
+			line-height: 1;
+			width: 50px;
+			height: 50px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background-color: rgba(0, 0, 0, 0.5);
+			border-radius: 50%;
+			transition: all 0.3s ease;
+			border: none;
+			padding: 0;
+		}
+		
+		.project-modal-close:hover {
+			background-color: #ffe1a0;
+			color: #000;
+			transform: rotate(90deg);
+		}
+		
+		/* Image Section - Full Screen */
+		.project-modal-image-section {
+			width: 100%;
+			height: 100vh;
+			position: relative;
+			overflow: hidden;
+		}
+		
+		.project-modal-image {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			object-position: center;
+		}
+		
+		/* Navigation Buttons */
+		.project-modal-nav {
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			background-color: rgba(0, 0, 0, 0.5);
+			color: #fff;
+			border: none;
+			width: 50px;
+			height: 50px;
+			font-size: 24px;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			z-index: 10;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 50%;
+		}
+		
+		.project-modal-nav:hover {
+			background-color: #ffe1a0;
+			color: #000;
+		}
+		
+		.project-modal-nav-prev {
+			left: 30px;
+		}
+		
+		.project-modal-nav-next {
+			right: 30px;
+		}
+		
+		/* Indicators */
+		.project-modal-indicators {
+			position: absolute;
+			bottom: 30px;
+			left: 50%;
+			transform: translateX(-50%);
+			display: flex;
+			gap: 10px;
+			z-index: 10;
+		}
+		
+		.indicator-dot {
+			width: 10px;
+			height: 10px;
+			border-radius: 50%;
+			background-color: rgba(255, 255, 255, 0.5);
+			cursor: pointer;
+			transition: all 0.3s ease;
+		}
+		
+		.indicator-dot.active {
+			background-color: #ffe1a0;
+			width: 30px;
+			border-radius: 5px;
+		}
+		
+		/* Scroll Hint */
+		.project-modal-scroll-hint {
+			position: absolute;
+			bottom: 80px;
+			left: 50%;
+			transform: translateX(-50%);
+			color: #fff;
+			text-align: center;
+			z-index: 10;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 10px;
+			font-size: 14px;
+			letter-spacing: 1px;
+			cursor: pointer;
+			transition: opacity 0.3s ease;
+		}
+		
+		.project-modal-scroll-hint:hover {
+			opacity: 0.8;
+		}
+		
+		.project-modal-scroll-hint svg {
+			animation: bounce 4s infinite;
+		}
+		
+		@keyframes bounce {
+			0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+			40% { transform: translateY(-10px); }
+			60% { transform: translateY(-5px); }
+		}
+		
+		/* Content Section */
+		.project-modal-content-section {
+			background-color: #fff;
+			padding: 80px 40px;
+			max-width: 900px;
+			margin: 0 auto;
+		}
+		
+		.project-category-label {
+			font-size: 13px;
+			color: #777;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			margin-bottom: 15px;
+			font-weight: 500;
+		}
+		
+		.project-title {
+			font-size: 42px;
+			font-weight: 400;
+			color: #000;
+			margin-bottom: 30px;
+			line-height: 1.2;
+			font-family: 'Heebo', sans-serif;
+		}
+		
+		.project-description {
+			font-size: 17px;
+			line-height: 1.8;
+			color: #666;
+			margin-bottom: 40px;
+		}
+		
+		.project-description p {
+			margin: 0;
+		}
+		
+		.project-divider {
+			border: none;
+			border-top: 1px solid #e2e2e2;
+			margin: 40px 0;
+		}
+		
+		/* Details Grid */
+		.project-details-grid {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 40px;
+			margin-bottom: 50px;
+		}
+		
+		.project-detail-item h3 {
+			font-size: 18px;
+			font-weight: 500;
+			color: #000;
+			margin-bottom: 15px;
+			font-family: 'Heebo', sans-serif;
+		}
+		
+		.materials-list {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+		}
+		
+		.materials-list li {
+			font-size: 16px;
+			color: #666;
+			line-height: 1.8;
+			padding-left: 20px;
+			position: relative;
+		}
+		
+		.materials-list li::before {
+			content: '•';
+			position: absolute;
+			left: 0;
+			color: #ffe1a0;
+		}
+		
+		.dimensions-text,
+		.completion-date {
+			font-size: 16px;
+			color: #666;
+			line-height: 1.8;
+			margin: 0;
+		}
+		
+		/* Extra Images Section */
+		.project-extra-images {
+			margin-top: 50px;
+			padding-top: 40px;
+			border-top: 1px solid #e2e2e2;
+		}
+		
+		.extra-images-title {
+			font-size: 24px;
+			font-weight: 400;
+			color: #000;
+			margin-bottom: 30px;
+			font-family: 'Heebo', sans-serif;
+			letter-spacing: 0.5px;
+		}
+		
+		.project-images-row {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+			gap: 20px;
+		}
+		
+		.project-extra-image-item {
+			position: relative;
+			overflow: hidden;
+			cursor: pointer;
+		}
+		
+		.project-extra-image {
+			width: 100%;
+			height: 200px;
+			object-fit: cover;
+			transition: transform 0.3s ease;
+		}
+		
+		.project-extra-image-item:hover .project-extra-image {
+			transform: scale(1.05);
+		}
+		
+		.project-clickable {
+			cursor: pointer;
+		}
+		
+		@media (max-width: 768px) {
+			.project-modal-image-section {
+				height: 50vh;
+			}
+			
+			.project-modal-close {
+				top: 15px;
+				right: 15px;
+				width: 40px;
+				height: 40px;
+				font-size: 30px;
+			}
+			
+			.project-modal-nav {
+				width: 40px;
+				height: 40px;
+				font-size: 20px;
+			}
+			
+			.project-modal-nav-prev {
+				left: 15px;
+			}
+			
+			.project-modal-nav-next {
+				right: 15px;
+			}
+			
+			.project-modal-content-section {
+				padding: 40px 20px;
+			}
+			
+			.project-title {
+				font-size: 28px;
+			}
+			
+			.project-description {
+				font-size: 16px;
+			}
+			
+			.project-details-grid {
+				grid-template-columns: 1fr;
+				gap: 30px;
+			}
+			
+			.extra-images-title {
+				font-size: 20px;
+			}
+			
+			.project-images-row {
+				grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+				gap: 15px;
+			}
+			
+			.project-extra-image {
+				height: 150px;
+			}
+		}
+		
+		/* Testimonial Quote Fix */
+		.testimonial-block .quote.icon_quotations {
+			font-family: 'Inter', sans-serif;
+			font-size: 60px;
+			line-height: 1;
+			color: #ffe1a0;
+			opacity: 0.3;
+		}
+		
+		.testimonial-block .quote.icon_quotations::before {
+			content: '"';
+		}
+		
+		/* Testimonial Carousel */
+		.testimonial-carousel-container {
+			margin-bottom: 25px;
+			position: relative;
+		}
+		
+		.testimonial-carousel-slides {
+			position: relative;
+			width: 100%;
+			height: 200px;
+			overflow: hidden;
+		}
+		
+		.testimonial-carousel-image {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			border-radius: 0;
+			opacity: 0;
+			transition: opacity 0.5s ease;
+		}
+		
+		.testimonial-carousel-image.active {
+			opacity: 1;
+		}
+		
+		.testimonial-carousel-arrow {
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			background-color: rgba(0, 0, 0, 0.5);
+			color: #fff;
+			border: none;
+			width: 40px;
+			height: 40px;
+			font-size: 24px;
+			line-height: 1;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			z-index: 10;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 0;
+			opacity: 0;
+			pointer-events: none;
+		}
+		
+		.testimonial-block:hover .testimonial-carousel-arrow:not(.hidden) {
+			opacity: 1;
+			pointer-events: auto;
+		}
+		
+		.testimonial-carousel-arrow:hover {
+			background-color: rgba(0, 0, 0, 0.8);
+		}
+		
+		.testimonial-carousel-prev {
+			left: 10px;
+		}
+		
+		.testimonial-carousel-next {
+			right: 10px;
+		}
+		
+		.testimonial-carousel-arrow.hidden {
+			display: none;
+		}
+		
+		.testimonial-block .inner-box {
+			position: relative;
+		}
+		
+		@media (max-width: 768px) {
+			.testimonial-carousel-slides {
+				height: 180px;
+			}
+			
+			.testimonial-carousel-arrow {
+				width: 35px;
+				height: 35px;
+				font-size: 20px;
+			}
+		}
+		
+		/* Owl Carousel Navigation SVG Arrows */
+		.owl-nav .owl-prev,
+		.owl-nav .owl-next {
+			position: relative;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: auto;
+			height: auto;
+			background-color: transparent;
+			border: none;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			font-size: 0;
+			line-height: 0;
+		}
+		
+		.owl-nav .owl-prev span,
+		.owl-nav .owl-next span {
+			display: none !important;
+		}
+		
+		.owl-nav .owl-prev::before,
+		.owl-nav .owl-next::before {
+			content: '';
+			display: block;
+			width: 24px;
+			height: 24px;
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 18l-6-6 6-6'/%3E%3C/svg%3E");
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-position: center;
+			transition: all 0.3s ease;
+		}
+		
+		.owl-nav .owl-next::before {
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 18l6-6-6-6'/%3E%3C/svg%3E");
+		}
+		
+		.owl-nav .owl-prev:hover::before,
+		.owl-nav .owl-next:hover::before {
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 18l-6-6 6-6'/%3E%3C/svg%3E");
+		}
+		
+		.owl-nav .owl-next:hover::before {
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 18l6-6-6-6'/%3E%3C/svg%3E");
+		}
+		
+		/* Scroll to Top Animation */
+		.scroll-to-top {
+			position: fixed;
+			bottom: 85px;
+			right: 15px;
+			width: 60px;
+			height: 60px;
+			color: #fff;
+			font-size: 24px;
+			text-transform: uppercase;
+			line-height: 60px;
+			text-align: center;
+			z-index: 100;
+			cursor: pointer;
+			background: #0a0a0a;
+			display: none;
+			transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+			overflow: hidden;
+			border-radius: 0;
+			clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+		}
+		
+		.scroll-to-top:hover {
+			width: 220px;
+			height: 60px;
+			background: #ffe1a0;
+			color: #000;
+			clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 50%, calc(100% - 20px) 100%, 0 100%);
+		}
+		
+		.scroll-to-top span {
+			display: inline-block;
+			transition: all 0.4s ease;
+			position: relative;
+			z-index: 2;
+		}
+		
+		.scroll-to-top:hover span {
+			transform: translateX(-80px);
+			opacity: 0;
+		}
+		
+		.scroll-to-top::after {
+			content: '↑ take me to the top of page';
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%) translateX(250px);
+			white-space: nowrap;
+			font-size: 11px;
+			opacity: 0;
+			transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+			font-weight: 400;
+			letter-spacing: 0.5px;
+			z-index: 1;
+			color: #000;
+		}
+		
+		.scroll-to-top:hover::after {
+			transform: translate(-50%, -50%) translateX(0);
+			opacity: 1;
+		}
+		
+		@media (max-width: 768px) {
+			.project-modal-content {
+				width: 95%;
+				max-height: 95vh;
+			}
+			
+			.project-modal-image {
+				height: 250px;
+			}
+			
+			.project-modal-body {
+				padding: 30px 20px;
+			}
+			
+			.project-modal-title {
+				font-size: 24px;
+			}
+		}
+		
+		/* Center Service Box Content Horizontally */
+		.service-box .inner-box {
+			text-align: center;
+		}
+		
+		.service-box .inner-box .content {
+			display: inline-block;
+			text-align: left;
+			position: relative;
+		}
+		
+		/* Remove Service Box Image Animations */
+		.service-box .inner-box:hover .content .icon,
+		.service-box .inner-box .content .icon {
+			transform: none !important;
+			-webkit-transform: none !important;
+			-moz-transform: none !important;
+			-ms-transform: none !important;
+			-o-transform: none !important;
+		}
+		
+		/* Make Service Box Images Fill Content Height */
+		.service-box .inner-box .content .icon {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			height: 100% !important;
+			width: 80px !important;
+		}
+		
+		/* Add Spacing Above Services Title */
+		#services .sec-title {
+			margin-top: 60px;
+		}
+	</style>
+
+	<!-- Open Graph (OG) meta tags are snippets of code that control how URLs are displayed when shared on social media  -->
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="Jensen Woodworking | Custom Woodworking in Duxbury, MA" />
+	<meta property="og:url" content="PAGE_URL" />
+	<meta property="og:site_name" content="SITE_NAME" />
+	<!-- For the og:image content, replace the # with a link of an image -->
+	<meta property="og:image" content="#" />
+	<meta property="og:description" content="Jensen Woodworking - Handcrafted custom countertops, tables, mantels, and restorations by Klaus Jensen in Duxbury, Massachusetts. 30+ years of experience creating beautiful, functional pieces that last for generations." />
+
+	<!-- Fonts -->
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link
+		href="https://fonts.googleapis.com/css2?family=Heebo:wght@100;300;400;500;600;700;800;900&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+		rel="stylesheet">
+
+	<!-- Add site Favicon -->
+	<link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+	<link rel="icon" href="images/favicon.png" type="image/x-icon">
+	<meta name="msapplication-TileImage" content="images/favicon.png" />
+
+	<!-- Structured Data  -->
+	<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "WebSite",
+  "name": "Replace_with_your_site_title",
+  "url": "Replace_with_your_site_URL"
+}
+</script>
+
+
+	<!-- Google Tag Manager -->
+	<script>(function (w, d, s, l, i) {
+			w[l] = w[l] || []; w[l].push({
+				'gtm.start':
+					new Date().getTime(), event: 'gtm.js'
+			}); var f = d.getElementsByTagName(s)[0],
+				j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+					'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-5JCTSSF');</script>
+	<!-- End Google Tag Manager -->
+</head>
+
+<body>
+
+	<!-- Google Tag Manager (noscript) -->
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5JCTSSF" height="0" width="0"
+			style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- End Google Tag Manager (noscript) -->
+
+	<div class="page-wrapper">
+
+		<!-- Main Header-->
+		<header class="main-header">
+
+			<!-- Header Upper -->
+			<div class="header-upper">
+				<div class="outer-container">
+					<div class="inner-container clearfix">
+
+						<div class="pull-left logo-box">
+							<div class="logo"><a href="index.html"><span>Jensen</span><span>Woodworking</span></a></div>
+						</div>
+
+						<div class="nav-outer pull-left clearfix">
+							<!-- Mobile Navigation Toggler -->
+							<div class="mobile-nav-toggler">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+								</svg>
+							</div>
+							<!-- Main Menu -->
+							<nav class="main-menu navbar-expand-md">
+								<div class="navbar-header">
+									<button class="navbar-toggler" type="button" data-toggle="collapse"
+										data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+										aria-label="Toggle navigation">
+										<span class="icon-bar"></span>
+										<span class="icon-bar"></span>
+										<span class="icon-bar"></span>
+									</button>
+								</div>
+
+								<div class="navbar-collapse show collapse clearfix" id="navbarSupportedContent">
+									<ul class="navigation clearfix">
+										<li class="current"><a href="index.html">Home</a></li>
+										<li><a href="about.html">About</a></li>
+										<li><a href="gallery.html">Gallery</a></li>
+										<li><a href="services.html">Services</a></li>
+										<li><a href="contact.html">Contact</a></li>
+										<li><a href="#" class="client-portal-link" data-path="/client/project">Your Project</a></li>
+									</ul>
+								</div>
+
+							</nav>
+
+						</div>
+
+						<!-- Outer Box -->
+						<div class="outer-box clearfix">
+							<!-- Mobile Navigation Toggler -->
+							<div class="mobile-nav-toggler">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+								</svg>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<!--End Header Upper-->
+
+			<!-- Mobile Menu  -->
+			<div class="mobile-menu">
+				<div class="menu-backdrop"></div>
+				<div class="close-btn"><span class="icon lnr lnr-cross"></span></div>
+
+				<nav class="menu-box">
+					<div class="nav-logo"><a href="index.html"><span>Jensen</span><span>Woodworking</span></a></div>
+					<div class="menu-outer">
+						<!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
+					</div>
+				</nav>
+			</div><!-- End Mobile Menu -->
+
+		</header>
+		<!--End Main Header -->
+
+		<!-- Banner Section -->
+		<section class="banner-section" id="home">
+			<div class="main-slider-carousel owl-carousel owl-theme">
+
+				<div class="slide" style="background-image: url(images/main-slider/image-1.jpg)">
+					<div class="auto-container">
+						<!-- Content Boxed -->
+						<div class="content-boxed">
+							<div class="inner-boxed">
+								<div class="title">Jensen Woodworking</div>
+								<h1>Custom Nordic <br>Countertops & Islands</h1>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="slide" style="background-image: url(images/main-slider/image-1.jpg)">
+					<div class="auto-container">
+						<!-- Content Boxed -->
+						<div class="content-boxed">
+							<div class="inner-boxed">
+								<div class="title">Dining Tables</div>
+								<h1>Made to Fit <br> Your Home</h1>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="slide" style="background-image: url(images/main-slider/image-1.jpg)">
+					<div class="auto-container">
+						<!-- Content Boxed -->
+						<div class="content-boxed">
+							<div class="inner-boxed">
+								<div class="title">Repair & Refinish</div>
+								<h1>Bring Heirlooms <br> Back to Life</h1>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="slide" style="background-image: url(images/main-slider/image-1.jpg)">
+					<div class="auto-container">
+						<!-- Content Boxed -->
+						<div class="content-boxed">
+							<div class="inner-boxed">
+								<div class="title">Custom Woodworking</div>
+								<h1>Quality. Detail. <br> Made to Last.</h1>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+
+			<!-- Scroll Down Btn -->
+			<div class="mouse-btn-down scroll-to-target" data-target=".about-section">
+				<div class="chevron"></div>
+				<div class="chevron"></div>
+				<div class="chevron"></div>
+			</div>
+
+			<!-- Social Box -->
+			<ul class="social-box">
+				<li>
+					<a href="https://www.instagram.com/klauspnjensen/" target="_blank" aria-label="Instagram">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" fill="currentColor"/>
+						</svg>
+					</a>
+				</li>
+				<li>
+					<a href="mailto:kpnjensen@gmail.com" aria-label="Email">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="currentColor"/>
+						</svg>
+					</a>
+				</li>
+				<li>
+					<a href="tel:6173204287" aria-label="Phone">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="currentColor"/>
+						</svg>
+					</a>
+				</li>
+			</ul>
+
+			<!-- Info -->
+			<div class="info"><a href="mailto:kpnjensen@gmail.com">kpnjensen@gmail.com</a></div>
+
+		</section>
+		<!-- End Banner Section -->
+
+		<!-- About Section -->
+		<section class="about-section" id="about">
+			<div class="outer-container clearfix">
+
+				<!-- Image Column -->
+				<div class="image-column about-image-column" style="background-image:url(images/resource/about.jpg)">
+					<figure class="image-box"><img src="images/resource/about.jpg" alt=""></figure>
+				</div>
+
+				<!-- Content Column -->
+				<div class="content-column about-content-column">
+					<div class="inner-column">
+						<!-- Sec Title -->
+						<div class="sec-title">
+							<div class="title">About Jensen Woodworking</div>
+							<h2>Custom woodwork crafted in coastal Massachusetts</h2>
+						</div>
+						<div class="bold-text">Handcrafted furniture made with quality and care</div>
+						<p>I am passionate about creating beautiful and functional pieces that will last for generations. I began woodworking 30 years ago when I started crafting furniture for family and friends. Today, I am inspired by the natural beauty of wood and the satisfaction of creating something that will be cherished for years to come. My workshop is located in the heart of the historic Shipbuilding District in Duxbury - the many shipyards employed some of the finest woodworkers and carpenters back in the day. I also love the story of each piece of wood and finding ways to repurpose fallen trees - giving them a new lease on life.</p>
+						<p>My process is rooted in traditional woodworking techniques and modern technology. I never get tired of a carefully honed blockplane peeling off perfect wood shavings. Or a perfectly cut piece of lumber using modern equipment. I start with carefully selected, sustainably sourced wood and use precision tools to create each piece. I believe that attention to detail and quality craftsmanship are essential to creating furniture that is both beautiful and functional. I focus primarily on kitchen countertops, bartops, mantels and dining tables and kitchen islands. But your imagination is my limit!</p>
+						<a href="contact.html" class="theme-btn btn-style-one"><span class="txt">Start a project</span></a>
+					</div>
+				</div>
+
+			</div>
+		</section>
+		<!-- End About Section -->
+
+		<!-- Fluid Section One -->
+		<section class="fluid-section-one" id="services">
+			<div class="outer-container clearfix">
+
+				<!-- Content Column -->
+				<div class="content-column">
+					<div class="inner-column">
+						<!-- Sec Title -->
+						<div class="sec-title">
+							<div class="title">Services</div>
+							<h2>Built-to-order woodworking for your home</h2>
+						</div>
+
+						<!-- Blocks Outer -->
+						<div class="blocks-outer">
+
+							<!-- Service Box -->
+							<div class="service-box">
+								<div class="inner-box">
+									<div class="content">
+										<img src="images/counter.jpg" alt="Countertops & Islands" class="icon" style="object-fit: cover;">
+										<h5><a href="gallery.html">Countertops & Islands</a></h5>
+										<p>Custom hardwood counters, islands, and bar tops sized to your kitchen and finished with durable Rubio Monocoat. Perfect for kitchens, basements, and in-law apartments.</p>
+									</div>
+								</div>
+							</div>
+
+							<!-- Service Box -->
+							<div class="service-box">
+								<div class="inner-box">
+									<div class="content">
+										<img src="images/table.jpg" alt="Dining Tables & Mantels" class="icon" style="object-fit: cover;">
+										<h5><a href="gallery.html">Dining Tables & Mantels</a></h5>
+										<p>Dining tables, live-edge slabs, and mantels built from locally sourced oak, walnut, maple, and cherry. Each piece is custom-designed to fit your space and style.</p>
+									</div>
+								</div>
+							</div>
+
+							<!-- Service Box -->
+							<div class="service-box">
+								<div class="inner-box">
+									<div class="content">
+										<img src="images/repairrefine.jpg" alt="Repair & Refinishing" class="icon" style="object-fit: cover;">
+										<h5><a href="contact.html">Repair & Refinishing</a></h5>
+										<p>In addition to custom furniture, I offer repair, restoration, and refinishing services. Thoughtful repairs to extend the life and beauty of heirloom pieces for your home, beach house, cabin, and even boats.</p>
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+
+				<!-- Image Column -->
+				<div class="image-column" style="background-image:url(images/resource/image-1.jpg)">
+					<figure class="image-box"><img src="images/resource/image-1.jpg" alt=""></figure>
+				</div>
+
+			</div>
+		</section>
+		<!-- End Fluid Section One -->
+
+		<!-- Projects Section -->
+		<section class="projects-section" id="projects">
+			<div class="auto-container">
+				<div class="sec-title">
+					<div class="clearfix">
+						<div class="pull-left">
+							<h2>Latest Projects</h2>
+						</div>
+						<div class="pull-right">
+							<a href="gallery.html" class="projects">All Projects</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="outer-container">
+				<div class="project-carousel owl-carousel owl-theme">
+
+					<!-- Gallery Block -->
+					<div class="gallery-block" data-project-title="Black Walnut Island Top - 36&quot; x 123&quot; x 1.75&quot;" data-project-location="Duxbury, MA" data-project-image="images/gallery/1.jpg" data-project-description="A stunning black walnut island top crafted with precision. This 36&quot; x 123&quot; x 1.75&quot; piece showcases the natural beauty of black walnut with its rich, dark tones and distinctive grain patterns. Perfect for a modern kitchen island that serves as both a functional workspace and a statement piece." data-project-related-images='["images/gallery/2.jpg", "images/gallery/3.jpg", "images/gallery/4.jpg"]'>
+						<div class="inner-box">
+							<div class="image project-clickable">
+								<div class="hover-color-layer"></div>
+								<a class="arrow ion-android-arrow-forward project-modal-trigger" href="javascript:void(0);"></a>
+								<img src="images/gallery/1.jpg" alt="" />
+								<div class="overlay-box">
+									<div class="content">
+										<div class="category">Duxbury, MA</div>
+										<h3><a href="javascript:void(0);" class="project-modal-trigger">Black Walnut Island Top - 36" x 123" x 1.75"</a></h3>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Gallery Block -->
+					<div class="gallery-block" data-project-title="Island Top - Black Walnut with Sapwood" data-project-location="Duxbury, MA" data-project-image="images/gallery/2.jpg" data-project-description="This beautiful island top features black walnut with natural sapwood accents, creating a striking contrast between the dark heartwood and lighter sapwood. The piece demonstrates expert craftsmanship in preserving and highlighting the natural characteristics of the wood." data-project-related-images='["images/gallery/1.jpg", "images/gallery/3.jpg", "images/gallery/4.jpg"]'>
+						<div class="inner-box">
+							<div class="image project-clickable">
+								<div class="hover-color-layer"></div>
+								<a class="arrow ion-android-arrow-forward project-modal-trigger" href="javascript:void(0);"></a>
+								<img src="images/gallery/2.jpg" alt="" />
+								<div class="overlay-box">
+									<div class="content">
+										<div class="category">Duxbury, MA</div>
+										<h3><a href="javascript:void(0);" class="project-modal-trigger">Island Top - Black Walnut with Sapwood</a></h3>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Gallery Block -->
+					<div class="gallery-block" data-project-title="Cherry Counter & Cherry Island" data-project-location="West Roxbury, MA" data-project-image="images/gallery/3.jpg" data-project-description="A complete kitchen transformation featuring cherry wood countertops and a matching island. The warm, reddish tones of cherry wood bring natural warmth to the space, while the seamless integration of counter and island creates a cohesive design." data-project-related-images='["images/gallery/1.jpg", "images/gallery/2.jpg", "images/gallery/4.jpg"]'>
+						<div class="inner-box">
+							<div class="image project-clickable">
+								<div class="hover-color-layer"></div>
+								<a class="arrow ion-android-arrow-forward project-modal-trigger" href="javascript:void(0);"></a>
+								<img src="images/gallery/3.jpg" alt="" />
+								<div class="overlay-box">
+									<div class="content">
+										<div class="category">West Roxbury, MA</div>
+										<h3><a href="javascript:void(0);" class="project-modal-trigger">Cherry Counter & Cherry Island</a></h3>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Gallery Block -->
+					<div class="gallery-block" data-project-title="Black Walnut Island Top - Farm Sink" data-project-location="East Boston, MA" data-project-image="images/gallery/4.jpg" data-project-description="This custom black walnut island top features an integrated farm sink cutout, showcasing both functionality and beauty. The rich black walnut provides a stunning backdrop for the farmhouse-style sink, creating a perfect blend of traditional and modern design elements." data-project-related-images='["images/gallery/1.jpg", "images/gallery/2.jpg", "images/gallery/3.jpg"]'>
+						<div class="inner-box">
+							<div class="image project-clickable">
+								<div class="hover-color-layer"></div>
+								<a class="arrow ion-android-arrow-forward project-modal-trigger" href="javascript:void(0);"></a>
+								<img src="images/gallery/4.jpg" alt="" />
+								<div class="overlay-box">
+									<div class="content">
+										<div class="category">East Boston, MA</div>
+										<h3><a href="javascript:void(0);" class="project-modal-trigger">Black Walnut Island Top - Farm Sink</a></h3>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Gallery Block -->
+					<div class="gallery-block" data-project-title="Black Walnut Counter Top - Basement Kitchen" data-project-location="East Boston, MA" data-project-image="images/gallery/1.jpg" data-project-description="A custom black walnut countertop designed for a basement kitchen space. The dark, rich tones of the walnut create an elegant and sophisticated look, perfect for entertaining spaces. The natural grain patterns add visual interest and character to the piece." data-project-related-images='["images/gallery/2.jpg", "images/gallery/3.jpg", "images/gallery/4.jpg"]'>
+						<div class="inner-box">
+							<div class="image project-clickable">
+								<div class="hover-color-layer"></div>
+								<a class="arrow ion-android-arrow-forward project-modal-trigger" href="javascript:void(0);"></a>
+								<img src="images/gallery/1.jpg" alt="" />
+								<div class="overlay-box">
+									<div class="content">
+										<div class="category">East Boston, MA</div>
+										<h3><a href="javascript:void(0);" class="project-modal-trigger">Black Walnut Counter Top - Basement Kitchen</a></h3>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Gallery Block -->
+					<div class="gallery-block" data-project-title="White Oak Quarter Sawn Butcher Block Island" data-project-location="Winchester, MA" data-project-image="images/gallery/2.jpg" data-project-description="This white oak quarter sawn butcher block island showcases the distinctive ray fleck pattern that quarter sawn oak is known for. The durable white oak is perfect for a butcher block surface, combining beauty with functionality for a kitchen that's both elegant and practical." data-project-related-images='["images/gallery/1.jpg", "images/gallery/3.jpg", "images/gallery/4.jpg"]'>
+						<div class="inner-box">
+							<div class="image project-clickable">
+								<div class="hover-color-layer"></div>
+								<a class="arrow ion-android-arrow-forward project-modal-trigger" href="javascript:void(0);"></a>
+								<img src="images/gallery/2.jpg" alt="" />
+								<div class="overlay-box">
+									<div class="content">
+										<div class="category">Winchester, MA</div>
+										<h3><a href="javascript:void(0);" class="project-modal-trigger">White Oak Quarter Sawn Butcher Block Island</a></h3>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Gallery Block -->
+					<div class="gallery-block" data-project-title="Chobham Manor Masterplan" data-project-location="Urban Design" data-project-image="images/gallery/1.jpg" data-project-description="A custom woodworking project showcasing modern design principles with traditional craftsmanship." data-project-related-images='["images/gallery/2.jpg", "images/gallery/3.jpg", "images/gallery/4.jpg"]'>
+						<div class="inner-box">
+							<div class="image project-clickable">
+								<div class="hover-color-layer"></div>
+								<a class="arrow ion-android-arrow-forward project-modal-trigger" href="javascript:void(0);"></a>
+								<img src="images/gallery/1.jpg" alt="" />
+								<div class="overlay-box">
+									<div class="content">
+										<div class="category">Urban Design</div>
+										<h3><a href="javascript:void(0);" class="project-modal-trigger">Chobham Manor Masterplan</a></h3>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Gallery Block -->
+					<div class="gallery-block" data-project-title="Brossia Heigh Luxury Apartment" data-project-location="Residential" data-project-image="images/gallery/2.jpg" data-project-description="Luxury custom woodworking for a high-end residential project, featuring premium materials and expert craftsmanship." data-project-related-images='["images/gallery/1.jpg", "images/gallery/3.jpg", "images/gallery/4.jpg"]'>
+						<div class="inner-box">
+							<div class="image project-clickable">
+								<div class="hover-color-layer"></div>
+								<a class="arrow ion-android-arrow-forward project-modal-trigger" href="javascript:void(0);"></a>
+								<img src="images/gallery/2.jpg" alt="" />
+								<div class="overlay-box">
+									<div class="content">
+										<div class="category">Residential</div>
+										<h3><a href="javascript:void(0);" class="project-modal-trigger">Brossia Heigh Luxury Apartment</a></h3>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Gallery Block -->
+					<div class="gallery-block" data-project-title="Sample Villa" data-project-location="Commercial" data-project-image="images/gallery/3.jpg" data-project-description="A commercial woodworking project demonstrating versatility and attention to detail in large-scale applications." data-project-related-images='["images/gallery/1.jpg", "images/gallery/2.jpg", "images/gallery/4.jpg"]'>
+						<div class="inner-box">
+							<div class="image project-clickable">
+								<div class="hover-color-layer"></div>
+								<a class="arrow ion-android-arrow-forward project-modal-trigger" href="javascript:void(0);"></a>
+								<img src="images/gallery/3.jpg" alt="" />
+								<div class="overlay-box">
+									<div class="content">
+										<div class="category">commercial</div>
+										<h3><a href="javascript:void(0);" class="project-modal-trigger">Sample Villa</a></h3>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Gallery Block -->
+					<div class="gallery-block" data-project-title="Innovation Private Residence" data-project-location="Sustainable Space" data-project-image="images/gallery/4.jpg" data-project-description="An innovative custom woodworking project featuring sustainable materials and modern design aesthetics." data-project-related-images='["images/gallery/1.jpg", "images/gallery/2.jpg", "images/gallery/3.jpg"]'>
+						<div class="inner-box">
+							<div class="image project-clickable">
+								<div class="hover-color-layer"></div>
+								<a class="arrow ion-android-arrow-forward project-modal-trigger" href="javascript:void(0);"></a>
+								<img src="images/gallery/4.jpg" alt="" />
+								<div class="overlay-box">
+									<div class="content">
+										<div class="category">suitanable space</div>
+										<h3><a href="javascript:void(0);" class="project-modal-trigger">Innovation Private Residence</a></h3>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</section>
+		<!-- End Projects Section -->
+
+		<!-- Testimonial Section -->
+		<section class="testimonial-section">
+			<div class="auto-container">
+				<!-- Sec Title -->
+				<div class="sec-title">
+					<h2>What Our Clients Say</h2>
+				</div>
+				<div class="testimonial-carousel owl-carousel owl-theme">
+
+					<!-- Testimonial Block -->
+					<div class="testimonial-block" data-testimonial-images='["images/gallery/1.jpg", "images/gallery/2.jpg"]'>
+						<div class="inner-box">
+							<div class="testimonial-carousel-container">
+								<div class="testimonial-carousel-slides">
+									<img class="testimonial-carousel-image active" src="images/gallery/1.jpg" alt="Kitchen Island - View 1">
+									<img class="testimonial-carousel-image" src="images/gallery/2.jpg" alt="Kitchen Island - View 2">
+								</div>
+								<button class="testimonial-carousel-arrow testimonial-carousel-prev" aria-label="Previous image">‹</button>
+								<button class="testimonial-carousel-arrow testimonial-carousel-next" aria-label="Next image">›</button>
+							</div>
+							<div class="quote icon_quotations"></div>
+							<div class="author">Sarah & Michael T. <span>/ Duxbury, MA</span></div>
+							<p>"The kitchen island Klaus built for us is absolutely stunning. The attention to detail and quality of craftsmanship exceeded our expectations. It's the centerpiece of our home."</p>
+						</div>
+					</div>
+
+					<!-- Testimonial Block -->
+					<div class="testimonial-block" data-testimonial-images='["images/gallery/3.jpg", "images/gallery/4.jpg", "images/gallery/1.jpg"]'>
+						<div class="inner-box">
+							<div class="testimonial-carousel-container">
+								<div class="testimonial-carousel-slides">
+									<img class="testimonial-carousel-image active" src="images/gallery/3.jpg" alt="Dining Table - View 1">
+									<img class="testimonial-carousel-image" src="images/gallery/4.jpg" alt="Dining Table - View 2">
+									<img class="testimonial-carousel-image" src="images/gallery/1.jpg" alt="Dining Table - View 3">
+								</div>
+								<button class="testimonial-carousel-arrow testimonial-carousel-prev" aria-label="Previous image">‹</button>
+								<button class="testimonial-carousel-arrow testimonial-carousel-next" aria-label="Next image">›</button>
+							</div>
+							<div class="quote icon_quotations"></div>
+							<div class="author">Jennifer M. <span>/ Plymouth, MA</span></div>
+							<p>"Working with Jensen Woodworking was a pleasure from start to finish. Klaus helped us choose the perfect wood and finish for our dining table. It's beautiful and built to last."</p>
+						</div>
+					</div>
+
+					<!-- Testimonial Block -->
+					<div class="testimonial-block" data-testimonial-images='["images/gallery/2.jpg", "images/gallery/3.jpg"]'>
+						<div class="inner-box">
+							<div class="testimonial-carousel-container">
+								<div class="testimonial-carousel-slides">
+									<img class="testimonial-carousel-image active" src="images/gallery/2.jpg" alt="Custom Mantel - View 1">
+									<img class="testimonial-carousel-image" src="images/gallery/3.jpg" alt="Custom Mantel - View 2">
+								</div>
+								<button class="testimonial-carousel-arrow testimonial-carousel-prev" aria-label="Previous image">‹</button>
+								<button class="testimonial-carousel-arrow testimonial-carousel-next" aria-label="Next image">›</button>
+							</div>
+							<div class="quote icon_quotations"></div>
+							<div class="author">Robert & Linda C. <span>/ Hingham, MA</span></div>
+							<p>"After three months of searching, we found Klaus. The custom mantel he created transformed our living room. The reclaimed wood has so much character and history."</p>
+						</div>
+					</div>
+
+					<!-- Testimonial Block -->
+					<div class="testimonial-block" data-testimonial-images='["images/gallery/4.jpg"]'>
+						<div class="inner-box">
+							<div class="testimonial-carousel-container">
+								<div class="testimonial-carousel-slides">
+									<img class="testimonial-carousel-image active" src="images/gallery/4.jpg" alt="Bar Top">
+								</div>
+							</div>
+							<div class="quote icon_quotations"></div>
+							<div class="author">David & Emily J. <span>/ Scituate, MA</span></div>
+							<p>"The bar top Klaus installed is perfect. He understood our vision and delivered exactly what we wanted. The Rubio Monocoat finish looks incredible and is so easy to maintain."</p>
+						</div>
+					</div>
+
+					<!-- Testimonial Block -->
+					<div class="testimonial-block" data-testimonial-images='["images/gallery/1.jpg", "images/gallery/2.jpg", "images/gallery/3.jpg", "images/gallery/4.jpg"]'>
+						<div class="inner-box">
+							<div class="testimonial-carousel-container">
+								<div class="testimonial-carousel-slides">
+									<img class="testimonial-carousel-image active" src="images/gallery/1.jpg" alt="Restoration - Before">
+									<img class="testimonial-carousel-image" src="images/gallery/2.jpg" alt="Restoration - Process">
+									<img class="testimonial-carousel-image" src="images/gallery/3.jpg" alt="Restoration - Detail">
+									<img class="testimonial-carousel-image" src="images/gallery/4.jpg" alt="Restoration - After">
+								</div>
+								<button class="testimonial-carousel-arrow testimonial-carousel-prev" aria-label="Previous image">‹</button>
+								<button class="testimonial-carousel-arrow testimonial-carousel-next" aria-label="Next image">›</button>
+							</div>
+							<div class="quote icon_quotations"></div>
+							<div class="author">Patricia O. <span>/ Marshfield, MA</span></div>
+							<p>"Klaus repaired and refinished our family heirloom dining table. It looks brand new while maintaining its original character. We couldn't be happier with the results."</p>
+						</div>
+					</div>
+
+					<!-- Testimonial Block -->
+					<div class="testimonial-block" data-testimonial-images='["images/gallery/3.jpg", "images/gallery/4.jpg"]'>
+						<div class="inner-box">
+							<div class="testimonial-carousel-container">
+								<div class="testimonial-carousel-slides">
+									<img class="testimonial-carousel-image active" src="images/gallery/3.jpg" alt="Custom Project - View 1">
+									<img class="testimonial-carousel-image" src="images/gallery/4.jpg" alt="Custom Project - View 2">
+								</div>
+								<button class="testimonial-carousel-arrow testimonial-carousel-prev" aria-label="Previous image">‹</button>
+								<button class="testimonial-carousel-arrow testimonial-carousel-next" aria-label="Next image">›</button>
+							</div>
+							<div class="quote icon_quotations"></div>
+							<div class="author">James & Maria R. <span>/ Kingston, MA</span></div>
+							<p>"Great communication, flexible scheduling, and exceptional craftsmanship. Klaus explained every step of the process and the final product is exactly what we envisioned."</p>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</section>
+		<!-- End Testimonial Section -->
+
+		<!-- Main Footer -->
+		<footer class="main-footer" id="contact">
+			<div class="outer-container">
+				<!--Widgets Section-->
+				<div class="widgets-section">
+					<div class="row clearfix">
+
+						<!-- Footer Column / Logo Widget -->
+						<div class="footer-column">
+							<div class="footer-widget logo-widget">
+								<div class="logo">
+									<a href="index.html"><img src="images/logo.webp" alt="Jensen Woodworking"></a>
+								</div>
+							</div>
+						</div>
+
+						<!-- Footer Column / Contact Widget -->
+						<div class="footer-column">
+							<div class="footer-widget contact-widget">
+								<h3>Contact</h3>
+								<ul>
+									<li>33 Harrison Street, Duxbury, Massachusetts 02332, United States</li>
+									<li><a href="mailto:kpnjensen@gmail.com">kpnjensen@gmail.com</a></li>
+									<li><a href="tel:+16173204287">(617) 320-4287</a></li>
+								</ul>
+							</div>
+						</div>
+
+						<!-- Footer Column / Link Widget -->
+						<div class="footer-column">
+							<div class="footer-widget link-widget">
+								<h3>Quick Links</h3>
+								<ul>
+									<li><a href="gallery.html">Gallery</a></li>
+									<li><a href="services.html">Services</a></li>
+									<li><a href="about.html">Our Story</a></li>
+									<li><a href="contact.html">Contact</a></li>
+									<li><a href="http://localhost:3000/client/project">Your Project</a></li>
+									<li><a href="https://www.instagram.com/klauspnjensen/" target="_blank">Instagram</a></li>
+								</ul>
+							</div>
+						</div>
+
+						<!-- Footer Column / Link Widget -->
+						<div class="footer-column">
+							<div class="footer-widget link-widget">
+								<h3>Services</h3>
+								<ul>
+									<li><a href="services.html">Custom Furniture</a></li>
+									<li><a href="services.html">Countertops & Islands</a></li>
+									<li><a href="services.html">Repair & Refinishing</a></li>
+									<li><a href="contact.html">Get a Quote</a></li>
+								</ul>
+							</div>
+						</div>
+
+						<!-- Footer Column / Link Widget -->
+						<div class="footer-column">
+							<div class="footer-widget link-widget">
+								<h3>Information</h3>
+								<ul>
+									<li><a href="about.html">Our Story</a></li>
+									<li><a href="about.html">Our Process</a></li>
+									<li><a href="gallery.html">Gallery</a></li>
+									<li><a href="contact.html">Contact</a></li>
+									<li><a href="https://www.instagram.com/klauspnjensen/" target="_blank">Instagram</a></li>
+								</ul>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<!-- Footer Bottom -->
+				<div class="footer-bottom">
+					<div class="row clearfix">
+
+						<!-- Copy Column -->
+						<div class="copy-column col-lg-4 col-md-12 col-sm-12">
+							<div class="copyright">&copy; <script type="text/javascript">document.write(new Date().getFullYear());</script> Jensen Woodworking. Handcrafted in Duxbury, MA.</div>
+						</div>
+						<!-- Pages Column -->
+						<div class="pages-column col-lg-6 col-md-12 col-sm-12">
+							<ul class="page-nav">
+								<li><a href="https://www.instagram.com/klauspnjensen/" target="_blank">Instagram</a></li>
+								<li><a href="about.html">About</a></li>
+								<li><a href="gallery.html">Gallery</a></li>
+								<li><a href="services.html">Services</a></li>
+								<li><a href="contact.html">Contact</a></li>
+								<li><a href="http://localhost:3000/client/project">Your Project</a></li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+		</footer>
+		<!-- End Main Footer -->
+
+	</div>
+	<!--End pagewrapper-->
+
+	<!-- Scroll To Top -->
+	<div class="scroll-to-top scroll-to-target" data-target="html">
+		<span>
+			<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+			</svg>
+		</span>
+	</div>
+
+	<!-- Project Modal -->
+	<div id="projectModal" class="project-modal">
+		<button class="project-modal-close" aria-label="Close">&times;</button>
+		<div class="project-modal-content">
+			<div class="project-modal-image-section">
+				<img id="modalImage" class="project-modal-image" src="" alt="" />
+				<button class="project-modal-nav project-modal-nav-prev" aria-label="Previous">❮</button>
+				<button class="project-modal-nav project-modal-nav-next" aria-label="Next">❯</button>
+				<div id="modalIndicators" class="project-modal-indicators"></div>
+				<div class="project-modal-scroll-hint" id="scrollHint">
+					<span>Scroll Down to see more details</span>
+					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M12 5v14M19 12l-7 7-7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+				</div>
+			</div>
+			<div class="project-modal-content-section">
+				<div id="modalCategory" class="project-category-label"></div>
+				<h2 id="modalTitle" class="project-title"></h2>
+				<div id="modalDescription" class="project-description"></div>
+				<hr class="project-divider">
+				<div class="project-details-grid">
+					<div class="project-detail-item">
+						<h3>Materials</h3>
+						<ul id="modalMaterials" class="materials-list"></ul>
+					</div>
+					<div class="project-detail-item">
+						<h3>Dimensions</h3>
+						<p id="modalDimensions" class="dimensions-text"></p>
+					</div>
+					<div class="project-detail-item">
+						<h3>Completion</h3>
+						<p id="modalCompletion" class="completion-date"></p>
+					</div>
+				</div>
+				<div id="modalRelated" class="project-extra-images" style="display: none;">
+					<h3 class="extra-images-title">More from this project</h3>
+					<div id="modalRelatedImages" class="project-images-row"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="js/jquery.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script src="js/jquery.fancybox.js"></script>
+	<script src="js/appear.js"></script>
+	<script src="js/owl.js"></script>
+	<script src="js/wow.js"></script>
+	<script src="js/parallax.min.js"></script>
+	<script src="js/tilt.jquery.min.js"></script>
+	<script src="js/jquery.paroller.min.js"></script>
+	<script src="js/jquery-ui.js"></script>
+	<script src="js/script.js"></script>
+
+	<!-- Project Modal Script -->
+	<script>
+		(function() {
+			// Modal functionality
+			const modal = document.getElementById('projectModal');
+			const modalImage = document.getElementById('modalImage');
+			const modalCategory = document.getElementById('modalCategory');
+			const modalTitle = document.getElementById('modalTitle');
+			const modalDescription = document.getElementById('modalDescription');
+			const modalMaterials = document.getElementById('modalMaterials');
+			const modalDimensions = document.getElementById('modalDimensions');
+			const modalCompletion = document.getElementById('modalCompletion');
+			const closeBtn = document.querySelector('.project-modal-close');
+			const prevBtn = document.querySelector('.project-modal-nav-prev');
+			const nextBtn = document.querySelector('.project-modal-nav-next');
+			const indicatorsContainer = document.getElementById('modalIndicators');
+			
+			const projectTriggers = document.querySelectorAll('.project-modal-trigger, .project-clickable');
+			
+			// Track current project data
+			let currentProjectImages = [];
+			let currentImageIndex = 0;
+			
+			// Extract dimensions from title if available
+			function extractDimensions(title) {
+				const match = title.match(/(\d+)"\s*x\s*(\d+)"\s*x\s*(\d+)"/);
+				if (match) {
+					return match[0];
+				}
+				return 'Custom dimensions';
+			}
+			
+			// Extract materials from title/type
+			function getMaterials(title, type) {
+				const materials = [];
+				if (title.toLowerCase().includes('walnut') || title.toLowerCase().includes('black walnut')) {
+					materials.push('Black Walnut');
+				} else if (title.toLowerCase().includes('cherry')) {
+					materials.push('Cherry');
+				} else if (title.toLowerCase().includes('oak') || title.toLowerCase().includes('white oak')) {
+					materials.push('White Oak');
+				} else if (title.toLowerCase().includes('reclaimed')) {
+					materials.push('Reclaimed Oak');
+				}
+				
+				if (type && type.toLowerCase().includes('butcher')) {
+					materials.push('Food-safe finish');
+				} else {
+					materials.push('Rubio Monocoat finish');
+				}
+				
+				if (materials.length === 0) {
+					materials.push('Premium hardwood');
+					materials.push('Rubio Monocoat finish');
+				}
+				
+				return materials;
+			}
+			
+			// Update image and indicators
+			function updateImageDisplay() {
+				if (currentProjectImages.length === 0) return;
+				
+				modalImage.src = currentProjectImages[currentImageIndex];
+				modalImage.alt = modalTitle.textContent + ' - Image ' + (currentImageIndex + 1);
+				
+				// Update indicators
+				indicatorsContainer.innerHTML = '';
+				currentProjectImages.forEach(function(img, index) {
+					const dot = document.createElement('span');
+					dot.className = 'indicator-dot' + (index === currentImageIndex ? ' active' : '');
+					dot.addEventListener('click', function() {
+						currentImageIndex = index;
+						updateImageDisplay();
+					});
+					indicatorsContainer.appendChild(dot);
+				});
+				
+				// Show/hide navigation buttons
+				if (currentProjectImages.length <= 1) {
+					prevBtn.style.display = 'none';
+					nextBtn.style.display = 'none';
+					indicatorsContainer.style.display = 'none';
+				} else {
+					prevBtn.style.display = 'flex';
+					nextBtn.style.display = 'flex';
+					indicatorsContainer.style.display = 'flex';
+				}
+			}
+			
+			// Navigation handlers
+			if (prevBtn) {
+				prevBtn.addEventListener('click', function(e) {
+					e.stopPropagation();
+					if (currentProjectImages.length > 0) {
+						currentImageIndex = (currentImageIndex - 1 + currentProjectImages.length) % currentProjectImages.length;
+						updateImageDisplay();
+					}
+				});
+			}
+			
+			if (nextBtn) {
+				nextBtn.addEventListener('click', function(e) {
+					e.stopPropagation();
+					if (currentProjectImages.length > 0) {
+						currentImageIndex = (currentImageIndex + 1) % currentProjectImages.length;
+						updateImageDisplay();
+					}
+				});
+			}
+			
+			function openModal(projectBlock) {
+				const title = projectBlock.getAttribute('data-project-title');
+				const location = projectBlock.getAttribute('data-project-location');
+				const image = projectBlock.getAttribute('data-project-image');
+				const description = projectBlock.getAttribute('data-project-description');
+				const relatedImagesJson = projectBlock.getAttribute('data-project-related-images');
+				const type = projectBlock.getAttribute('data-project-type');
+				
+				// Build image array (main image + related images)
+				currentProjectImages = [image];
+				if (relatedImagesJson) {
+					try {
+						const relatedImages = JSON.parse(relatedImagesJson);
+						currentProjectImages = currentProjectImages.concat(relatedImages);
+					} catch (e) {
+						console.error('Error parsing related images:', e);
+					}
+				}
+				currentImageIndex = 0;
+				
+				// Update modal content
+				modalCategory.textContent = location;
+				modalTitle.textContent = title;
+				modalDescription.innerHTML = '<p>' + description + '</p>';
+				
+				// Update details
+				const materials = getMaterials(title, type);
+				modalMaterials.innerHTML = '';
+				materials.forEach(function(material) {
+					const li = document.createElement('li');
+					li.textContent = material;
+					modalMaterials.appendChild(li);
+				});
+				
+				modalDimensions.textContent = extractDimensions(title);
+				modalCompletion.textContent = '2024'; // Default completion date
+				
+				// Update image display
+				updateImageDisplay();
+				
+				// Handle related images grid
+				const relatedImagesContainer = document.getElementById('modalRelatedImages');
+				const relatedSection = document.getElementById('modalRelated');
+				
+				if (relatedImagesJson && currentProjectImages.length > 1) {
+					try {
+						const relatedImages = JSON.parse(relatedImagesJson);
+						relatedImagesContainer.innerHTML = '';
+						
+						if (relatedImages && relatedImages.length > 0) {
+							relatedSection.style.display = 'block';
+							
+							relatedImages.forEach(function(imgSrc, index) {
+								const item = document.createElement('div');
+								item.className = 'project-extra-image-item';
+								
+								const img = document.createElement('img');
+								img.src = imgSrc;
+								img.alt = title + ' - Image ' + (index + 2);
+								img.className = 'project-extra-image';
+								
+								img.addEventListener('click', function() {
+									// Find the index of this image in the full array
+									const imageIndex = currentProjectImages.indexOf(imgSrc);
+									if (imageIndex !== -1) {
+										currentImageIndex = imageIndex;
+										updateImageDisplay();
+										// Scroll to top of modal
+										document.querySelector('.project-modal-image-section').scrollIntoView({ behavior: 'smooth' });
+									}
+								});
+								
+								item.appendChild(img);
+								relatedImagesContainer.appendChild(item);
+							});
+						} else {
+							relatedSection.style.display = 'none';
+						}
+					} catch (e) {
+						console.error('Error parsing related images:', e);
+						relatedSection.style.display = 'none';
+					}
+				} else {
+					relatedSection.style.display = 'none';
+				}
+				
+				modal.classList.add('active');
+				document.body.style.overflow = 'hidden';
+				
+				// Scroll to top
+				window.scrollTo(0, 0);
+			}
+			
+			function closeModal() {
+				modal.classList.remove('active');
+				document.body.style.overflow = '';
+			}
+			
+			projectTriggers.forEach(function(trigger) {
+				trigger.addEventListener('click', function(e) {
+					e.preventDefault();
+					const projectBlock = this.closest('.gallery-block');
+					if (projectBlock) {
+						openModal(projectBlock);
+					}
+				});
+			});
+			
+			if (closeBtn) {
+				closeBtn.addEventListener('click', closeModal);
+			}
+			
+			modal.addEventListener('click', function(e) {
+				if (e.target === modal) {
+					closeModal();
+				}
+			});
+			
+			document.addEventListener('keydown', function(e) {
+				if (e.key === 'Escape' && modal.classList.contains('active')) {
+					closeModal();
+				}
+			});
+			
+			// Scroll hint hover autoscroll
+			const scrollHint = document.getElementById('scrollHint');
+			const contentSection = document.querySelector('.project-modal-content-section');
+			let scrollTimeout;
+			
+			if (scrollHint && contentSection) {
+				scrollHint.addEventListener('mouseenter', function() {
+					// Clear any existing timeout
+					clearTimeout(scrollTimeout);
+					
+					// Scroll to content section after a short delay
+					scrollTimeout = setTimeout(function() {
+						contentSection.scrollIntoView({ 
+							behavior: 'smooth',
+							block: 'start'
+						});
+					}, 300);
+				});
+				
+				scrollHint.addEventListener('mouseleave', function() {
+					// Clear timeout if user moves away before scroll starts
+					clearTimeout(scrollTimeout);
+				});
+				
+				// Also allow click to scroll
+				scrollHint.addEventListener('click', function() {
+					contentSection.scrollIntoView({ 
+						behavior: 'smooth',
+						block: 'start'
+					});
+				});
+			}
+		})();
+	</script>
+
+	<!-- Testimonial Carousel Script -->
+	<script>
+		(function() {
+			// Initialize testimonial carousel
+			document.addEventListener('DOMContentLoaded', function() {
+				const testimonialBlocks = document.querySelectorAll('.testimonial-block');
+				
+				testimonialBlocks.forEach(function(block) {
+					const container = block.querySelector('.testimonial-carousel-container');
+					if (!container) return;
+					
+					const slides = container.querySelectorAll('.testimonial-carousel-image');
+					const prevBtn = container.querySelector('.testimonial-carousel-prev');
+					const nextBtn = container.querySelector('.testimonial-carousel-next');
+					
+					// Hide arrows if only one image
+					if (slides.length <= 1) {
+						if (prevBtn) prevBtn.classList.add('hidden');
+						if (nextBtn) nextBtn.classList.add('hidden');
+						return;
+					}
+					
+					let currentIndex = 0;
+					
+					// Function to show slide
+					function showSlide(index) {
+						slides.forEach(function(slide, i) {
+							if (i === index) {
+								slide.classList.add('active');
+							} else {
+								slide.classList.remove('active');
+							}
+						});
+					}
+					
+					// Previous button
+					if (prevBtn) {
+						prevBtn.addEventListener('click', function() {
+							currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+							showSlide(currentIndex);
+						});
+					}
+					
+					// Next button
+					if (nextBtn) {
+						nextBtn.addEventListener('click', function() {
+							currentIndex = (currentIndex + 1) % slides.length;
+							showSlide(currentIndex);
+						});
+					}
+					
+					// Initialize first slide
+					showSlide(0);
+				});
+			});
+		})();
+	</script>
+
+	<!-- Dynamic Client Portal URL Script -->
+	<script>
+		(function() {
+			// CONFIGURATION: If client-portal is deployed separately on Vercel, set this to your client-portal URL
+			// Example: const CLIENT_PORTAL_URL = 'https://your-client-portal.vercel.app';
+			const CLIENT_PORTAL_URL = null; // Set to null to auto-detect
+			
+			// Update all client portal links
+			function updateClientPortalLinks() {
+				const hostname = window.location.hostname;
+				const links = document.querySelectorAll('a.client-portal-link');
+				
+				links.forEach(function(link) {
+					const path = link.getAttribute('data-path') || '/client/project';
+					
+					// If explicitly configured, use that
+					if (CLIENT_PORTAL_URL) {
+						link.href = CLIENT_PORTAL_URL + path;
+						return;
+					}
+					
+					// If localhost, use localhost:3000 (Next.js dev server)
+					if (hostname === 'localhost' || hostname === '127.0.0.1') {
+						link.href = 'http://localhost:3000' + path;
+					} else {
+						// For production/Vercel, use relative paths (same domain)
+						link.href = path;
+					}
+					
+					console.log('Updated client portal link:', link.href);
+				});
+			}
+			
+			// Run immediately and also on DOM ready
+			updateClientPortalLinks();
+			
+			if (document.readyState === 'loading') {
+				document.addEventListener('DOMContentLoaded', updateClientPortalLinks);
+			}
+			
+			// Also run after a short delay to catch any late-loading content
+			setTimeout(updateClientPortalLinks, 100);
+		})();
+	</script>
+
+</body>
+
+</html>
