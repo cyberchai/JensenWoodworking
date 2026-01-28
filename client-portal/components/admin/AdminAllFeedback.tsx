@@ -27,15 +27,17 @@ export default function AdminAllFeedback({ feedback, onUpdate }: AdminAllFeedbac
   };
 
   return (
-    <div className="bg-white border border-gray-200 p-6 space-y-6">
-      <h2 className="text-xl font-normal text-black">All Feedback</h2>
+    <div className="bg-white border border-stone-200 p-6 space-y-6 shadow-sm rounded-sm">
+      <h2 className="text-[11px] font-black tracking-[0.3em] uppercase text-brass">All Feedback</h2>
       
       {feedback.length === 0 ? (
-        <p className="text-site-gray-light text-sm">No feedback submitted yet.</p>
+        <div className="py-12 text-center border-2 border-dashed border-stone-200 rounded-sm bg-stone-50">
+          <p className="text-stone-300 font-serif italic">No feedback submitted yet.</p>
+        </div>
       ) : (
         <div className="space-y-4">
           {feedback.map((item) => (
-            <div key={item.id} className="border border-gray-200 p-4 space-y-3 relative">
+            <div key={item.id} className="border border-stone-200 p-4 space-y-3 relative bg-stone-50 rounded-sm shadow-sm">
               {/* Delete button in top right corner */}
               <button
                 onClick={() => setDeleteConfirm({ id: item.id, clientName: item.clientName })}
@@ -79,7 +81,7 @@ export default function AdminAllFeedback({ feedback, onUpdate }: AdminAllFeedbac
               </div>
               
               {/* Featured/Hidden toggle */}
-              <div className="flex items-center justify-end pt-2 border-t border-gray-200">
+              <div className="flex items-center justify-end pt-2 border-t border-stone-200">
                 <button 
                   onClick={() => toggleTestimonial(item.id, item.isTestimonial)}
                   className={`text-[9px] font-black uppercase tracking-[0.2em] px-3 py-1.5 border rounded-full transition-all ${

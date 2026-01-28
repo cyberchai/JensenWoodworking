@@ -27,7 +27,7 @@ export default function RootLayout({
               >
                 <div className="p-2.5 rounded-sm transition-all group-hover:opacity-80">
                   <img 
-                    src="/images/logo.webp" 
+                    src="/images/logo.png" 
                     alt="Jensen Woodworking" 
                     className="h-12 w-auto"
                   />

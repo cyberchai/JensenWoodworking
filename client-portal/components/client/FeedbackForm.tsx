@@ -78,7 +78,7 @@ export default function FeedbackForm({ projectToken, projectName }: FeedbackForm
   return (
     <div className="space-y-6">
       {hasExistingFeedback && (
-        <div className="bg-stone-50 border border-stone-200 p-4 rounded-sm">
+        <div className="bg-stone-50 border border-stone-200 p-4 rounded-sm shadow-sm">
           <p className="text-[10px] font-black uppercase tracking-widest text-stone-600 mb-2">
             Your feedback has been sent.
           </p>
@@ -104,7 +104,7 @@ export default function FeedbackForm({ projectToken, projectName }: FeedbackForm
             value={clientName}
             onChange={e => setClientName(e.target.value)}
             placeholder="Enter your name"
-            className="w-full bg-stone-50 p-3 font-serif text-stone-600 focus:outline-none border-b border-stone-100"
+            className="w-full bg-stone-50 p-3 font-serif text-stone-600 focus:outline-none border-b border-stone-200"
           />
         </div>
         <div>
@@ -133,7 +133,7 @@ export default function FeedbackForm({ projectToken, projectName }: FeedbackForm
             value={comment} 
             onChange={e => setComment(e.target.value)} 
             placeholder="Share your experience with this project..." 
-            className="w-full bg-stone-50 p-4 font-serif italic text-stone-600 focus:outline-none border-b border-stone-100 h-32" 
+            className="w-full bg-stone-50 p-4 font-serif italic text-stone-600 focus:outline-none border-b border-stone-200 h-32" 
             required 
           />
         </div>

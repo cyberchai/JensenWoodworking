@@ -63,9 +63,9 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-stone-50">
       <div className="max-w-7xl mx-auto px-6 lg:px-12 py-12">
-        <div className="mb-12">
+        <div className="mb-12 bg-white p-8 rounded-sm border border-stone-200 shadow-sm">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h1 className="text-4xl font-serif font-light text-ebony mb-2">Admin Dashboard</h1>
@@ -94,30 +94,40 @@ export default function AdminPage() {
           </div>
         </div>
 
-        <AdminTabs activeTab={activeTab} onTabChange={setActiveTab}>
-          {activeTab === 'projects' && (
-            <AdminProjectsView projects={projects} onUpdate={refreshProjects} />
-          )}
+        <div className="bg-white rounded-sm border border-stone-200 shadow-sm">
+          <AdminTabs activeTab={activeTab} onTabChange={setActiveTab}>
+            {activeTab === 'projects' && (
+              <div className="p-6 lg:p-8">
+                <AdminProjectsView projects={projects} onUpdate={refreshProjects} />
+              </div>
+            )}
 
-          {activeTab === 'past-projects' && (
-            <AdminPastProjects />
-          )}
+            {activeTab === 'past-projects' && (
+              <div className="p-6 lg:p-8">
+                <AdminPastProjects />
+              </div>
+            )}
 
-          {activeTab === 'feedback' && (
-            <div className="space-y-6">
-              <AdminTestimonials feedback={feedback} onUpdate={refreshFeedback} />
-              <AdminAllFeedback feedback={feedback} onUpdate={refreshFeedback} />
-            </div>
-          )}
+            {activeTab === 'feedback' && (
+              <div className="p-6 lg:p-8 space-y-6">
+                <AdminTestimonials feedback={feedback} onUpdate={refreshFeedback} />
+                <AdminAllFeedback feedback={feedback} onUpdate={refreshFeedback} />
+              </div>
+            )}
 
-          {activeTab === 'contact' && (
-            <AdminContactRequests contactRequests={contactRequests} onUpdate={refreshContactRequests} />
-          )}
+            {activeTab === 'contact' && (
+              <div className="p-6 lg:p-8">
+                <AdminContactRequests contactRequests={contactRequests} onUpdate={refreshContactRequests} />
+              </div>
+            )}
 
-          {activeTab === 'media' && (
-            <AdminMedia />
-          )}
-        </AdminTabs>
+            {activeTab === 'media' && (
+              <div className="p-6 lg:p-8">
+                <AdminMedia />
+              </div>
+            )}
+          </AdminTabs>
+        </div>
       </div>
     </div>
   );

@@ -60,9 +60,10 @@ export default function ProjectDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-stone-50">
       <div className="max-w-5xl mx-auto space-y-16 px-6 lg:px-12 py-12">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-10 border-b border-stone-100">
+        <div className="bg-white p-8 lg:p-10 rounded-sm border border-stone-200 shadow-sm">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-10 border-b border-stone-200">
           <div className="space-y-4">
             <button onClick={() => router.push('/client/project')} className="text-[10px] font-black uppercase tracking-widest text-stone-300 hover:text-brass transition-colors">
               ← Back to Project Lookup
@@ -81,9 +82,10 @@ export default function ProjectDetailPage() {
             {showPaymentArea ? 'Return to Timeline' : 'Payment Information'}
           </button>
         </div>
+        </div>
 
         {showPaymentArea && (
-          <div className="bg-white p-12 lg:p-20 shadow-2xl border border-stone-50 rounded-sm">
+          <div className="bg-white p-12 lg:p-20 shadow-lg border border-stone-200 rounded-sm">
             {!payAuthorized && project.paymentCode ? (
               <div className="text-center space-y-8">
                 <h3 className="text-3xl font-serif text-ebony">Payment Access</h3>
@@ -127,11 +129,11 @@ export default function ProjectDetailPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
           <div className="lg:col-span-8 space-y-20">
-            <div className="space-y-12">
+            <div className="bg-white p-10 lg:p-12 rounded-sm border border-stone-200 shadow-sm space-y-12">
               <h3 className="text-[11px] font-black uppercase tracking-[0.3em] text-brass">Project Updates</h3>
               
               {project.statusUpdates.length === 0 ? (
-                <div className="py-24 text-center border-2 border-dashed border-stone-100 rounded-sm">
+                <div className="py-24 text-center border-2 border-dashed border-stone-200 rounded-sm bg-stone-50">
                   <p className="font-serif italic text-stone-300 text-2xl">No updates yet. Check back soon!</p>
                 </div>
               ) : (
@@ -141,14 +143,14 @@ export default function ProjectDetailPage() {
           </div>
 
           <div className="lg:col-span-4 space-y-12">
-            <div className="bg-ebony p-10 text-white shadow-2xl rounded-sm">
+            <div className="bg-ebony p-10 text-white shadow-lg rounded-sm border border-stone-200">
               <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-brass mb-10">Project Details</h3>
               {project.description ? (
                 <p className="font-serif italic text-stone-300 text-xl leading-relaxed mb-10">"{project.description}"</p>
               ) : (
                 <p className="font-serif italic text-stone-300 text-xl leading-relaxed mb-10">Custom woodworking project by Jensen Woodworking</p>
               )}
-              <div className="space-y-6 pt-6 border-t border-white/5">
+              <div className="space-y-6 pt-6 border-t border-white/10">
                 <div className="flex justify-between text-[10px] font-bold uppercase tracking-widest">
                   <span className="text-white/30">Craftsman</span>
                   <span>Klaus Jensen</span>
@@ -160,12 +162,12 @@ export default function ProjectDetailPage() {
               </div>
             </div>
 
-            <div className="bg-white p-10 border border-stone-100 shadow-sm rounded-sm">
+            <div className="bg-white p-10 border border-stone-200 shadow-sm rounded-sm">
               <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-ebony mb-8">Share Your Feedback</h3>
               <FeedbackForm projectToken={project.token} projectName={project.clientLabel} />
             </div>
 
-            <div className="p-10 bg-stone-50 border border-stone-100 text-center rounded-sm">
+            <div className="p-10 bg-white border border-stone-200 text-center rounded-sm shadow-sm">
               <h3 className="text-[10px] font-black uppercase tracking-widest text-ebony mb-4">Questions?</h3>
               <p className="text-[10px] text-stone-400 uppercase tracking-widest leading-loose mb-8">Contact us directly for any questions about your project.</p>
               <a href="mailto:kpnjensen@gmail.com" className="text-brass text-[10px] font-black uppercase tracking-widest border-b border-brass transition-all hover:text-ebony hover:border-ebony pb-1">

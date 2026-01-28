@@ -25,14 +25,14 @@ export default function AdminTestimonials({ feedback, onUpdate }: AdminTestimoni
       <AdminAddFeedbackForm onFeedbackAdded={onUpdate} />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
         {feedback.length === 0 ? (
-          <div className="col-span-2 py-12 text-center border-2 border-dashed border-stone-200 rounded-sm">
+          <div className="col-span-2 py-12 text-center border-2 border-dashed border-stone-200 rounded-sm bg-stone-50">
             <p className="text-stone-300 font-serif italic">No feedback submitted yet.</p>
           </div>
         ) : (
           feedback.map((item) => (
             <div 
               key={item.id} 
-              className="bg-white p-8 border border-stone-100 shadow-sm relative italic font-serif text-stone-700"
+              className="bg-white p-8 border border-stone-200 shadow-sm relative italic font-serif text-stone-700"
             >
               <div className="flex items-center text-brass mb-6">
                 {Array.from({ length: 5 }).map((_, i) => (
@@ -45,7 +45,7 @@ export default function AdminTestimonials({ feedback, onUpdate }: AdminTestimoni
                 ))}
               </div>
               <p className="text-xl mb-8 leading-relaxed">"{item.comment}"</p>
-              <div className="not-italic flex items-center justify-between border-t border-stone-50 pt-6">
+              <div className="not-italic flex items-center justify-between border-t border-stone-200 pt-6">
                 <div>
                   <div className="text-[10px] font-black uppercase tracking-widest text-ebony">
                     {item.clientName || 'Anonymous'}

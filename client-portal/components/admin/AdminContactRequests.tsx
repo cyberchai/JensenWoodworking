@@ -82,7 +82,7 @@ export default function AdminContactRequests({ contactRequests, onUpdate }: Admi
 
       <div className="space-y-3">
         {contactRequests.length === 0 ? (
-          <div className="bg-white border border-stone-100 p-12 text-center">
+          <div className="bg-white border border-stone-200 p-12 text-center shadow-sm rounded-sm">
             <p className="text-stone-300 italic font-serif normal-case tracking-normal text-sm">
               No recent inquiries found in the archives.
             </p>
@@ -91,10 +91,10 @@ export default function AdminContactRequests({ contactRequests, onUpdate }: Admi
           contactRequests.map((request) => (
             <div
               key={request.id}
-              className="bg-white border border-stone-100 overflow-hidden hover:border-stone-200 transition-colors"
+              className="bg-white border border-stone-200 overflow-hidden hover:border-stone-300 transition-colors shadow-sm rounded-sm"
             >
               {/* Compact Header Row */}
-              <div className="px-6 py-4 flex items-start justify-between gap-4 border-b border-stone-50">
+              <div className="px-6 py-4 flex items-start justify-between gap-4 border-b border-stone-200">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-3 mb-2">
                     <h3 className="text-sm font-bold text-ebony uppercase tracking-wider">{request.name}</h3>

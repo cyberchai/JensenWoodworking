@@ -18,7 +18,7 @@ export default function PaymentPanel({
   return (
     <div className="space-y-12">
       <div className="space-y-6">
-        <div className="flex items-center justify-between py-4 border-b border-stone-100">
+        <div className="flex items-center justify-between py-4 border-b border-stone-200">
           <span className="text-[10px] font-black uppercase tracking-widest text-stone-400">Deposit</span>
           <span
             className={`px-4 py-2 text-[10px] font-black uppercase tracking-widest ${
@@ -31,7 +31,7 @@ export default function PaymentPanel({
           </span>
         </div>
         
-        <div className="flex items-center justify-between py-4 border-b border-stone-100">
+        <div className="flex items-center justify-between py-4 border-b border-stone-200">
           <span className="text-[10px] font-black uppercase tracking-widest text-stone-400">Final Payment</span>
           <span
             className={`px-4 py-2 text-[10px] font-black uppercase tracking-widest ${
@@ -46,7 +46,7 @@ export default function PaymentPanel({
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
-        <div className="group p-8 border border-stone-100 hover:border-brass transition-all">
+        <div className="group p-8 border border-stone-200 hover:border-brass transition-all bg-white rounded-sm shadow-sm">
           <h4 className="font-serif text-2xl text-ebony mb-4">PayPal</h4>
           <p className="text-stone-400 text-sm mb-8 italic">Preferred for international transactions.</p>
           <a 
@@ -58,7 +58,7 @@ export default function PaymentPanel({
             Proceed to PayPal
           </a>
         </div>
-        <div className="group p-8 border border-stone-100 hover:border-brass transition-all">
+        <div className="group p-8 border border-stone-200 hover:border-brass transition-all bg-white rounded-sm shadow-sm">
           <h4 className="font-serif text-2xl text-ebony mb-4">Venmo</h4>
           <p className="text-stone-400 text-sm mb-8 italic">Best for domestic payments.</p>
           <a 

@@ -47,7 +47,7 @@ export default function ProjectPage() {
         <div className="bg-white border border-stone-100 rounded-sm p-16 lg:p-24 text-center shadow-2xl">
           <div className="w-24 h-24 bg-stone-50 rounded-full flex items-center justify-center mx-auto mb-10 border border-stone-100 p-4">
             <img 
-              src="/images/logo.webp" 
+              src="/images/logo.png" 
               alt="Jensen Woodworking" 
               className="h-full w-auto"
             />
