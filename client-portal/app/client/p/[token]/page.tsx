@@ -14,7 +14,6 @@ export default function ProjectDetailPage() {
   const token = params.token as string;
   const [project, setProject] = useState<Project | null>(null);
   const [loading, setLoading] = useState(true);
-  const [showPaymentArea, setShowPaymentArea] = useState(false);
   const [payCode, setPayCode] = useState('');
   const [payError, setPayError] = useState(false);
   const [payAuthorized, setPayAuthorized] = useState(false);
@@ -62,52 +61,60 @@ export default function ProjectDetailPage() {
       <div className="max-w-5xl mx-auto space-y-16 px-6 lg:px-12 py-12">
         <div className="bg-white p-8 lg:p-10 rounded-sm border border-stone-200 shadow-sm">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-10 border-b border-stone-200">
-          <div className="space-y-4">
-            <button onClick={() => router.push('/client/project')} className="text-[10px] font-black uppercase tracking-widest text-stone-300 hover:text-brass transition-colors">
-              ← Back to Project Lookup
-            </button>
-            <h2 className="text-5xl font-serif text-ebony tracking-tighter leading-none">{project.clientLabel}</h2>
-            <div className="flex items-center space-x-6 text-[10px] font-bold uppercase tracking-[0.2em] text-brass">
-              <span>Started {project.projectStartDate ? new Date(project.projectStartDate).toLocaleDateString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' }) : 'Recently'}</span>
-              <span className="w-1 h-1 bg-stone-200 rounded-full"></span>
-              <span>Project Code: {project.token}</span>
+            <div className="space-y-4">
+              <button
+                onClick={() => router.push('/client/project')}
+                className="text-[10px] font-black uppercase tracking-widest text-stone-300 hover:text-brass transition-colors"
+              >
+                ← Back to Project Lookup
+              </button>
+              <h2 className="text-5xl font-serif text-ebony tracking-tighter leading-none">{project.clientLabel}</h2>
+              <div className="flex items-center space-x-6 text-[10px] font-bold uppercase tracking-[0.2em] text-brass">
+                <span>Project Code: {project.token}</span>
+              </div>
             </div>
           </div>
-          <button 
-            onClick={() => setShowPaymentArea(!showPaymentArea)} 
-            className="px-8 py-4 bg-ebony text-white text-[11px] font-black uppercase tracking-widest hover:bg-brass transition-all shadow-lg"
-          >
-            {showPaymentArea ? 'Hide Payment Info' : 'Payment Information'}
-          </button>
-        </div>
         </div>
 
-        {showPaymentArea && (
-          <div className="bg-white p-12 lg:p-20 shadow-lg border border-stone-200 rounded-sm">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+          {/* 1) Payment information (keep logic as-is) */}
+          <div className="bg-white p-10 lg:p-12 shadow-lg border border-stone-200 rounded-sm">
             {!payAuthorized && project.paymentCode ? (
               <div className="text-center space-y-8">
                 <h3 className="text-3xl font-serif text-ebony">Payment Access</h3>
-                <p className="text-stone-400 font-serif italic text-lg max-w-sm mx-auto">Access to payment information requires your project PIN code.</p>
-                <form onSubmit={(e) => {
-                  e.preventDefault();
-                  const projectPaymentCode = project.paymentCode || '';
-                  // If no PIN is set, allow access; otherwise require matching PIN
-                  if (!projectPaymentCode || payCode === projectPaymentCode) { 
-                    setPayAuthorized(true); 
-                    setPayError(false); 
-                  } else { 
-                    setPayError(true); 
-                  }
-                }} className="max-w-xs mx-auto space-y-8">
-                  <input 
-                    type="password" 
-                    placeholder="••••" 
-                    value={payCode} 
-                    onChange={e => setPayCode(e.target.value)} 
-                    className="w-full text-center py-4 bg-stone-50 border-b-2 border-stone-200 text-3xl tracking-[1em] focus:outline-none focus:border-brass" 
+                <p className="text-stone-400 font-serif italic text-lg max-w-sm mx-auto">
+                  Access to payment information requires your project PIN code.
+                </p>
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    const projectPaymentCode = project.paymentCode || '';
+                    // If no PIN is set, allow access; otherwise require matching PIN
+                    if (!projectPaymentCode || payCode === projectPaymentCode) {
+                      setPayAuthorized(true);
+                      setPayError(false);
+                    } else {
+                      setPayError(true);
+                    }
+                  }}
+                  className="max-w-xs mx-auto space-y-8"
+                >
+                  <input
+                    type="password"
+                    placeholder="••••"
+                    value={payCode}
+                    onChange={(e) => setPayCode(e.target.value)}
+                    className="w-full text-center py-4 bg-stone-50 border-b-2 border-stone-200 text-3xl tracking-[1em] focus:outline-none focus:border-brass"
                   />
-                  {payError && <p className="text-red-500 text-[10px] font-black tracking-widest uppercase">Invalid Code</p>}
-                  <button type="submit" className="w-full bg-ebony text-white py-5 text-[11px] font-black uppercase tracking-[0.3em] shadow-xl hover:bg-brass transition-all">Verify & Enter</button>
+                  {payError && (
+                    <p className="text-red-500 text-[10px] font-black tracking-widest uppercase">Invalid Code</p>
+                  )}
+                  <button
+                    type="submit"
+                    className="w-full bg-ebony text-white py-5 text-[11px] font-black uppercase tracking-[0.3em] shadow-xl hover:bg-brass transition-all"
+                  >
+                    Verify & Enter
+                  </button>
                 </form>
               </div>
             ) : (
@@ -123,45 +130,11 @@ export default function ProjectDetailPage() {
               </div>
             )}
           </div>
-        )}
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
-          <div className="lg:col-span-8">
-            {/* Project details section removed - status updates no longer available */}
-          </div>
-
-          <div className="lg:col-span-4 space-y-12">
-            <div className="bg-ebony p-10 text-white shadow-lg rounded-sm border border-stone-200">
-              <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-brass mb-10">Project Details</h3>
-              {project.description ? (
-                <p className="font-serif italic text-stone-300 text-xl leading-relaxed mb-10">"{project.description}"</p>
-              ) : (
-                <p className="font-serif italic text-stone-300 text-xl leading-relaxed mb-10">Custom woodworking project by Jensen Woodworking</p>
-              )}
-              <div className="space-y-6 pt-6 border-t border-white/10">
-                <div className="flex justify-between text-[10px] font-bold uppercase tracking-widest">
-                  <span className="text-white/30">Craftsman</span>
-                  <span>Klaus Jensen</span>
-                </div>
-                <div className="flex justify-between text-[10px] font-bold uppercase tracking-widest">
-                  <span className="text-white/30">Location</span>
-                  <span className="text-brass">Duxbury, MA</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white p-10 border border-stone-200 shadow-sm rounded-sm">
-              <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-ebony mb-8">Share Your Feedback</h3>
-              <FeedbackForm projectToken={project.token} projectName={project.clientLabel} />
-            </div>
-
-            <div className="p-10 bg-white border border-stone-200 text-center rounded-sm shadow-sm">
-              <h3 className="text-[10px] font-black uppercase tracking-widest text-ebony mb-4">Questions?</h3>
-              <p className="text-[10px] text-stone-400 uppercase tracking-widest leading-loose mb-8">Contact us directly for any questions about your project.</p>
-              <a href="mailto:kpnjensen@gmail.com" className="text-brass text-[10px] font-black uppercase tracking-widest border-b border-brass transition-all hover:text-ebony hover:border-ebony pb-1">
-                kpnjensen@gmail.com
-              </a>
-            </div>
+          {/* 2) Share your feedback */}
+          <div className="bg-white p-10 lg:p-12 border border-stone-200 shadow-sm rounded-sm">
+            <h3 className="text-3xl font-serif text-ebony mb-8">Share Your Feedback</h3>
+            <FeedbackForm projectToken={project.token} projectName={project.clientLabel} />
           </div>
         </div>
       </div>
