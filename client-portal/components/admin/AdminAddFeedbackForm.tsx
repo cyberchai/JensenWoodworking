@@ -11,6 +11,7 @@ interface AdminAddFeedbackFormProps {
 export default function AdminAddFeedbackForm({ onFeedbackAdded }: AdminAddFeedbackFormProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [clientName, setClientName] = useState('');
+  const [title, setTitle] = useState('');
   const [comment, setComment] = useState('');
   const [allowTestimonial, setAllowTestimonial] = useState(true);
   const [isTestimonial, setIsTestimonial] = useState(true);
@@ -44,10 +45,12 @@ export default function AdminAddFeedbackForm({ onFeedbackAdded }: AdminAddFeedba
         allowTestimonial,
         isTestimonial,
         clientName: clientName.trim(),
+        title: title.trim() || undefined,
       });
 
       // Reset form
       setClientName('');
+      setTitle('');
       setComment('');
       setAllowTestimonial(true);
       setIsTestimonial(true);
@@ -62,6 +65,7 @@ export default function AdminAddFeedbackForm({ onFeedbackAdded }: AdminAddFeedba
 
   const handleCancel = () => {
     setClientName('');
+    setTitle('');
     setComment('');
     setAllowTestimonial(true);
     setIsTestimonial(true);
@@ -111,6 +115,20 @@ export default function AdminAddFeedbackForm({ onFeedbackAdded }: AdminAddFeedba
           required
           className="w-full px-4 py-2 border-0 border-b border-stone-300 bg-white focus:outline-none focus:border-brass transition-colors"
           placeholder="e.g., John & Jane Smith"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="title" className="block text-[11px] font-black uppercase tracking-widest text-ebony mb-2">
+          Title
+        </label>
+        <input
+          id="title"
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          className="w-full px-4 py-2 border-0 border-b border-stone-300 bg-white focus:outline-none focus:border-brass transition-colors"
+          placeholder="Optional testimonial title/header"
         />
       </div>
 
