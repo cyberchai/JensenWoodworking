@@ -24,19 +24,65 @@ export default function AdminMedia() {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Load existing media items (you might want to store these in Firestore)
-  useEffect(() => {
-    // For now, we'll load from localStorage as a simple solution
-    // In production, you'd fetch from Firestore
-    const stored = localStorage.getItem('imagekit_media');
-    if (stored) {
-      try {
-        setMediaItems(JSON.parse(stored));
-      } catch (e) {
-        console.error('Error loading stored media:', e);
-      }
+  const loadFromImageKit = async () => {
+    const response = await fetch('/api/imagekit/list?path=/media/&limit=1000', {
+      method: 'GET',
+    });
+
+    if (!response.ok) {
+      const payload = await response.json().catch(() => ({}));
+      throw new Error(payload?.error || 'Failed to load media library from ImageKit');
     }
-    setLoading(false);
+
+    const payload = await response.json();
+    const files = Array.isArray(payload?.files) ? payload.files : [];
+
+    const normalized: MediaItem[] = files
+      .filter((f: any) => f && f.fileId && f.url)
+      .map((f: any) => ({
+        id: `ik_${f.fileId}`,
+        fileId: f.fileId,
+        name: f.name || f.filePath || 'Image',
+        url: f.url,
+        uploadedAt: f.createdAt ? new Date(f.createdAt).getTime() : Date.now(),
+        size: f.size,
+        width: f.width,
+        height: f.height,
+      }));
+
+    setMediaItems(normalized);
+    // Keep localStorage in sync as a fallback cache
+    localStorage.setItem('imagekit_media', JSON.stringify(normalized));
+  };
+
+  // Load existing media items
+  useEffect(() => {
+    let cancelled = false;
+
+    (async () => {
+      try {
+        await loadFromImageKit();
+      } catch (e: any) {
+        // Fallback to localStorage if ImageKit listing isn't available
+        const stored = localStorage.getItem('imagekit_media');
+        if (!cancelled && stored) {
+          try {
+            setMediaItems(JSON.parse(stored));
+          } catch (err) {
+            console.error('Error loading stored media:', err);
+          }
+        }
+        if (!cancelled) {
+          setError(e?.message || 'Failed to load media library');
+        }
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const saveMediaItems = (items: MediaItem[]) => {
