@@ -43,18 +43,6 @@ export default function AdminFeedbackList({ feedback, onUpdate }: AdminFeedbackL
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
-                      <div className="flex gap-1">
-                        {[1, 2, 3, 4, 5].map((num) => (
-                          <span
-                            key={num}
-                            className={`text-sm ${
-                              num <= item.rating ? 'text-site-gold' : 'text-gray-300'
-                            }`}
-                          >
-                            ★
-                          </span>
-                        ))}
-                      </div>
                       {item.clientName && (
                         <span className="text-sm font-normal text-site-gray">
                           {item.clientName}
@@ -63,9 +51,6 @@ export default function AdminFeedbackList({ feedback, onUpdate }: AdminFeedbackL
                     </div>
                     <p className="text-sm text-site-gray-light leading-relaxed mb-2">
                       "{item.comment}"
-                    </p>
-                    <p className="text-xs text-site-gray-light">
-                      Project: {item.projectName}
                     </p>
                   </div>
                 </div>
@@ -102,18 +87,6 @@ export default function AdminFeedbackList({ feedback, onUpdate }: AdminFeedbackL
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
-                      <div className="flex gap-1">
-                        {[1, 2, 3, 4, 5].map((num) => (
-                          <span
-                            key={num}
-                            className={`text-sm ${
-                              num <= item.rating ? 'text-site-gold' : 'text-gray-300'
-                            }`}
-                          >
-                            ★
-                          </span>
-                        ))}
-                      </div>
                       {item.clientName && (
                         <span className="text-sm font-normal text-site-gray">
                           {item.clientName}
@@ -129,7 +102,6 @@ export default function AdminFeedbackList({ feedback, onUpdate }: AdminFeedbackL
                       "{item.comment}"
                     </p>
                     <div className="flex items-center gap-4 text-xs text-site-gray-light">
-                      <span>Project: {item.projectName}</span>
                       {item.allowTestimonial && (
                         <span className="text-site-gold">✓ OK to use as testimonial</span>
                       )}

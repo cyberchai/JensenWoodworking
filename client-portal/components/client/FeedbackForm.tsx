@@ -4,7 +4,7 @@ import { useState, FormEvent, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { store } from '@/lib/store';
 import { Feedback } from '@/lib/mockStore';
-import { Star, CheckCircle2 } from '@/components/icons';
+import { CheckCircle2 } from '@/components/icons';
 
 interface FeedbackFormProps {
   projectToken?: string;
@@ -12,7 +12,6 @@ interface FeedbackFormProps {
 }
 
 export default function FeedbackForm({ projectToken, projectName }: FeedbackFormProps) {
-  const [rating, setRating] = useState<number>(5);
   const [comment, setComment] = useState('');
   const [clientName, setClientName] = useState('');
   const [allowTestimonial, setAllowTestimonial] = useState(false);
@@ -44,7 +43,7 @@ export default function FeedbackForm({ projectToken, projectName }: FeedbackForm
       await store.createFeedback({
         projectToken,
         projectName,
-        rating,
+        rating: 5,
         comment: comment.trim(),
         clientName: clientName.trim() || undefined,
         allowTestimonial,
@@ -106,23 +105,6 @@ export default function FeedbackForm({ projectToken, projectName }: FeedbackForm
             placeholder="Enter your name"
             className="w-full bg-stone-50 p-3 font-serif text-stone-600 focus:outline-none border-b border-stone-200"
           />
-        </div>
-        <div>
-          <label className="block text-[10px] font-black uppercase tracking-widest text-stone-400 mb-3">
-            Rating
-          </label>
-          <div className="flex space-x-2">
-            {[1, 2, 3, 4, 5].map(s => (
-              <button 
-                key={s} 
-                type="button" 
-                onClick={() => setRating(s)} 
-                className={`transition-colors ${s <= rating ? 'text-brass' : 'text-stone-100'}`}
-              >
-                <Star size={20} fill={s <= rating} />
-              </button>
-            ))}
-          </div>
         </div>
         <div>
           <label htmlFor="comment" className="block text-[10px] font-black uppercase tracking-widest text-stone-400 mb-2">

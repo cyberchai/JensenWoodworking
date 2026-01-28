@@ -25,7 +25,7 @@ export default function AdminTabs({ activeTab, onTabChange, children }: AdminTab
             <button
               key={tab.id}
               onClick={() => onTabChange(tab.id)}
-              className={`relative -mb-px px-1 py-4 text-[11px] font-black uppercase tracking-[0.3em] transition-all ${
+              className={`relative -mb-px px-1 py-4 md:py-5 text-[12px] md:text-[14px] font-black uppercase tracking-[0.3em] transition-all ${
                 activeTab === tab.id ? 'text-ebony' : 'text-stone-300 hover:text-stone-500'
               }`}
             >

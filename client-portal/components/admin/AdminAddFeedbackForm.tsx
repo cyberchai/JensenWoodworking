@@ -2,7 +2,7 @@
 
 import { useState, FormEvent } from 'react';
 import { store } from '@/lib/store';
-import { Star, X } from '@/components/icons';
+import { X } from '@/components/icons';
 
 interface AdminAddFeedbackFormProps {
   onFeedbackAdded: () => void;
@@ -11,11 +11,7 @@ interface AdminAddFeedbackFormProps {
 export default function AdminAddFeedbackForm({ onFeedbackAdded }: AdminAddFeedbackFormProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [clientName, setClientName] = useState('');
-  const [projectName, setProjectName] = useState('');
-  const [projectToken, setProjectToken] = useState('');
-  const [rating, setRating] = useState<number>(5);
   const [comment, setComment] = useState('');
-  const [title, setTitle] = useState('');
   const [allowTestimonial, setAllowTestimonial] = useState(true);
   const [isTestimonial, setIsTestimonial] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -27,8 +23,8 @@ export default function AdminAddFeedbackForm({ onFeedbackAdded }: AdminAddFeedba
     setIsSubmitting(true);
 
     try {
-      if (!projectName.trim()) {
-        setError('Project name is required');
+      if (!clientName.trim()) {
+        setError('Client name is required');
         setIsSubmitting(false);
         return;
       }
@@ -39,30 +35,20 @@ export default function AdminAddFeedbackForm({ onFeedbackAdded }: AdminAddFeedba
         return;
       }
 
-      if (rating < 1 || rating > 5) {
-        setError('Rating must be between 1 and 5');
-        setIsSubmitting(false);
-        return;
-      }
-
       await store.createFeedback({
-        projectToken: projectToken.trim() || 'MANUAL',
-        projectName: projectName.trim(),
-        rating,
+        // Keep required backend fields, but do not ask admin to fill them in.
+        projectToken: 'manual',
+        projectName: 'Manual',
+        rating: 5,
         comment: comment.trim(),
         allowTestimonial,
         isTestimonial,
-        clientName: clientName.trim() || undefined,
-        title: title.trim() || undefined,
+        clientName: clientName.trim(),
       });
 
       // Reset form
       setClientName('');
-      setProjectName('');
-      setProjectToken('');
-      setRating(5);
       setComment('');
-      setTitle('');
       setAllowTestimonial(true);
       setIsTestimonial(true);
       setIsOpen(false);
@@ -76,11 +62,7 @@ export default function AdminAddFeedbackForm({ onFeedbackAdded }: AdminAddFeedba
 
   const handleCancel = () => {
     setClientName('');
-    setProjectName('');
-    setProjectToken('');
-    setRating(5);
     setComment('');
-    setTitle('');
     setAllowTestimonial(true);
     setIsTestimonial(true);
     setError(null);
@@ -119,85 +101,17 @@ export default function AdminAddFeedbackForm({ onFeedbackAdded }: AdminAddFeedba
 
       <div>
         <label htmlFor="clientName" className="block text-[11px] font-black uppercase tracking-widest text-ebony mb-2">
-          Client Name (Optional)
+          Client Name *
         </label>
         <input
           id="clientName"
           type="text"
           value={clientName}
           onChange={(e) => setClientName(e.target.value)}
+          required
           className="w-full px-4 py-2 border-0 border-b border-stone-300 bg-white focus:outline-none focus:border-brass transition-colors"
           placeholder="e.g., John & Jane Smith"
         />
-      </div>
-
-      <div>
-        <label htmlFor="projectName" className="block text-[11px] font-black uppercase tracking-widest text-ebony mb-2">
-          Project Name *
-        </label>
-        <input
-          id="projectName"
-          type="text"
-          value={projectName}
-          onChange={(e) => setProjectName(e.target.value)}
-          required
-          className="w-full px-4 py-2 border-0 border-b border-stone-300 bg-white focus:outline-none focus:border-brass transition-colors"
-          placeholder="e.g., Custom Walnut Dining Table"
-        />
-      </div>
-
-      <div>
-        <label htmlFor="projectToken" className="block text-[11px] font-black uppercase tracking-widest text-ebony mb-2">
-          Project Token (Optional)
-        </label>
-        <input
-          id="projectToken"
-          type="text"
-          value={projectToken}
-          onChange={(e) => setProjectToken(e.target.value)}
-          className="w-full px-4 py-2 border-0 border-b border-stone-300 bg-white focus:outline-none focus:border-brass transition-colors"
-          placeholder="Leave empty for manual entries"
-        />
-      </div>
-
-      <div>
-        <label className="block text-[11px] font-black uppercase tracking-widest text-ebony mb-3">
-          Rating *
-        </label>
-        <div className="flex items-center gap-2">
-          {[1, 2, 3, 4, 5].map((num) => (
-            <button
-              key={num}
-              type="button"
-              onClick={() => setRating(num)}
-              className="focus:outline-none transition-transform hover:scale-110"
-            >
-              <Star
-                size={24}
-                className={num <= rating ? 'text-brass' : 'text-stone-200'}
-                fill={num <= rating}
-              />
-            </button>
-          ))}
-          <span className="ml-4 text-sm text-stone-600 font-serif italic">
-            {rating} {rating === 1 ? 'star' : 'stars'}
-          </span>
-        </div>
-      </div>
-
-      <div>
-        <label htmlFor="title" className="block text-[11px] font-black uppercase tracking-widest text-ebony mb-2">
-          Testimonial Title (Optional)
-        </label>
-        <input
-          id="title"
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="w-full px-4 py-2 border-0 border-b border-stone-300 bg-white focus:outline-none focus:border-brass transition-colors"
-          placeholder="e.g., Stunning Kitchen Island Transformation"
-        />
-        <p className="text-[9px] text-stone-400 mt-1 italic">This title will appear on the home page as a clickable link</p>
       </div>
 
       <div>

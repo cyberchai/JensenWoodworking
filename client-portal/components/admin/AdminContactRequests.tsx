@@ -59,23 +59,29 @@ export default function AdminContactRequests({ contactRequests, onUpdate }: Admi
     });
   };
 
-  const getStatusColor = (status: string) => {
-    if (status === 'new') {
-      return 'bg-green-100 text-green-800 border-green-200';
-    }
-    return 'bg-stone-100 text-stone-700 border-stone-200';
-  };
-
-  const getStatusText = (status: string) => {
-    if (status === 'new') return 'New';
-    return 'Read';
+  const yesNoPill = (label: string, value?: boolean) => {
+    const isYes = value === true;
+    return (
+      <span
+        className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-none border text-[13px] md:text-[15px] lg:text-[10px] font-semibold tracking-wide ${
+          isYes
+            ? 'bg-green-200 text-green-950 border-green-300'
+            : 'bg-stone-50 text-stone-600 border-stone-200'
+        }`}
+      >
+        <span className="text-ebony/80">{label}</span>
+        <span className={`ml-0.5 ${isYes ? 'text-green-950' : 'text-stone-500'}`}>
+          {isYes ? 'Yes' : 'No'}
+        </span>
+      </span>
+    );
   };
 
   return (
     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-[11px] font-black tracking-[0.3em] uppercase text-brass">Commission Inquiries</h2>
-        <div className="text-[9px] text-stone-400 font-bold uppercase tracking-widest">
+        <h2 className="text-[14px] md:text-[18px] lg:text-[11px] font-black tracking-[0.3em] uppercase text-brass">Commission Inquiries</h2>
+        <div className="text-[12px] md:text-[16px] lg:text-[9px] text-stone-400 font-bold uppercase tracking-widest">
           {contactRequests.length} {contactRequests.length === 1 ? 'Inquiry' : 'Inquiries'}
         </div>
       </div>
@@ -94,77 +100,93 @@ export default function AdminContactRequests({ contactRequests, onUpdate }: Admi
               className="bg-white border border-stone-200 overflow-hidden hover:border-stone-300 transition-colors shadow-sm rounded-sm"
             >
               {/* Compact Header Row */}
-              <div className="px-6 py-4 flex items-start justify-between gap-4 border-b border-stone-200">
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-3 mb-2">
-                    <h3 className="text-sm font-bold text-ebony uppercase tracking-wider">{request.name}</h3>
-                    <span
-                      className={`px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-widest border rounded-sm ${getStatusColor(request.status)}`}
+              <div className="px-6 py-4 md:px-8 md:py-6 flex items-start justify-between gap-4 border-b border-stone-200">
+                <div className="flex-1 min-w-0 space-y-3">
+                  <div className="flex items-start justify-between gap-4">
+                    <h3 className="text-[16px] md:text-[22px] lg:text-sm font-bold text-ebony uppercase tracking-wider">
+                      {request.name}
+                    </h3>
+                    <button
+                      onClick={() => handleDeleteClick(request.id, request.name)}
+                      className="text-[12px] md:text-[16px] lg:text-[9px] font-bold uppercase tracking-widest text-stone-400 hover:text-ebony transition-colors px-2 py-1.5"
                     >
-                      {getStatusText(request.status)}
-                    </span>
+                      Delete
+                    </button>
                   </div>
-                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[10px] text-stone-400">
-                    <a href={`mailto:${request.email}`} className="hover:text-brass transition-colors">
-                      {request.email}
-                    </a>
-                    {request.phone && (
-                      <a href={`tel:${request.phone}`} className="hover:text-brass transition-colors">
-                        {request.phone}
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-2">
+                    <div className="min-w-0">
+                      <div className="text-[10px] md:text-[12px] lg:text-[9px] font-bold uppercase tracking-widest text-stone-300 mb-1">
+                        Email
+                      </div>
+                      <a
+                        href={`mailto:${request.email}`}
+                        className="block text-[16px] md:text-[22px] lg:text-[14px] text-ebony hover:text-brass transition-colors break-all"
+                      >
+                        {request.email}
                       </a>
+                    </div>
+
+                    {request.phone ? (
+                      <div className="min-w-0">
+                        <div className="text-[10px] md:text-[12px] lg:text-[9px] font-bold uppercase tracking-widest text-stone-300 mb-1">
+                          Phone
+                        </div>
+                        <a
+                          href={`tel:${request.phone}`}
+                          className="block text-[16px] md:text-[22px] lg:text-[14px] text-ebony hover:text-brass transition-colors"
+                        >
+                          {request.phone}
+                        </a>
+                      </div>
+                    ) : (
+                      <div className="hidden sm:block" />
                     )}
+                  </div>
+
+                  <div className="text-[12px] md:text-[14px] lg:text-[10px] text-stone-400">
+                    <span className="text-stone-300 font-bold uppercase tracking-widest mr-2">Received</span>
                     <span className="text-stone-300">
                       {formatDate(request.createdAt)} at {formatTime(request.createdAt)}
                     </span>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 flex-shrink-0">
-                  <select
-                    value={request.status === 'new' ? 'new' : 'read'}
-                    onChange={(e) => updateStatus(request.id, e.target.value as 'new' | 'read')}
-                    className="text-[9px] font-bold uppercase tracking-widest bg-transparent border border-stone-200 rounded-sm px-2 py-1 focus:border-brass focus:outline-none text-ebony hover:border-stone-300 transition-colors"
-                  >
-                    <option value="new">New</option>
-                    <option value="read">Read</option>
-                  </select>
-                  <button
-                    onClick={() => handleDeleteClick(request.id, request.name)}
-                    className="text-[9px] font-bold uppercase tracking-widest text-red-600 hover:text-red-800 transition-colors px-2 py-1"
-                  >
-                    Delete
-                  </button>
-                </div>
               </div>
 
               {/* Message Preview */}
-              <div className="px-6 py-4">
-                <p className="text-sm text-stone-600 italic font-serif normal-case line-clamp-2 mb-3">
+              <div className="px-6 py-4 md:px-8 md:py-6">
+                <p className="text-sm md:text-[16px] text-stone-600 italic font-serif normal-case line-clamp-2 mb-3">
                   {request.message}
                 </p>
                 
                 {/* Additional Info Preview */}
-                {(request.budget || request.contractorInvolved || request.designerInvolved) && (
-                  <div className="flex flex-wrap gap-3 text-[10px] text-stone-500 mb-3">
+                {(request.budget ||
+                  request.contractorInvolved !== undefined ||
+                  request.designerInvolved !== undefined) && (
+                  <div className="flex flex-wrap gap-2 mb-3">
                     {request.budget && (
-                      <span className="px-2 py-1 bg-stone-50 rounded-sm">
-                        <span className="font-bold text-ebony">Budget: </span>
+                      <span className="px-2 py-1 bg-stone-50 rounded-sm text-[10px] text-stone-500">
+                        <span className="font-bold text-ebony">Budget:</span>{' '}
                         {request.budget}
                       </span>
                     )}
-                    {request.contractorInvolved && (
-                      <span className="px-2 py-1 bg-stone-50 rounded-sm">Contractor Involved</span>
-                    )}
-                    {request.designerInvolved && (
-                      <span className="px-2 py-1 bg-stone-50 rounded-sm">Designer Involved</span>
-                    )}
+                    {request.contractorInvolved !== undefined && yesNoPill('Contractor', request.contractorInvolved)}
+                    {request.designerInvolved !== undefined && yesNoPill('Designer', request.designerInvolved)}
                   </div>
                 )}
 
                 {/* View Details Toggle */}
                 {(request.message.length > 150 || request.additionalDetails) && (
                   <button
-                    onClick={() => setExpandedRequest(expandedRequest === request.id ? null : request.id)}
-                    className="text-[9px] text-brass hover:text-ebony uppercase tracking-widest font-bold transition-colors"
+                    onClick={async () => {
+                      const next = expandedRequest === request.id ? null : request.id;
+                      setExpandedRequest(next);
+                      // When opening details, auto-mark as read to reduce manual status management.
+                      if (next && request.status === 'new') {
+                        await updateStatus(request.id, 'read');
+                      }
+                    }}
+                    className="text-[10px] md:text-[14px] text-brass hover:text-ebony uppercase tracking-widest font-bold transition-colors"
                   >
                     {expandedRequest === request.id ? '▲ Hide Details' : '▼ View Full Details'}
                   </button>
@@ -173,45 +195,44 @@ export default function AdminContactRequests({ contactRequests, onUpdate }: Admi
 
               {/* Expanded Details */}
               {expandedRequest === request.id && (
-                <div className="px-6 py-4 bg-stone-50 border-t border-stone-100 space-y-4">
+                <div className="px-6 py-4 md:px-8 md:py-6 bg-stone-50 border-t border-stone-100 space-y-4">
                   <div>
-                    <h4 className="text-[10px] font-bold uppercase tracking-widest text-ebony mb-2">Full Message</h4>
-                    <p className="text-sm text-stone-700 italic font-serif normal-case whitespace-pre-wrap leading-relaxed">
+                    <h4 className="text-[11px] md:text-[14px] font-bold uppercase tracking-widest text-ebony mb-2">Full Message</h4>
+                    <p className="text-sm md:text-[16px] text-stone-700 italic font-serif normal-case whitespace-pre-wrap leading-relaxed">
                       {request.message}
                     </p>
                   </div>
 
                   {request.additionalDetails && (
                     <div>
-                      <h4 className="text-[10px] font-bold uppercase tracking-widest text-ebony mb-2">Additional Details</h4>
-                      <p className="text-sm text-stone-700 italic font-serif normal-case whitespace-pre-wrap leading-relaxed">
+                      <h4 className="text-[11px] md:text-[14px] font-bold uppercase tracking-widest text-ebony mb-2">Additional Details</h4>
+                      <p className="text-sm md:text-[16px] text-stone-700 italic font-serif normal-case whitespace-pre-wrap leading-relaxed">
                         {request.additionalDetails}
                       </p>
                     </div>
                   )}
 
-                  {(request.budget || request.contractorInvolved || request.designerInvolved) && (
+                  {(request.budget ||
+                    request.contractorInvolved !== undefined ||
+                    request.designerInvolved !== undefined) && (
                     <div className="pt-3 border-t border-stone-200">
-                      <h4 className="text-[10px] font-bold uppercase tracking-widest text-ebony mb-3">Project Information</h4>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                      <h4 className="text-[11px] md:text-[14px] font-bold uppercase tracking-widest text-ebony mb-3">Project Information</h4>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm md:text-[16px]">
                         {request.budget && (
                           <div>
                             <span className="font-bold text-ebony">Budget: </span>
                             <span className="text-stone-700">{request.budget}</span>
                           </div>
                         )}
-                        <div>
-                          <span className="font-bold text-ebony">Collaborators: </span>
-                          <span className="text-stone-700">
-                            {request.contractorInvolved && request.designerInvolved
-                              ? 'Contractor, Designer'
-                              : request.contractorInvolved
-                              ? 'Contractor'
-                              : request.designerInvolved
-                              ? 'Designer'
-                              : 'None'}
-                          </span>
-                        </div>
+                        {(request.contractorInvolved !== undefined || request.designerInvolved !== undefined) && (
+                          <div className="sm:col-span-2">
+                            <div className="font-bold text-ebony mb-2">Collaborators</div>
+                            <div className="flex flex-wrap gap-2">
+                              {request.contractorInvolved !== undefined && yesNoPill('Contractor', request.contractorInvolved)}
+                              {request.designerInvolved !== undefined && yesNoPill('Designer', request.designerInvolved)}
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </div>
                   )}

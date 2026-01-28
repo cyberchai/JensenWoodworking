@@ -159,7 +159,7 @@ export default function AdminPastProjects() {
       url: mediaItem.url,
       fileId: mediaItem.fileId,
       name: mediaItem.name,
-      isFeatured: false,
+      isFeatured: true,
     };
     setSelectedImages([...selectedImages, image]);
   };
@@ -284,6 +284,12 @@ export default function AdminPastProjects() {
                               alt={item.name}
                               className="w-full h-full object-cover"
                             />
+                          </div>
+                          {/* Tiny filename strip */}
+                          <div className="px-2 py-1 bg-white border-t border-gray-200">
+                            <div className="text-[9px] leading-tight text-stone-500 truncate" title={item.name}>
+                              {item.name}
+                            </div>
                           </div>
                           {isSelected && (
                             <div className="absolute inset-0 bg-brass/20 flex items-center justify-center">

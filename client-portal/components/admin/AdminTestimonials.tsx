@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { Feedback } from '@/lib/mockStore';
 import { store } from '@/lib/store';
-import { Star } from '@/components/icons';
 import AdminAddFeedbackForm from './AdminAddFeedbackForm';
 
 interface AdminTestimonialsProps {
@@ -55,17 +54,6 @@ export default function AdminTestimonials({ feedback, onUpdate }: AdminTestimoni
               key={item.id} 
               className="bg-white p-8 border border-stone-200 shadow-sm relative italic font-serif text-stone-700"
             >
-              <div className="flex items-center text-brass mb-6">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star 
-                    key={i} 
-                    size={14} 
-                    className={i < item.rating ? 'text-brass' : 'text-stone-200'} 
-                    fill={i < item.rating} 
-                  />
-                ))}
-              </div>
-              
               {/* Title Section */}
               <div className="mb-4 not-italic">
                 {editingTitle === item.id ? (
@@ -117,9 +105,6 @@ export default function AdminTestimonials({ feedback, onUpdate }: AdminTestimoni
                 <div>
                   <div className="text-[10px] font-black uppercase tracking-widest text-ebony">
                     {item.clientName || 'Anonymous'}
-                  </div>
-                  <div className="text-[9px] font-bold uppercase tracking-widest text-stone-300">
-                    {item.projectName}
                   </div>
                 </div>
                 <button 

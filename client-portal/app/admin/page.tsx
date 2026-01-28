@@ -66,18 +66,18 @@ export default function AdminPage() {
     <div className="min-h-screen bg-stone-50">
       <div className="max-w-7xl mx-auto px-6 lg:px-12 py-12">
         <div className="mb-12 bg-white p-8 rounded-sm border border-stone-200 shadow-sm">
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
             <div>
               <h1 className="text-4xl font-serif font-light text-ebony mb-2">Admin Dashboard</h1>
               <div className="h-0.5 w-12 bg-brass mt-4"></div>
             </div>
-            <div className="flex items-center gap-4">
-              <span className="text-[10px] font-black uppercase tracking-widest text-stone-400">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 min-w-0">
+              <span className="text-[11px] md:text-[13px] font-black uppercase tracking-widest text-stone-400 min-w-0 truncate max-w-full sm:max-w-none">
                 {user.email}
               </span>
               <button
                 onClick={signOut}
-                className="text-[11px] font-bold uppercase tracking-widest text-stone-400 hover:text-ebony transition-colors inline-flex items-center gap-2"
+                className="text-[12px] md:text-[13px] font-bold uppercase tracking-widest text-stone-400 hover:text-ebony transition-colors inline-flex items-center gap-2 whitespace-nowrap self-start sm:self-auto"
               >
                 <LogOut size={14} />
                 Sign Out
