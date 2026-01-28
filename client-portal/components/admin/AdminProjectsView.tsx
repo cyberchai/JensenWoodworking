@@ -1,12 +1,9 @@
 'use client';
 
 import { useState, useEffect, FormEvent, useRef } from 'react';
-import { Project, StatusUpdate, StatusUpdatePhoto } from '@/lib/mockStore';
+import { Project } from '@/lib/mockStore';
 import { store } from '@/lib/store';
 import { useRouter } from 'next/navigation';
-import AdminStatusUpdateForm from './AdminStatusUpdateForm';
-import AdminStatusUpdateEditForm from './AdminStatusUpdateEditForm';
-import DeleteConfirmModal from './DeleteConfirmModal';
 import AdminCreateProject from './AdminCreateProject';
 import { Copy } from '@/components/icons';
 
@@ -18,8 +15,7 @@ interface AdminProjectsViewProps {
 export default function AdminProjectsView({ projects, onUpdate }: AdminProjectsViewProps) {
   const router = useRouter();
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [editingUpdate, setEditingUpdate] = useState<{ token: string; update: StatusUpdate } | null>(null);
-  const [deleteConfirm, setDeleteConfirm] = useState<{ token: string; updateId: string; title: string } | null>(null);
+  const [isCreatingProject, setIsCreatingProject] = useState(false);
   const [paymentPIN, setPaymentPIN] = useState('');
   const [isEditingPIN, setIsEditingPIN] = useState(false);
   const [isEditingTitle, setIsEditingTitle] = useState(false);
@@ -85,17 +81,8 @@ export default function AdminProjectsView({ projects, onUpdate }: AdminProjectsV
       const existingPastProject = await store.getPastProjectByToken(token);
       
       if (!existingPastProject) {
-        // Collect all photos from status updates
+        // No photos to collect since status updates are removed
         const allPhotos: { url: string; name: string; isFeatured: boolean }[] = [];
-        project.statusUpdates.forEach((update: StatusUpdate) => {
-          update.photos.forEach(photo => {
-            if (typeof photo === 'string') {
-              allPhotos.push({ url: photo, name: 'Project Photo', isFeatured: false });
-            } else {
-              allPhotos.push({ url: photo.url, name: 'Project Photo', isFeatured: photo.isFeatured || false });
-            }
-          });
-        });
 
         await store.createPastProject({
           projectToken: token,
@@ -120,6 +107,12 @@ export default function AdminProjectsView({ projects, onUpdate }: AdminProjectsV
     await store.updateProject(token, { isCompleted: newCompletionStatus });
     onUpdate();
     
+    // If completing a project, clear selection so it disappears from the Active Projects view cleanly.
+    if (newCompletionStatus && selectedProject?.token === token) {
+      setSelectedProject(null);
+      return;
+    }
+
     if (selectedProject?.token === token) {
       const updated = await store.getProject(token);
       if (updated) setSelectedProject(updated);
@@ -202,76 +195,6 @@ export default function AdminProjectsView({ projects, onUpdate }: AdminProjectsV
     }
   };
 
-  const handleDeleteClick = (token: string, updateId: string, title: string) => {
-    setDeleteConfirm({ token, updateId, title });
-  };
-
-  const handleDeleteConfirm = async () => {
-    if (deleteConfirm) {
-      await store.deleteStatusUpdate(deleteConfirm.token, deleteConfirm.updateId);
-      setDeleteConfirm(null);
-      onUpdate();
-      if (selectedProject?.token === deleteConfirm.token) {
-        const updated = await store.getProject(deleteConfirm.token);
-        if (updated) setSelectedProject(updated);
-      }
-    }
-  };
-
-  const handleEditClick = (token: string, update: StatusUpdate) => {
-    setEditingUpdate({ token, update });
-  };
-
-  const handleEditCancel = () => {
-    setEditingUpdate(null);
-  };
-
-  const handleEditSave = () => {
-    setEditingUpdate(null);
-    onUpdate();
-    if (selectedProject) {
-      store.getProject(selectedProject.token).then((updated: Project | undefined) => {
-        if (updated) setSelectedProject(updated);
-      });
-    }
-  };
-
-  const handleTogglePhotoFeatured = async (token: string, updateId: string, photoIndex: number) => {
-    const project = await store.getProject(token);
-    if (!project) return;
-
-    const update = project.statusUpdates.find((u: StatusUpdate) => u.id === updateId);
-    if (!update || !update.photos || photoIndex >= update.photos.length) return;
-
-    const updatedPhotos = [...update.photos];
-    const photo = updatedPhotos[photoIndex];
-    
-    if (typeof photo === 'string') {
-      // Convert legacy string to StatusUpdatePhoto object with featured = true
-      updatedPhotos[photoIndex] = {
-        url: photo,
-        isFeatured: true,
-      };
-    } else {
-      // Toggle featured status
-      updatedPhotos[photoIndex] = {
-        ...photo,
-        isFeatured: !photo.isFeatured,
-      };
-    }
-
-    const updatedStatusUpdates = project.statusUpdates.map((u: StatusUpdate) =>
-      u.id === updateId ? { ...u, photos: updatedPhotos } : u
-    );
-
-    await store.updateProject(token, { statusUpdates: updatedStatusUpdates });
-    onUpdate();
-    
-    if (selectedProject?.token === token) {
-      const updated = await store.getProject(token);
-      if (updated) setSelectedProject(updated);
-    }
-  };
 
   const copyLink = (token: string) => {
     const link = `${window.location.origin}/client/p/${token}`;
@@ -293,29 +216,11 @@ export default function AdminProjectsView({ projects, onUpdate }: AdminProjectsV
     }
   };
 
-  const formatDate = (timestamp: number) => {
-    return new Date(timestamp).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-    });
-  };
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
       {/* Left Sidebar - Project List */}
       <div className="lg:col-span-1 space-y-4">
-        <div className="mb-6 bg-white p-6 rounded-sm border border-stone-200 shadow-sm">
-          <h2 className="text-[11px] font-bold tracking-[0.3em] uppercase text-brass mb-4">Create New Project</h2>
-          <AdminCreateProject 
-            onProjectCreated={() => {
-              onUpdate();
-            }} 
-          />
-        </div>
-        
         <div className="bg-white p-6 rounded-sm border border-stone-200 shadow-sm">
           <h2 className="text-[11px] font-bold tracking-[0.3em] uppercase text-brass mb-6">Active Projects</h2>
 
@@ -330,6 +235,7 @@ export default function AdminProjectsView({ projects, onUpdate }: AdminProjectsV
                   key={project.token}
                   onClick={() => {
                     setSelectedProject(project);
+                    setIsCreatingProject(false);
                     setPaymentPIN(project.paymentCode || '');
                     setEditTitle(project.clientLabel);
                     setEditDescription(project.description || '');
@@ -365,7 +271,19 @@ export default function AdminProjectsView({ projects, onUpdate }: AdminProjectsV
 
       {/* Right Section - Project Details */}
       <div className="lg:col-span-2 space-y-10">
-        {selectedProject ? (
+        {isCreatingProject ? (
+          <div className="bg-white p-10 border border-stone-200 shadow-sm rounded-sm animate-in fade-in slide-in-from-right-4">
+            <h2 className="text-[11px] font-bold tracking-[0.3em] uppercase text-brass mb-6">Create New Project</h2>
+            <AdminCreateProject 
+              isOpen={true}
+              onClose={() => setIsCreatingProject(false)}
+              onProjectCreated={() => {
+                setIsCreatingProject(false);
+                onUpdate();
+              }} 
+            />
+          </div>
+        ) : selectedProject ? (
           <div className="space-y-12 animate-in fade-in slide-in-from-right-4">
             {/* Project Header */}
             <div className="bg-white p-10 border border-stone-200 shadow-sm rounded-sm">
@@ -481,56 +399,55 @@ export default function AdminProjectsView({ projects, onUpdate }: AdminProjectsV
               </div>
 
               {/* Payment Status */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-stone-400">Deposit Status</label>
-                  <label className="flex items-center gap-3 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={selectedProject.depositPaid}
-                      onChange={() => handlePaymentToggle(selectedProject.token, 'depositPaid')}
-                      className="w-5 h-5 text-brass border-stone-300 focus:ring-brass rounded"
-                    />
-                    <span className="text-sm font-serif text-ebony">
-                      {selectedProject.depositPaid ? 'Paid' : 'Unpaid'}
-                    </span>
-                  </label>
+              <div className="mb-10 pb-10 border-b border-stone-200 space-y-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-stone-400 block">Deposit</label>
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={selectedProject.depositPaid}
+                        onChange={() => handlePaymentToggle(selectedProject.token, 'depositPaid')}
+                        className="w-4 h-4 text-brass border-stone-300 focus:ring-brass rounded"
+                      />
+                      <span className="text-sm font-serif text-ebony">
+                        {selectedProject.depositPaid ? 'Paid' : 'Unpaid'}
+                      </span>
+                    </label>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-stone-400 block">Final Payment</label>
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={selectedProject.finalPaid}
+                        onChange={() => handlePaymentToggle(selectedProject.token, 'finalPaid')}
+                        className="w-4 h-4 text-brass border-stone-300 focus:ring-brass rounded"
+                      />
+                      <span className="text-sm font-serif text-ebony">
+                        {selectedProject.finalPaid ? 'Paid' : 'Unpaid'}
+                      </span>
+                    </label>
+                  </div>
                 </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-stone-400">Final Payment Status</label>
-                  <label className="flex items-center gap-3 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={selectedProject.finalPaid}
-                      onChange={() => handlePaymentToggle(selectedProject.token, 'finalPaid')}
-                      className="w-5 h-5 text-brass border-stone-300 focus:ring-brass rounded"
-                    />
-                    <span className="text-sm font-serif text-ebony">
-                      {selectedProject.finalPaid ? 'Paid' : 'Unpaid'}
-                    </span>
-                  </label>
-                </div>
-              </div>
 
-              {/* Project Completion */}
-              <div className="mb-10 pb-10 border-b border-stone-200">
-                <label className="text-[10px] font-black uppercase tracking-widest text-stone-400 mb-2 block">Project Completion</label>
-                <label className="flex items-center gap-3 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={selectedProject.isCompleted || false}
-                    onChange={() => handleCompletionToggle(selectedProject.token)}
-                    className="w-5 h-5 text-brass border-stone-300 focus:ring-brass rounded"
-                  />
-                  <span className="text-sm font-serif text-ebony">
-                    {selectedProject.isCompleted ? 'Project Completed' : 'Mark as Completed'}
-                  </span>
-                </label>
-                {selectedProject.isCompleted && (
-                  <p className="text-xs text-stone-400 mt-2 ml-8">
-                    This project has been moved to Past Projects. You can manage it from the Past Projects tab.
-                  </p>
-                )}
+                {/* Completion / Move to Past Projects */}
+                <div className="rounded-sm border border-brass/25 bg-brass/5 px-4 py-3 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                  <div className="space-y-0.5">
+                    <div className="text-[9px] font-black uppercase tracking-[0.28em] text-brass">Move to Past Projects</div>
+                    <div className="text-[12px] text-stone-600">
+                      Marks this project complete.
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => handleCompletionToggle(selectedProject.token)}
+                    disabled={!!selectedProject.isCompleted}
+                    className="px-4 py-2 bg-ebony text-white hover:bg-brass transition-all text-[10px] font-black uppercase tracking-widest shadow-sm disabled:opacity-60 disabled:cursor-not-allowed"
+                  >
+                    {selectedProject.isCompleted ? 'Moved' : 'Move'}
+                  </button>
+                </div>
               </div>
 
               {/* Project Description */}
@@ -580,114 +497,6 @@ export default function AdminProjectsView({ projects, onUpdate }: AdminProjectsV
                 )}
               </div>
 
-              {/* Add Status Update Form */}
-              <div className="mb-10">
-                <h3 className="text-[11px] font-black uppercase tracking-[0.3em] text-brass mb-6">Add Status Update</h3>
-                <AdminStatusUpdateForm 
-                  projectToken={selectedProject.token} 
-                  onUpdateAdded={() => {
-                    onUpdate();
-                    store.getProject(selectedProject.token).then((updated: Project | undefined) => {
-                      if (updated) setSelectedProject(updated);
-                    });
-                  }} 
-                />
-              </div>
-
-              {/* Status Updates List */}
-              <div>
-                <h3 className="text-[11px] font-black uppercase tracking-[0.3em] text-brass mb-6">
-                  Status Updates ({selectedProject.statusUpdates.length})
-                </h3>
-                
-                {selectedProject.statusUpdates.length === 0 ? (
-                  <div className="py-12 text-center border-2 border-dashed border-stone-200 rounded-sm bg-stone-50">
-                    <p className="text-stone-300 font-serif italic">No status updates yet.</p>
-                  </div>
-                ) : (
-                  <div className="space-y-4">
-                    {selectedProject.statusUpdates
-                      .sort((a, b) => b.createdAt - a.createdAt)
-                      .map((update) => {
-                        const isEditing = editingUpdate?.token === selectedProject.token && editingUpdate?.update.id === update.id;
-                        
-                        if (isEditing) {
-                          return (
-                            <AdminStatusUpdateEditForm
-                              key={update.id}
-                              projectToken={selectedProject.token}
-                              update={update}
-                              onUpdateSaved={handleEditSave}
-                              onCancel={handleEditCancel}
-                            />
-                          );
-                        }
-
-                        return (
-                          <div key={update.id} className="border border-stone-200 p-6 bg-stone-50 rounded-sm shadow-sm">
-                            <div className="flex items-start justify-between mb-4">
-                              <div className="flex-1">
-                                <h4 className="text-xl font-serif text-ebony mb-2">{update.title}</h4>
-                                <p className="text-[9px] font-black uppercase tracking-[0.2em] text-stone-300">
-                                  {formatDate(update.createdAt)}
-                                </p>
-                              </div>
-                              <div className="flex items-center gap-3">
-                                <button
-                                  onClick={() => handleEditClick(selectedProject.token, update)}
-                                  className="text-[10px] font-black uppercase tracking-widest text-brass hover:text-ebony transition-colors"
-                                >
-                                  Edit
-                                </button>
-                                <button
-                                  onClick={() => handleDeleteClick(selectedProject.token, update.id, update.title)}
-                                  className="text-[10px] font-black uppercase tracking-widest text-red-600 hover:text-red-800 transition-colors"
-                                >
-                                  Delete
-                                </button>
-                              </div>
-                            </div>
-                            <p className="text-stone-600 font-serif italic text-lg leading-relaxed mb-4">
-                              "{update.message}"
-                            </p>
-                            {update.photos && update.photos.length > 0 && (
-                              <div className="mt-4 space-y-3">
-                                <div className="grid grid-cols-3 gap-3">
-                                  {update.photos.map((photo, photoIndex) => {
-                                    const photoUrl = typeof photo === 'string' ? photo : photo.url;
-                                    const isFeatured = typeof photo === 'object' ? (photo.isFeatured || false) : false;
-                                    return (
-                                      <div key={photoIndex} className="relative group">
-                                        <div className="aspect-square bg-stone-100 rounded-sm overflow-hidden">
-                                          <img
-                                            src={photoUrl}
-                                            alt={`${update.title} - Photo ${photoIndex + 1}`}
-                                            className="w-full h-full object-cover"
-                                          />
-                                        </div>
-                                        <button
-                                          onClick={() => handleTogglePhotoFeatured(selectedProject.token, update.id, photoIndex)}
-                                          className={`absolute top-2 right-2 text-[8px] font-black uppercase tracking-[0.2em] px-2 py-1 border rounded-full transition-all ${
-                                            isFeatured
-                                              ? 'border-brass text-brass bg-brass/90 hover:bg-brass'
-                                              : 'border-white/80 text-white bg-black/50 hover:bg-black/70'
-                                          }`}
-                                        >
-                                          {isFeatured ? 'Featured' : 'Hidden'}
-                                        </button>
-                                      </div>
-                                    );
-                                  })}
-                                </div>
-                              </div>
-                            )}
-                          </div>
-                        );
-                      })}
-                  </div>
-                )}
-              </div>
-
               {/* Action Buttons */}
               <div className="flex gap-4 pt-6 border-t border-stone-200 mt-10">
                 <button
@@ -708,18 +517,17 @@ export default function AdminProjectsView({ projects, onUpdate }: AdminProjectsV
         ) : (
           <div className="h-full flex flex-col items-center justify-center border-2 border-dashed border-stone-200 rounded-sm p-20 text-center bg-white">
             <h3 className="text-2xl font-serif text-stone-300">Select a Project to Manage</h3>
-            <p className="text-stone-400 font-serif italic mt-4">Choose a project from the list to view and edit details.</p>
+            <p className="text-stone-400 font-serif italic mt-4 mb-8">Choose a project from the list to view and edit details.</p>
+            <button
+              onClick={() => setIsCreatingProject(true)}
+              className="px-6 py-3 bg-brass text-ebony hover:bg-ebony hover:text-white transition-all text-[11px] font-black uppercase tracking-widest shadow-sm"
+            >
+              Create New Project
+            </button>
           </div>
         )}
       </div>
 
-      <DeleteConfirmModal
-        isOpen={deleteConfirm !== null}
-        onClose={() => setDeleteConfirm(null)}
-        onConfirm={handleDeleteConfirm}
-        title="Delete Status Update"
-        message={`Are you sure you want to delete "${deleteConfirm?.title}"? This action cannot be undone.`}
-      />
     </div>
   );
 }

@@ -5,10 +5,8 @@ import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Project } from '@/lib/mockStore';
 import { store } from '@/lib/store';
-import ProjectStatusTimeline from '@/components/client/ProjectStatusTimeline';
 import PaymentPanel from '@/components/client/PaymentPanel';
 import FeedbackForm from '@/components/client/FeedbackForm';
-import { Calendar, ChevronRight } from '@/components/icons';
 
 export default function ProjectDetailPage() {
   const params = useParams();
@@ -79,7 +77,7 @@ export default function ProjectDetailPage() {
             onClick={() => setShowPaymentArea(!showPaymentArea)} 
             className="px-8 py-4 bg-ebony text-white text-[11px] font-black uppercase tracking-widest hover:bg-brass transition-all shadow-lg"
           >
-            {showPaymentArea ? 'Return to Timeline' : 'Payment Information'}
+            {showPaymentArea ? 'Hide Payment Info' : 'Payment Information'}
           </button>
         </div>
         </div>
@@ -128,18 +126,8 @@ export default function ProjectDetailPage() {
         )}
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
-          <div className="lg:col-span-8 space-y-20">
-            <div className="bg-white p-10 lg:p-12 rounded-sm border border-stone-200 shadow-sm space-y-12">
-              <h3 className="text-[11px] font-black uppercase tracking-[0.3em] text-brass">Project Updates</h3>
-              
-              {project.statusUpdates.length === 0 ? (
-                <div className="py-24 text-center border-2 border-dashed border-stone-200 rounded-sm bg-stone-50">
-                  <p className="font-serif italic text-stone-300 text-2xl">No updates yet. Check back soon!</p>
-                </div>
-              ) : (
-                <ProjectStatusTimeline statusUpdates={project.statusUpdates} />
-              )}
-            </div>
+          <div className="lg:col-span-8">
+            {/* Project details section removed - status updates no longer available */}
           </div>
 
           <div className="lg:col-span-4 space-y-12">

@@ -1,24 +1,9 @@
-export interface StatusUpdatePhoto {
-  url: string;
-  isFeatured: boolean; // Whether to display on main website
-}
-
-export interface StatusUpdate {
-  id: string;
-  title: string;
-  message: string;
-  photos: (string | StatusUpdatePhoto)[]; // Array of photo URLs (up to 3) - can be string (legacy) or StatusUpdatePhoto
-  createdAt: number;
-}
-
 export interface Project {
-  token: string;
+  token: string; // Slugified project name (derived from clientLabel)
   clientLabel: string;
   description?: string;
   projectStartDate?: number; // Unix timestamp
-  projectTokenCode?: string; // User-provided optional token code
   paymentCode?: string; // PIN code for payment access
-  statusUpdates: StatusUpdate[];
   depositPaid: boolean;
   finalPaid: boolean;
   isCompleted?: boolean; // Whether project is completed and moved to past projects
@@ -55,6 +40,7 @@ export interface Feedback {
   isTestimonial: boolean;
   createdAt: number;
   clientName?: string;
+  title?: string; // Title/header line for testimonials displayed on home page
 }
 
 export interface ContactRequest {
@@ -78,45 +64,17 @@ const mockFeedback = new Map<string, Feedback>();
 const mockContactRequests = new Map<string, ContactRequest>();
 const mockPastProjects = new Map<string, PastProject>();
 
-// Import secure token generator
-import { generateSecureToken, validateTokenFormat, normalizeToken } from './tokenGenerator';
-
-// Legacy function for backward compatibility - now uses secure token generator
-export function generateToken(): string {
-  return generateSecureToken();
-}
+// Import project name utilities
+import { slugifyProjectName, normalizeProjectName } from './projectNameUtils';
 
 // Initialize with example projects
 function initializeStore() {
   const now = Date.now();
   const secureHandles = getSecurePaymentHandles();
   
-  mockProjects.set('DEMO1', {
-    token: 'DEMO1',
+  mockProjects.set('custom-walnut-dining-table', {
+    token: 'custom-walnut-dining-table',
     clientLabel: 'Custom Walnut Dining Table',
-    statusUpdates: [
-      {
-        id: 'update1',
-        title: 'Project Started',
-        message: 'We\'ve begun work on your custom walnut dining table. The wood has been selected and we\'re starting the initial cuts.',
-        photos: [],
-        createdAt: now - 86400000 * 25,
-      },
-      {
-        id: 'update2',
-        title: 'Progress Update',
-        message: 'The table top has been shaped and sanded. We\'re now working on the base structure.',
-        photos: [],
-        createdAt: now - 86400000 * 15,
-      },
-      {
-        id: 'update3',
-        title: 'Quality Check',
-        message: 'The table is nearly complete. We\'re doing a final quality check and applying the finish.',
-        photos: [],
-        createdAt: now - 86400000 * 5,
-      },
-    ],
     depositPaid: true,
     finalPaid: false,
     venmoHandle: secureHandles.venmoHandle,
@@ -124,32 +82,9 @@ function initializeStore() {
     createdAt: now - 86400000 * 30, // 30 days ago
   });
 
-  mockProjects.set('DEMO2', {
-    token: 'DEMO2',
+  mockProjects.set('kitchen-island-countertop', {
+    token: 'kitchen-island-countertop',
     clientLabel: 'Kitchen Island Countertop',
-    statusUpdates: [
-      {
-        id: 'update4',
-        title: 'Quote Approved',
-        message: 'Thank you for approving the quote. We\'ll begin work on your kitchen island countertop next week.',
-        photos: [],
-        createdAt: now - 86400000 * 20,
-      },
-      {
-        id: 'update5',
-        title: 'Material Selection',
-        message: 'We\'ve selected the perfect slab for your countertop. Photos coming soon!',
-        photos: [],
-        createdAt: now - 86400000 * 12,
-      },
-      {
-        id: 'update6',
-        title: 'Installation Scheduled',
-        message: 'Your countertop is ready! We\'ve scheduled installation for next week.',
-        photos: [],
-        createdAt: now - 86400000 * 3,
-      },
-    ],
     depositPaid: true,
     finalPaid: true,
     venmoHandle: secureHandles.venmoHandle,
@@ -157,19 +92,9 @@ function initializeStore() {
     createdAt: now - 86400000 * 15, // 15 days ago
   });
 
-  const randomToken = generateToken();
-  mockProjects.set(randomToken, {
-    token: randomToken,
+  mockProjects.set('live-edge-mantel', {
+    token: 'live-edge-mantel',
     clientLabel: 'Live Edge Mantel',
-    statusUpdates: [
-      {
-        id: 'update7',
-        title: 'Project Approved',
-        message: 'Your live edge mantel project has been approved. We\'ll begin sourcing materials this week.',
-        photos: [],
-        createdAt: now - 86400000 * 5,
-      },
-    ],
     depositPaid: false,
     finalPaid: false,
     venmoHandle: secureHandles.venmoHandle,
@@ -194,37 +119,33 @@ export const store = {
   },
 
   createProject(data: Omit<Project, 'token' | 'createdAt' | 'venmoHandle' | 'paypalHandle'>): Project {
-    let token: string;
     const secureHandles = getSecurePaymentHandles();
     
-    // Handle user-provided token vs auto-generated
-    if (data.projectTokenCode?.trim()) {
-      // User-provided token: validate format and check for duplicates
-      token = normalizeToken(data.projectTokenCode.trim());
-      
-      // Validate token format
-      if (!validateTokenFormat(token)) {
-        throw new Error(`Invalid token format. Token must match format: JW-XXXX-XXXX-XXXX (where X is alphanumeric)`);
-      }
-      
-      // Check for duplicate
-      if (mockProjects.has(token)) {
-        throw new Error(`Token "${token}" already exists. Please use a different token code.`);
-      }
-    } else {
-      // Auto-generated token: ensure uniqueness
-      let attempts = 0;
-      const maxAttempts = 10;
-      
-      do {
-        token = generateSecureToken();
-        attempts++;
-        
-        // If we've tried too many times, throw an error
-        if (attempts >= maxAttempts) {
-          throw new Error('Unable to generate unique token after multiple attempts. Please try again.');
-        }
-      } while (mockProjects.has(token));
+    // Validate clientLabel is provided
+    if (!data.clientLabel || !data.clientLabel.trim()) {
+      throw new Error('Project name (clientLabel) is required.');
+    }
+    
+    // Generate token from clientLabel using slugification
+    const token = slugifyProjectName(data.clientLabel.trim());
+    
+    // Validate that slugification produced a valid token
+    if (!token || token.length === 0) {
+      throw new Error('Project name must contain at least one alphanumeric character.');
+    }
+    
+    // Check for uniqueness (case-insensitive)
+    const normalizedName = normalizeProjectName(data.clientLabel.trim());
+    const existingProjects = Array.from(mockProjects.values());
+    const duplicate = existingProjects.find(p => normalizeProjectName(p.clientLabel) === normalizedName);
+    
+    if (duplicate) {
+      throw new Error(`A project with the name "${data.clientLabel}" already exists. Please use a different project name.`);
+    }
+    
+    // Also check if token already exists (in case of slug collision)
+    if (mockProjects.has(token)) {
+      throw new Error(`A project with a similar name already exists. Please use a different project name.`);
     }
     
     // Enforce secure payment handles - cannot be overridden
@@ -254,54 +175,62 @@ export const store = {
       );
     }
     
+    // If clientLabel is being updated, regenerate token and check uniqueness
+    let newToken = project.token;
+    if (safeUpdates.clientLabel && safeUpdates.clientLabel.trim() !== project.clientLabel.trim()) {
+      const newClientLabel = safeUpdates.clientLabel.trim();
+      
+      // Validate new name
+      if (!newClientLabel || newClientLabel.length === 0) {
+        throw new Error('Project name cannot be empty.');
+      }
+      
+      // Generate new token
+      newToken = slugifyProjectName(newClientLabel);
+      
+      // Validate that slugification produced a valid token
+      if (!newToken || newToken.length === 0) {
+        throw new Error('Project name must contain at least one alphanumeric character.');
+      }
+      
+      // Check for uniqueness (case-insensitive) - exclude current project
+      const normalizedName = normalizeProjectName(newClientLabel);
+      const existingProjects = Array.from(mockProjects.values()).filter(p => p.token !== token);
+      const duplicate = existingProjects.find(p => normalizeProjectName(p.clientLabel) === normalizedName);
+      
+      if (duplicate) {
+        throw new Error(`A project with the name "${newClientLabel}" already exists. Please use a different project name.`);
+      }
+      
+      // Also check if new token already exists (in case of slug collision)
+      if (mockProjects.has(newToken) && newToken !== token) {
+        throw new Error(`A project with a similar name already exists. Please use a different project name.`);
+      }
+      
+      // Update token in safeUpdates
+      safeUpdates.token = newToken;
+    }
+    
     // Always use secure handles - never update them
-    // Note: projectTokenCode cannot be updated after creation (token is the ID)
     const updated = { 
       ...project, 
       ...safeUpdates,
       venmoHandle: project.venmoHandle, // Keep original secure handle
       paypalHandle: project.paypalHandle, // Keep original secure handle
-      token: project.token, // Token cannot be changed
+      token: newToken, // Use new token if clientLabel changed
     };
-    mockProjects.set(token, updated);
+    
+    // If token changed, update the map key
+    if (newToken !== token) {
+      mockProjects.delete(token);
+      mockProjects.set(newToken, updated);
+    } else {
+      mockProjects.set(token, updated);
+    }
+    
     return updated;
   },
 
-  addStatusUpdate(token: string, update: Omit<StatusUpdate, 'id' | 'createdAt'>): StatusUpdate | undefined {
-    const project = mockProjects.get(token);
-    if (!project) return undefined;
-    
-    // Ensure photos array is limited to 3
-    const photos = (update.photos || []).slice(0, 3);
-    
-    const statusUpdate: StatusUpdate = {
-      ...update,
-      photos,
-      id: `update_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-      createdAt: Date.now(),
-    };
-    
-    const updated = {
-      ...project,
-      statusUpdates: [...project.statusUpdates, statusUpdate].sort((a, b) => b.createdAt - a.createdAt),
-    };
-    
-    mockProjects.set(token, updated);
-    return statusUpdate;
-  },
-
-  deleteStatusUpdate(token: string, updateId: string): boolean {
-    const project = mockProjects.get(token);
-    if (!project) return false;
-    
-    const updated = {
-      ...project,
-      statusUpdates: project.statusUpdates.filter(u => u.id !== updateId),
-    };
-    
-    mockProjects.set(token, updated);
-    return true;
-  },
 
   // Feedback operations
   getAllFeedback(): Feedback[] {

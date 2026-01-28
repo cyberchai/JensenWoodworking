@@ -122,6 +122,20 @@ export default function AdminPastProjects() {
     handleCancelEdit();
   };
 
+  const handleMoveToActiveProjects = async () => {
+    if (!editingProject) return;
+    // Only supported for past projects that correspond to a real project
+    if (editingProject.projectToken.startsWith('manual_')) return;
+
+    // Move back to active projects:
+    // 1) Mark the underlying project as active (isCompleted=false)
+    // 2) Remove the past project record
+    await store.updateProject(editingProject.projectToken, { isCompleted: false });
+    await store.deletePastProject(editingProject.id);
+    await loadData();
+    handleCancelEdit();
+  };
+
   const handleDelete = async () => {
     if (!deleteConfirm) return;
 
@@ -174,12 +188,23 @@ export default function AdminPastProjects() {
             <h2 className="text-xl font-normal text-black">
               {isCreating ? 'Create New Past Project' : 'Edit Past Project'}
             </h2>
-            <button
-              onClick={handleCancelEdit}
-              className="text-[10px] font-black uppercase tracking-widest text-stone-400 hover:text-ebony"
-            >
-              Cancel
-            </button>
+            <div className="flex items-center gap-4">
+              {!isCreating && editingProject && !editingProject.projectToken.startsWith('manual_') && (
+                <button
+                  type="button"
+                  onClick={handleMoveToActiveProjects}
+                  className="text-[10px] font-black uppercase tracking-widest text-brass hover:text-ebony"
+                >
+                  Move to Active Projects
+                </button>
+              )}
+              <button
+                onClick={handleCancelEdit}
+                className="text-[10px] font-black uppercase tracking-widest text-stone-400 hover:text-ebony"
+              >
+                Cancel
+              </button>
+            </div>
           </div>
 
           <form onSubmit={handleSave} className="space-y-6">

@@ -66,6 +66,8 @@ function generateTestimonialBlock(testimonial: Feedback, projectImages: string[]
   const comment = escapeHtml(testimonial.comment);
   const clientName = escapeHtml(testimonial.clientName || 'Anonymous');
   const projectName = escapeHtml(testimonial.projectName || '');
+  const title = escapeHtml(testimonial.title || '');
+  const testimonialId = escapeHtml(testimonial.id || '');
   
   // Only show images if they exist (no default/fallback images)
   const images = projectImages;
@@ -108,10 +110,11 @@ function generateTestimonialBlock(testimonial: Feedback, projectImages: string[]
   
   return `
 					<!-- Testimonial Block -->
-					<div class="testimonial-block" data-testimonial-images='${imagesJson}'>
+					<div class="testimonial-block" data-testimonial-images='${imagesJson}' data-testimonial-id="${testimonialId}">
 						<div class="inner-box">
 							${imageContainerHtml}
 							<div class="quote icon_quotations"></div>
+							${title ? `<div class="testimonial-title-link"><a href="testimonials.html?id=${testimonialId}" class="testimonial-title">${title}</a></div>` : ''}
 							<div class="author">${clientName}${projectName ? ` <span>/ ${projectName}</span>` : ''}</div>
 							<p class="testimonial-text">"${comment}"</p>
 							${viewMoreButtonHtml}
@@ -196,6 +199,25 @@ export async function GET() {
     
     // Replace testimonial blocks
     if (testimonials.length > 0) {
+      // Generate testimonial titles list (only testimonials with titles)
+      const testimonialsWithTitles = testimonials.filter((t: Feedback) => t.title && t.title.trim());
+      let testimonialTitlesHtml = '';
+      
+      if (testimonialsWithTitles.length > 0) {
+        const titlesList = testimonialsWithTitles.map((testimonial: Feedback) => {
+          const title = escapeHtml(testimonial.title || '');
+          const testimonialId = escapeHtml(testimonial.id || '');
+          return `<li><a href="testimonials.html?id=${testimonialId}" class="testimonial-title-link">${title}</a></li>`;
+        }).join('\n\t\t\t\t\t\t\t\t\t');
+        
+        testimonialTitlesHtml = `
+					<div class="testimonial-titles-list">
+						<ul class="testimonial-titles-ul">
+							${titlesList}
+						</ul>
+					</div>`;
+      }
+      
       // Get project images for testimonials (try to match by projectToken)
       const testimonialBlocks = testimonials.map((testimonial: Feedback) => {
         // Try to find matching project images
@@ -206,9 +228,9 @@ export async function GET() {
         return generateTestimonialBlock(testimonial, projectImages);
       }).join('\n');
       
-      // Find and replace everything between the carousel div opening and closing
-      const testimonialRegex = /(<div class="testimonial-carousel owl-carousel owl-theme">)[\s\S]*?(<\/div>\s*<\/div>\s*<\/section>\s*<!-- End Testimonial Section -->)/;
-      html = html.replace(testimonialRegex, `$1\n\n${testimonialBlocks}\n\n\t\t\t\t$2`);
+      // Replace testimonial section - add titles list after heading, before carousel
+      const testimonialSectionRegex = /(<div class="sec-title">\s*<h2>What Our Clients Say<\/h2>\s*<\/div>)(\s*<div class="testimonial-carousel owl-carousel owl-theme">)[\s\S]*?(<\/div>\s*<\/div>\s*<\/section>\s*<!-- End Testimonial Section -->)/;
+      html = html.replace(testimonialSectionRegex, `$1${testimonialTitlesHtml}$2\n\n${testimonialBlocks}\n\n\t\t\t\t$3`);
     } else {
       // If 0 testimonials, remove the entire section from the page
       const removeTestimonialSectionRegex = /<section class="testimonial-section">[\s\S]*?<\/section>\s*<!-- End Testimonial Section -->\s*/;
@@ -239,6 +261,69 @@ export async function GET() {
 .testimonial-section .testimonial-block .inner-box{
   height: 520px;
   display: flex;
+}
+
+/* Testimonial title link styling */
+.testimonial-title-link {
+  margin-bottom: 12px;
+}
+
+.testimonial-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #000;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  display: inline-block;
+  line-height: 1.4;
+}
+
+.testimonial-title:hover {
+  color: #ffe1a0;
+  text-decoration: underline;
+}
+
+/* Testimonial titles list styling */
+.testimonial-titles-list {
+  margin: 30px 0 40px 0;
+}
+
+.testimonial-titles-ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.testimonial-titles-ul li {
+  margin: 0;
+  padding: 0;
+}
+
+.testimonial-titles-ul .testimonial-title-link {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: inline-block;
+  padding: 8px 0;
+  border-bottom: 1px solid transparent;
+  margin-bottom: 0;
+}
+
+.testimonial-titles-ul .testimonial-title-link:hover {
+  color: #ffe1a0;
+  border-bottom-color: #ffe1a0;
+}
+
+@media (max-width: 768px) {
+  .testimonial-titles-ul .testimonial-title-link {
+    font-size: 15px;
+  }
+}
   flex-direction: column;
 }
 .testimonial-section .testimonial-carousel-container{

@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { Feedback } from '@/lib/mockStore';
 import { store } from '@/lib/store';
 import { Star } from '@/components/icons';
@@ -11,9 +12,29 @@ interface AdminTestimonialsProps {
 }
 
 export default function AdminTestimonials({ feedback, onUpdate }: AdminTestimonialsProps) {
+  const [editingTitle, setEditingTitle] = useState<string | null>(null);
+  const [titleValue, setTitleValue] = useState('');
+
   const toggleTestimonial = async (id: string, currentValue: boolean) => {
     await store.updateFeedback(id, { isTestimonial: !currentValue });
     onUpdate();
+  };
+
+  const startEditingTitle = (item: Feedback) => {
+    setEditingTitle(item.id);
+    setTitleValue(item.title || '');
+  };
+
+  const saveTitle = async (id: string) => {
+    await store.updateFeedback(id, { title: titleValue.trim() || undefined });
+    setEditingTitle(null);
+    setTitleValue('');
+    onUpdate();
+  };
+
+  const cancelEditing = () => {
+    setEditingTitle(null);
+    setTitleValue('');
   };
 
   return (
@@ -44,6 +65,53 @@ export default function AdminTestimonials({ feedback, onUpdate }: AdminTestimoni
                   />
                 ))}
               </div>
+              
+              {/* Title Section */}
+              <div className="mb-4 not-italic">
+                {editingTitle === item.id ? (
+                  <div className="space-y-2">
+                    <input
+                      type="text"
+                      value={titleValue}
+                      onChange={(e) => setTitleValue(e.target.value)}
+                      className="w-full px-3 py-2 text-sm border border-stone-300 bg-white focus:outline-none focus:border-brass transition-colors"
+                      placeholder="Enter testimonial title..."
+                      autoFocus
+                    />
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => saveTitle(item.id)}
+                        className="text-[9px] font-black uppercase tracking-widest px-3 py-1 bg-brass text-ebony hover:bg-ebony hover:text-white transition-all"
+                      >
+                        Save
+                      </button>
+                      <button
+                        onClick={cancelEditing}
+                        className="text-[9px] font-black uppercase tracking-widest px-3 py-1 bg-stone-100 text-stone-600 hover:bg-stone-200 transition-all"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-between">
+                    <div className="flex-1">
+                      {item.title ? (
+                        <div className="text-sm font-semibold text-ebony not-italic mb-1">{item.title}</div>
+                      ) : (
+                        <div className="text-xs text-stone-400 italic">No title set</div>
+                      )}
+                    </div>
+                    <button
+                      onClick={() => startEditingTitle(item)}
+                      className="text-[9px] font-black uppercase tracking-widest text-stone-400 hover:text-ebony transition-colors ml-4"
+                    >
+                      {item.title ? 'Edit' : 'Add'} Title
+                    </button>
+                  </div>
+                )}
+              </div>
+
               <p className="text-xl mb-8 leading-relaxed">"{item.comment}"</p>
               <div className="not-italic flex items-center justify-between border-t border-stone-200 pt-6">
                 <div>

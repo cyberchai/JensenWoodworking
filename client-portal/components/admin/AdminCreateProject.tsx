@@ -1,64 +1,92 @@
 'use client';
 
 import { useState, FormEvent } from 'react';
-import { store, generateSecureToken, validateTokenFormat, normalizeToken } from '@/lib/store';
+import { store } from '@/lib/store';
+import type { Project } from '@/lib/mockStore';
 
 interface AdminCreateProjectProps {
   onProjectCreated: () => void;
+  isOpen?: boolean; // External control for open state
+  onClose?: () => void; // Callback when form should close
 }
 
-export default function AdminCreateProject({ onProjectCreated }: AdminCreateProjectProps) {
+export default function AdminCreateProject({ onProjectCreated, isOpen: externalIsOpen, onClose }: AdminCreateProjectProps) {
   const [clientLabel, setClientLabel] = useState('');
   const [description, setDescription] = useState('');
-  const [projectStartDate, setProjectStartDate] = useState('');
-  const [projectTokenCode, setProjectTokenCode] = useState('');
   const [paymentCode, setPaymentCode] = useState('');
   const [generatedLink, setGeneratedLink] = useState<string | null>(null);
-  const [isOpen, setIsOpen] = useState(false);
-  const [autoGenerateToken, setAutoGenerateToken] = useState(true);
+  const [internalIsOpen, setInternalIsOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [tokenError, setTokenError] = useState<string | null>(null);
+  const [nameError, setNameError] = useState<string | null>(null);
+  const [paymentPinError, setPaymentPinError] = useState<string | null>(null);
+  
+  // Use external isOpen if provided, otherwise use internal state
+  const isOpen = externalIsOpen !== undefined ? externalIsOpen : internalIsOpen;
+  
+  const handleOpen = () => {
+    if (externalIsOpen === undefined) {
+      setInternalIsOpen(true);
+    }
+  };
+  
+  const handleClose = () => {
+    if (externalIsOpen === undefined) {
+      setInternalIsOpen(false);
+    } else if (onClose) {
+      onClose();
+    }
+  };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError(null);
-    setTokenError(null);
+    setNameError(null);
+    setPaymentPinError(null);
     setIsSubmitting(true);
     
     try {
-      // Validate token format if manually provided
-      if (!autoGenerateToken && projectTokenCode.trim()) {
-        const normalized = normalizeToken(projectTokenCode.trim());
-        if (!validateTokenFormat(normalized)) {
-          setTokenError('Invalid token format. Must be: JW-XXXX-XXXX-XXXX');
+      // Validate project name is provided
+      if (!clientLabel || !clientLabel.trim()) {
+        setNameError('Project name is required.');
+        setIsSubmitting(false);
+        return;
+      }
+      
+      // Check for uniqueness before submitting
+      try {
+        const allProjects = (await store.getAllProjects()) as Project[];
+        const normalizedName = clientLabel.trim().toLowerCase();
+        const duplicate = allProjects.find(
+          (p: Project) => p.clientLabel.trim().toLowerCase() === normalizedName
+        );
+        
+        if (duplicate) {
+          setNameError(`A project with the name "${clientLabel}" already exists. Please use a different project name.`);
           setIsSubmitting(false);
           return;
         }
+      } catch (checkError) {
+        // If uniqueness check fails, continue - the store layer will catch it
+        console.warn('Could not check project name uniqueness:', checkError);
       }
-      
-      // Convert date string to timestamp if provided
-      // Fix timezone issue: date picker gives YYYY-MM-DD which is treated as UTC midnight
-      // Parse the date string and create a date at local midnight to avoid day shift
-      const startDateTimestamp = projectStartDate 
-        ? (() => {
-            const [year, month, day] = projectStartDate.split('-').map(Number);
-            // Create date at local midnight (month is 0-indexed in Date constructor)
-            return new Date(year, month - 1, day).getTime();
-          })()
-        : undefined;
+
+      // Validate Payment PIN: required and exactly 4 digits
+      const pin = paymentCode.trim();
+      if (!/^\d{4}$/.test(pin)) {
+        setPaymentPinError('Payment PIN must be exactly 4 digits.');
+        setIsSubmitting(false);
+        return;
+      }
       
       // Payment handles are securely set in the store layer - not passed from UI
       const project = await store.createProject({
-        clientLabel,
+        clientLabel: clientLabel.trim(),
         description: description.trim() || undefined,
-        projectStartDate: startDateTimestamp,
-        projectTokenCode: autoGenerateToken ? undefined : normalizeToken(projectTokenCode.trim()) || undefined,
-        paymentCode: paymentCode.trim() || undefined,
-        statusUpdates: [],
+        paymentCode: pin,
         depositPaid: false,
         finalPaid: false,
-      } as any);
+      });
 
       const link = `${window.location.origin}/client/p/${project.token}`;
       setGeneratedLink(link);
@@ -67,12 +95,18 @@ export default function AdminCreateProject({ onProjectCreated }: AdminCreateProj
       // Reset form but keep it open to show the generated link
       setClientLabel('');
       setDescription('');
-      setProjectStartDate('');
-      setProjectTokenCode('');
       setPaymentCode('');
-      setAutoGenerateToken(true);
+      
+      // If externally controlled, don't close automatically - let parent decide
+      // If internally controlled, keep it open to show the link
     } catch (err: any) {
-      setError(err.message || 'Failed to create project. Please try again.');
+      const errorMessage = err.message || 'Failed to create project. Please try again.';
+      // Check if error is about duplicate name
+      if (errorMessage.includes('already exists') || errorMessage.includes('similar name')) {
+        setNameError(errorMessage);
+      } else {
+        setError(errorMessage);
+      }
       console.error('Error creating project:', err);
     } finally {
       setIsSubmitting(false);
@@ -82,20 +116,13 @@ export default function AdminCreateProject({ onProjectCreated }: AdminCreateProj
   const handleCancel = () => {
     setClientLabel('');
     setDescription('');
-    setProjectStartDate('');
-    setProjectTokenCode('');
     setPaymentCode('');
-    setAutoGenerateToken(true);
     setGeneratedLink(null);
     setError(null);
-    setTokenError(null);
+    setNameError(null);
+    setPaymentPinError(null);
     setIsSubmitting(false);
-    setIsOpen(false);
-  };
-
-  const handleGenerateToken = () => {
-    setProjectTokenCode(generateSecureToken());
-    setAutoGenerateToken(false);
+    handleClose();
   };
 
   const copyToClipboard = () => {
@@ -107,7 +134,7 @@ export default function AdminCreateProject({ onProjectCreated }: AdminCreateProj
   if (!isOpen) {
     return (
       <button
-        onClick={() => setIsOpen(true)}
+        onClick={handleOpen}
         className="text-[10px] font-black uppercase tracking-widest text-stone-400 hover:text-ebony transition-colors border-b border-transparent hover:border-stone-300 pb-1"
       >
         + Create New Project
@@ -145,11 +172,24 @@ export default function AdminCreateProject({ onProjectCreated }: AdminCreateProj
             id="clientLabel"
             type="text"
             value={clientLabel}
-            onChange={(e) => setClientLabel(e.target.value)}
+            onChange={(e) => {
+              setClientLabel(e.target.value);
+              setNameError(null);
+            }}
             required
-            className="w-full px-4 py-2 border-0 border-b border-stone-300 bg-white focus:outline-none focus:border-brass transition-colors"
+            className={`w-full px-4 py-2 border-0 border-b bg-white focus:outline-none transition-colors ${
+              nameError 
+                ? 'border-red-300 focus:border-red-500' 
+                : 'border-stone-300 focus:border-brass'
+            }`}
             placeholder="e.g., Custom Walnut Dining Table"
           />
+          {nameError && (
+            <p className="text-xs text-red-600 mt-1">{nameError}</p>
+          )}
+          <p className="text-xs text-stone-400 mt-1">
+            The project name will be used to generate a unique URL token automatically.
+          </p>
         </div>
 
         <div>
@@ -167,103 +207,31 @@ export default function AdminCreateProject({ onProjectCreated }: AdminCreateProj
         </div>
 
         <div>
-          <label htmlFor="projectStartDate" className="block text-[11px] font-black uppercase tracking-widest text-ebony mb-2">
-            Project Start Date
-          </label>
-          <input
-            id="projectStartDate"
-            type="date"
-            value={projectStartDate}
-            onChange={(e) => setProjectStartDate(e.target.value)}
-            className="w-full px-4 py-2 border-0 border-b border-stone-300 bg-white focus:outline-none focus:border-brass transition-colors"
-          />
-        </div>
-
-        <div>
-          <label className="block text-[11px] font-black uppercase tracking-widest text-ebony mb-2">
-            Project Token Code
-          </label>
-          <div className="space-y-2">
-            <div className="flex items-center gap-2 mb-2">
-              <input
-                id="autoGenerateToken"
-                type="checkbox"
-                checked={autoGenerateToken}
-                onChange={(e) => {
-                  setAutoGenerateToken(e.target.checked);
-                  if (e.target.checked) {
-                    setProjectTokenCode('');
-                  }
-                }}
-                className="w-4 h-4 text-brass border-stone-300 rounded focus:ring-brass focus:ring-2"
-              />
-              <label htmlFor="autoGenerateToken" className="text-[11px] font-black uppercase tracking-widest text-ebony">
-                Auto-generate secure token
-              </label>
-            </div>
-            
-            {!autoGenerateToken && (
-              <div className="space-y-2">
-                <input
-                  id="projectTokenCode"
-                  type="text"
-                  value={projectTokenCode}
-                  onChange={(e) => {
-                    const normalized = normalizeToken(e.target.value);
-                    setProjectTokenCode(normalized);
-                    setTokenError(null);
-                    
-                    // Real-time validation
-                    if (normalized && !validateTokenFormat(normalized)) {
-                      setTokenError('Invalid format. Must be: JW-XXXX-XXXX-XXXX (where X is alphanumeric)');
-                    } else {
-                      setTokenError(null);
-                    }
-                  }}
-                  className={`w-full px-4 py-2 border-0 border-b bg-white focus:outline-none transition-colors ${
-                    tokenError 
-                      ? 'border-red-300 focus:border-red-500' 
-                      : 'border-stone-300 focus:border-brass'
-                  }`}
-                  placeholder="JW-XXXX-XXXX-XXXX"
-                  pattern="JW-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}"
-                />
-                {tokenError && (
-                  <p className="text-xs text-red-600">{tokenError}</p>
-                )}
-                <div className="flex gap-3 items-center">
-                  <button
-                    type="button"
-                    onClick={handleGenerateToken}
-                    className="px-4 py-2 bg-stone-100 text-stone-600 hover:bg-stone-200 transition-all text-[11px] font-black uppercase tracking-widest"
-                  >
-                    Generate Token
-                  </button>
-                  <p className="text-xs text-stone-400">
-                    Format: JW-XXXX-XXXX-XXXX
-                  </p>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-
-        <div>
           <label htmlFor="paymentCode" className="block text-[11px] font-black uppercase tracking-widest text-ebony mb-2">
-            Payment PIN (Optional)
+            Payment PIN *
           </label>
           <input
             id="paymentCode"
             type="text"
             value={paymentCode}
-            onChange={(e) => setPaymentCode(e.target.value)}
-            className="w-full px-4 py-2 border-0 border-b border-stone-300 bg-white focus:outline-none focus:border-brass transition-colors"
-            placeholder="e.g., 1234"
-            maxLength={10}
+            onChange={(e) => {
+              // digits only, max 4 chars
+              const digitsOnly = e.target.value.replace(/\D/g, '').slice(0, 4);
+              setPaymentCode(digitsOnly);
+              setPaymentPinError(null);
+            }}
+            className={`w-full px-4 py-2 border-0 border-b bg-white focus:outline-none transition-colors ${
+              paymentPinError ? 'border-red-300 focus:border-red-500' : 'border-stone-300 focus:border-brass'
+            }`}
+            placeholder="1234"
+            inputMode="numeric"
+            pattern="\d{4}"
+            minLength={4}
+            maxLength={4}
+            required
           />
-          <p className="text-xs text-stone-400 mt-1">
-            PIN code clients will use to access payment information. Leave blank if not needed.
-          </p>
+          {paymentPinError && <p className="text-xs text-red-600 mt-1">{paymentPinError}</p>}
+          <p className="text-xs text-stone-400 mt-1">4-digit PIN clients will use to access payment information.</p>
         </div>
 
         <div className="flex gap-3 pt-4">

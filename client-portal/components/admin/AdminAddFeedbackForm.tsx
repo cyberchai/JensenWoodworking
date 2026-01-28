@@ -15,6 +15,7 @@ export default function AdminAddFeedbackForm({ onFeedbackAdded }: AdminAddFeedba
   const [projectToken, setProjectToken] = useState('');
   const [rating, setRating] = useState<number>(5);
   const [comment, setComment] = useState('');
+  const [title, setTitle] = useState('');
   const [allowTestimonial, setAllowTestimonial] = useState(true);
   const [isTestimonial, setIsTestimonial] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -52,6 +53,7 @@ export default function AdminAddFeedbackForm({ onFeedbackAdded }: AdminAddFeedba
         allowTestimonial,
         isTestimonial,
         clientName: clientName.trim() || undefined,
+        title: title.trim() || undefined,
       });
 
       // Reset form
@@ -60,6 +62,7 @@ export default function AdminAddFeedbackForm({ onFeedbackAdded }: AdminAddFeedba
       setProjectToken('');
       setRating(5);
       setComment('');
+      setTitle('');
       setAllowTestimonial(true);
       setIsTestimonial(true);
       setIsOpen(false);
@@ -77,6 +80,7 @@ export default function AdminAddFeedbackForm({ onFeedbackAdded }: AdminAddFeedba
     setProjectToken('');
     setRating(5);
     setComment('');
+    setTitle('');
     setAllowTestimonial(true);
     setIsTestimonial(true);
     setError(null);
@@ -179,6 +183,21 @@ export default function AdminAddFeedbackForm({ onFeedbackAdded }: AdminAddFeedba
             {rating} {rating === 1 ? 'star' : 'stars'}
           </span>
         </div>
+      </div>
+
+      <div>
+        <label htmlFor="title" className="block text-[11px] font-black uppercase tracking-widest text-ebony mb-2">
+          Testimonial Title (Optional)
+        </label>
+        <input
+          id="title"
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          className="w-full px-4 py-2 border-0 border-b border-stone-300 bg-white focus:outline-none focus:border-brass transition-colors"
+          placeholder="e.g., Stunning Kitchen Island Transformation"
+        />
+        <p className="text-[9px] text-stone-400 mt-1 italic">This title will appear on the home page as a clickable link</p>
       </div>
 
       <div>

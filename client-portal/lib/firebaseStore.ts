@@ -16,9 +16,9 @@ import {
 } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
 import { db, storage } from './firebase';
-import { Project, Feedback, ContactRequest, StatusUpdate, PastProject, StatusUpdatePhoto } from './mockStore';
+import { Project, Feedback, ContactRequest, PastProject } from './mockStore';
 import { getSecurePaymentHandles, validatePaymentHandles } from './paymentHandles';
-import { generateSecureToken, validateTokenFormat, normalizeToken } from './tokenGenerator';
+import { slugifyProjectName, normalizeProjectName } from './projectNameUtils';
 
 // Helper to convert Firestore timestamp to number
 const timestampToNumber = (timestamp: Timestamp | number): number => {
@@ -37,15 +37,6 @@ const FEEDBACK_COLLECTION = 'feedback';
 const CONTACT_REQUESTS_COLLECTION = 'contactRequests';
 const PAST_PROJECTS_COLLECTION = 'pastProjects';
 
-// Generate random token
-export function generateToken(): string {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  let result = '';
-  for (let i = 0; i < 24; i++) {
-    result += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return result;
-}
 
 // Convert Firestore document to Project
 const docToProject = (docSnap: QueryDocumentSnapshot<DocumentData>): Project => {
@@ -58,9 +49,7 @@ const docToProject = (docSnap: QueryDocumentSnapshot<DocumentData>): Project => 
     clientLabel: data.clientLabel,
     description: data.description,
     projectStartDate: data.projectStartDate ? timestampToNumber(data.projectStartDate) : undefined,
-    projectTokenCode: data.projectTokenCode,
     paymentCode: data.paymentCode,
-    statusUpdates: data.statusUpdates || [],
     depositPaid: data.depositPaid || false,
     finalPaid: data.finalPaid || false,
     isCompleted: data.isCompleted || false,
@@ -83,6 +72,7 @@ const docToFeedback = (docSnap: QueryDocumentSnapshot<DocumentData>): Feedback =
     isTestimonial: data.isTestimonial || false,
     createdAt: timestampToNumber(data.createdAt),
     clientName: data.clientName,
+    title: data.title || undefined,
   };
 };
 
@@ -147,44 +137,34 @@ export const firebaseStore = {
   },
 
   async createProject(data: Omit<Project, 'token' | 'createdAt' | 'venmoHandle' | 'paypalHandle'>): Promise<Project> {
-    let token: string;
     const secureHandles = getSecurePaymentHandles();
     
-    // Handle user-provided token vs auto-generated
-    if (data.projectTokenCode?.trim()) {
-      // User-provided token: validate format and check for duplicates
-      token = normalizeToken(data.projectTokenCode.trim());
-      
-      // Validate token format
-      if (!validateTokenFormat(token)) {
-        throw new Error(`Invalid token format. Token must match format: JW-XXXX-XXXX-XXXX (where X is alphanumeric)`);
-      }
-      
-      // Check for duplicate
-      const existing = await this.getProject(token);
-      if (existing) {
-        throw new Error(`Token "${token}" already exists. Please use a different token code.`);
-      }
-    } else {
-      // Auto-generated token: ensure uniqueness
-      let attempts = 0;
-      const maxAttempts = 10;
-      
-      do {
-        token = generateSecureToken();
-        attempts++;
-        
-        // Check if token exists in Firestore
-        const existing = await this.getProject(token);
-        if (!existing) {
-          break; // Token is unique, exit loop
-        }
-        
-        // If we've tried too many times, throw an error
-        if (attempts >= maxAttempts) {
-          throw new Error('Unable to generate unique token after multiple attempts. Please try again.');
-        }
-      } while (true);
+    // Validate clientLabel is provided
+    if (!data.clientLabel || !data.clientLabel.trim()) {
+      throw new Error('Project name (clientLabel) is required.');
+    }
+    
+    // Generate token from clientLabel using slugification
+    const token = slugifyProjectName(data.clientLabel.trim());
+    
+    // Validate that slugification produced a valid token
+    if (!token || token.length === 0) {
+      throw new Error('Project name must contain at least one alphanumeric character.');
+    }
+    
+    // Check for uniqueness (case-insensitive)
+    const normalizedName = normalizeProjectName(data.clientLabel.trim());
+    const allProjects = await this.getAllProjects();
+    const duplicate = allProjects.find(p => normalizeProjectName(p.clientLabel) === normalizedName);
+    
+    if (duplicate) {
+      throw new Error(`A project with the name "${data.clientLabel}" already exists. Please use a different project name.`);
+    }
+    
+    // Also check if token already exists (in case of slug collision)
+    const existing = await this.getProject(token);
+    if (existing) {
+      throw new Error(`A project with a similar name already exists. Please use a different project name.`);
     }
     
     // Enforce secure payment handles - cannot be overridden
@@ -193,7 +173,6 @@ export const firebaseStore = {
       venmoHandle: secureHandles.venmoHandle,
       paypalHandle: secureHandles.paypalHandle,
       createdAt: numberToTimestamp(Date.now()),
-      statusUpdates: data.statusUpdates || [],
       depositPaid: data.depositPaid || false,
       finalPaid: data.finalPaid || false,
       isCompleted: data.isCompleted || false,
@@ -206,11 +185,6 @@ export const firebaseStore = {
     
     if (data.projectStartDate) {
       projectData.projectStartDate = numberToTimestamp(data.projectStartDate);
-    }
-    
-    // Only include projectTokenCode if it was provided and not empty (not undefined)
-    if (data.projectTokenCode && data.projectTokenCode.trim()) {
-      projectData.projectTokenCode = data.projectTokenCode.trim();
     }
     
     // Only include paymentCode if it was provided and not empty (not undefined)
@@ -233,6 +207,45 @@ export const firebaseStore = {
 
   async updateProject(token: string, updates: Partial<Omit<Project, 'token' | 'createdAt' | 'venmoHandle' | 'paypalHandle'>>): Promise<Project | undefined> {
     try {
+      const currentProject = await this.getProject(token);
+      if (!currentProject) return undefined;
+      
+      // If clientLabel is being updated, regenerate token and check uniqueness
+      let newToken = token;
+      if (updates.clientLabel && updates.clientLabel.trim() !== currentProject.clientLabel.trim()) {
+        const newClientLabel = updates.clientLabel.trim();
+        
+        // Validate new name
+        if (!newClientLabel || newClientLabel.length === 0) {
+          throw new Error('Project name cannot be empty.');
+        }
+        
+        // Generate new token
+        newToken = slugifyProjectName(newClientLabel);
+        
+        // Validate that slugification produced a valid token
+        if (!newToken || newToken.length === 0) {
+          throw new Error('Project name must contain at least one alphanumeric character.');
+        }
+        
+        // Check for uniqueness (case-insensitive) - exclude current project
+        const normalizedName = normalizeProjectName(newClientLabel);
+        const allProjects = await this.getAllProjects();
+        const duplicate = allProjects.find(p => p.token !== token && normalizeProjectName(p.clientLabel) === normalizedName);
+        
+        if (duplicate) {
+          throw new Error(`A project with the name "${newClientLabel}" already exists. Please use a different project name.`);
+        }
+        
+        // Also check if new token already exists (in case of slug collision)
+        if (newToken !== token) {
+          const existing = await this.getProject(newToken);
+          if (existing) {
+            throw new Error(`A project with a similar name already exists. Please use a different project name.`);
+          }
+        }
+      }
+      
       const docRef = doc(db, PROJECTS_COLLECTION, token);
       const updateData: any = {};
       
@@ -242,7 +255,6 @@ export const firebaseStore = {
       if (updates.projectStartDate !== undefined) {
         updateData.projectStartDate = numberToTimestamp(updates.projectStartDate);
       }
-      if (updates.projectTokenCode !== undefined) updateData.projectTokenCode = updates.projectTokenCode;
       // Handle paymentCode: if undefined or empty string, delete the field; otherwise save the trimmed value
       if ((updates as any).paymentCode !== undefined) {
         const paymentCodeValue = (updates as any).paymentCode;
@@ -254,7 +266,6 @@ export const firebaseStore = {
           updateData.paymentCode = typeof paymentCodeValue === 'string' ? paymentCodeValue.trim() : paymentCodeValue;
         }
       }
-      if (updates.statusUpdates !== undefined) updateData.statusUpdates = updates.statusUpdates;
       if (updates.depositPaid !== undefined) updateData.depositPaid = updates.depositPaid;
       if (updates.finalPaid !== undefined) updateData.finalPaid = updates.finalPaid;
       if (updates.isCompleted !== undefined) updateData.isCompleted = updates.isCompleted;
@@ -263,64 +274,45 @@ export const firebaseStore = {
       // If someone tries to update them, validate and reject
       const unsafeUpdates = updates as any;
       if (unsafeUpdates.venmoHandle !== undefined || unsafeUpdates.paypalHandle !== undefined) {
-        const currentProject = await this.getProject(token);
-        if (currentProject) {
-          validatePaymentHandles(
-            unsafeUpdates.venmoHandle || currentProject.venmoHandle,
-            unsafeUpdates.paypalHandle || currentProject.paypalHandle
-          );
-        }
+        validatePaymentHandles(
+          unsafeUpdates.venmoHandle || currentProject.venmoHandle,
+          unsafeUpdates.paypalHandle || currentProject.paypalHandle
+        );
         // Even if validation passes, we don't update these fields
         throw new Error('Payment handles cannot be modified');
       }
       
-      await updateDoc(docRef, updateData);
-      
-      const updated = await this.getProject(token);
-      return updated;
+      // If token changed, we need to create a new document and delete the old one
+      if (newToken !== token) {
+        // Get current project data
+        const currentDoc = await getDoc(docRef);
+        const currentData = currentDoc.data();
+        
+        // Create new document with new token
+        const newDocRef = doc(db, PROJECTS_COLLECTION, newToken);
+        const newProjectData: any = {
+          ...currentData,
+          ...updateData,
+          clientLabel: updates.clientLabel || currentProject.clientLabel,
+        };
+        await setDoc(newDocRef, newProjectData);
+        
+        // Delete old document
+        await deleteDoc(docRef);
+        
+        // Return updated project
+        return await this.getProject(newToken);
+      } else {
+        // Token didn't change, just update normally
+        await updateDoc(docRef, updateData);
+        return await this.getProject(token);
+      }
     } catch (error) {
       console.error('Error updating project:', error);
       return undefined;
     }
   },
 
-  async addStatusUpdate(token: string, update: Omit<StatusUpdate, 'id' | 'createdAt'>): Promise<StatusUpdate | undefined> {
-    try {
-      const project = await this.getProject(token);
-      if (!project) return undefined;
-      
-      const photos = (update.photos || []).slice(0, 3);
-      const statusUpdate: StatusUpdate = {
-        ...update,
-        photos,
-        id: `update_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-        createdAt: Date.now(),
-      };
-      
-      const updatedStatusUpdates = [...project.statusUpdates, statusUpdate].sort((a, b) => b.createdAt - a.createdAt);
-      await this.updateProject(token, { statusUpdates: updatedStatusUpdates });
-      
-      return statusUpdate;
-    } catch (error) {
-      console.error('Error adding status update:', error);
-      return undefined;
-    }
-  },
-
-  async deleteStatusUpdate(token: string, updateId: string): Promise<boolean> {
-    try {
-      const project = await this.getProject(token);
-      if (!project) return false;
-      
-      const updatedStatusUpdates = project.statusUpdates.filter(u => u.id !== updateId);
-      await this.updateProject(token, { statusUpdates: updatedStatusUpdates });
-      
-      return true;
-    } catch (error) {
-      console.error('Error deleting status update:', error);
-      return false;
-    }
-  },
 
   // Feedback operations
   async getAllFeedback(): Promise<Feedback[]> {
@@ -361,6 +353,11 @@ export const firebaseStore = {
     // Only include clientName if it's provided
     if (data.clientName && data.clientName.trim()) {
       feedbackData.clientName = data.clientName.trim();
+    }
+    
+    // Only include title if it's provided
+    if (data.title && data.title.trim()) {
+      feedbackData.title = data.title.trim();
     }
     
     const docRef = await addDoc(collection(db, FEEDBACK_COLLECTION), feedbackData);

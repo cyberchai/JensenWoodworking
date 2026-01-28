@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Testimonials | Jensen Woodworking | Custom Woodworking in Duxbury, MA</title>
+	<meta name="description" content="Read testimonials from satisfied clients of Jensen Woodworking. See what our clients say about our custom woodworking projects in Duxbury, MA." />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="profile" href="https://gmpg.org/xfn/11">
+	<link rel="canonical" href="Replace_with_your_PAGE_URL" />
+
+	<!-- Stylesheets -->
+	<link href="/css/bootstrap.css" rel="stylesheet">
+	<link href="/css/main.css" rel="stylesheet">
+	<link href="/css/responsive.css" rel="stylesheet">
+	
+	<!-- Custom Logo Styles -->
+	<style>
+		.logo a,
+		.nav-logo a {
+			display: block;
+			font-size: 32px;
+			font-weight: 700;
+			line-height: 1.1;
+			color: #fff;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			text-decoration: none;
+		}
+		.logo a span,
+		.nav-logo a span {
+			display: block;
+		}
+		.main-header.fixed-header .logo a,
+		.main-header.fixed-header .nav-logo a {
+			color: #fff;
+		}
+		.mobile-menu .nav-logo a {
+			color: #000;
+		}
+		/* Footer Logo Styling */
+		.main-footer .logo a {
+			color: #000;
+			display: inline-block;
+		}
+		
+		.main-footer .logo a img {
+			max-width: 100%;
+			height: auto;
+			display: block;
+		}
+		
+		/* Testimonials Wall Grid - Professional Design */
+		.testimonials-wall {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+			gap: 40px;
+			margin-top: 80px;
+		}
+		
+		.testimonial-card {
+			background: #fff;
+			border: none;
+			border-left: 3px solid #ffe1a0;
+			padding: 0;
+			display: flex;
+			flex-direction: column;
+			transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+			height: 100%;
+			min-height: 300px;
+			position: relative;
+		}
+		
+		.testimonial-card::before {
+			content: '';
+			position: absolute;
+			left: 0;
+			top: 0;
+			bottom: 0;
+			width: 3px;
+			background: #ffe1a0;
+			transform: scaleY(0);
+			transform-origin: bottom;
+			transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+		}
+		
+		.testimonial-card:hover::before {
+			transform: scaleY(1);
+		}
+		
+		.testimonial-card:hover {
+			box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+		}
+		
+		.testimonial-card-content {
+			padding: 40px 40px 30px 50px;
+			flex-grow: 1;
+			display: flex;
+			flex-direction: column;
+		}
+		
+		.testimonial-quote {
+			font-size: 72px;
+			line-height: 1;
+			color: #ffe1a0;
+			opacity: 0.15;
+			margin-bottom: 25px;
+			font-family: 'Inter', sans-serif;
+			font-weight: 300;
+			position: absolute;
+			top: 20px;
+			left: 50px;
+		}
+		
+		.testimonial-text {
+			font-size: 16px;
+			line-height: 1.8;
+			color: #2a2a2a;
+			margin-bottom: 0;
+			flex-grow: 1;
+			position: relative;
+			font-weight: 300;
+			letter-spacing: 0.01em;
+		}
+		
+		.testimonial-text-snippet {
+			display: block;
+		}
+		
+		.testimonial-text-full {
+			display: none;
+		}
+		
+		.testimonial-text.expanded .testimonial-text-snippet {
+			display: none;
+		}
+		
+		.testimonial-text.expanded .testimonial-text-full {
+			display: block;
+		}
+		
+		.testimonial-text-fade {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			height: 60px;
+			background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+			pointer-events: none;
+			opacity: 1;
+			transition: opacity 0.4s ease;
+		}
+		
+		.testimonial-text.expanded + .testimonial-text-fade {
+			opacity: 0;
+		}
+		
+		.testimonial-expand-container {
+			margin-top: 25px;
+			padding-top: 25px;
+			border-top: 1px solid #f0f0f0;
+		}
+		
+		.testimonial-expand-btn {
+			background: none;
+			border: none;
+			color: #666;
+			font-size: 13px;
+			cursor: pointer;
+			padding: 0;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			font-weight: 500;
+			transition: all 0.3s ease;
+			font-family: 'Inter', sans-serif;
+			position: relative;
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+		}
+		
+		.testimonial-expand-btn::after {
+			content: '';
+			width: 0;
+			height: 1px;
+			background: #ffe1a0;
+			position: absolute;
+			bottom: -2px;
+			left: 0;
+			transition: width 0.3s ease;
+		}
+		
+		.testimonial-expand-btn:hover {
+			color: #000;
+		}
+		
+		.testimonial-expand-btn:hover::after {
+			width: 100%;
+		}
+		
+		.testimonial-expand-btn .expand-icon {
+			display: inline-block;
+			transition: transform 0.3s ease;
+			font-size: 10px;
+		}
+		
+		.testimonial-expand-btn.expanded .expand-icon {
+			transform: rotate(180deg);
+		}
+		
+		.testimonial-expand-btn.hidden {
+			display: none;
+		}
+		
+		.testimonial-author {
+			margin-top: auto;
+			padding: 30px 40px 35px 50px;
+			background: #fafafa;
+			font-size: 13px;
+			color: #666;
+			border-top: 1px solid #f0f0f0;
+		}
+		
+		.testimonial-author-name {
+			font-weight: 600;
+			color: #000;
+			display: block;
+			margin-bottom: 4px;
+			letter-spacing: 0.02em;
+		}
+		
+		.testimonial-author-location {
+			color: #999;
+			font-weight: 300;
+		}
+		
+		@media (max-width: 991px) {
+			.testimonials-wall {
+				grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+				gap: 35px;
+			}
+		}
+		
+		@media (max-width: 768px) {
+			.testimonials-wall {
+				grid-template-columns: 1fr;
+				gap: 30px;
+				margin-top: 50px;
+			}
+			
+			.testimonial-card {
+				min-height: 280px;
+			}
+			
+			.testimonial-card-content {
+				padding: 35px 30px 25px 40px;
+			}
+			
+			.testimonial-quote {
+				font-size: 60px;
+				top: 15px;
+				left: 40px;
+			}
+			
+			.testimonial-author {
+				padding: 25px 30px 30px 40px;
+			}
+		}
+		
+		/* Testimonials CTA Section */
+		.testimonials-cta {
+			padding: 80px 0;
+			text-align: center;
+			background: #fafafa;
+			border-top: 1px solid #f0f0f0;
+		}
+		
+		.testimonials-cta-content {
+			max-width: 600px;
+			margin: 0 auto;
+		}
+		
+		.testimonials-cta h3 {
+			font-size: 28px;
+			font-weight: 400;
+			color: #2a2a2a;
+			margin-bottom: 15px;
+			letter-spacing: 0.02em;
+		}
+		
+		.testimonials-cta p {
+			font-size: 16px;
+			color: #666;
+			line-height: 1.7;
+			margin-bottom: 35px;
+			font-weight: 300;
+		}
+		
+		
+		@media (max-width: 768px) {
+			.testimonials-cta {
+				padding: 60px 20px;
+			}
+			
+			.testimonials-cta h3 {
+				font-size: 24px;
+			}
+			
+			.testimonials-cta p {
+				font-size: 15px;
+			}
+		}
+		
+		/* Scroll to Top Animation */
+		.scroll-to-top {
+			position: fixed;
+			bottom: 85px;
+			right: 15px;
+			width: 60px;
+			height: 60px;
+			color: #fff;
+			font-size: 24px;
+			text-transform: uppercase;
+			line-height: 60px;
+			text-align: center;
+			z-index: 100;
+			cursor: pointer;
+			background: #0a0a0a;
+			display: none;
+			transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+			overflow: hidden;
+			border-radius: 0;
+			clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+		}
+		
+		.scroll-to-top:hover {
+			width: 220px;
+			height: 60px;
+			background: #ffe1a0;
+			color: #000;
+			clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 50%, calc(100% - 20px) 100%, 0 100%);
+		}
+		
+		.scroll-to-top span {
+			display: inline-block;
+			transition: all 0.4s ease;
+			position: relative;
+			z-index: 2;
+		}
+		
+		.scroll-to-top:hover span {
+			transform: translateX(-80px);
+			opacity: 0;
+		}
+		
+		.scroll-to-top::after {
+			content: '↑ take me to the top of page';
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%) translateX(250px);
+			white-space: nowrap;
+			font-size: 11px;
+			opacity: 0;
+			transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+			font-weight: 400;
+			letter-spacing: 0.5px;
+			z-index: 1;
+			color: #000;
+		}
+		
+		.scroll-to-top:hover::after {
+			transform: translate(-50%, -50%) translateX(0);
+			opacity: 1;
+		}
+	</style>
+
+	<!-- Open Graph (OG) meta tags -->
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="Testimonials | Jensen Woodworking | Custom Woodworking in Duxbury, MA" />
+	<meta property="og:url" content="PAGE_URL" />
+	<meta property="og:site_name" content="SITE_NAME" />
+	<meta property="og:image" content="#" />
+	<meta property="og:description" content="Read testimonials from satisfied clients of Jensen Woodworking." />
+
+	<!-- Fonts -->
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link
+		href="https://fonts.googleapis.com/css2?family=Heebo:wght@100;300;400;500;600;700;800;900&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+		rel="stylesheet">
+
+	<!-- Add site Favicon -->
+	<link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+	<link rel="icon" href="images/favicon.png" type="image/x-icon">
+	<meta name="msapplication-TileImage" content="images/favicon.png" />
+
+	<!-- Structured Data  -->
+	<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "WebSite",
+  "name": "Jensen Woodworking",
+  "url": "Replace_with_your_site_URL"
+}
+</script>
+
+	<!-- Google Tag Manager -->
+	<script>(function (w, d, s, l, i) {
+			w[l] = w[l] || []; w[l].push({
+				'gtm.start':
+					new Date().getTime(), event: 'gtm.js'
+			}); var f = d.getElementsByTagName(s)[0],
+				j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+					'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-5JCTSSF');</script>
+	<!-- End Google Tag Manager -->
+</head>
+
+<body>
+
+	<!-- Google Tag Manager (noscript) -->
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5JCTSSF" height="0" width="0"
+			style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- End Google Tag Manager (noscript) -->
+
+	<div class="page-wrapper">
+
+		<!-- Main Header-->
+		<header class="main-header">
+
+			<!-- Header Upper -->
+			<div class="header-upper">
+				<div class="outer-container">
+					<div class="inner-container clearfix">
+
+						<div class="pull-left logo-box">
+							<div class="logo"><a href="/home"><span>Jensen</span><span>Woodworking</span></a></div>
+						</div>
+
+						<div class="nav-outer pull-left clearfix">
+							<!-- Mobile Navigation Toggler -->
+							<div class="mobile-nav-toggler">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+								</svg>
+							</div>
+							<!-- Main Menu -->
+							<nav class="main-menu navbar-expand-md">
+								<div class="navbar-header">
+									<button class="navbar-toggler" type="button" data-toggle="collapse"
+										data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+										aria-label="Toggle navigation">
+										<span class="icon-bar"></span>
+										<span class="icon-bar"></span>
+										<span class="icon-bar"></span>
+									</button>
+								</div>
+
+								<div class="navbar-collapse show collapse clearfix" id="navbarSupportedContent">
+									<ul class="navigation clearfix">
+										<li><a href="/home">Home</a></li>
+										<li><a href="about.html">About</a></li>
+										<li><a href="gallery.html">Gallery</a></li>
+										<li><a href="services.html">Services</a></li>
+										<li class="current"><a href="testimonials.html">Testimonials</a></li>
+										<li><a href="contact.html">Contact</a></li>
+									</ul>
+								</div>
+
+							</nav>
+
+						</div>
+
+						<!-- Outer Box -->
+						<div class="outer-box clearfix">
+							<!-- Mobile Navigation Toggler -->
+							<div class="mobile-nav-toggler">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+								</svg>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<!--End Header Upper-->
+
+			<!-- Mobile Menu  -->
+			<div class="mobile-menu">
+				<div class="menu-backdrop"></div>
+				<div class="close-btn"><span class="icon lnr lnr-cross"></span></div>
+
+				<nav class="menu-box">
+					<div class="nav-logo"><a href="/home"><span>Jensen</span><span>Woodworking</span></a></div>
+					<div class="menu-outer">
+						<!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
+					</div>
+				</nav>
+			</div><!-- End Mobile Menu -->
+
+		</header>
+		<!--End Main Header -->
+
+		<!-- Page Banner Section -->
+		<section class="page-banner-section" style="background-image: url(images/main-slider/image-1.jpg)">
+			<div class="auto-container">
+				<div class="title">Testimonials</div>
+				<h1>What Our Clients Say</h1>
+			</div>
+		</section>
+		<!-- End Page Banner Section -->
+
+		<!-- Testimonial Section -->
+		<section class="testimonial-section" style="padding: 100px 0;">
+			<div class="auto-container">
+				<div class="testimonials-wall">
+					<!-- Testimonial Card -->
+					<div class="testimonial-card">
+						<div class="testimonial-card-content">
+							<div class="testimonial-quote">"</div>
+							<div class="testimonial-text">
+								<span class="testimonial-text-snippet">The kitchen island Klaus built for us is absolutely stunning. The attention to detail and quality of craftsmanship exceeded our expectations. It's the centerpiece of our home.</span>
+								<span class="testimonial-text-full">The kitchen island Klaus built for us is absolutely stunning. The attention to detail and quality of craftsmanship exceeded our expectations. It's the centerpiece of our home. Every guest who visits comments on its beauty and the precision of the work. We couldn't be happier with our decision to work with Jensen Woodworking.</span>
+							</div>
+							<div class="testimonial-text-fade"></div>
+							<div class="testimonial-expand-container">
+								<button class="testimonial-expand-btn hidden" onclick="toggleTestimonial(this)">
+									<span class="expand-text">Read More</span>
+									<span class="expand-icon">▼</span>
+								</button>
+							</div>
+						</div>
+						<div class="testimonial-author">
+							<span class="testimonial-author-name">Sarah & Michael T.</span>
+							<span class="testimonial-author-location">Duxbury, MA</span>
+						</div>
+					</div>
+
+					<!-- Testimonial Card -->
+					<div class="testimonial-card">
+						<div class="testimonial-card-content">
+							<div class="testimonial-quote">"</div>
+							<div class="testimonial-text">
+								<span class="testimonial-text-snippet">Working with Jensen Woodworking was a pleasure from start to finish. Klaus helped us choose the perfect wood and finish for our dining table. It's beautiful and built to last.</span>
+								<span class="testimonial-text-full">Working with Jensen Woodworking was a pleasure from start to finish. Klaus helped us choose the perfect wood and finish for our dining table. It's beautiful and built to last. The entire process was smooth, and Klaus was always available to answer our questions. The final product exceeded our expectations in every way.</span>
+							</div>
+							<div class="testimonial-text-fade"></div>
+							<div class="testimonial-expand-container">
+								<button class="testimonial-expand-btn hidden" onclick="toggleTestimonial(this)">
+									<span class="expand-text">Read More</span>
+									<span class="expand-icon">▼</span>
+								</button>
+							</div>
+						</div>
+						<div class="testimonial-author">
+							<span class="testimonial-author-name">Jennifer M.</span>
+							<span class="testimonial-author-location">Plymouth, MA</span>
+						</div>
+					</div>
+
+					<!-- Testimonial Card -->
+					<div class="testimonial-card">
+						<div class="testimonial-card-content">
+							<div class="testimonial-quote">"</div>
+							<div class="testimonial-text">
+								<span class="testimonial-text-snippet">After three months of searching, we found Klaus. The custom mantel he created transformed our living room. The reclaimed wood has so much character and history.</span>
+								<span class="testimonial-text-full">After three months of searching, we found Klaus. The custom mantel he created transformed our living room. The reclaimed wood has so much character and history. It's become the focal point of our home, and we love telling the story behind the wood to everyone who visits.</span>
+							</div>
+							<div class="testimonial-text-fade"></div>
+							<div class="testimonial-expand-container">
+								<button class="testimonial-expand-btn hidden" onclick="toggleTestimonial(this)">
+									<span class="expand-text">Read More</span>
+									<span class="expand-icon">▼</span>
+								</button>
+							</div>
+						</div>
+						<div class="testimonial-author">
+							<span class="testimonial-author-name">Robert & Linda C.</span>
+							<span class="testimonial-author-location">Hingham, MA</span>
+						</div>
+					</div>
+
+					<!-- Testimonial Card -->
+					<div class="testimonial-card">
+						<div class="testimonial-card-content">
+							<div class="testimonial-quote">"</div>
+							<div class="testimonial-text">
+								<span class="testimonial-text-snippet">The bar top Klaus installed is perfect. He understood our vision and delivered exactly what we wanted. The Rubio Monocoat finish looks incredible and is so easy to maintain.</span>
+								<span class="testimonial-text-full">The bar top Klaus installed is perfect. He understood our vision and delivered exactly what we wanted. The Rubio Monocoat finish looks incredible and is so easy to maintain. We use it daily and it still looks brand new. Klaus's attention to detail and craftsmanship is truly exceptional.</span>
+							</div>
+							<div class="testimonial-text-fade"></div>
+							<div class="testimonial-expand-container">
+								<button class="testimonial-expand-btn hidden" onclick="toggleTestimonial(this)">
+									<span class="expand-text">Read More</span>
+									<span class="expand-icon">▼</span>
+								</button>
+							</div>
+						</div>
+						<div class="testimonial-author">
+							<span class="testimonial-author-name">David & Emily J.</span>
+							<span class="testimonial-author-location">Scituate, MA</span>
+						</div>
+					</div>
+
+					<!-- Testimonial Card -->
+					<div class="testimonial-card">
+						<div class="testimonial-card-content">
+							<div class="testimonial-quote">"</div>
+							<div class="testimonial-text">
+								<span class="testimonial-text-snippet">Klaus repaired and refinished our family heirloom dining table. It looks brand new while maintaining its original character. We couldn't be happier with the results.</span>
+								<span class="testimonial-text-full">Klaus repaired and refinished our family heirloom dining table. It looks brand new while maintaining its original character. We couldn't be happier with the results. The table has been in our family for generations, and Klaus treated it with the respect and care it deserved. His restoration work brought it back to life.</span>
+							</div>
+							<div class="testimonial-text-fade"></div>
+							<div class="testimonial-expand-container">
+								<button class="testimonial-expand-btn hidden" onclick="toggleTestimonial(this)">
+									<span class="expand-text">Read More</span>
+									<span class="expand-icon">▼</span>
+								</button>
+							</div>
+						</div>
+						<div class="testimonial-author">
+							<span class="testimonial-author-name">Patricia O.</span>
+							<span class="testimonial-author-location">Marshfield, MA</span>
+						</div>
+					</div>
+
+					<!-- Testimonial Card -->
+					<div class="testimonial-card">
+						<div class="testimonial-card-content">
+							<div class="testimonial-quote">"</div>
+							<div class="testimonial-text">
+								<span class="testimonial-text-snippet">Great communication, flexible scheduling, and exceptional craftsmanship. Klaus explained every step of the process and the final product is exactly what we envisioned.</span>
+								<span class="testimonial-text-full">Great communication, flexible scheduling, and exceptional craftsmanship. Klaus explained every step of the process and the final product is exactly what we envisioned. From the initial consultation to the final installation, everything was handled professionally. We highly recommend Jensen Woodworking for any custom woodworking project.</span>
+							</div>
+							<div class="testimonial-text-fade"></div>
+							<div class="testimonial-expand-container">
+								<button class="testimonial-expand-btn hidden" onclick="toggleTestimonial(this)">
+									<span class="expand-text">Read More</span>
+									<span class="expand-icon">▼</span>
+								</button>
+							</div>
+						</div>
+						<div class="testimonial-author">
+							<span class="testimonial-author-name">James & Maria R.</span>
+							<span class="testimonial-author-location">Kingston, MA</span>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</section>
+		<!-- End Testimonial Section -->
+
+		<!-- Testimonials CTA Section -->
+		<section class="testimonials-cta">
+			<div class="auto-container">
+				<div class="testimonials-cta-content">
+					<h3>Ready to Work Together?</h3>
+					<p>Partner with Jensen Woodworking for your next custom project. Let's discuss how we can bring your design vision to life.</p>
+					<a href="contact.html" class="theme-btn btn-style-one">
+						<span class="txt">Get Started</span>
+					</a>
+				</div>
+			</div>
+		</section>
+		<!-- End Testimonials CTA Section -->
+
+		<!-- Main Footer -->
+		<footer class="main-footer">
+			<div class="outer-container">
+				<!--Widgets Section-->
+				<div class="widgets-section">
+					<div class="row clearfix">
+
+						<!-- Footer Column / Logo Widget -->
+						<div class="footer-column">
+							<div class="footer-widget logo-widget">
+								<div class="logo">
+									<a href="/home"><img src="/images/logo.png" alt="Jensen Woodworking"></a>
+								</div>
+							</div>
+						</div>
+
+						<!-- Footer Column / Contact Widget -->
+						<div class="footer-column">
+							<div class="footer-widget contact-widget">
+								<h3>Contact</h3>
+								<ul>
+									<li>33 Harrison Street, Duxbury, Massachusetts 02332, United States</li>
+									<li><a href="mailto:kpnjensen@gmail.com">kpnjensen@gmail.com</a></li>
+									<li><a href="tel:+16173204287">(617) 320-4287</a></li>
+								</ul>
+							</div>
+						</div>
+
+						<!-- Footer Column / Link Widget -->
+						<div class="footer-column">
+							<div class="footer-widget link-widget">
+								<h3>Quick Links</h3>
+								<ul>
+									<li><a href="gallery.html">Gallery</a></li>
+									<li><a href="services.html">Services</a></li>
+									<li><a href="about.html">Our Story</a></li>
+									<li><a href="contact.html">Contact</a></li>
+									<li><a href="https://www.instagram.com/klauspnjensen/" target="_blank">Instagram</a></li>
+								</ul>
+							</div>
+						</div>
+
+						<!-- Footer Column / Link Widget -->
+						<div class="footer-column">
+							<div class="footer-widget link-widget">
+								<h3>Services</h3>
+								<ul>
+									<li><a href="services.html">Custom Furniture</a></li>
+									<li><a href="services.html">Countertops & Islands</a></li>
+									<li><a href="services.html">Repair & Refinishing</a></li>
+									<li><a href="contact.html">Get a Quote</a></li>
+								</ul>
+							</div>
+						</div>
+
+						<!-- Footer Column / Link Widget -->
+						<div class="footer-column">
+							<div class="footer-widget link-widget">
+								<h3>Information</h3>
+								<ul>
+									<li><a href="about.html">Our Story</a></li>
+									<li><a href="about.html">Our Process</a></li>
+									<li><a href="gallery.html">Gallery</a></li>
+									<li><a href="contact.html">Contact</a></li>
+									<li><a href="https://www.instagram.com/klauspnjensen/" target="_blank">Instagram</a></li>
+								</ul>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<!-- Footer Bottom -->
+				<div class="footer-bottom">
+					<div class="row clearfix">
+
+						<!-- Copy Column -->
+						<div class="copy-column col-lg-4 col-md-12 col-sm-12">
+							<div class="copyright">&copy; <script type="text/javascript">document.write(new Date().getFullYear());</script> Jensen Woodworking. Handcrafted in Duxbury, MA.</div>
+						</div>
+						<!-- Pages Column -->
+						<div class="pages-column col-lg-6 col-md-12 col-sm-12">
+							<ul class="page-nav">
+								<li><a href="https://www.instagram.com/klauspnjensen/" target="_blank">Instagram</a></li>
+								<li><a href="about.html">About</a></li>
+								<li><a href="gallery.html">Gallery</a></li>
+								<li><a href="services.html">Services</a></li>
+								<li><a href="contact.html">Contact</a></li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+		</footer>
+		<!-- End Main Footer -->
+
+	</div>
+	<!--End pagewrapper-->
+
+	<!-- Scroll To Top -->
+	<div class="scroll-to-top scroll-to-target" data-target="html">
+		<span>
+			<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+			</svg>
+		</span>
+	</div>
+
+	<script src="/js/jquery.js"></script>
+	<script src="/js/popper.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script src="/js/jquery.fancybox.js"></script>
+	<script src="/js/appear.js"></script>
+	<script src="/js/owl.js"></script>
+	<script src="/js/wow.js"></script>
+	<script src="/js/parallax.min.js"></script>
+	<script src="/js/tilt.jquery.min.js"></script>
+	<script src="/js/jquery.paroller.min.js"></script>
+	<script src="/js/jquery-ui.js"></script>
+	<script src="/js/script.js"></script>
+
+	<!-- Testimonial Expand/Collapse Script -->
+	<script>
+		(function() {
+			document.addEventListener('DOMContentLoaded', function() {
+				const testimonialCards = document.querySelectorAll('.testimonial-card');
+				
+				testimonialCards.forEach(function(card) {
+					const textElement = card.querySelector('.testimonial-text');
+					const snippet = card.querySelector('.testimonial-text-snippet');
+					const full = card.querySelector('.testimonial-text-full');
+					const expandBtn = card.querySelector('.testimonial-expand-btn');
+					
+					// Check if text needs truncation
+					if (snippet && full && snippet.textContent.trim() !== full.textContent.trim()) {
+						// Show expand button if there's more content
+						if (expandBtn) {
+							expandBtn.classList.remove('hidden');
+						}
+					}
+				});
+			});
+		})();
+		
+		function toggleTestimonial(btn) {
+			const card = btn.closest('.testimonial-card');
+			const textElement = card.querySelector('.testimonial-text');
+			const fadeElement = card.querySelector('.testimonial-text-fade');
+			const expandText = btn.querySelector('.expand-text');
+			const isExpanded = textElement.classList.contains('expanded');
+			
+			if (isExpanded) {
+				textElement.classList.remove('expanded');
+				btn.classList.remove('expanded');
+				expandText.textContent = 'Read More';
+			} else {
+				textElement.classList.add('expanded');
+				btn.classList.add('expanded');
+				expandText.textContent = 'Read Less';
+			}
+		}
+	</script>
+
+</body>
+
+</html>

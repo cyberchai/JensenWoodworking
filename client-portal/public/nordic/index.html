@@ -746,6 +746,16 @@
 		#services .sec-title {
 			margin-top: 60px;
 		}
+		
+		/* Keep service boxes vertically stacked and fill available space */
+		.blocks-outer .service-box {
+			width: 100%;
+			margin-bottom: 30px;
+		}
+		
+		.blocks-outer .service-box:last-child {
+			margin-bottom: 0;
+		}
 	</style>
 
 	<!-- Open Graph (OG) meta tags are snippets of code that control how URLs are displayed when shared on social media  -->
@@ -810,7 +820,7 @@
 					<div class="inner-container clearfix">
 
 						<div class="pull-left logo-box">
-							<div class="logo"><a href="index.html"><span>Jensen</span><span>Woodworking</span></a></div>
+							<div class="logo"><a href="/home"><span>Jensen</span><span>Woodworking</span></a></div>
 						</div>
 
 						<div class="nav-outer pull-left clearfix">
@@ -834,12 +844,12 @@
 
 								<div class="navbar-collapse show collapse clearfix" id="navbarSupportedContent">
 									<ul class="navigation clearfix">
-										<li class="current"><a href="index.html">Home</a></li>
+										<li class="current"><a href="/home">Home</a></li>
 										<li><a href="about.html">About</a></li>
 										<li><a href="gallery.html">Gallery</a></li>
 										<li><a href="services.html">Services</a></li>
+										<li><a href="testimonials.html">Testimonials</a></li>
 										<li><a href="contact.html">Contact</a></li>
-										<li><a href="/client/project">Your Project</a></li>
 									</ul>
 								</div>
 
@@ -868,7 +878,7 @@
 				<div class="close-btn"><span class="icon lnr lnr-cross"></span></div>
 
 				<nav class="menu-box">
-					<div class="nav-logo"><a href="index.html"><span>Jensen</span><span>Woodworking</span></a></div>
+					<div class="nav-logo"><a href="/home"><span>Jensen</span><span>Woodworking</span></a></div>
 					<div class="menu-outer">
 						<!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
 					</div>
@@ -1002,6 +1012,122 @@
 		</section>
 		<!-- End About Section -->
 
+		<!-- Testimonial Section -->
+		<section class="testimonial-section">
+			<div class="auto-container">
+				<!-- Sec Title -->
+				<div class="sec-title">
+					<h2>What Our Clients Say</h2>
+				</div>
+				<div class="testimonial-carousel owl-carousel owl-theme">
+
+					<!-- Testimonial Block -->
+					<div class="testimonial-block" data-testimonial-images='["images/gallery/1.jpg", "images/gallery/2.jpg"]'>
+						<div class="inner-box">
+							<div class="testimonial-carousel-container">
+								<div class="testimonial-carousel-slides">
+									<img class="testimonial-carousel-image active" src="/images/gallery/1.jpg" alt="Kitchen Island - View 1">
+									<img class="testimonial-carousel-image" src="/images/gallery/2.jpg" alt="Kitchen Island - View 2">
+								</div>
+								<button class="testimonial-carousel-arrow testimonial-carousel-prev" aria-label="Previous image">‹</button>
+								<button class="testimonial-carousel-arrow testimonial-carousel-next" aria-label="Next image">›</button>
+							</div>
+							<div class="quote icon_quotations"></div>
+							<div class="author">Sarah & Michael T. <span>/ Duxbury, MA</span></div>
+							<p>"The kitchen island Klaus built for us is absolutely stunning. The attention to detail and quality of craftsmanship exceeded our expectations. It's the centerpiece of our home."</p>
+						</div>
+					</div>
+
+					<!-- Testimonial Block -->
+					<div class="testimonial-block" data-testimonial-images='["images/gallery/3.jpg", "images/gallery/4.jpg", "images/gallery/1.jpg"]'>
+						<div class="inner-box">
+							<div class="testimonial-carousel-container">
+								<div class="testimonial-carousel-slides">
+									<img class="testimonial-carousel-image active" src="/images/gallery/3.jpg" alt="Dining Table - View 1">
+									<img class="testimonial-carousel-image" src="/images/gallery/4.jpg" alt="Dining Table - View 2">
+									<img class="testimonial-carousel-image" src="/images/gallery/1.jpg" alt="Dining Table - View 3">
+								</div>
+								<button class="testimonial-carousel-arrow testimonial-carousel-prev" aria-label="Previous image">‹</button>
+								<button class="testimonial-carousel-arrow testimonial-carousel-next" aria-label="Next image">›</button>
+							</div>
+							<div class="quote icon_quotations"></div>
+							<div class="author">Jennifer M. <span>/ Plymouth, MA</span></div>
+							<p>"Working with Jensen Woodworking was a pleasure from start to finish. Klaus helped us choose the perfect wood and finish for our dining table. It's beautiful and built to last."</p>
+						</div>
+					</div>
+
+					<!-- Testimonial Block -->
+					<div class="testimonial-block" data-testimonial-images='["images/gallery/2.jpg", "images/gallery/3.jpg"]'>
+						<div class="inner-box">
+							<div class="testimonial-carousel-container">
+								<div class="testimonial-carousel-slides">
+									<img class="testimonial-carousel-image active" src="/images/gallery/2.jpg" alt="Custom Mantel - View 1">
+									<img class="testimonial-carousel-image" src="/images/gallery/3.jpg" alt="Custom Mantel - View 2">
+								</div>
+								<button class="testimonial-carousel-arrow testimonial-carousel-prev" aria-label="Previous image">‹</button>
+								<button class="testimonial-carousel-arrow testimonial-carousel-next" aria-label="Next image">›</button>
+							</div>
+							<div class="quote icon_quotations"></div>
+							<div class="author">Robert & Linda C. <span>/ Hingham, MA</span></div>
+							<p>"After three months of searching, we found Klaus. The custom mantel he created transformed our living room. The reclaimed wood has so much character and history."</p>
+						</div>
+					</div>
+
+					<!-- Testimonial Block -->
+					<div class="testimonial-block" data-testimonial-images='["images/gallery/4.jpg"]'>
+						<div class="inner-box">
+							<div class="testimonial-carousel-container">
+								<div class="testimonial-carousel-slides">
+									<img class="testimonial-carousel-image active" src="/images/gallery/4.jpg" alt="Bar Top">
+								</div>
+							</div>
+							<div class="quote icon_quotations"></div>
+							<div class="author">David & Emily J. <span>/ Scituate, MA</span></div>
+							<p>"The bar top Klaus installed is perfect. He understood our vision and delivered exactly what we wanted. The Rubio Monocoat finish looks incredible and is so easy to maintain."</p>
+						</div>
+					</div>
+
+					<!-- Testimonial Block -->
+					<div class="testimonial-block" data-testimonial-images='["images/gallery/1.jpg", "images/gallery/2.jpg", "images/gallery/3.jpg", "images/gallery/4.jpg"]'>
+						<div class="inner-box">
+							<div class="testimonial-carousel-container">
+								<div class="testimonial-carousel-slides">
+									<img class="testimonial-carousel-image active" src="/images/gallery/1.jpg" alt="Restoration - Before">
+									<img class="testimonial-carousel-image" src="/images/gallery/2.jpg" alt="Restoration - Process">
+									<img class="testimonial-carousel-image" src="/images/gallery/3.jpg" alt="Restoration - Detail">
+									<img class="testimonial-carousel-image" src="/images/gallery/4.jpg" alt="Restoration - After">
+								</div>
+								<button class="testimonial-carousel-arrow testimonial-carousel-prev" aria-label="Previous image">‹</button>
+								<button class="testimonial-carousel-arrow testimonial-carousel-next" aria-label="Next image">›</button>
+							</div>
+							<div class="quote icon_quotations"></div>
+							<div class="author">Patricia O. <span>/ Marshfield, MA</span></div>
+							<p>"Klaus repaired and refinished our family heirloom dining table. It looks brand new while maintaining its original character. We couldn't be happier with the results."</p>
+						</div>
+					</div>
+
+					<!-- Testimonial Block -->
+					<div class="testimonial-block" data-testimonial-images='["images/gallery/3.jpg", "images/gallery/4.jpg"]'>
+						<div class="inner-box">
+							<div class="testimonial-carousel-container">
+								<div class="testimonial-carousel-slides">
+									<img class="testimonial-carousel-image active" src="/images/gallery/3.jpg" alt="Custom Project - View 1">
+									<img class="testimonial-carousel-image" src="/images/gallery/4.jpg" alt="Custom Project - View 2">
+								</div>
+								<button class="testimonial-carousel-arrow testimonial-carousel-prev" aria-label="Previous image">‹</button>
+								<button class="testimonial-carousel-arrow testimonial-carousel-next" aria-label="Next image">›</button>
+							</div>
+							<div class="quote icon_quotations"></div>
+							<div class="author">James & Maria R. <span>/ Kingston, MA</span></div>
+							<p>"Great communication, flexible scheduling, and exceptional craftsmanship. Klaus explained every step of the process and the final product is exactly what we envisioned."</p>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</section>
+		<!-- End Testimonial Section -->
+
 		<!-- Fluid Section One -->
 		<section class="fluid-section-one" id="services">
 			<div class="outer-container clearfix">
@@ -1040,17 +1166,6 @@
 								</div>
 							</div>
 
-							<!-- Service Box -->
-							<div class="service-box">
-								<div class="inner-box">
-									<div class="content">
-										<img src="/images/repairrefine.jpg" alt="Repair & Refinishing" class="icon" style="object-fit: cover;">
-										<h5><a href="contact.html">Repair & Refinishing</a></h5>
-										<p>In addition to custom furniture, I offer repair, restoration, and refinishing services. Thoughtful repairs to extend the life and beauty of heirloom pieces for your home, beach house, cabin, and even boats.</p>
-									</div>
-								</div>
-							</div>
-
 						</div>
 
 					</div>
@@ -1071,7 +1186,7 @@
 				<div class="sec-title">
 					<div class="clearfix">
 						<div class="pull-left">
-							<h2>Latest Projects</h2>
+							<h2>Selected Projects</h2>
 						</div>
 						<div class="pull-right">
 							<a href="gallery.html" class="projects">All Projects</a>
@@ -1257,122 +1372,6 @@
 		</section>
 		<!-- End Projects Section -->
 
-		<!-- Testimonial Section -->
-		<section class="testimonial-section">
-			<div class="auto-container">
-				<!-- Sec Title -->
-				<div class="sec-title">
-					<h2>What Our Clients Say</h2>
-				</div>
-				<div class="testimonial-carousel owl-carousel owl-theme">
-
-					<!-- Testimonial Block -->
-					<div class="testimonial-block" data-testimonial-images='["images/gallery/1.jpg", "images/gallery/2.jpg"]'>
-						<div class="inner-box">
-							<div class="testimonial-carousel-container">
-								<div class="testimonial-carousel-slides">
-									<img class="testimonial-carousel-image active" src="/images/gallery/1.jpg" alt="Kitchen Island - View 1">
-									<img class="testimonial-carousel-image" src="/images/gallery/2.jpg" alt="Kitchen Island - View 2">
-								</div>
-								<button class="testimonial-carousel-arrow testimonial-carousel-prev" aria-label="Previous image">‹</button>
-								<button class="testimonial-carousel-arrow testimonial-carousel-next" aria-label="Next image">›</button>
-							</div>
-							<div class="quote icon_quotations"></div>
-							<div class="author">Sarah & Michael T. <span>/ Duxbury, MA</span></div>
-							<p>"The kitchen island Klaus built for us is absolutely stunning. The attention to detail and quality of craftsmanship exceeded our expectations. It's the centerpiece of our home."</p>
-						</div>
-					</div>
-
-					<!-- Testimonial Block -->
-					<div class="testimonial-block" data-testimonial-images='["images/gallery/3.jpg", "images/gallery/4.jpg", "images/gallery/1.jpg"]'>
-						<div class="inner-box">
-							<div class="testimonial-carousel-container">
-								<div class="testimonial-carousel-slides">
-									<img class="testimonial-carousel-image active" src="/images/gallery/3.jpg" alt="Dining Table - View 1">
-									<img class="testimonial-carousel-image" src="/images/gallery/4.jpg" alt="Dining Table - View 2">
-									<img class="testimonial-carousel-image" src="/images/gallery/1.jpg" alt="Dining Table - View 3">
-								</div>
-								<button class="testimonial-carousel-arrow testimonial-carousel-prev" aria-label="Previous image">‹</button>
-								<button class="testimonial-carousel-arrow testimonial-carousel-next" aria-label="Next image">›</button>
-							</div>
-							<div class="quote icon_quotations"></div>
-							<div class="author">Jennifer M. <span>/ Plymouth, MA</span></div>
-							<p>"Working with Jensen Woodworking was a pleasure from start to finish. Klaus helped us choose the perfect wood and finish for our dining table. It's beautiful and built to last."</p>
-						</div>
-					</div>
-
-					<!-- Testimonial Block -->
-					<div class="testimonial-block" data-testimonial-images='["images/gallery/2.jpg", "images/gallery/3.jpg"]'>
-						<div class="inner-box">
-							<div class="testimonial-carousel-container">
-								<div class="testimonial-carousel-slides">
-									<img class="testimonial-carousel-image active" src="/images/gallery/2.jpg" alt="Custom Mantel - View 1">
-									<img class="testimonial-carousel-image" src="/images/gallery/3.jpg" alt="Custom Mantel - View 2">
-								</div>
-								<button class="testimonial-carousel-arrow testimonial-carousel-prev" aria-label="Previous image">‹</button>
-								<button class="testimonial-carousel-arrow testimonial-carousel-next" aria-label="Next image">›</button>
-							</div>
-							<div class="quote icon_quotations"></div>
-							<div class="author">Robert & Linda C. <span>/ Hingham, MA</span></div>
-							<p>"After three months of searching, we found Klaus. The custom mantel he created transformed our living room. The reclaimed wood has so much character and history."</p>
-						</div>
-					</div>
-
-					<!-- Testimonial Block -->
-					<div class="testimonial-block" data-testimonial-images='["images/gallery/4.jpg"]'>
-						<div class="inner-box">
-							<div class="testimonial-carousel-container">
-								<div class="testimonial-carousel-slides">
-									<img class="testimonial-carousel-image active" src="/images/gallery/4.jpg" alt="Bar Top">
-								</div>
-							</div>
-							<div class="quote icon_quotations"></div>
-							<div class="author">David & Emily J. <span>/ Scituate, MA</span></div>
-							<p>"The bar top Klaus installed is perfect. He understood our vision and delivered exactly what we wanted. The Rubio Monocoat finish looks incredible and is so easy to maintain."</p>
-						</div>
-					</div>
-
-					<!-- Testimonial Block -->
-					<div class="testimonial-block" data-testimonial-images='["images/gallery/1.jpg", "images/gallery/2.jpg", "images/gallery/3.jpg", "images/gallery/4.jpg"]'>
-						<div class="inner-box">
-							<div class="testimonial-carousel-container">
-								<div class="testimonial-carousel-slides">
-									<img class="testimonial-carousel-image active" src="/images/gallery/1.jpg" alt="Restoration - Before">
-									<img class="testimonial-carousel-image" src="/images/gallery/2.jpg" alt="Restoration - Process">
-									<img class="testimonial-carousel-image" src="/images/gallery/3.jpg" alt="Restoration - Detail">
-									<img class="testimonial-carousel-image" src="/images/gallery/4.jpg" alt="Restoration - After">
-								</div>
-								<button class="testimonial-carousel-arrow testimonial-carousel-prev" aria-label="Previous image">‹</button>
-								<button class="testimonial-carousel-arrow testimonial-carousel-next" aria-label="Next image">›</button>
-							</div>
-							<div class="quote icon_quotations"></div>
-							<div class="author">Patricia O. <span>/ Marshfield, MA</span></div>
-							<p>"Klaus repaired and refinished our family heirloom dining table. It looks brand new while maintaining its original character. We couldn't be happier with the results."</p>
-						</div>
-					</div>
-
-					<!-- Testimonial Block -->
-					<div class="testimonial-block" data-testimonial-images='["images/gallery/3.jpg", "images/gallery/4.jpg"]'>
-						<div class="inner-box">
-							<div class="testimonial-carousel-container">
-								<div class="testimonial-carousel-slides">
-									<img class="testimonial-carousel-image active" src="/images/gallery/3.jpg" alt="Custom Project - View 1">
-									<img class="testimonial-carousel-image" src="/images/gallery/4.jpg" alt="Custom Project - View 2">
-								</div>
-								<button class="testimonial-carousel-arrow testimonial-carousel-prev" aria-label="Previous image">‹</button>
-								<button class="testimonial-carousel-arrow testimonial-carousel-next" aria-label="Next image">›</button>
-							</div>
-							<div class="quote icon_quotations"></div>
-							<div class="author">James & Maria R. <span>/ Kingston, MA</span></div>
-							<p>"Great communication, flexible scheduling, and exceptional craftsmanship. Klaus explained every step of the process and the final product is exactly what we envisioned."</p>
-						</div>
-					</div>
-
-				</div>
-			</div>
-		</section>
-		<!-- End Testimonial Section -->
-
 		<!-- Main Footer -->
 		<footer class="main-footer" id="contact">
 			<div class="outer-container">
@@ -1384,7 +1383,7 @@
 						<div class="footer-column">
 							<div class="footer-widget logo-widget">
 								<div class="logo">
-									<a href="index.html"><img src="/images/logo.png" alt="Jensen Woodworking"></a>
+									<a href="/home"><img src="/images/logo.png" alt="Jensen Woodworking"></a>
 								</div>
 							</div>
 						</div>
@@ -1410,7 +1409,7 @@
 									<li><a href="services.html">Services</a></li>
 									<li><a href="about.html">Our Story</a></li>
 									<li><a href="contact.html">Contact</a></li>
-									<li><a href="/admin">Your Project</a></li>
+									<li><a href="testimonials.html">Testimonials</a></li>
 									<li><a href="https://www.instagram.com/klauspnjensen/" target="_blank">Instagram</a></li>
 								</ul>
 							</div>
@@ -1462,7 +1461,7 @@
 								<li><a href="gallery.html">Gallery</a></li>
 								<li><a href="services.html">Services</a></li>
 								<li><a href="contact.html">Contact</a></li>
-								<li><a href="/admin">Your Project</a></li>
+								<li><a href="testimonials.html">Testimonials</a></li>
 							</ul>
 						</div>
 

@@ -14,6 +14,4 @@ if (USE_FIREBASE) {
 }
 
 export { store };
-export { generateToken } from './mockStore';
-export { generateSecureToken, validateTokenFormat, normalizeToken } from './tokenGenerator';
 
