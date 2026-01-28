@@ -484,12 +484,6 @@
 									<div class="form-group">
 										<input type="tel" name="phone" placeholder="Your Phone">
 									</div>
-									<div class="form-group">
-										<input type="text" name="budget" placeholder="Budget (Optional)">
-									</div>
-									<div class="form-group">
-										<textarea name="message" placeholder="Your Message" required></textarea>
-									</div>
 									<div class="form-group" style="margin-bottom: 20px;">
 										<div style="display: flex; flex-direction: column; gap: 15px;">
 											<div style="display: flex; align-items: center; justify-content: space-between;">
@@ -509,23 +503,28 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<label for="additional_details" style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: #666; font-size: 14px;">
-											Optional Additional Details
+										<label for="message" style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: #666; font-size: 14px;">
+											Your Message
 											<span class="info-tooltip-trigger" style="position: relative; display: inline-flex; align-items: center; cursor: help;">
 												<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: #999;">
 													<circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
 													<text x="8" y="11" text-anchor="middle" font-size="11" font-weight="bold" fill="currentColor">i</text>
 												</svg>
 												<span class="info-tooltip">
-													Please share any information about:<br><br>
-													• Timing expectations (project timeline, deadlines)<br>
-													• External collaborators (interior designer, contractor, architect, etc.)<br>
-													• Budget considerations<br>
-													• Design constraints or special requirements
+													These details help me guide next steps.<br><br>
+													• Intended use<br>
+													• Dimensions<br>
+													• Scale<br>
+													• Timing<br>
+													• Deadline<br>
+													• Material preferences<br>
+													• Budget<br>
+													• Framing<br><br>
+													Missing details can be followed up later.
 												</span>
 											</span>
 										</label>
-										<textarea id="additional_details" name="additional_details" placeholder="Please share any information about:&#10;&#10;• Timing expectations (project timeline, deadlines)&#10;• External collaborators (interior designer, contractor, architect, etc.)&#10;• Budget considerations&#10;• Design constraints or special requirements" rows="6"></textarea>
+										<textarea id="message" name="message" placeholder="Tell me about your project..." rows="8" required></textarea>
 									</div>
 									<div class="form-group">
 										<button type="submit" class="theme-btn btn-style-one"><span class="txt">Send Message</span></button>

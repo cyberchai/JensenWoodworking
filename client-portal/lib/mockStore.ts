@@ -35,6 +35,7 @@ export interface PastProject {
   selectedImages: PastProjectImage[]; // Selected images from media gallery
   createdAt: number;
   completedAt: number; // When project was marked as completed
+  isFeaturedOnHomePage?: boolean; // Whether to display on home page gallery
 }
 
 export interface PastProjectImage {

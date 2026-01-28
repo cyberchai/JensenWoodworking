@@ -115,6 +115,7 @@ const docToPastProject = (docSnap: QueryDocumentSnapshot<DocumentData>): PastPro
     selectedImages: data.selectedImages || [],
     createdAt: timestampToNumber(data.createdAt),
     completedAt: timestampToNumber(data.completedAt),
+    isFeaturedOnHomePage: data.isFeaturedOnHomePage || false,
   };
 };
 
@@ -551,6 +552,7 @@ export const firebaseStore = {
       selectedImages: data.selectedImages || [],
       createdAt: numberToTimestamp(Date.now()),
       completedAt: numberToTimestamp(Date.now()),
+      isFeaturedOnHomePage: data.isFeaturedOnHomePage || false,
     };
     
     if (data.description && data.description.trim()) {
@@ -581,6 +583,7 @@ export const firebaseStore = {
         }
       }
       if (updates.selectedImages !== undefined) updateData.selectedImages = updates.selectedImages;
+      if (updates.isFeaturedOnHomePage !== undefined) updateData.isFeaturedOnHomePage = updates.isFeaturedOnHomePage;
       
       await updateDoc(docRef, updateData);
       

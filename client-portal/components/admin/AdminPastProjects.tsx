@@ -25,6 +25,7 @@ export default function AdminPastProjects() {
   const [editTitle, setEditTitle] = useState('');
   const [editDescription, setEditDescription] = useState('');
   const [selectedImages, setSelectedImages] = useState<PastProjectImage[]>([]);
+  const [isFeaturedOnHomePage, setIsFeaturedOnHomePage] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState<{ id: string; title: string } | null>(null);
   const [showImageSelector, setShowImageSelector] = useState(false);
 
@@ -70,6 +71,7 @@ export default function AdminPastProjects() {
     setEditTitle('');
     setEditDescription('');
     setSelectedImages([]);
+    setIsFeaturedOnHomePage(false);
     setShowImageSelector(false);
   };
 
@@ -79,6 +81,7 @@ export default function AdminPastProjects() {
     setEditTitle(project.title);
     setEditDescription(project.description || '');
     setSelectedImages([...project.selectedImages]);
+    setIsFeaturedOnHomePage(project.isFeaturedOnHomePage || false);
     setShowImageSelector(false);
   };
 
@@ -88,6 +91,7 @@ export default function AdminPastProjects() {
     setEditTitle('');
     setEditDescription('');
     setSelectedImages([]);
+    setIsFeaturedOnHomePage(false);
     setShowImageSelector(false);
   };
 
@@ -102,6 +106,7 @@ export default function AdminPastProjects() {
         title: editTitle.trim(),
         description: editDescription.trim() || undefined,
         selectedImages,
+        isFeaturedOnHomePage,
       });
     } else if (editingProject) {
       // Update existing past project
@@ -109,6 +114,7 @@ export default function AdminPastProjects() {
         title: editTitle.trim(),
         description: editDescription.trim() || undefined,
         selectedImages,
+        isFeaturedOnHomePage,
       });
     }
 
@@ -201,6 +207,23 @@ export default function AdminPastProjects() {
                 className="w-full px-4 py-2 border-2 border-gray-300 bg-white focus:outline-none focus:border-site-gold transition-colors min-h-[120px] resize-y"
                 placeholder="Project description..."
               />
+            </div>
+
+            <div>
+              <label className="flex items-center gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={isFeaturedOnHomePage}
+                  onChange={(e) => setIsFeaturedOnHomePage(e.target.checked)}
+                  className="w-4 h-4 text-brass border-gray-300 rounded focus:ring-brass"
+                />
+                <span className="text-sm font-normal text-site-gray uppercase tracking-wide">
+                  Featured on Home Page
+                </span>
+              </label>
+              <p className="text-xs text-stone-400 mt-1 ml-7">
+                When enabled, this project will appear in the home page gallery
+              </p>
             </div>
 
             <div>
@@ -352,6 +375,11 @@ export default function AdminPastProjects() {
                     <p className="text-[9px] font-black uppercase tracking-[0.2em] text-stone-300">
                       Images: {project.selectedImages.length} ({project.selectedImages.filter(img => img.isFeatured).length} featured)
                     </p>
+                    {project.isFeaturedOnHomePage && (
+                      <p className="text-[9px] font-black uppercase tracking-[0.2em] text-brass">
+                        ✓ Featured on Home Page
+                      </p>
+                    )}
                   </div>
 
                   {project.selectedImages.length > 0 && (

@@ -5,7 +5,10 @@ let imagekitInstance: ImageKit | null = null;
 
 export function getImageKit(): ImageKit {
   if (!imagekitInstance) {
-    const publicKey = process.env.IMAGEKIT_PUBLIC_KEY;
+    // Prefer server-only env var, but allow the NEXT_PUBLIC one as a fallback
+    // (helps local dev setups where only NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY was set).
+    const publicKey =
+      process.env.IMAGEKIT_PUBLIC_KEY ?? process.env.NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY;
     const privateKey = process.env.IMAGEKIT_PRIVATE_KEY;
     
     if (!publicKey || !privateKey) {
