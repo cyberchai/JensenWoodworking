@@ -38,6 +38,13 @@
 		.mobile-menu .nav-logo a {
 			color: #000;
 		}
+		/* Add Your Project: only in expanded (mobile) menu, not top bar */
+		.main-menu .navigation .nav-mobile-only {
+			display: none !important;
+		}
+		.mobile-menu .nav-mobile-only {
+			display: list-item !important;
+		}
 		/* Footer Logo Styling */
 		.main-footer .logo a {
 			color: #000;
@@ -850,6 +857,7 @@
 										<li><a href="services.html">Services</a></li>
 										<li><a href="testimonials.html">Testimonials</a></li>
 										<li><a href="contact.html">Contact</a></li>
+										<li class="nav-mobile-only"><a href="#" class="client-portal-link" data-path="/client/project">Add Your Project</a></li>
 									</ul>
 								</div>
 

@@ -34,6 +34,26 @@ export async function GET() {
     html = html.replace(/src="images\//g, 'src="/images/');
     html = html.replace(/href="fonts\//g, 'href="/fonts/');
     
+    // Fix font paths in CSS - inject CSS that overrides font-face declarations with correct paths
+    // Note: Font filenames contain ? characters, so we reference them with query strings
+    const fontPathFix = `
+	<style>
+	/* Fix font paths - fonts are in /nordic/fonts/ but CSS references ../fonts/ */
+	@font-face {
+		font-family: 'linearicons-free';
+		src: url('/nordic/fonts/Linearicons-Free.woff2?w118d') format('woff2');
+		font-weight: 400;
+		font-style: normal;
+	}
+	@font-face {
+		font-family: 'ionicons';
+		src: url('/nordic/fonts/ionicons.ttf?v=2.0.0') format('truetype');
+		font-weight: 400;
+		font-style: normal;
+	}
+	</style>`;
+    html = html.replace(/<\/head>/i, `${fontPathFix}\n\t$&`);
+    
     return new NextResponse(html, {
       headers: {
         'Content-Type': 'text/html; charset=utf-8',

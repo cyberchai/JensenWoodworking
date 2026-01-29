@@ -107,6 +107,12 @@ export async function GET() {
 
     let html = readFileSync(filePath, 'utf-8');
     
+    // Replace banner section background images with bg-masthead.jpg
+    // Handle both original path and any manually edited incorrect paths
+    html = html.replace(/url\(images\/main-slider\/image-1\.jpg\)/g, 'url(/bg-masthead.jpg)');
+    html = html.replace(/url\(client-portal\/public\/bg-masthead\.jpg\)/g, 'url(/bg-masthead.jpg)');
+    html = html.replace(/url\(['"]?images\/main-slider\/image-1\.jpg['"]?\)/g, 'url(/bg-masthead.jpg)');
+    
     // Fetch dynamic content directly from store
     let featuredProjects: PastProject[] = [];
     let testimonials: Feedback[] = [];
@@ -199,6 +205,26 @@ export async function GET() {
     html = html.replace(/src="js\//g, 'src="/js/');
     html = html.replace(/src="images\//g, 'src="/images/');
     html = html.replace(/href="fonts\//g, 'href="/fonts/');
+    
+    // Fix font paths - inject CSS that overrides font-face declarations with correct paths
+    // Note: Font filenames contain ? characters, so we reference them with query strings
+    const fontPathFix = `
+	<style>
+	/* Fix font paths - fonts are in /nordic/fonts/ but CSS references ../fonts/ */
+	@font-face {
+		font-family: 'linearicons-free';
+		src: url('/nordic/fonts/Linearicons-Free.woff2?w118d') format('woff2');
+		font-weight: 400;
+		font-style: normal;
+	}
+	@font-face {
+		font-family: 'ionicons';
+		src: url('/nordic/fonts/ionicons.ttf?v=2.0.0') format('truetype');
+		font-weight: 400;
+		font-style: normal;
+	}
+	</style>`;
+    html = html.replace(/<\/head>/i, `${fontPathFix}\n\t$&`);
 
     // Ensure "Latest Projects" cards are a fixed size (carousel)
     html = html.replace(
