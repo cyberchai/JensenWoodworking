@@ -302,6 +302,31 @@ export async function GET() {
     padding: 32px 24px 28px 48px;
     min-height: 200px;
   }
+  .testimonial-section{
+    padding-top: 0 !important;
+  }
+  .about-section{
+    padding-bottom: 24px !important;
+  }
+  .about-section .about-content-column{
+    padding-bottom: 24px !important;
+  }
+  .testimonial-section .sec-title{
+    margin-bottom: 32px !important;
+  }
+}
+
+/* Optional: cap banner height on very short viewports so CTA stays visible */
+@media (max-height: 500px) {
+  .banner-section,
+  .banner-section .slide,
+  .banner-section .main-slider-carousel,
+  .banner-section .owl-stage-outer,
+  .banner-section .owl-stage,
+  .banner-section .owl-item {
+    min-height: 360px;
+    height: auto;
+  }
 }
 </style></head>`
     );

@@ -63,7 +63,7 @@ export default function AdminContactRequests({ contactRequests, onUpdate }: Admi
     const isYes = value === true;
     return (
       <span
-        className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-none border text-[13px] md:text-[15px] lg:text-[10px] font-semibold tracking-wide ${
+        className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-none border text-xs md:text-sm font-semibold tracking-wide ${
           isYes
             ? 'bg-green-200 text-green-950 border-green-300'
             : 'bg-stone-50 text-stone-600 border-stone-200'
@@ -78,10 +78,10 @@ export default function AdminContactRequests({ contactRequests, onUpdate }: Admi
   };
 
   return (
-    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4">
-      <div className="flex items-center justify-between">
-        <h2 className="text-[14px] md:text-[18px] lg:text-[11px] font-black tracking-[0.3em] uppercase text-brass">Commission Inquiries</h2>
-        <div className="text-[12px] md:text-[16px] lg:text-[9px] text-stone-400 font-bold uppercase tracking-widest">
+    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 min-w-0">
+      <div className="flex items-center justify-between gap-4 min-w-0">
+        <h2 className="text-sm md:text-base font-black tracking-[0.3em] uppercase text-brass truncate">Commission Inquiries</h2>
+        <div className="text-xs md:text-sm text-stone-400 font-bold uppercase tracking-widest shrink-0">
           {contactRequests.length} {contactRequests.length === 1 ? 'Inquiry' : 'Inquiries'}
         </div>
       </div>
@@ -100,28 +100,28 @@ export default function AdminContactRequests({ contactRequests, onUpdate }: Admi
               className="bg-white border border-stone-200 overflow-hidden hover:border-stone-300 transition-colors shadow-sm rounded-sm"
             >
               {/* Compact Header Row */}
-              <div className="px-6 py-4 md:px-8 md:py-6 flex items-start justify-between gap-4 border-b border-stone-200">
+              <div className="px-4 sm:px-6 md:px-8 py-4 md:py-6 flex items-start justify-between gap-4 border-b border-stone-200 min-w-0">
                 <div className="flex-1 min-w-0 space-y-3">
-                  <div className="flex items-start justify-between gap-4">
-                    <h3 className="text-[16px] md:text-[22px] lg:text-sm font-bold text-ebony uppercase tracking-wider">
+                  <div className="flex items-start justify-between gap-4 min-w-0">
+                    <h3 className="text-base md:text-lg font-bold text-ebony uppercase tracking-wider break-words min-w-0">
                       {request.name}
                     </h3>
                     <button
                       onClick={() => handleDeleteClick(request.id, request.name)}
-                      className="text-[12px] md:text-[16px] lg:text-[9px] font-bold uppercase tracking-widest text-stone-400 hover:text-ebony transition-colors px-2 py-1.5"
+                      className="text-xs md:text-sm font-bold uppercase tracking-widest text-stone-400 hover:text-ebony transition-colors px-2 py-2 min-h-[44px] flex items-center shrink-0"
                     >
                       Delete
                     </button>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-2 min-w-0">
                     <div className="min-w-0">
-                      <div className="text-[10px] md:text-[12px] lg:text-[9px] font-bold uppercase tracking-widest text-stone-300 mb-1">
+                      <div className="text-xs md:text-sm font-bold uppercase tracking-widest text-stone-300 mb-1">
                         Email
                       </div>
                       <a
                         href={`mailto:${request.email}`}
-                        className="block text-[16px] md:text-[22px] lg:text-[14px] text-ebony hover:text-brass transition-colors break-all"
+                        className="block text-sm md:text-base text-ebony hover:text-brass transition-colors break-all"
                       >
                         {request.email}
                       </a>
@@ -129,12 +129,12 @@ export default function AdminContactRequests({ contactRequests, onUpdate }: Admi
 
                     {request.phone ? (
                       <div className="min-w-0">
-                        <div className="text-[10px] md:text-[12px] lg:text-[9px] font-bold uppercase tracking-widest text-stone-300 mb-1">
+                        <div className="text-xs md:text-sm font-bold uppercase tracking-widest text-stone-300 mb-1">
                           Phone
                         </div>
                         <a
                           href={`tel:${request.phone}`}
-                          className="block text-[16px] md:text-[22px] lg:text-[14px] text-ebony hover:text-brass transition-colors"
+                          className="block text-sm md:text-base text-ebony hover:text-brass transition-colors break-all"
                         >
                           {request.phone}
                         </a>
@@ -144,7 +144,7 @@ export default function AdminContactRequests({ contactRequests, onUpdate }: Admi
                     )}
                   </div>
 
-                  <div className="text-[12px] md:text-[14px] lg:text-[10px] text-stone-400">
+                  <div className="text-xs md:text-sm text-stone-400">
                     <span className="text-stone-300 font-bold uppercase tracking-widest mr-2">Received</span>
                     <span className="text-stone-300">
                       {formatDate(request.createdAt)} at {formatTime(request.createdAt)}
@@ -154,8 +154,8 @@ export default function AdminContactRequests({ contactRequests, onUpdate }: Admi
               </div>
 
               {/* Message Preview */}
-              <div className="px-6 py-4 md:px-8 md:py-6">
-                <p className="text-sm md:text-[16px] text-stone-600 italic font-serif normal-case line-clamp-2 mb-3">
+              <div className="px-4 sm:px-6 md:px-8 py-4 md:py-6 min-w-0">
+                <p className="text-sm md:text-base text-stone-600 italic font-serif normal-case line-clamp-2 mb-3 break-words">
                   {request.message}
                 </p>
                 
@@ -186,7 +186,7 @@ export default function AdminContactRequests({ contactRequests, onUpdate }: Admi
                         await updateStatus(request.id, 'read');
                       }
                     }}
-                    className="text-[10px] md:text-[14px] text-brass hover:text-ebony uppercase tracking-widest font-bold transition-colors"
+                    className="text-xs md:text-sm text-brass hover:text-ebony uppercase tracking-widest font-bold transition-colors py-2 min-h-[44px] flex items-center"
                   >
                     {expandedRequest === request.id ? '▲ Hide Details' : '▼ View Full Details'}
                   </button>
@@ -195,18 +195,18 @@ export default function AdminContactRequests({ contactRequests, onUpdate }: Admi
 
               {/* Expanded Details */}
               {expandedRequest === request.id && (
-                <div className="px-6 py-4 md:px-8 md:py-6 bg-stone-50 border-t border-stone-100 space-y-4">
-                  <div>
-                    <h4 className="text-[11px] md:text-[14px] font-bold uppercase tracking-widest text-ebony mb-2">Full Message</h4>
-                    <p className="text-sm md:text-[16px] text-stone-700 italic font-serif normal-case whitespace-pre-wrap leading-relaxed">
+                <div className="px-4 sm:px-6 md:px-8 py-4 md:py-6 bg-stone-50 border-t border-stone-100 space-y-4 min-w-0 overflow-hidden">
+                  <div className="min-w-0">
+                    <h4 className="text-xs md:text-sm font-bold uppercase tracking-widest text-ebony mb-2">Full Message</h4>
+                    <p className="text-sm md:text-base text-stone-700 italic font-serif normal-case whitespace-pre-wrap leading-relaxed break-words">
                       {request.message}
                     </p>
                   </div>
 
                   {request.additionalDetails && (
-                    <div>
-                      <h4 className="text-[11px] md:text-[14px] font-bold uppercase tracking-widest text-ebony mb-2">Additional Details</h4>
-                      <p className="text-sm md:text-[16px] text-stone-700 italic font-serif normal-case whitespace-pre-wrap leading-relaxed">
+                    <div className="min-w-0">
+                      <h4 className="text-xs md:text-sm font-bold uppercase tracking-widest text-ebony mb-2">Additional Details</h4>
+                      <p className="text-sm md:text-base text-stone-700 italic font-serif normal-case whitespace-pre-wrap leading-relaxed break-words">
                         {request.additionalDetails}
                       </p>
                     </div>
@@ -215,9 +215,9 @@ export default function AdminContactRequests({ contactRequests, onUpdate }: Admi
                   {(request.budget ||
                     request.contractorInvolved !== undefined ||
                     request.designerInvolved !== undefined) && (
-                    <div className="pt-3 border-t border-stone-200">
-                      <h4 className="text-[11px] md:text-[14px] font-bold uppercase tracking-widest text-ebony mb-3">Project Information</h4>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm md:text-[16px]">
+                    <div className="pt-3 border-t border-stone-200 min-w-0">
+                      <h4 className="text-xs md:text-sm font-bold uppercase tracking-widest text-ebony mb-3">Project Information</h4>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm md:text-base min-w-0">
                         {request.budget && (
                           <div>
                             <span className="font-bold text-ebony">Budget: </span>

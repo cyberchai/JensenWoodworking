@@ -181,10 +181,10 @@ export default function AdminPastProjects() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 min-w-0">
       {(editingProject || isCreating) ? (
-        <div className="bg-white border border-gray-200 p-6 space-y-6">
-          <div className="flex items-center justify-between">
+        <div className="bg-white border border-gray-200 p-4 sm:p-6 space-y-6 min-w-0 overflow-hidden">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 min-w-0">
             <h2 className="text-xl font-normal text-black">
               {isCreating ? 'Create New Past Project' : 'Edit Past Project'}
             </h2>
@@ -266,8 +266,8 @@ export default function AdminPastProjects() {
               </div>
 
               {showImageSelector && (
-                <div className="mb-6 p-4 border border-gray-200 rounded-sm bg-stone-50 max-h-96 overflow-y-auto">
-                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                <div className="mb-6 p-4 border border-gray-200 rounded-sm bg-stone-50 max-h-96 overflow-y-auto min-w-0">
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 min-w-0">
                     {mediaItems.map((item) => {
                       const isSelected = selectedImages.some(img => img.url === item.url);
                       return (

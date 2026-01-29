@@ -218,10 +218,10 @@ export default function AdminProjectsView({ projects, onUpdate }: AdminProjectsV
 
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-12 min-w-0">
       {/* Left Sidebar - Project List */}
-      <div className="lg:col-span-1 space-y-4">
-        <div className="bg-white p-6 rounded-sm border border-stone-200 shadow-sm">
+      <div className="lg:col-span-1 space-y-4 min-w-0">
+        <div className="bg-white p-4 sm:p-6 rounded-sm border border-stone-200 shadow-sm min-w-0">
           <h2 className="text-[11px] font-bold tracking-[0.3em] uppercase text-brass mb-6">Active Projects</h2>
 
           {projects.filter(p => !p.isCompleted).length === 0 ? (
@@ -246,17 +246,17 @@ export default function AdminProjectsView({ projects, onUpdate }: AdminProjectsV
                     preservedTitleRef.current = null;
                     preservedDescriptionRef.current = null;
                   }}
-                  className={`p-6 border-l-4 transition-all cursor-pointer rounded-sm ${
+                  className={`p-4 sm:p-6 border-l-4 transition-all cursor-pointer rounded-sm min-w-0 ${
                     selectedProject?.token === project.token 
                       ? 'border-brass bg-stone-50 shadow-sm border border-stone-200' 
                       : 'border-transparent bg-stone-50 hover:bg-white hover:border-stone-200 border'
                   }`}
                 >
-                  <div className="flex justify-between items-start mb-1">
-                    <h3 className="font-serif text-xl text-ebony">{project.clientLabel}</h3>
+                  <div className="flex justify-between items-start mb-1 gap-2 min-w-0">
+                    <h3 className="font-serif text-lg sm:text-xl text-ebony truncate min-w-0">{project.clientLabel}</h3>
                     <button 
                       onClick={(e) => copyToken(project.token, e)} 
-                      className="text-stone-300 hover:text-brass transition-colors"
+                      className="text-stone-300 hover:text-brass transition-colors shrink-0 p-2 min-h-[44px] flex items-center justify-center"
                     >
                       <Copy size={14} />
                     </button>
@@ -270,9 +270,9 @@ export default function AdminProjectsView({ projects, onUpdate }: AdminProjectsV
       </div>
 
       {/* Right Section - Project Details */}
-      <div className="lg:col-span-2 space-y-10">
+      <div className="lg:col-span-2 space-y-8 sm:space-y-10 min-w-0">
         {isCreatingProject ? (
-          <div className="bg-white p-10 border border-stone-200 shadow-sm rounded-sm animate-in fade-in slide-in-from-right-4">
+          <div className="bg-white p-6 sm:p-10 border border-stone-200 shadow-sm rounded-sm animate-in fade-in slide-in-from-right-4 min-w-0">
             <h2 className="text-[11px] font-bold tracking-[0.3em] uppercase text-brass mb-6">Create New Project</h2>
             <AdminCreateProject 
               isOpen={true}
@@ -284,11 +284,11 @@ export default function AdminProjectsView({ projects, onUpdate }: AdminProjectsV
             />
           </div>
         ) : selectedProject ? (
-          <div className="space-y-12 animate-in fade-in slide-in-from-right-4">
+          <div className="space-y-8 sm:space-y-12 animate-in fade-in slide-in-from-right-4 min-w-0 overflow-hidden">
             {/* Project Header */}
-            <div className="bg-white p-10 border border-stone-200 shadow-sm rounded-sm">
-              <div className="flex justify-between items-end mb-10 pb-6 border-b border-stone-200">
-                <div className="flex-1">
+            <div className="bg-white p-6 sm:p-10 border border-stone-200 shadow-sm rounded-sm min-w-0">
+              <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-6 mb-8 sm:mb-10 pb-6 border-b border-stone-200 min-w-0">
+                <div className="flex-1 min-w-0">
                   {isEditingTitle ? (
                     <form onSubmit={handleSaveTitle} className="space-y-4">
                       <input
@@ -346,7 +346,7 @@ export default function AdminProjectsView({ projects, onUpdate }: AdminProjectsV
                     )}
                   </button>
                 </div>
-                <div className="text-right">
+                <div className="text-left md:text-right shrink-0 min-w-0">
                   {isEditingPIN ? (
                     <form onSubmit={handleSavePIN} className="flex items-end gap-2">
                       <div>
@@ -498,16 +498,16 @@ export default function AdminProjectsView({ projects, onUpdate }: AdminProjectsV
               </div>
 
               {/* Action Buttons */}
-              <div className="flex gap-4 pt-6 border-t border-stone-200 mt-10">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-6 border-t border-stone-200 mt-10">
                 <button
                   onClick={() => copyLink(selectedProject.token)}
-                  className="flex-1 px-6 py-3 bg-stone-100 text-ebony text-[11px] font-black uppercase tracking-widest hover:bg-stone-200 transition-all"
+                  className="flex-1 px-6 py-3 min-h-[44px] bg-stone-100 text-ebony text-[11px] font-black uppercase tracking-widest hover:bg-stone-200 transition-all"
                 >
                   Copy Project Link
                 </button>
                 <button
                   onClick={() => router.push(`/client/p/${selectedProject.token}`)}
-                  className="flex-1 px-6 py-3 bg-ebony text-white text-[11px] font-black uppercase tracking-widest hover:bg-brass transition-all shadow-xl"
+                  className="flex-1 px-6 py-3 min-h-[44px] bg-ebony text-white text-[11px] font-black uppercase tracking-widest hover:bg-brass transition-all shadow-xl"
                 >
                   View Client View
                 </button>
@@ -515,12 +515,12 @@ export default function AdminProjectsView({ projects, onUpdate }: AdminProjectsV
             </div>
           </div>
         ) : (
-          <div className="h-full flex flex-col items-center justify-center border-2 border-dashed border-stone-200 rounded-sm p-20 text-center bg-white">
-            <h3 className="text-2xl font-serif text-stone-300">Select a Project to Manage</h3>
-            <p className="text-stone-400 font-serif italic mt-4 mb-8">Choose a project from the list to view and edit details.</p>
+          <div className="h-full flex flex-col items-center justify-center border-2 border-dashed border-stone-200 rounded-sm p-8 sm:p-20 text-center bg-white min-w-0">
+            <h3 className="text-xl sm:text-2xl font-serif text-stone-300">Select a Project to Manage</h3>
+            <p className="text-stone-400 font-serif italic mt-4 mb-8 text-sm sm:text-base">Choose a project from the list to view and edit details.</p>
             <button
               onClick={() => setIsCreatingProject(true)}
-              className="px-6 py-3 bg-brass text-ebony hover:bg-ebony hover:text-white transition-all text-[11px] font-black uppercase tracking-widest shadow-sm"
+              className="px-6 py-3 min-h-[44px] bg-brass text-ebony hover:bg-ebony hover:text-white transition-all text-[11px] font-black uppercase tracking-widest shadow-sm"
             >
               Create New Project
             </button>

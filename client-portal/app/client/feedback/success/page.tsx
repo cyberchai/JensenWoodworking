@@ -2,9 +2,9 @@ import Link from 'next/link';
 
 export default function FeedbackSuccessPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 bg-white">
-      <div className="w-full max-w-md text-center space-y-6">
-        <div className="bg-white border border-gray-200 p-8">
+    <div className="min-h-screen flex items-center justify-center px-4 sm:px-8 bg-white">
+      <div className="w-full max-w-md text-center space-y-6 min-w-0">
+        <div className="bg-white border border-gray-200 p-4 sm:p-8">
           <div className="mb-6">
             <div className="w-16 h-16 bg-site-gold flex items-center justify-center mx-auto mb-4">
               <svg
@@ -30,7 +30,7 @@ export default function FeedbackSuccessPage() {
           </div>
           <Link
             href="/client/project"
-            className="relative inline-block bg-site-gold text-black py-3 px-8 font-normal uppercase overflow-hidden transition-all duration-300 hover:text-white group"
+            className="relative inline-flex items-center justify-center min-h-[44px] bg-site-gold text-black py-3 px-8 font-normal uppercase overflow-hidden transition-all duration-300 hover:text-white group"
           >
             <span className="relative z-10">Back to Project Lookup</span>
             <span className="absolute inset-0 bg-black opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>

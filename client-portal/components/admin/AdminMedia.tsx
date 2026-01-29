@@ -231,9 +231,9 @@ export default function AdminMedia() {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="bg-white border border-gray-200 p-6 space-y-4">
-        <h2 className="text-xl font-normal text-black">Upload Media</h2>
+    <div className="space-y-6 min-w-0">
+      <div className="bg-white border border-gray-200 p-4 sm:p-6 space-y-4 min-w-0">
+        <h2 className="text-lg sm:text-xl font-normal text-black">Upload Media</h2>
         <div>
           <label className="block text-sm font-normal text-site-gray mb-2 uppercase tracking-wide">
             Select Images (Max 10MB each)
@@ -271,9 +271,9 @@ export default function AdminMedia() {
         </div>
       </div>
 
-      <div className="bg-white border border-gray-200 p-6 space-y-6">
-        <div className="flex items-center justify-between">
-          <h2 className="text-xl font-normal text-black">Media Library</h2>
+      <div className="bg-white border border-gray-200 p-4 sm:p-6 space-y-6 min-w-0">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 min-w-0">
+          <h2 className="text-lg sm:text-xl font-normal text-black">Media Library</h2>
           <span className="text-sm text-site-gray-light">
             {filteredMediaItems.length} {filteredMediaItems.length === 1 ? 'item' : 'items'}
             {searchQuery && filteredMediaItems.length !== mediaItems.length && (
@@ -314,9 +314,9 @@ export default function AdminMedia() {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 min-w-0 max-w-full">
             {filteredMediaItems.map((item) => (
-              <div key={item.id} className="border border-gray-200 p-4 space-y-3 relative group">
+              <div key={item.id} className="border border-gray-200 p-4 space-y-3 relative group min-w-0">
                 <div className="aspect-video bg-gray-100 flex items-center justify-center overflow-hidden rounded-sm">
                   <img
                     src={item.url}
@@ -355,13 +355,13 @@ export default function AdminMedia() {
                         }, 2000);
                       }
                     }}
-                    className="flex-1 px-3 py-2 bg-gray-200 text-site-gray hover:bg-site-gold hover:text-black transition-colors text-xs font-normal uppercase"
+                    className="flex-1 px-3 py-3 min-h-[44px] bg-gray-200 text-site-gray hover:bg-site-gold hover:text-black transition-colors text-xs font-normal uppercase"
                   >
                     Copy URL
                   </button>
                   <button
                     onClick={() => setDeleteConfirm({ id: item.id, fileId: item.fileId, name: item.name })}
-                    className="flex-1 px-3 py-2 bg-gray-200 text-site-gray hover:bg-red-100 hover:text-red-700 transition-colors text-xs font-normal uppercase"
+                    className="flex-1 px-3 py-3 min-h-[44px] bg-gray-200 text-site-gray hover:bg-red-100 hover:text-red-700 transition-colors text-xs font-normal uppercase"
                   >
                     Delete
                   </button>

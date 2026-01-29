@@ -42,12 +42,12 @@ export default function ProjectDetailPage() {
   if (!project) {
     return (
       <div className="min-h-screen flex items-center justify-center px-4 bg-white">
-        <div className="text-center space-y-8">
-          <h1 className="text-5xl font-serif text-ebony">Project not found</h1>
-          <p className="text-stone-400 font-serif italic text-xl">The project code you entered does not exist.</p>
+        <div className="text-center space-y-8 max-w-full">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-ebony">Project not found</h1>
+          <p className="text-stone-400 font-serif italic text-base sm:text-xl">The project code you entered does not exist.</p>
           <Link
             href="/client/project"
-            className="inline-block bg-ebony text-white font-black text-xs tracking-[0.3em] uppercase py-5 px-8 hover:bg-brass transition-all shadow-xl"
+            className="inline-flex items-center justify-center min-h-[44px] bg-ebony text-white font-black text-xs tracking-[0.3em] uppercase py-4 sm:py-5 px-6 sm:px-8 hover:bg-brass transition-all shadow-xl"
           >
             Back to Project Lookup
           </Link>
@@ -58,17 +58,17 @@ export default function ProjectDetailPage() {
 
   return (
     <div className="min-h-screen bg-stone-50">
-      <div className="max-w-5xl mx-auto space-y-16 px-6 lg:px-12 py-12">
-        <div className="bg-white p-8 lg:p-10 rounded-sm border border-stone-200 shadow-sm">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-10 border-b border-stone-200">
-            <div className="space-y-4">
+      <div className="max-w-5xl mx-auto space-y-10 sm:space-y-16 px-4 sm:px-6 lg:px-12 py-8 sm:py-12">
+        <div className="bg-white p-6 lg:p-10 rounded-sm border border-stone-200 shadow-sm min-w-0">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-8 sm:pb-10 border-b border-stone-200">
+            <div className="space-y-4 min-w-0">
               <button
                 onClick={() => router.push('/client/project')}
-                className="text-[10px] font-black uppercase tracking-widest text-stone-300 hover:text-brass transition-colors"
+                className="text-[10px] font-black uppercase tracking-widest text-stone-300 hover:text-brass transition-colors py-2 min-h-[44px] flex items-center"
               >
                 ← Back to Project Lookup
               </button>
-              <h2 className="text-5xl font-serif text-ebony tracking-tighter leading-none">{project.clientLabel}</h2>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-ebony tracking-tighter leading-none break-words">{project.clientLabel}</h2>
               <div className="flex items-center space-x-6 text-[10px] font-bold uppercase tracking-[0.2em] text-brass">
                 <span>Project Code: {project.token}</span>
               </div>
@@ -76,13 +76,13 @@ export default function ProjectDetailPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10">
           {/* 1) Payment information (keep logic as-is) */}
-          <div className="bg-white p-10 lg:p-12 shadow-lg border border-stone-200 rounded-sm">
+          <div className="bg-white p-6 lg:p-12 shadow-lg border border-stone-200 rounded-sm min-w-0">
             {!payAuthorized && project.paymentCode ? (
               <div className="text-center space-y-8">
-                <h3 className="text-3xl font-serif text-ebony">Payment Access</h3>
-                <p className="text-stone-400 font-serif italic text-lg max-w-sm mx-auto">
+                <h3 className="text-2xl sm:text-3xl font-serif text-ebony">Payment Access</h3>
+                <p className="text-stone-400 font-serif italic text-base sm:text-lg max-w-sm mx-auto">
                   Access to payment information requires your project PIN code.
                 </p>
                 <form
@@ -111,7 +111,7 @@ export default function ProjectDetailPage() {
                   )}
                   <button
                     type="submit"
-                    className="w-full bg-ebony text-white py-5 text-[11px] font-black uppercase tracking-[0.3em] shadow-xl hover:bg-brass transition-all"
+                    className="w-full bg-ebony text-white py-4 sm:py-5 min-h-[44px] text-[11px] font-black uppercase tracking-[0.3em] shadow-xl hover:bg-brass transition-all"
                   >
                     Verify & Enter
                   </button>
@@ -119,7 +119,7 @@ export default function ProjectDetailPage() {
               </div>
             ) : (
               <div className="space-y-12">
-                <h3 className="text-3xl font-serif text-ebony">Payment Options</h3>
+                <h3 className="text-2xl sm:text-3xl font-serif text-ebony">Payment Options</h3>
                 <PaymentPanel
                   depositPaid={project.depositPaid}
                   finalPaid={project.finalPaid}
@@ -132,8 +132,8 @@ export default function ProjectDetailPage() {
           </div>
 
           {/* 2) Share your feedback */}
-          <div className="bg-white p-10 lg:p-12 border border-stone-200 shadow-sm rounded-sm">
-            <h3 className="text-3xl font-serif text-ebony mb-8">Share Your Feedback</h3>
+          <div className="bg-white p-6 lg:p-12 border border-stone-200 shadow-sm rounded-sm min-w-0">
+            <h3 className="text-2xl sm:text-3xl font-serif text-ebony mb-6 sm:mb-8">Share Your Feedback</h3>
             <FeedbackForm projectToken={project.token} projectName={project.clientLabel} />
           </div>
         </div>

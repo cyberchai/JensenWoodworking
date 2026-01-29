@@ -39,13 +39,13 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="min-h-screen bg-ebony flex flex-col items-center justify-center p-8 relative overflow-hidden">
+    <div className="min-h-screen bg-ebony flex flex-col items-center justify-center p-4 sm:p-8 relative overflow-hidden">
       {/* Elegant Background Grain Overlay */}
       <div className="absolute inset-0 opacity-10 pointer-events-none mix-blend-overlay bg-[url('https://images.unsplash.com/photo-1622322062681-3f628549842c?auto=format&fit=crop&q=80&w=1600')] bg-cover"></div>
       
       <div className="max-w-md w-full z-10 animate-in fade-in duration-1000">
-        <div className="bg-white border border-stone-100 rounded-sm p-16 lg:p-24 text-center shadow-2xl">
-          <div className="w-24 h-24 bg-stone-50 rounded-full flex items-center justify-center mx-auto mb-10 border border-stone-100 p-4">
+        <div className="bg-white border border-stone-100 rounded-sm p-6 sm:p-10 md:p-16 lg:p-24 text-center shadow-2xl">
+          <div className="w-20 h-20 sm:w-24 sm:h-24 bg-stone-50 rounded-full flex items-center justify-center mx-auto mb-8 sm:mb-10 border border-stone-100 p-4">
             <img 
               src="/images/logo.png" 
               alt="Jensen Woodworking" 
@@ -53,8 +53,8 @@ export default function AdminLogin() {
             />
           </div>
           
-          <h2 className="text-4xl font-serif text-ebony mb-6 tracking-tight">Admin Access</h2>
-          <p className="text-stone-400 mb-8 max-w-sm mx-auto font-serif italic text-lg">
+          <h2 className="text-3xl sm:text-4xl font-serif text-ebony mb-6 tracking-tight">Admin Access</h2>
+          <p className="text-stone-400 mb-8 max-w-sm mx-auto font-serif italic text-base sm:text-lg">
             Sign in with Google to access the admin dashboard.
           </p>
           
@@ -67,7 +67,7 @@ export default function AdminLogin() {
           <button
             onClick={handleGoogleSignIn}
             disabled={loading}
-            className="w-full bg-ebony text-white font-black text-xs tracking-[0.3em] uppercase py-6 hover:bg-brass transition-all shadow-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
+            className="w-full bg-ebony text-white font-black text-xs tracking-[0.3em] uppercase py-4 sm:py-6 min-h-[44px] hover:bg-brass transition-all shadow-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
           >
             {loading ? (
               <>
@@ -93,7 +93,7 @@ export default function AdminLogin() {
           <div className="mt-8">
             <a
               href="/"
-              className="text-[10px] font-black uppercase tracking-widest text-stone-300 hover:text-brass transition-colors"
+              className="text-[10px] font-black uppercase tracking-widest text-stone-300 hover:text-brass transition-colors inline-flex items-center min-h-[44px]"
             >
               ← Back to Home
             </a>

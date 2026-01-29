@@ -82,18 +82,18 @@ export default function AdminProjectList({ projects, onUpdate }: AdminProjectLis
   };
 
   return (
-    <div className="bg-white border border-gray-200 p-6 space-y-6">
-      <h2 className="text-xl font-normal text-black">Projects</h2>
+    <div className="bg-white border border-gray-200 p-4 sm:p-6 space-y-6 min-w-0">
+      <h2 className="text-lg sm:text-xl font-normal text-black">Projects</h2>
       
       <div className="space-y-4">
         {projects.map((project) => (
           <div
             key={project.token}
-            className="border border-gray-200 p-4 space-y-4"
+            className="border border-gray-200 p-4 space-y-4 min-w-0"
           >
-            <div className="flex items-start justify-between">
-              <div>
-                <h3 className="font-normal text-black">{project.clientLabel}</h3>
+            <div className="flex items-start justify-between gap-2 min-w-0">
+              <div className="min-w-0">
+                <h3 className="font-normal text-black break-words">{project.clientLabel}</h3>
                 <p className="text-sm text-site-gray-light mt-1">Token: {project.token}</p>
               </div>
             </div>
@@ -214,16 +214,16 @@ export default function AdminProjectList({ projects, onUpdate }: AdminProjectLis
               )}
             </div>
 
-            <div className="flex gap-2 pt-2 border-t border-gray-200">
+            <div className="flex flex-col sm:flex-row gap-2 pt-2 border-t border-gray-200">
               <button
                 onClick={() => copyLink(project.token)}
-                className="flex-1 px-4 py-2 bg-gray-200 text-site-gray hover:bg-site-gold hover:text-black transition-colors text-sm font-normal uppercase"
+                className="flex-1 px-4 py-3 min-h-[44px] bg-gray-200 text-site-gray hover:bg-site-gold hover:text-black transition-colors text-sm font-normal uppercase"
               >
                 Copy Link
               </button>
               <button
                 onClick={() => openProject(project.token)}
-                className="relative flex-1 bg-site-gold text-black py-2 px-4 font-normal uppercase overflow-hidden transition-all duration-300 hover:text-white group text-sm"
+                className="relative flex-1 bg-site-gold text-black py-3 min-h-[44px] px-4 font-normal uppercase overflow-hidden transition-all duration-300 hover:text-white group text-sm"
               >
                 <span className="relative z-10">Open</span>
                 <span className="absolute inset-0 bg-black opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>

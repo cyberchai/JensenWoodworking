@@ -42,21 +42,21 @@ export default function ProjectPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-12 bg-white">
+    <div className="min-h-screen flex items-center justify-center px-4 py-8 sm:py-12 bg-white">
       <div className="w-full max-w-2xl">
-        <div className="bg-white border border-stone-100 rounded-sm p-16 lg:p-24 text-center shadow-2xl">
-          <div className="w-24 h-24 bg-stone-50 rounded-full flex items-center justify-center mx-auto mb-10 border border-stone-100 p-4">
+        <div className="bg-white border border-stone-100 rounded-sm p-6 sm:p-10 md:p-16 lg:p-24 text-center shadow-2xl">
+          <div className="w-20 h-20 sm:w-24 sm:h-24 bg-stone-50 rounded-full flex items-center justify-center mx-auto mb-8 sm:mb-10 border border-stone-100 p-4">
             <img 
               src="/images/logo.png" 
               alt="Jensen Woodworking" 
               className="h-full w-auto"
             />
           </div>
-          <h2 className="text-5xl font-serif text-ebony mb-6 tracking-tight">Your Project</h2>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-ebony mb-6 tracking-tight">Your Project</h2>
           
           {!showAdminLogin ? (
             <>
-              <p className="text-stone-400 mb-12 max-w-lg mx-auto font-serif italic text-xl">
+              <p className="text-stone-400 mb-8 sm:mb-12 max-w-lg mx-auto font-serif italic text-base sm:text-xl">
                 Please enter your project code to view your project timeline and updates.
               </p>
               
@@ -66,7 +66,7 @@ export default function ProjectPage() {
                 <p className="text-stone-300 text-[10px] font-black uppercase tracking-widest mb-4">OR</p>
                 <button
                   onClick={() => setShowAdminLogin(true)}
-                  className="text-[11px] font-black uppercase tracking-widest text-stone-400 hover:text-brass transition-colors"
+                  className="text-[11px] font-black uppercase tracking-widest text-stone-400 hover:text-brass transition-colors py-3 min-h-[44px] flex items-center justify-center"
                 >
                   Sign in as Admin
                 </button>
@@ -87,7 +87,7 @@ export default function ProjectPage() {
               <button
                 onClick={handleGoogleSignIn}
                 disabled={loading}
-                className="w-full bg-ebony text-white font-black text-xs tracking-[0.3em] uppercase py-6 hover:bg-brass transition-all shadow-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 mb-8"
+                className="w-full bg-ebony text-white font-black text-xs tracking-[0.3em] uppercase py-4 sm:py-6 min-h-[44px] hover:bg-brass transition-all shadow-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 mb-8"
               >
                 {loading ? (
                   <>
@@ -112,7 +112,7 @@ export default function ProjectPage() {
               
               <button
                 onClick={() => setShowAdminLogin(false)}
-                className="text-[11px] font-black uppercase tracking-widest text-stone-400 hover:text-brass transition-colors"
+                className="text-[11px] font-black uppercase tracking-widest text-stone-400 hover:text-brass transition-colors py-3 min-h-[44px] flex items-center justify-center"
               >
                 ← Back to Project Lookup
               </button>
@@ -122,7 +122,7 @@ export default function ProjectPage() {
           <div className="mt-8 text-center">
             <Link
               href="/"
-              className="text-[10px] font-black uppercase tracking-widest text-stone-300 hover:text-brass transition-colors"
+              className="text-[10px] font-black uppercase tracking-widest text-stone-300 hover:text-brass transition-colors inline-flex items-center min-h-[44px]"
             >
               ← Back to Home
             </Link>

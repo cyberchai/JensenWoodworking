@@ -64,11 +64,11 @@ export default function AdminPage() {
 
   return (
     <div className="min-h-screen bg-stone-50">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 py-12">
-        <div className="mb-12 bg-white p-8 rounded-sm border border-stone-200 shadow-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8 sm:py-12">
+        <div className="mb-8 sm:mb-12 bg-white p-6 sm:p-8 rounded-sm border border-stone-200 shadow-sm min-w-0">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
-            <div>
-              <h1 className="text-4xl font-serif font-light text-ebony mb-2">Admin Dashboard</h1>
+            <div className="min-w-0">
+              <h1 className="text-3xl sm:text-4xl font-serif font-light text-ebony mb-2">Admin Dashboard</h1>
               <div className="h-0.5 w-12 bg-brass mt-4"></div>
             </div>
             <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 min-w-0">
@@ -77,7 +77,7 @@ export default function AdminPage() {
               </span>
               <button
                 onClick={signOut}
-                className="text-[12px] md:text-[13px] font-bold uppercase tracking-widest text-stone-400 hover:text-ebony transition-colors inline-flex items-center gap-2 whitespace-nowrap self-start sm:self-auto"
+                className="text-[12px] md:text-[13px] font-bold uppercase tracking-widest text-stone-400 hover:text-ebony transition-colors inline-flex items-center gap-2 whitespace-nowrap self-start sm:self-auto py-2 min-h-[44px] items-center"
               >
                 <LogOut size={14} />
                 Sign Out
@@ -87,7 +87,7 @@ export default function AdminPage() {
           <div className="mt-6">
             <Link
               href="/"
-              className="text-[11px] font-bold uppercase tracking-widest text-stone-400 hover:text-ebony transition-colors inline-flex items-center gap-2"
+              className="text-[11px] font-bold uppercase tracking-widest text-stone-400 hover:text-ebony transition-colors inline-flex items-center gap-2 min-h-[44px]"
             >
               ← Back to Home
             </Link>
@@ -97,32 +97,32 @@ export default function AdminPage() {
         <div className="bg-white rounded-sm border border-stone-200 shadow-sm">
           <AdminTabs activeTab={activeTab} onTabChange={setActiveTab}>
             {activeTab === 'projects' && (
-              <div className="p-6 lg:p-8">
+              <div className="p-4 sm:p-6 lg:p-8">
                 <AdminProjectsView projects={projects} onUpdate={refreshProjects} />
               </div>
             )}
 
             {activeTab === 'past-projects' && (
-              <div className="p-6 lg:p-8">
+              <div className="p-4 sm:p-6 lg:p-8">
                 <AdminPastProjects />
               </div>
             )}
 
             {activeTab === 'feedback' && (
-              <div className="p-6 lg:p-8 space-y-6">
+              <div className="p-4 sm:p-6 lg:p-8 space-y-6">
                 <AdminTestimonials feedback={feedback} onUpdate={refreshFeedback} />
                 <AdminAllFeedback feedback={feedback} onUpdate={refreshFeedback} />
               </div>
             )}
 
             {activeTab === 'contact' && (
-              <div className="p-6 lg:p-8">
+              <div className="p-4 sm:p-6 lg:p-8">
                 <AdminContactRequests contactRequests={contactRequests} onUpdate={refreshContactRequests} />
               </div>
             )}
 
             {activeTab === 'media' && (
-              <div className="p-6 lg:p-8">
+              <div className="p-4 sm:p-6 lg:p-8">
                 <AdminMedia />
               </div>
             )}

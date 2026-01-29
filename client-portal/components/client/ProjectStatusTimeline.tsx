@@ -20,23 +20,23 @@ export default function ProjectStatusTimeline({ statusUpdates }: ProjectStatusTi
   const sortedUpdates = [...statusUpdates].sort((a, b) => b.createdAt - a.createdAt);
 
   return (
-    <div className="space-y-32">
+    <div className="space-y-20 sm:space-y-32 min-w-0">
       {sortedUpdates.map((update, idx) => (
-        <div key={update.id} className="relative">
+        <div key={update.id} className="relative min-w-0">
           <div className="absolute left-[-40px] top-0 bottom-[-128px] w-px bg-stone-100 hidden md:block">
             <div className="w-2 h-2 rounded-full bg-brass absolute top-0 left-[-4px]"></div>
           </div>
           
-          <div className="space-y-10">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-              <div>
+          <div className="space-y-8 sm:space-y-10 min-w-0">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 min-w-0">
+              <div className="min-w-0">
                 <span className="text-[10px] font-black uppercase tracking-[0.2em] text-stone-300 block mb-2">Update {sortedUpdates.length - idx}</span>
-                <h4 className="text-4xl font-serif text-ebony">{update.title}</h4>
+                <h4 className="text-2xl sm:text-3xl md:text-4xl font-serif text-ebony break-words">{update.title}</h4>
               </div>
             </div>
 
             {update.photos && update.photos.length > 0 && (
-              <div className="aspect-video bg-stone-50 overflow-hidden shadow-2xl rounded-sm">
+              <div className="aspect-video bg-stone-50 overflow-hidden shadow-2xl rounded-sm max-w-full">
                 <img 
                   src={typeof update.photos[0] === 'string' ? update.photos[0] : update.photos[0].url} 
                   alt={update.title} 
@@ -45,8 +45,8 @@ export default function ProjectStatusTimeline({ statusUpdates }: ProjectStatusTi
               </div>
             )}
 
-            <div className="max-w-2xl">
-              <p className="text-stone-600 text-xl font-serif leading-relaxed italic">"{update.message}"</p>
+            <div className="max-w-2xl min-w-0">
+              <p className="text-stone-600 text-lg sm:text-xl font-serif leading-relaxed italic break-words">"{update.message}"</p>
             </div>
             
             <div className="text-[9px] font-black uppercase tracking-[0.2em] text-stone-300 flex items-center">

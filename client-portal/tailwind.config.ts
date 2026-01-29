@@ -1,5 +1,15 @@
 import type { Config } from 'tailwindcss'
 
+/**
+ * Responsive breakpoints (defaults; use for mobile/iPad/desktop):
+ * - default: 0 (mobile-first base)
+ * - sm: 640px (large phones, small tablets)
+ * - md: 768px (portrait iPad, large phones)
+ * - lg: 1024px (landscape iPad, small laptops)
+ * - xl: 1280px (desktop)
+ * - 2xl: 1536px (large desktop)
+ * Test at 375px (phone), 768px (iPad portrait), 1024px (iPad landscape).
+ */
 const config: Config = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
