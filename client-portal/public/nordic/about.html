@@ -84,21 +84,41 @@
 			padding-left: 60px;
 		}
 		
+		/* Center text block within the right half */
+		.about-section .content-column .inner-column,
+		.about-jensen-section .content-column .inner-column {
+			max-width: 540px;
+			margin-left: auto;
+			margin-right: auto;
+			padding-left: 24px;
+			padding-right: 24px;
+		}
+		
 		.about-jensen-section .content-column p {
-			margin-bottom: 20px;
+			margin-bottom: 0.9em;
 			line-height: 1.8;
 			color: #666;
-			font-size: 18px;
 		}
 		
 		.about-jensen-section .content-column p:last-child {
 			margin-bottom: 0;
 		}
 		
-		/* First About block (About Jensen Woodworking) – larger paragraph text */
 		.about-section .content-column p {
-			font-size: 18px !important;
-			line-height: 1.85em;
+			margin-bottom: 0.9em;
+		}
+		
+		.about-section .content-column p:last-child {
+			margin-bottom: 0;
+		}
+		
+		/* Desktop only: original theme paragraph size (unaffected by iPad/mobile increases) */
+		@media (min-width: 1181px) {
+			.about-section .content-column p,
+			.about-jensen-section .content-column p {
+				font-size: 14px !important;
+				line-height: 1.8em;
+			}
 		}
 		
 		@media (max-width: 991px) {
@@ -502,7 +522,9 @@
 							</div>
 							<div class="bold-text">Handcrafted furniture made with quality and care</div>
 							<p>I am passionate about creating beautiful and functional pieces that will last for generations. I began woodworking 30 years ago when I started crafting furniture for family and friends. Today, I am inspired by the natural beauty of wood and the satisfaction of creating something that will be cherished for years to come. My workshop is located in the heart of the historic Shipbuilding District in Duxbury - the many shipyards employed some of the finest woodworkers and carpenters back in the day. I also love the story of each piece of wood and finding ways to repurpose fallen trees - giving them a new lease on life.</p>
+							<br>
 							<p>My process is rooted in traditional woodworking techniques and modern technology. I never get tired of a carefully honed blockplane peeling off perfect wood shavings. Or a perfectly cut piece of lumber using modern equipment. I start with carefully selected, sustainably sourced wood and use precision tools to create each piece. I believe that attention to detail and quality craftsmanship are essential to creating furniture that is both beautiful and functional. I focus primarily on kitchen countertops, bartops, mantels and dining tables and kitchen islands. But your imagination is my limit!</p>
+							<br>
 							<a href="contact.html" class="theme-btn btn-style-one"><span class="txt">Start a project</span></a>
 						</div>
 					</div>
