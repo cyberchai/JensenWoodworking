@@ -136,12 +136,12 @@
 			}
 		}
 		
-		/* About section – larger text */
+		/* About section – desktop: original theme sizes */
 		#about .about-content-column .sec-title .title {
-			font-size: 24px;
+			font-size: 18px;
 		}
 		#about .about-content-column .sec-title h2 {
-			font-size: 56px;
+			font-size: 42px;
 			line-height: 1.2em;
 		}
 		@media (max-width: 767px) {
@@ -150,12 +150,12 @@
 			}
 		}
 		#about .about-content-column .bold-text {
-			font-size: 32px;
+			font-size: 24px;
 			line-height: 1.4em;
 		}
 		#about .about-content-column p {
-			font-size: 22px;
-			line-height: 1.85em;
+			font-size: 14px;
+			line-height: 1.8em;
 		}
 		
 		/* Project Modal Styles */
@@ -783,6 +783,30 @@
 			margin-top: 60px;
 		}
 		
+		/* Desktop: ensure services image column is visible (theme uses background-image) */
+		@media (min-width: 1181px) {
+			#services .image-column {
+				display: block !important;
+				visibility: visible !important;
+				background-repeat: no-repeat !important;
+				background-position: 50% !important;
+				background-size: cover !important;
+			}
+		}
+		
+		/* Mobile + iPad: hide services image column; content full width */
+		@media (max-width: 1180px) {
+			#services .image-column {
+				display: none !important;
+			}
+			#services .content-column {
+				width: 100% !important;
+			}
+			#services .content-column .inner-column {
+				max-width: 100%;
+			}
+		}
+		
 		/* Keep service boxes vertically stacked and fill available space */
 		.blocks-outer .service-box {
 			width: 100%;
@@ -793,8 +817,40 @@
 			margin-bottom: 0;
 		}
 		
-		/* Mobile: service cards – image above text, no overlap */
+		/* Service card image – desktop: image left of text */
+		#services .service-box .inner-box {
+			position: relative;
+		}
+		#services .service-box .inner-box .service-box-image {
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 140px;
+			height: 100%;
+			min-height: 120px;
+			overflow: hidden;
+		}
+		#services .service-box .inner-box .service-box-image img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			object-position: center;
+			display: block;
+		}
+		#services .service-box .inner-box .content {
+			padding-left: 160px;
+		}
+		
+		/* Mobile: service cards – image above text */
 		@media (max-width: 767px) {
+			#services .service-box .inner-box .service-box-image {
+				position: relative;
+				width: 100%;
+				max-width: 280px;
+				height: 160px;
+				min-height: 0;
+				margin: 0 auto 20px;
+			}
 			#services .service-box .inner-box .content {
 				display: block;
 				text-align: center;
@@ -821,10 +877,19 @@
 			}
 		}
 		
-		/* iPad: text expands to fill card (no images) */
+		/* iPad: image above text, card layout */
 		@media (min-width: 768px) and (max-width: 1180px) {
+			#services .service-box .inner-box .service-box-image {
+				position: relative;
+				width: 100%;
+				max-width: 320px;
+				height: 180px;
+				min-height: 0;
+				margin-bottom: 20px;
+			}
 			#services .service-box .inner-box {
 				display: flex;
+				flex-direction: column;
 				min-height: 200px;
 				text-align: left;
 			}
@@ -833,7 +898,7 @@
 				flex-direction: column;
 				flex: 1;
 				width: 100%;
-				padding: 28px 24px;
+				padding: 0 0 0 0;
 				justify-content: center;
 			}
 			#services .service-box .inner-box .content h5 {
@@ -1235,6 +1300,9 @@
 							<!-- Service Box -->
 							<div class="service-box">
 								<div class="inner-box">
+									<div class="service-box-image">
+										<img src="/images/counter.jpg" alt="Countertops & Islands">
+									</div>
 									<div class="content">
 										<h5><a href="gallery.html">Countertops & Islands</a></h5>
 										<p>Custom hardwood counters, islands, and bar tops sized to your kitchen and finished with durable Rubio Monocoat. Perfect for kitchens, basements, and in-law apartments.</p>
@@ -1245,6 +1313,9 @@
 							<!-- Service Box -->
 							<div class="service-box">
 								<div class="inner-box">
+									<div class="service-box-image">
+										<img src="/images/table.jpg" alt="Dining Tables & Mantels">
+									</div>
 									<div class="content">
 										<h5><a href="gallery.html">Dining Tables & Mantels</a></h5>
 										<p>Dining tables, live-edge slabs, and mantels built from locally sourced oak, walnut, maple, and cherry. Each piece is custom-designed to fit your space and style.</p>

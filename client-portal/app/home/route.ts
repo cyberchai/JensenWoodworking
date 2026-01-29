@@ -205,6 +205,8 @@ export async function GET() {
     html = html.replace(/src="js\//g, 'src="/js/');
     html = html.replace(/src="images\//g, 'src="/images/');
     html = html.replace(/href="fonts\//g, 'href="/fonts/');
+    // Fix inline background-image URLs so Services/About section images load from /home
+    html = html.replace(/url\(images\//g, 'url(/images/');
     
     // Fix font paths - inject CSS that overrides font-face declarations with correct paths
     // Note: Font filenames contain ? characters, so we reference them with query strings
