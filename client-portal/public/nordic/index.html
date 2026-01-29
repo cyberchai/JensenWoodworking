@@ -136,6 +136,28 @@
 			}
 		}
 		
+		/* About section – larger text */
+		#about .about-content-column .sec-title .title {
+			font-size: 24px;
+		}
+		#about .about-content-column .sec-title h2 {
+			font-size: 56px;
+			line-height: 1.2em;
+		}
+		@media (max-width: 767px) {
+			#about .about-content-column .sec-title h2 {
+				font-size: 40px;
+			}
+		}
+		#about .about-content-column .bold-text {
+			font-size: 32px;
+			line-height: 1.4em;
+		}
+		#about .about-content-column p {
+			font-size: 22px;
+			line-height: 1.85em;
+		}
+		
 		/* Project Modal Styles */
 		.project-modal {
 			display: none;
@@ -762,6 +784,34 @@
 		
 		.blocks-outer .service-box:last-child {
 			margin-bottom: 0;
+		}
+		
+		/* Mobile: service cards – image above text, no overlap */
+		@media (max-width: 767px) {
+			#services .service-box .inner-box .content {
+				display: block;
+				text-align: center;
+				padding-left: 0;
+			}
+			#services .service-box .inner-box .content .icon {
+				position: relative !important;
+				top: auto !important;
+				bottom: auto !important;
+				width: 100% !important;
+				max-width: 200px;
+				height: auto !important;
+				min-height: 0 !important;
+				display: block;
+				margin: 0 auto 20px;
+				border-radius: 0;
+			}
+			#services .service-box .inner-box .content h5,
+			#services .service-box .inner-box .content p {
+				text-align: left;
+			}
+			#services .service-box .inner-box {
+				text-align: left;
+			}
 		}
 	</style>
 

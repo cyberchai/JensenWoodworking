@@ -88,11 +88,17 @@
 			margin-bottom: 20px;
 			line-height: 1.8;
 			color: #666;
-			font-size: 16px;
+			font-size: 18px;
 		}
 		
 		.about-jensen-section .content-column p:last-child {
 			margin-bottom: 0;
+		}
+		
+		/* First About block (About Jensen Woodworking) – larger paragraph text */
+		.about-section .content-column p {
+			font-size: 18px !important;
+			line-height: 1.85em;
 		}
 		
 		@media (max-width: 991px) {
@@ -103,6 +109,24 @@
 			
 			.about-jensen-section .content-column {
 				padding-left: 0;
+			}
+		}
+		
+		@media (max-width: 767px) {
+			.about-jensen-section .content-column p {
+				font-size: 20px !important;
+			}
+			.about-section .content-column p {
+				font-size: 20px !important;
+			}
+			.about-jensen-section .content-column .inner-column {
+				padding-left: 20px;
+			}
+		}
+		
+		@media (max-width: 767px) {
+			.instagram-reels-grid .instagram-embed-wrapper:not(:first-child) {
+				display: none;
 			}
 		}
 		
