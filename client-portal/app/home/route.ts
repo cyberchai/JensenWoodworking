@@ -316,6 +316,22 @@ export async function GET() {
   }
 }
 
+/* iPad: same tight spacing between About Jensen and What Our Clients Say */
+@media (min-width: 768px) and (max-width: 1180px){
+  .testimonial-section{
+    padding-top: 0 !important;
+  }
+  .about-section{
+    padding-bottom: 24px !important;
+  }
+  .about-section .about-content-column{
+    padding-bottom: 24px !important;
+  }
+  .testimonial-section .sec-title{
+    margin-bottom: 32px !important;
+  }
+}
+
 /* Optional: cap banner height on very short viewports so CTA stays visible */
 @media (max-height: 500px) {
   .banner-section,

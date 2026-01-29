@@ -124,6 +124,31 @@
 			}
 		}
 		
+		/* iPad: match home page About Jensen Woodworking paragraph size (22px) + horizontal spacing like mobile */
+		@media (min-width: 768px) and (max-width: 1180px) {
+			.about-jensen-section .content-column p,
+			.about-section .content-column p {
+				font-size: 22px !important;
+				line-height: 1.85em;
+			}
+			.about-jensen-section .content-column .inner-column {
+				padding-left: 20px;
+				padding-right: 20px;
+			}
+			.instagram-reels-grid .instagram-embed-wrapper:not(:first-child) {
+				display: none;
+			}
+			.instagram-reels-grid {
+				display: flex;
+				justify-content: center;
+			}
+			.instagram-reels-grid .instagram-embed-wrapper:first-child {
+				width: auto;
+				max-width: 540px;
+				flex: 0 0 auto;
+			}
+		}
+		
 		@media (max-width: 767px) {
 			.instagram-reels-grid .instagram-embed-wrapper:not(:first-child) {
 				display: none;

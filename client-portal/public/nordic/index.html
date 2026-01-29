@@ -813,6 +813,29 @@
 				text-align: left;
 			}
 		}
+		
+		/* iPad: text expands to fill card (no images) */
+		@media (min-width: 768px) and (max-width: 1180px) {
+			#services .service-box .inner-box {
+				display: flex;
+				min-height: 200px;
+				text-align: left;
+			}
+			#services .service-box .inner-box .content {
+				display: flex;
+				flex-direction: column;
+				flex: 1;
+				width: 100%;
+				padding: 28px 24px;
+				justify-content: center;
+			}
+			#services .service-box .inner-box .content h5 {
+				margin-bottom: 12px;
+			}
+			#services .service-box .inner-box .content p {
+				flex: 1;
+			}
+		}
 	</style>
 
 	<!-- Open Graph (OG) meta tags are snippets of code that control how URLs are displayed when shared on social media  -->
@@ -1206,7 +1229,6 @@
 							<div class="service-box">
 								<div class="inner-box">
 									<div class="content">
-										<img src="/images/counter.jpg" alt="Countertops & Islands" class="icon" style="object-fit: cover;">
 										<h5><a href="gallery.html">Countertops & Islands</a></h5>
 										<p>Custom hardwood counters, islands, and bar tops sized to your kitchen and finished with durable Rubio Monocoat. Perfect for kitchens, basements, and in-law apartments.</p>
 									</div>
@@ -1217,7 +1239,6 @@
 							<div class="service-box">
 								<div class="inner-box">
 									<div class="content">
-										<img src="/images/table.jpg" alt="Dining Tables & Mantels" class="icon" style="object-fit: cover;">
 										<h5><a href="gallery.html">Dining Tables & Mantels</a></h5>
 										<p>Dining tables, live-edge slabs, and mantels built from locally sourced oak, walnut, maple, and cherry. Each piece is custom-designed to fit your space and style.</p>
 									</div>
