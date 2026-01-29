@@ -16,7 +16,7 @@ import {
 } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
 import { db, storage } from './firebase';
-import { Project, Feedback, ContactRequest, PastProject } from './mockStore';
+import { Project, Feedback, ContactRequest, PastProject, StatusUpdate, StatusUpdatePhoto } from './mockStore';
 import { getSecurePaymentHandles, validatePaymentHandles } from './paymentHandles';
 import { slugifyProjectName, normalizeProjectName } from './projectNameUtils';
 
@@ -43,6 +43,17 @@ const docToProject = (docSnap: QueryDocumentSnapshot<DocumentData>): Project => 
   const data = docSnap.data();
   const secureHandles = getSecurePaymentHandles();
   
+  // Convert statusUpdates array if it exists
+  const statusUpdates: StatusUpdate[] = data.statusUpdates 
+    ? data.statusUpdates.map((update: any) => ({
+        id: update.id || `update_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+        title: update.title,
+        message: update.message,
+        photos: update.photos || [],
+        createdAt: update.createdAt ? timestampToNumber(update.createdAt) : Date.now(),
+      }))
+    : [];
+  
   // Always use secure handles - ignore any values stored in Firestore
   return {
     token: docSnap.id,
@@ -56,6 +67,7 @@ const docToProject = (docSnap: QueryDocumentSnapshot<DocumentData>): Project => 
     venmoHandle: secureHandles.venmoHandle, // Enforce secure handle
     paypalHandle: secureHandles.paypalHandle, // Enforce secure handle
     createdAt: timestampToNumber(data.createdAt),
+    statusUpdates: statusUpdates.length > 0 ? statusUpdates : undefined,
   };
 };
 
@@ -603,6 +615,73 @@ export const firebaseStore = {
     } catch (error) {
       console.error('Error deleting past project:', error);
       return false;
+    }
+  },
+
+  // Status Update operations
+  async addStatusUpdate(projectToken: string, update: Omit<StatusUpdate, 'id' | 'createdAt'>): Promise<void> {
+    try {
+      const project = await this.getProject(projectToken);
+      if (!project) {
+        throw new Error(`Project with token ${projectToken} not found`);
+      }
+
+      const newUpdate: StatusUpdate = {
+        id: `update_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+        title: update.title,
+        message: update.message,
+        photos: update.photos || [],
+        createdAt: Date.now(),
+      };
+
+      const currentUpdates = project.statusUpdates || [];
+      const updatedUpdates = [...currentUpdates, newUpdate];
+
+      const docRef = doc(db, PROJECTS_COLLECTION, projectToken);
+      const updateData: any = {
+        statusUpdates: updatedUpdates.map(u => ({
+          id: u.id,
+          title: u.title,
+          message: u.message,
+          photos: u.photos,
+          createdAt: numberToTimestamp(u.createdAt),
+        })),
+      };
+
+      await updateDoc(docRef, updateData);
+    } catch (error) {
+      console.error('Error adding status update:', error);
+      throw error;
+    }
+  },
+
+  async deleteStatusUpdate(projectToken: string, updateId: string): Promise<void> {
+    try {
+      const project = await this.getProject(projectToken);
+      if (!project) {
+        throw new Error(`Project with token ${projectToken} not found`);
+      }
+
+      const currentUpdates = project.statusUpdates || [];
+      const updatedUpdates = currentUpdates.filter(u => u.id !== updateId);
+
+      const docRef = doc(db, PROJECTS_COLLECTION, projectToken);
+      const updateData: any = {
+        statusUpdates: updatedUpdates.length > 0
+          ? updatedUpdates.map(u => ({
+              id: u.id,
+              title: u.title,
+              message: u.message,
+              photos: u.photos,
+              createdAt: numberToTimestamp(u.createdAt),
+            }))
+          : deleteField(),
+      };
+
+      await updateDoc(docRef, updateData);
+    } catch (error) {
+      console.error('Error deleting status update:', error);
+      throw error;
     }
   },
 };

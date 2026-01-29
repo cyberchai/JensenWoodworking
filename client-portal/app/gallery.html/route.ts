@@ -87,12 +87,16 @@ export async function GET() {
       // Continue with static content if store fails
     }
     
-    // Replace gallery grid items
-    // Always replace (so hard-coded items never show)
+    // Replace gallery grid items and include CTA button (first replace removes Contact Button block, so we inject button here)
     const galleryItems = pastProjects.map(project => generateGalleryGridItem(project)).join('\n');
-    // Find and replace everything between the gallery-grid div opening and closing
+    const ctaButton = `
+				<!-- CTA Button -->
+				<div style="text-align: center; padding: 40px 0;">
+					<a href="contact.html" class="theme-btn btn-style-one"><span class="txt">Start Your Project</span></a>
+				</div>
+				<!-- End CTA Button -->`;
     const galleryRegex = /(<div class="gallery-grid">)[\s\S]*?(<\/div>\s*<\/div>\s*<\/section>\s*<!-- End Projects Section -->)/;
-    html = html.replace(galleryRegex, `$1\n\n${galleryItems}\n\n\t\t\t\t$2`);
+    html = html.replace(galleryRegex, `$1\n\n${galleryItems}\n\n\t\t\t\t</div>\n\t\t\t\t${ctaButton}\n\t\t\t</div>\n\t\t</section>\n\t\t<!-- End Projects Section -->`);
     
     // Fix asset paths to work from root
     html = html.replace(/href="css\//g, 'href="/css/');

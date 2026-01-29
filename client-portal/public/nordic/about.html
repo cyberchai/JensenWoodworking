@@ -98,48 +98,76 @@
 			}
 		}
 		
-		/* Instagram Reels Section */
+		/* Instagram Section - consistent with site sections */
 		.instagram-reels-section {
 			position: relative;
-			padding: 150px 0;
-			background-color: #f8f8f8;
-			border-top: 1px solid rgba(0, 0, 0, 0.1);
+			padding: 72px 0;
+			background-color: #fff;
+			border-top: 1px solid #eee;
+		}
+		
+		.instagram-reels-section .sec-title {
+			margin-bottom: 48px;
+		}
+		
+		.instagram-reels-section .sec-title .title {
+			font-size: 11px;
+			color: #888;
+			text-transform: uppercase;
+			letter-spacing: 0.15em;
+			margin-bottom: 10px;
+		}
+		
+		.instagram-reels-section .sec-title h2,
+		.instagram-reels-section .sec-title h3 {
+			font-size: 28px;
+			font-weight: 400;
+			color: #1a1a1a;
+			margin-bottom: 14px;
+			line-height: 1.25;
+		}
+		
+		.instagram-reels-section .sec-title p {
+			max-width: 440px;
+			margin: 0 auto;
+			font-size: 14px;
+			line-height: 1.65;
+			color: #666;
+			font-weight: 400;
 		}
 		
 		.instagram-reels-grid {
 			display: grid;
 			grid-template-columns: repeat(3, 1fr);
-			gap: 30px;
-			margin-top: 60px;
+			gap: 24px;
+			margin-top: 0;
 		}
 		
 		.instagram-reels-grid .instagram-embed-wrapper {
 			position: relative;
 			width: 100%;
 			cursor: pointer;
-			transition: all 0.4s ease;
+			transition: opacity 0.25s ease, box-shadow 0.25s ease;
 		}
 		
 		.instagram-reels-grid .instagram-embed-wrapper.minimized {
-			opacity: 0.4;
-			transform: scale(0.85);
+			opacity: 0.72;
 		}
 		
 		.instagram-reels-grid .instagram-embed-wrapper.expanded {
 			opacity: 1;
-			transform: scale(1);
-			z-index: 10;
+			z-index: 2;
 		}
 		
 		.instagram-reels-grid iframe {
 			width: 100% !important;
-			max-width: 540px;
-			border-radius: 3px;
-			border: 1px solid rgb(219, 219, 219);
-			box-shadow: none;
+			max-width: 100%;
+			border-radius: 2px;
+			border: 1px solid #e8e8e8;
+			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 			display: block;
 			margin: 0 auto;
-			transition: all 0.4s ease;
+			transition: box-shadow 0.25s ease;
 		}
 		
 		.instagram-reels-grid .instagram-embed-wrapper.minimized iframe {
@@ -153,19 +181,33 @@
 			left: 0;
 			right: 0;
 			bottom: 0;
-			background: rgba(255, 255, 255, 0.3);
+			background: rgba(255, 255, 255, 0.15);
 			pointer-events: none;
-			border-radius: 3px;
+			border-radius: 2px;
 		}
 		
 		.instagram-reels-grid .instagram-embed-wrapper.expanded iframe {
-			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+		}
+		
+		.instagram-reels-section .instagram-cta-wrap {
+			text-align: center;
+			margin-top: 40px;
+		}
+		
+		.instagram-reels-section .instagram-cta-wrap .theme-btn {
+			font-size: 13px;
+			padding: 10px 24px;
 		}
 		
 		@media (max-width: 991px) {
+			.instagram-reels-section {
+				padding: 56px 0;
+			}
+			
 			.instagram-reels-grid {
 				grid-template-columns: 1fr;
-				gap: 40px;
+				gap: 32px;
 			}
 			
 			.instagram-reels-grid iframe {
@@ -173,7 +215,7 @@
 			}
 			
 			.instagram-reels-grid .instagram-embed-wrapper.minimized {
-				transform: scale(0.95);
+				opacity: 0.88;
 			}
 		}
 		
@@ -451,8 +493,9 @@
 		<section class="instagram-reels-section">
 			<div class="auto-container">
 				<div class="sec-title centered">
-					<h3 style="font-size: 24px; margin-bottom: 10px; color: #000;">Follow Our Process on Instagram</h3>
-					<p style="color: #666; font-size: 16px; line-height: 1.8;">See our latest projects and behind-the-scenes content</p>
+					<div class="title">On Instagram</div>
+					<h2>Follow Our Process</h2>
+					<p>See our latest projects and behind-the-scenes content.</p>
 				</div>
 				<div class="instagram-reels-grid">
 					<div class="instagram-embed-wrapper minimized" data-reel="0">
@@ -465,8 +508,8 @@
 						<iframe class="instagram-media instagram-media-rendered" id="instagram-embed-2" src="https://www.instagram.com/reel/DKnVvphPt_t/embed/captioned/?cr=1&amp;v=14&amp;wp=652&amp;rd=https%3A%2F%2Fjensentemplateone.vercel.app&amp;rp=%2F#%7B%22ci%22%3A2%2C%22os%22%3A465.80000001192093%2C%22ls%22%3A224.5%2C%22le%22%3A350.5%7D" allowtransparency="true" allowfullscreen="true" frameborder="0" height="613" data-instgrm-payload-id="instagram-media-payload-2" scrolling="no" style="background: white; max-width: 540px; width: calc(100% - 2px); border-radius: 3px; border: 1px solid rgb(219, 219, 219); box-shadow: none; display: block; margin: 0px 0px 12px; min-width: 326px; padding: 0px;"></iframe>
 					</div>
 				</div>
-				<div style="text-align: center; margin-top: 50px;">
-					<a href="https://www.instagram.com/klauspnjensen/" target="_blank" class="theme-btn btn-style-one"><span class="txt">More Projects on Instagram</span></a>
+				<div class="instagram-cta-wrap">
+					<a href="https://www.instagram.com/klauspnjensen/" target="_blank" rel="noopener noreferrer" class="theme-btn btn-style-one"><span class="txt">View on Instagram</span></a>
 				</div>
 			</div>
 		</section>

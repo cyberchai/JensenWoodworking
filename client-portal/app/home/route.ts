@@ -63,61 +63,19 @@ function generateGalleryBlock(project: PastProject): string {
 
 // Helper function to generate testimonial block HTML
 function generateTestimonialBlock(testimonial: Feedback, projectImages: string[] = []): string {
-  const comment = escapeHtml(testimonial.comment);
   const clientName = escapeHtml(testimonial.clientName || 'Anonymous');
-  const projectName = escapeHtml(testimonial.projectName || '');
   const title = escapeHtml(testimonial.title || '');
   const testimonialId = escapeHtml(testimonial.id || '');
   
-  // Only show images if they exist (no default/fallback images)
-  const images = projectImages;
-  const imagesJson = JSON.stringify(images.map(url => {
-    if (url.startsWith('http')) return url;
-    if (url.startsWith('/')) return url;
-    return `/images/${url}`;
-  }));
-
-  const hasImages = images.length > 0;
-
-  // Generate image slides HTML (only if we have images)
-  const imageSlides = hasImages ? images.map((url, index) => {
-    let imageUrl = url;
-    if (!url.startsWith('http') && !url.startsWith('/')) {
-      imageUrl = `/${url}`;
-    }
-    const altText = `${projectName || clientName} - View ${index + 1}`;
-    return `<img class="testimonial-carousel-image${index === 0 ? ' active' : ''}" src="${imageUrl}" alt="${escapeHtml(altText)}">`;
-  }).join('\n\t\t\t\t\t\t\t\t\t\t') : '';
-
-  // Show arrows only if more than one image
-  const arrowsHtml = hasImages && images.length > 1
-    ? `<button class="testimonial-carousel-arrow testimonial-carousel-prev" aria-label="Previous image">‹</button>
-								<button class="testimonial-carousel-arrow testimonial-carousel-next" aria-label="Next image">›</button>`
-    : '';
-
-  const imageContainerHtml = hasImages ? `
-							<div class="testimonial-carousel-container">
-								<div class="testimonial-carousel-slides">
-									${imageSlides}
-								</div>
-								${arrowsHtml}
-							</div>` : '';
-
-  const shouldShowViewMore = (testimonial.comment || '').length > 220;
-  const viewMoreButtonHtml = shouldShowViewMore
-    ? `<button type="button" class="testimonial-view-more" aria-expanded="false">View more</button>`
-    : '';
-  
   return `
 					<!-- Testimonial Block -->
-					<div class="testimonial-block" data-testimonial-images='${imagesJson}' data-testimonial-id="${testimonialId}">
+					<div class="testimonial-block" data-testimonial-id="${testimonialId}">
 						<div class="inner-box">
-							${imageContainerHtml}
 							<div class="quote icon_quotations"></div>
-							${title ? `<div class="testimonial-title-link"><a href="testimonials.html?id=${testimonialId}" class="testimonial-title">${title}</a></div>` : ''}
-							<div class="author">${clientName}${projectName ? ` <span>/ ${projectName}</span>` : ''}</div>
-							<p class="testimonial-text">"${comment}"</p>
-							${viewMoreButtonHtml}
+							<div class="testimonial-header">
+								${title ? `<div class="testimonial-title-link"><a href="testimonials.html?id=${testimonialId}" class="testimonial-title">${title}</a></div>` : ''}
+							</div>
+							<div class="author">${clientName}</div>
 						</div>
 					</div>`;
 }
@@ -199,25 +157,6 @@ export async function GET() {
     
     // Replace testimonial blocks
     if (testimonials.length > 0) {
-      // Generate testimonial titles list (only testimonials with titles)
-      const testimonialsWithTitles = testimonials.filter((t: Feedback) => t.title && t.title.trim());
-      let testimonialTitlesHtml = '';
-      
-      if (testimonialsWithTitles.length > 0) {
-        const titlesList = testimonialsWithTitles.map((testimonial: Feedback) => {
-          const title = escapeHtml(testimonial.title || '');
-          const testimonialId = escapeHtml(testimonial.id || '');
-          return `<li><a href="testimonials.html?id=${testimonialId}" class="testimonial-title-link">${title}</a></li>`;
-        }).join('\n\t\t\t\t\t\t\t\t\t');
-        
-        testimonialTitlesHtml = `
-					<div class="testimonial-titles-list">
-						<ul class="testimonial-titles-ul">
-							${titlesList}
-						</ul>
-					</div>`;
-      }
-      
       // Get project images for testimonials (try to match by projectToken)
       const testimonialBlocks = testimonials.map((testimonial: Feedback) => {
         // Try to find matching project images
@@ -228,9 +167,27 @@ export async function GET() {
         return generateTestimonialBlock(testimonial, projectImages);
       }).join('\n');
       
-      // Replace testimonial section - add titles list after heading, before carousel
+      // Replace testimonial section - only carousel cards (no extra title list)
       const testimonialSectionRegex = /(<div class="sec-title">\s*<h2>What Our Clients Say<\/h2>\s*<\/div>)(\s*<div class="testimonial-carousel owl-carousel owl-theme">)[\s\S]*?(<\/div>\s*<\/div>\s*<\/section>\s*<!-- End Testimonial Section -->)/;
-      html = html.replace(testimonialSectionRegex, `$1${testimonialTitlesHtml}$2\n\n${testimonialBlocks}\n\n\t\t\t\t$3`);
+      html = html.replace(testimonialSectionRegex, `$1$2\n\n${testimonialBlocks}\n\n\t\t\t\t$3`);
+      
+      // Add professional CTA section before footer
+      const ctaSection = `
+		<!-- Professional CTA Section -->
+		<section class="professional-cta-section" style="padding: 56px 0; background-color: #f8f8f8; border-top: 1px solid #eee;">
+			<div class="auto-container">
+				<div class="sec-title centered">
+					<div class="title" style="font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 10px;">Ready to Begin</div>
+					<h2 style="font-size: 28px; font-weight: 400; color: #1a1a1a; margin-bottom: 14px; line-height: 1.25;">Start Your Project</h2>
+					<p style="max-width: 440px; margin: 0 auto 24px; font-size: 14px; line-height: 1.65; color: #666; font-weight: 400;">Every piece begins with a conversation. Let's discuss how we can bring your vision to life.</p>
+					<a href="contact.html" class="theme-btn btn-style-one" style="display: inline-block; font-size: 13px; padding: 10px 24px;"><span class="txt">Get in Touch</span></a>
+				</div>
+			</div>
+		</section>
+		<!-- End Professional CTA Section -->`;
+      
+      // Insert CTA before footer
+      html = html.replace(/(<!-- Main Footer -->)/, `${ctaSection}\n\n\t\t$1`);
     } else {
       // If 0 testimonials, remove the entire section from the page
       const removeTestimonialSectionRegex = /<section class="testimonial-section">[\s\S]*?<\/section>\s*<!-- End Testimonial Section -->\s*/;
@@ -257,15 +214,37 @@ export async function GET() {
   .projects-section .project-carousel .gallery-block .inner-box .image{height:320px;}
 }
 
-/* Injected by Next route: normalize Testimonial card sizes + view more */
+/* Injected by Next route: decorative Testimonial carousel cards */
 .testimonial-section .testimonial-block .inner-box{
-  height: 520px;
+  position: relative;
+  padding: 40px 36px 32px 56px;
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
+  box-shadow: none;
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 220px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.testimonial-section .testimonial-block:hover .inner-box{
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+}
+
+.testimonial-section .testimonial-block .quote.icon_quotations{
+  position: absolute;
+  top: 22px;
+  left: 26px;
+  font-size: 60px;
+  line-height: 1;
+  color: #ffe1a0;
+  opacity: 0.25;
 }
 
 /* Testimonial title link styling */
 .testimonial-title-link {
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .testimonial-title {
@@ -283,98 +262,20 @@ export async function GET() {
   text-decoration: underline;
 }
 
-/* Testimonial titles list styling */
-.testimonial-titles-list {
-  margin: 30px 0 40px 0;
-}
-
-.testimonial-titles-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.testimonial-titles-ul li {
-  margin: 0;
-  padding: 0;
-}
-
-.testimonial-titles-ul .testimonial-title-link {
-  font-size: 16px;
-  font-weight: 500;
-  color: #333;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  display: inline-block;
-  padding: 8px 0;
-  border-bottom: 1px solid transparent;
-  margin-bottom: 0;
-}
-
-.testimonial-titles-ul .testimonial-title-link:hover {
-  color: #ffe1a0;
-  border-bottom-color: #ffe1a0;
-}
-
-@media (max-width: 768px) {
-  .testimonial-titles-ul .testimonial-title-link {
-    font-size: 15px;
-  }
-}
-  flex-direction: column;
-}
-.testimonial-section .testimonial-carousel-container{
-  height: 220px;
-  flex: 0 0 auto;
-  margin-bottom: 18px;
-}
-.testimonial-section .testimonial-carousel-slides{
-  height: 220px;
-}
-.testimonial-section .testimonial-carousel-image{
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  object-position: center;
-}
-.testimonial-section .testimonial-text{
-  flex: 1 1 auto;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 5;
-}
-.testimonial-section .testimonial-block.is-expanded .testimonial-text{
-  display: block;
-  overflow: auto;
-  max-height: 220px;
-}
-.testimonial-section .testimonial-view-more{
-  flex: 0 0 auto;
+.testimonial-section .testimonial-block .author{
   margin-top: 12px;
-  padding: 0;
-  background: transparent;
-  border: 0;
-  color: #666;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  font-size: 12px;
-  cursor: pointer;
-  align-self: flex-start;
+  color: #777777;
 }
-.testimonial-section .testimonial-view-more:hover{
-  color: #000;
-  text-decoration: underline;
-}
+
 @media (max-width: 767px){
-  .testimonial-section .testimonial-block .inner-box{height: 560px;}
-  .testimonial-section .testimonial-carousel-container,
-  .testimonial-section .testimonial-carousel-slides,
-  .testimonial-section .testimonial-carousel-image{height: 200px;}
-  .testimonial-section .testimonial-block.is-expanded .testimonial-text{max-height: 260px;}
+  .testimonial-section .testimonial-block .inner-box{
+    padding: 32px 24px 28px 48px;
+    min-height: 200px;
+  }
 }
 </style></head>`
     );

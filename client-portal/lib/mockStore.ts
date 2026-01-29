@@ -1,3 +1,16 @@
+export interface StatusUpdatePhoto {
+  url: string;
+  fileId?: string; // ImageKit file ID if applicable
+}
+
+export interface StatusUpdate {
+  id: string;
+  title: string;
+  message: string;
+  photos?: (string | StatusUpdatePhoto)[];
+  createdAt: number;
+}
+
 export interface Project {
   token: string; // Slugified project name (derived from clientLabel)
   clientLabel: string;
@@ -10,6 +23,7 @@ export interface Project {
   venmoHandle: string;
   paypalHandle: string;
   createdAt: number;
+  statusUpdates?: StatusUpdate[];
 }
 
 export interface PastProject {
@@ -332,6 +346,46 @@ export const store = {
 
   deletePastProject(id: string): boolean {
     return mockPastProjects.delete(id);
+  },
+
+  // Status Update operations
+  addStatusUpdate(projectToken: string, update: Omit<StatusUpdate, 'id' | 'createdAt'>): void {
+    const project = mockProjects.get(projectToken);
+    if (!project) {
+      throw new Error(`Project with token ${projectToken} not found`);
+    }
+
+    const newUpdate: StatusUpdate = {
+      id: `update_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+      title: update.title,
+      message: update.message,
+      photos: update.photos || [],
+      createdAt: Date.now(),
+    };
+
+    const currentUpdates = project.statusUpdates || [];
+    const updated = {
+      ...project,
+      statusUpdates: [...currentUpdates, newUpdate],
+    };
+
+    mockProjects.set(projectToken, updated);
+  },
+
+  deleteStatusUpdate(projectToken: string, updateId: string): void {
+    const project = mockProjects.get(projectToken);
+    if (!project) {
+      throw new Error(`Project with token ${projectToken} not found`);
+    }
+
+    const currentUpdates = project.statusUpdates || [];
+    const updatedUpdates = currentUpdates.filter(u => u.id !== updateId);
+    const updated = {
+      ...project,
+      statusUpdates: updatedUpdates.length > 0 ? updatedUpdates : undefined,
+    };
+
+    mockProjects.set(projectToken, updated);
   },
 };
 

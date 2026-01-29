@@ -25,7 +25,7 @@ export default function RootLayout({
                 href="/"
                 className="flex items-center group"
               >
-                <div className="p-2.5 rounded-sm transition-all group-hover:opacity-80">
+                <div className="p-[10px] rounded-sm transition-all group-hover:opacity-80">
                   <img 
                     src="/images/logo.png" 
                     alt="Jensen Woodworking" 
