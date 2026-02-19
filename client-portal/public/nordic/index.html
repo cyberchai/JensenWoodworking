@@ -19,24 +19,19 @@
 		.logo a,
 		.nav-logo a {
 			display: block;
-			font-size: 32px;
-			font-weight: 700;
-			line-height: 1.1;
-			color: #fff;
-			text-transform: uppercase;
-			letter-spacing: 2px;
 			text-decoration: none;
 		}
-		.logo a span,
-		.nav-logo a span {
+		.logo a img,
+		.nav-logo a img {
+			height: 50px;
+			width: auto;
 			display: block;
 		}
-		.main-header.fixed-header .logo a,
-		.main-header.fixed-header .nav-logo a {
-			color: #fff;
+		.main-header.fixed-header .logo a img {
+			height: 45px;
 		}
-		.mobile-menu .nav-logo a {
-			color: #000;
+		.mobile-menu .nav-logo a img {
+			height: 40px;
 		}
 		/* Your Project: only in expanded (mobile) menu, not top bar */
 		.main-menu .navigation .nav-mobile-only {
@@ -47,12 +42,11 @@
 		}
 		/* Footer Logo Styling */
 		.main-footer .logo a {
-			color: #000;
 			display: inline-block;
 		}
 		
 		.main-footer .logo a img {
-			max-width: 100%;
+			max-width: 200px;
 			height: auto;
 			display: block;
 		}
@@ -928,6 +922,156 @@
 				flex: 1;
 			}
 		}
+		/* Home Contact Form Section */
+		.home-contact-section {
+			padding: 70px 0 80px;
+			background-color: #f8f8f8;
+			border-top: 1px solid #eee;
+		}
+		
+		.home-contact-section .sec-title {
+			text-align: center;
+			margin-bottom: 40px;
+		}
+		
+		.home-contact-section .sec-title .title {
+			font-size: 11px;
+			color: #888;
+			text-transform: uppercase;
+			letter-spacing: 0.15em;
+			margin-bottom: 10px;
+		}
+		
+		.home-contact-section .sec-title h2 {
+			font-size: 28px;
+			font-weight: 400;
+			color: #1a1a1a;
+			line-height: 1.25;
+		}
+		
+		.home-contact-section .contact-form {
+			max-width: 640px;
+			margin: 0 auto;
+		}
+		
+		.home-contact-section .contact-form .form-group {
+			margin-bottom: 18px;
+		}
+		
+		.home-contact-section .form-fields-row {
+			display: flex;
+			gap: 18px;
+		}
+		
+		.home-contact-section .form-fields-row .form-group {
+			flex: 1;
+		}
+		
+		@media (max-width: 600px) {
+			.home-contact-section .form-fields-row {
+				flex-direction: column;
+				gap: 0;
+			}
+		}
+		
+		.home-contact-section .toggles-row {
+			display: flex;
+			gap: 28px;
+			align-items: center;
+			flex-wrap: wrap;
+		}
+		
+		.home-contact-section .toggle-item {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+		
+		.home-contact-section .toggle-item label {
+			color: #666;
+			font-size: 14px;
+			margin: 0;
+			cursor: pointer;
+		}
+		
+		.home-contact-section .toggle-switch {
+			position: relative;
+			display: inline-block;
+			width: 44px;
+			height: 24px;
+		}
+		
+		.home-contact-section .toggle-switch input {
+			opacity: 0;
+			width: 0;
+			height: 0;
+		}
+		
+		.home-contact-section .toggle-slider {
+			position: absolute;
+			cursor: pointer;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: #ccc;
+			transition: 0.3s;
+			border-radius: 24px;
+		}
+		
+		.home-contact-section .toggle-slider:before {
+			position: absolute;
+			content: "";
+			height: 18px;
+			width: 18px;
+			left: 3px;
+			bottom: 3px;
+			background-color: #fff;
+			transition: 0.3s;
+			border-radius: 50%;
+		}
+		
+		.home-contact-section .toggle-switch input:checked + .toggle-slider {
+			background-color: #ffe1a0;
+		}
+		
+		.home-contact-section .toggle-switch input:checked + .toggle-slider:before {
+			transform: translateX(20px);
+		}
+		
+		.home-contact-section .submit-row {
+			text-align: center;
+			margin-top: 6px;
+		}
+		
+		.home-contact-section .theme-btn {
+			font-size: 13px;
+			padding: 10px 28px;
+		}
+		
+		#home-form-message {
+			display: none;
+			padding: 14px 18px;
+			margin-bottom: 18px;
+			text-align: center;
+			font-size: 14px;
+		}
+		
+		#home-form-message.success {
+			background-color: #d4edda;
+			color: #155724;
+			border: 1px solid #c3e6cb;
+		}
+		
+		#home-form-message.error {
+			background-color: #f8d7da;
+			color: #721c24;
+			border: 1px solid #f5c6cb;
+		}
+		
+		#home-form-message.show {
+			display: block;
+		}
 	</style>
 
 	<!-- Open Graph (OG) meta tags are snippets of code that control how URLs are displayed when shared on social media  -->
@@ -992,7 +1136,7 @@
 					<div class="inner-container clearfix">
 
 						<div class="pull-left logo-box">
-							<div class="logo"><a href="/home"><span>Jensen</span><span>Woodworking</span></a></div>
+							<div class="logo"><a href="/home"><img src="/images/JensenWoodworkingLogo.png" alt="Jensen Woodworking"></a></div>
 						</div>
 
 						<div class="nav-outer pull-left clearfix">
@@ -1051,7 +1195,7 @@
 				<div class="close-btn"><span class="icon lnr lnr-cross"></span></div>
 
 				<nav class="menu-box">
-					<div class="nav-logo"><a href="/home"><span>Jensen</span><span>Woodworking</span></a></div>
+					<div class="nav-logo"><a href="/home"><img src="/images/JensenWoodworkingLogo.png" alt="Jensen Woodworking"></a></div>
 					<div class="menu-outer">
 						<!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
 					</div>
@@ -1132,6 +1276,13 @@
 					<a href="https://www.instagram.com/klauspnjensen/" target="_blank" aria-label="Instagram">
 						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" fill="currentColor"/>
+						</svg>
+					</a>
+				</li>
+				<li>
+					<a href="https://www.facebook.com/profile.php?id=61564114594103" target="_blank" aria-label="Facebook">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="currentColor"/>
 						</svg>
 					</a>
 				</li>
@@ -1548,10 +1699,61 @@
 
 				</div>
 			</div>
-		</section>
-		<!-- End Projects Section -->
+	</section>
+	<!-- End Projects Section -->
 
-		<!-- Main Footer -->
+	<!-- Home Contact Form Section -->
+	<section class="home-contact-section contact-page-section" id="reach-out">
+		<div class="auto-container">
+			<div class="sec-title">
+				<div class="title">Reach Out</div>
+				<h2>Tell Us About Your Project</h2>
+			</div>
+			<div class="contact-form">
+				<div id="home-form-message"></div>
+				<form id="home-contact-form" method="POST">
+					<div class="form-fields-row">
+						<div class="form-group">
+							<input type="text" name="username" placeholder="Your Name" required>
+						</div>
+						<div class="form-group">
+							<input type="email" name="email" placeholder="Your Email" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<input type="tel" name="phone" placeholder="Your Phone">
+					</div>
+					<div class="form-group">
+						<div class="toggles-row">
+							<div class="toggle-item">
+								<label for="home_contractor_involved">Contractor Involved?</label>
+								<label class="toggle-switch">
+									<input type="checkbox" id="home_contractor_involved" name="contractor_involved">
+									<span class="toggle-slider"></span>
+								</label>
+							</div>
+							<div class="toggle-item">
+								<label for="home_designer_involved">Designer Involved?</label>
+								<label class="toggle-switch">
+									<input type="checkbox" id="home_designer_involved" name="designer_involved">
+									<span class="toggle-slider"></span>
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<textarea name="message" placeholder="Tell us about your project — dimensions, materials, timing..." rows="5" required></textarea>
+					</div>
+					<div class="submit-row">
+						<button type="submit" class="theme-btn btn-style-one"><span class="txt">Send Message</span></button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</section>
+	<!-- End Home Contact Form Section -->
+
+	<!-- Main Footer -->
 		<footer class="main-footer" id="contact">
 			<div class="outer-container">
 				<!--Widgets Section-->
@@ -1562,7 +1764,7 @@
 						<div class="footer-column">
 							<div class="footer-widget logo-widget">
 								<div class="logo">
-									<a href="/home"><img src="/images/logo.png" alt="Jensen Woodworking"></a>
+									<a href="/home"><img src="/images/JensenWoodworkingLogo.png" alt="Jensen Woodworking"></a>
 								</div>
 							</div>
 						</div>
@@ -1590,6 +1792,7 @@
 									<li><a href="contact.html">Contact</a></li>
 									<li><a href="testimonials.html">Testimonials</a></li>
 									<li><a href="https://www.instagram.com/klauspnjensen/" target="_blank">Instagram</a></li>
+									<li><a href="https://www.facebook.com/profile.php?id=61564114594103" target="_blank">Facebook</a></li>
 								</ul>
 							</div>
 						</div>
@@ -1617,6 +1820,7 @@
 									<li><a href="gallery.html">Gallery</a></li>
 									<li><a href="contact.html">Contact</a></li>
 									<li><a href="https://www.instagram.com/klauspnjensen/" target="_blank">Instagram</a></li>
+									<li><a href="https://www.facebook.com/profile.php?id=61564114594103" target="_blank">Facebook</a></li>
 								</ul>
 							</div>
 						</div>
@@ -1636,6 +1840,7 @@
 						<div class="pages-column col-lg-6 col-md-12 col-sm-12">
 							<ul class="page-nav">
 								<li><a href="https://www.instagram.com/klauspnjensen/" target="_blank">Instagram</a></li>
+								<li><a href="https://www.facebook.com/profile.php?id=61564114594103" target="_blank">Facebook</a></li>
 								<li><a href="about.html">About</a></li>
 								<li><a href="gallery.html">Gallery</a></li>
 								<li><a href="services.html">Services</a></li>
@@ -2046,6 +2251,89 @@
 				});
 			});
 		})();
+	</script>
+
+	<!-- Home Contact Form Submission to Firestore -->
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			var form = document.getElementById('home-contact-form');
+			var messageDiv = document.getElementById('home-form-message');
+			
+			if (!form || !messageDiv) return;
+			
+			var submitButton = form.querySelector('button[type="submit"]');
+			var originalButtonText = submitButton ? submitButton.querySelector('.txt').textContent : 'Send Message';
+			
+			form.addEventListener('submit', function(e) {
+				e.preventDefault();
+				
+				var formData = new FormData(form);
+				
+				var contractorCheckbox = form.querySelector('#home_contractor_involved');
+				var designerCheckbox = form.querySelector('#home_designer_involved');
+				
+				if (contractorCheckbox) {
+					formData.set('contractor_involved', contractorCheckbox.checked ? 'Yes' : 'No');
+				}
+				if (designerCheckbox) {
+					formData.set('designer_involved', designerCheckbox.checked ? 'Yes' : 'No');
+				}
+				
+				submitButton.disabled = true;
+				submitButton.querySelector('.txt').textContent = 'Sending...';
+				messageDiv.classList.remove('show', 'success', 'error');
+				
+				var apiEndpoint;
+				var protocol = window.location.protocol;
+				var hostname = window.location.hostname;
+				
+				if (protocol === 'file:') {
+					apiEndpoint = 'http://localhost:3000/api/contact';
+				} else if (hostname === 'localhost' || hostname === '127.0.0.1') {
+					var port = window.location.port || '3000';
+					apiEndpoint = 'http://localhost:' + port + '/api/contact';
+				} else {
+					apiEndpoint = '/api/contact';
+				}
+				
+				fetch(apiEndpoint, {
+					method: 'POST',
+					body: formData,
+					headers: { 'Accept': 'application/json' }
+				})
+				.then(function(response) {
+					if (response.ok) {
+						messageDiv.textContent = 'Thank you! Your message has been sent. We\'ll get back to you soon.';
+						messageDiv.className = 'show success';
+						messageDiv.style.display = 'block';
+						form.reset();
+						messageDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+						setTimeout(function() {
+							messageDiv.classList.remove('show');
+							messageDiv.style.display = 'none';
+						}, 5000);
+					} else {
+						return response.json().then(function(data) {
+							throw new Error(data.error || 'An error occurred');
+						});
+					}
+				})
+				.catch(function(error) {
+					messageDiv.textContent = 'Sorry, there was an error. Please try again or email kpnjensen@gmail.com directly.';
+					messageDiv.className = 'show error';
+					messageDiv.style.display = 'block';
+					messageDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+					console.error('Form submission error:', error);
+				})
+				.finally(function() {
+					if (submitButton) {
+						submitButton.disabled = false;
+						var txt = submitButton.querySelector('.txt');
+						if (txt) txt.textContent = originalButtonText;
+					}
+				});
+			});
+		});
 	</script>
 
 	<!-- Dynamic Client Portal URL Script -->
