@@ -63,143 +63,122 @@ export default function AdminTestimonials({ feedback, onUpdate }: AdminTestimoni
   };
 
   return (
-    <div className="space-y-4 min-w-0">
+    <div className="space-y-3 min-w-0">
       <div className="flex items-center justify-between min-w-0">
-        <h2 className="text-[10px] font-black tracking-[0.2em] uppercase text-brass">Client Testimonials</h2>
+        <div className="flex items-center gap-3">
+          <h2 className="text-[10px] font-black tracking-[0.2em] uppercase text-brass">Client Testimonials</h2>
+          <span className="text-[10px] text-stone-400">{feedback.length}</span>
+        </div>
+        <AdminAddFeedbackForm onFeedbackAdded={onUpdate} />
       </div>
-      
-      <AdminAddFeedbackForm onFeedbackAdded={onUpdate} />
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 min-w-0">
-        {feedback.length === 0 ? (
-          <div className="col-span-2 py-8 text-center min-w-0">
-            <p className="text-stone-300 font-serif italic text-sm">No feedback submitted yet.</p>
-          </div>
-        ) : (
-          feedback.map((item) => (
-            <div 
-              key={item.id} 
-              className="bg-stone-50 p-4 sm:p-5 rounded-sm relative italic font-serif text-stone-700 min-w-0 overflow-hidden"
-            >
-              {/* Title Section */}
-              <div className="mb-4 not-italic">
-                {editingTitle === item.id ? (
-                  <div className="space-y-2">
-                    <input
-                      type="text"
-                      value={titleValue}
-                      onChange={(e) => setTitleValue(e.target.value)}
-                      className="w-full px-3 py-2 text-sm border border-stone-300 bg-white focus:outline-none focus:border-brass transition-colors"
-                      placeholder="Enter testimonial title..."
-                      autoFocus
-                    />
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => saveTitle(item.id)}
-                        className="text-[9px] font-black uppercase tracking-widest px-3 py-1 bg-brass text-ebony hover:bg-ebony hover:text-white transition-all"
-                      >
-                        Save
-                      </button>
-                      <button
-                        onClick={cancelEditing}
-                        className="text-[9px] font-black uppercase tracking-widest px-3 py-1 bg-stone-100 text-stone-600 hover:bg-stone-200 transition-all"
-                      >
-                        Cancel
-                      </button>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="flex items-center justify-between">
-                    <div className="flex-1">
-                      {item.title ? (
-                        <div className="text-sm font-semibold text-ebony not-italic mb-1">{item.title}</div>
-                      ) : (
-                        <div className="text-xs text-stone-400 italic">No title set</div>
-                      )}
-                    </div>
-                    <button
-                      onClick={() => startEditingTitle(item)}
-                      className="text-[9px] font-black uppercase tracking-widest text-stone-400 hover:text-ebony transition-colors ml-4"
-                    >
-                      {item.title ? 'Edit' : 'Add'} Title
-                    </button>
-                  </div>
-                )}
-              </div>
 
-              {/* Message and client name: view or edit */}
+      {feedback.length === 0 ? (
+        <div className="py-6 text-center min-w-0">
+          <p className="text-stone-300 font-serif italic text-sm">No feedback submitted yet.</p>
+        </div>
+      ) : (
+        <div className="space-y-1.5 min-w-0">
+          {feedback.map((item) => (
+            <div
+              key={item.id}
+              className="bg-stone-50 rounded-sm overflow-hidden min-w-0"
+            >
               {editingTestimonial === item.id ? (
-                <div className="space-y-4 mb-8">
+                <div className="p-3 space-y-3">
                   <div>
-                    <label className="block text-[10px] font-black uppercase tracking-widest text-stone-500 mb-1">Message</label>
-                    <textarea
-                      value={editMessage}
-                      onChange={(e) => setEditMessage(e.target.value)}
-                      rows={4}
-                      className="w-full px-3 py-2 text-sm border border-stone-300 bg-white focus:outline-none focus:border-brass transition-colors not-italic"
-                      placeholder="Testimonial message..."
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-[10px] font-black uppercase tracking-widest text-stone-500 mb-1">Client name</label>
+                    <label className="block text-[9px] font-black uppercase tracking-widest text-stone-400 mb-1">Client Name</label>
                     <input
                       type="text"
                       value={editClientName}
                       onChange={(e) => setEditClientName(e.target.value)}
-                      className="w-full px-3 py-2 text-sm border border-stone-300 bg-white focus:outline-none focus:border-brass transition-colors not-italic"
-                      placeholder="Client name (e.g. Sarah & Michael T.)"
+                      className="w-full px-3 py-1.5 text-sm border-0 border-b border-stone-300 bg-white focus:outline-none focus:border-brass"
+                      placeholder="Client name"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[9px] font-black uppercase tracking-widest text-stone-400 mb-1">Title</label>
+                    <input
+                      type="text"
+                      value={titleValue || item.title || ''}
+                      onChange={(e) => { setEditingTitle(item.id); setTitleValue(e.target.value); }}
+                      className="w-full px-3 py-1.5 text-sm border-0 border-b border-stone-300 bg-white focus:outline-none focus:border-brass"
+                      placeholder="Testimonial title (optional)"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[9px] font-black uppercase tracking-widest text-stone-400 mb-1">Message</label>
+                    <textarea
+                      value={editMessage}
+                      onChange={(e) => setEditMessage(e.target.value)}
+                      rows={3}
+                      className="w-full px-3 py-1.5 text-sm border-0 border-b border-stone-300 bg-white focus:outline-none focus:border-brass resize-y"
+                      placeholder="Testimonial message..."
                     />
                   </div>
                   <div className="flex gap-2">
                     <button
-                      onClick={() => saveTestimonial(item.id)}
-                      className="text-[9px] font-black uppercase tracking-widest px-3 py-1.5 bg-brass text-ebony hover:bg-ebony hover:text-white transition-all"
+                      onClick={async () => {
+                        if (editingTitle === item.id && titleValue !== (item.title || '')) {
+                          await saveTitle(item.id);
+                        }
+                        await saveTestimonial(item.id);
+                      }}
+                      className="text-[9px] font-black uppercase tracking-widest px-3 py-1 bg-brass text-white hover:bg-ebony transition-all"
                     >
                       Save
                     </button>
                     <button
-                      onClick={cancelEditingTestimonial}
-                      className="text-[9px] font-black uppercase tracking-widest px-3 py-1.5 bg-stone-100 text-stone-600 hover:bg-stone-200 transition-all"
+                      onClick={() => { cancelEditingTestimonial(); cancelEditing(); }}
+                      className="text-[9px] font-black uppercase tracking-widest px-3 py-1 text-stone-400 hover:text-ebony transition-colors"
                     >
                       Cancel
                     </button>
                   </div>
                 </div>
               ) : (
-                <>
-                  <p className="text-xl mb-8 leading-relaxed">"{item.comment}"</p>
-                  <div className="not-italic flex items-center justify-between border-t border-stone-200 pt-6 flex-wrap gap-2">
-                    <div>
-                      <div className="text-[10px] font-black uppercase tracking-widest text-ebony">
-                        {item.clientName || 'Anonymous'}
-                      </div>
+                <div className="flex items-start gap-3 p-3">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-0.5">
+                      <span className="text-xs font-bold text-ebony">{item.clientName || 'Anonymous'}</span>
+                      {item.title && (
+                        <>
+                          <span className="text-stone-300">·</span>
+                          <span className="text-[10px] text-stone-500 truncate">{item.title}</span>
+                        </>
+                      )}
                     </div>
-                    <div className="flex items-center gap-2">
-                      <button
-                        onClick={() => startEditingTestimonial(item)}
-                        className="text-[9px] font-black uppercase tracking-widest text-stone-400 hover:text-ebony transition-colors"
-                        aria-label="Edit message and client name"
-                      >
-                        Edit
-                      </button>
-                      <button 
-                        onClick={() => toggleTestimonial(item.id, item.isTestimonial)}
-                        className={`text-[9px] font-black uppercase tracking-[0.2em] px-3 py-1.5 border rounded-full transition-all ${
-                          item.isTestimonial 
-                            ? 'border-brass text-brass bg-brass/10 hover:bg-brass/20' 
-                            : 'border-stone-200 text-stone-300 hover:border-stone-300 hover:text-stone-400'
-                        }`}
-                      >
-                        {item.isTestimonial ? 'Featured' : 'Hidden'}
-                      </button>
-                    </div>
+                    <p className="text-xs text-stone-600 font-serif italic leading-relaxed line-clamp-2">
+                      &ldquo;{item.comment}&rdquo;
+                    </p>
                   </div>
-                </>
+                  <div className="flex items-center gap-1.5 shrink-0 pt-0.5">
+                    <button
+                      onClick={() => {
+                        startEditingTestimonial(item);
+                        setEditingTitle(item.id);
+                        setTitleValue(item.title || '');
+                      }}
+                      className="text-[8px] font-black uppercase tracking-widest text-stone-400 hover:text-ebony transition-colors"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => toggleTestimonial(item.id, item.isTestimonial)}
+                      className={`text-[8px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full transition-all ${
+                        item.isTestimonial
+                          ? 'bg-brass/15 text-brass'
+                          : 'bg-stone-200/60 text-stone-400'
+                      }`}
+                    >
+                      {item.isTestimonial ? 'Shown' : 'Hidden'}
+                    </button>
+                  </div>
+                </div>
               )}
             </div>
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
-

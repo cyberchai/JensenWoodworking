@@ -23,21 +23,18 @@ export default function AdminProjectsView({ projects, onUpdate }: AdminProjectsV
   const [editTitle, setEditTitle] = useState('');
   const [editDescription, setEditDescription] = useState('');
   const [tokenCopied, setTokenCopied] = useState(false);
-  
-  // Use refs to preserve unsaved changes when saving other fields
+  const [linkCopied, setLinkCopied] = useState(false);
+  const [editProjectType, setEditProjectType] = useState<string[]>([]);
+
   const preservedTitleRef = useRef<string | null>(null);
   const preservedDescriptionRef = useRef<string | null>(null);
 
-  // Update payment PIN and edit fields when project changes
-  // Only update edit fields if they're not currently being edited (to preserve unsaved changes)
   useEffect(() => {
     if (selectedProject) {
       const project = projects.find(p => p.token === selectedProject.token);
       if (project) {
         setSelectedProject(project);
         setPaymentPIN(project.paymentCode || '');
-        // Only update edit fields if not currently editing them (preserve unsaved changes)
-        // Also check if we have preserved values from a recent save
         if (!isEditingTitle) {
           if (preservedTitleRef.current !== null) {
             setEditTitle(preservedTitleRef.current);
@@ -77,37 +74,26 @@ export default function AdminProjectsView({ projects, onUpdate }: AdminProjectsV
     const newCompletionStatus = !project.isCompleted;
 
     if (newCompletionStatus) {
-      // Moving to past projects - create past project entry
       const existingPastProject = await store.getPastProjectByToken(token);
-      
       if (!existingPastProject) {
-        // No photos to collect since status updates are removed
-        const allPhotos: { url: string; name: string; isFeatured: boolean }[] = [];
-
         await store.createPastProject({
           projectToken: token,
           title: project.clientLabel,
           description: project.description,
-          selectedImages: allPhotos.map(photo => ({
-            url: photo.url,
-            name: photo.name,
-            isFeatured: photo.isFeatured,
-          })),
+          projectType: project.projectType,
+          selectedImages: [],
         });
       }
     } else {
-      // Moving back to active projects - delete past project entry
       const existingPastProject = await store.getPastProjectByToken(token);
       if (existingPastProject) {
         await store.deletePastProject(existingPastProject.id);
       }
     }
 
-    // Update project completion status
     await store.updateProject(token, { isCompleted: newCompletionStatus });
     onUpdate();
-    
-    // If completing a project, clear selection so it disappears from the Active Projects view cleanly.
+
     if (newCompletionStatus && selectedProject?.token === token) {
       setSelectedProject(null);
       return;
@@ -122,13 +108,10 @@ export default function AdminProjectsView({ projects, onUpdate }: AdminProjectsV
   const handleSavePIN = async (e: FormEvent) => {
     e.preventDefault();
     if (!selectedProject) return;
-    
-    // Save paymentCode: if empty string, pass empty string to clear it; otherwise save trimmed value
     const pinValue = paymentPIN.trim();
-    await store.updateProject(selectedProject.token, { 
+    await store.updateProject(selectedProject.token, {
       paymentCode: pinValue === '' ? '' : pinValue
     } as Partial<Project>);
-    
     setIsEditingPIN(false);
     onUpdate();
     const updated = await store.getProject(selectedProject.token);
@@ -138,67 +121,40 @@ export default function AdminProjectsView({ projects, onUpdate }: AdminProjectsV
   const handleSaveTitle = async (e: FormEvent) => {
     e.preventDefault();
     if (!selectedProject || !editTitle.trim()) return;
-    
-    // Preserve description edit state if it's being edited
     const wasEditingDescription = isEditingDescription;
     const preservedDescription = editDescription;
-    
-    await store.updateProject(selectedProject.token, { 
-      clientLabel: editTitle.trim()
-    });
-    
+    await store.updateProject(selectedProject.token, { clientLabel: editTitle.trim() });
     setIsEditingTitle(false);
-    
-    // Store preserved values in refs before updating (so useEffect can use them)
-    if (wasEditingDescription) {
-      preservedDescriptionRef.current = preservedDescription;
-    }
-    
+    if (wasEditingDescription) preservedDescriptionRef.current = preservedDescription;
     onUpdate();
     const updated = await store.getProject(selectedProject.token);
     if (updated) {
       setSelectedProject(updated);
-      // Restore description edit state if it was being edited
-      if (wasEditingDescription) {
-        setIsEditingDescription(true);
-      }
+      if (wasEditingDescription) setIsEditingDescription(true);
     }
   };
 
   const handleSaveDescription = async (e: FormEvent) => {
     e.preventDefault();
     if (!selectedProject) return;
-    
-    // Preserve title edit state if it's being edited
     const wasEditingTitle = isEditingTitle;
     const preservedTitle = editTitle;
-    
-    await store.updateProject(selectedProject.token, { 
-      description: editDescription.trim() || undefined
-    });
-    
+    await store.updateProject(selectedProject.token, { description: editDescription.trim() || undefined });
     setIsEditingDescription(false);
-    
-    // Store preserved values in refs before updating (so useEffect can use them)
-    if (wasEditingTitle) {
-      preservedTitleRef.current = preservedTitle;
-    }
-    
+    if (wasEditingTitle) preservedTitleRef.current = preservedTitle;
     onUpdate();
     const updated = await store.getProject(selectedProject.token);
     if (updated) {
       setSelectedProject(updated);
-      // Restore title edit state if it was being edited
-      if (wasEditingTitle) {
-        setIsEditingTitle(true);
-      }
+      if (wasEditingTitle) setIsEditingTitle(true);
     }
   };
 
-
-  const copyLink = (token: string) => {
+  const copyLink = async (token: string) => {
     const link = `${window.location.origin}/client/p/${token}`;
-    navigator.clipboard.writeText(link);
+    await navigator.clipboard.writeText(link);
+    setLinkCopied(true);
+    setTimeout(() => setLinkCopied(false), 2000);
   };
 
   const copyToken = (token: string, e: React.MouseEvent) => {
@@ -207,63 +163,87 @@ export default function AdminProjectsView({ projects, onUpdate }: AdminProjectsV
   };
 
   const copyProjectToken = async (token: string) => {
-    try {
-      await navigator.clipboard.writeText(token);
-      setTokenCopied(true);
-      setTimeout(() => setTokenCopied(false), 2000);
-    } catch (err) {
-      console.error('Failed to copy token:', err);
-    }
+    await navigator.clipboard.writeText(token);
+    setTokenCopied(true);
+    setTimeout(() => setTokenCopied(false), 2000);
   };
 
+  const selectProject = (project: Project) => {
+    setSelectedProject(project);
+    setIsCreatingProject(false);
+    setPaymentPIN(project.paymentCode || '');
+    setEditTitle(project.clientLabel);
+    setEditDescription(project.description || '');
+    setEditProjectType(project.projectType || []);
+    setIsEditingPIN(false);
+    setIsEditingTitle(false);
+    setIsEditingDescription(false);
+    preservedTitleRef.current = null;
+    preservedDescriptionRef.current = null;
+  };
+
+  const handleSaveProjectType = async (types: string[]) => {
+    if (!selectedProject) return;
+    setEditProjectType(types);
+    await store.updateProject(selectedProject.token, { projectType: types.length > 0 ? types : undefined });
+    onUpdate();
+    const updated = await store.getProject(selectedProject.token);
+    if (updated) setSelectedProject(updated);
+  };
+
+  const activeProjects = projects.filter(p => !p.isCompleted);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 min-w-0">
-      {/* Left Sidebar - Project List */}
+      {/* Left Sidebar */}
       <div className="lg:col-span-1 min-w-0 lg:border-r border-stone-100">
-        <div className="p-3 sm:p-4 min-w-0">
-          <div className="flex items-center justify-between mb-3">
-            <h2 className="text-[10px] font-black tracking-[0.2em] uppercase text-brass">Active Projects</h2>
-            <span className="text-[10px] text-stone-400">{projects.filter(p => !p.isCompleted).length}</span>
+        <div className="p-3 min-w-0">
+          <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center gap-2">
+              <h2 className="text-[10px] font-black tracking-[0.2em] uppercase text-brass">Active Projects</h2>
+              <span className="text-[10px] text-stone-400">{activeProjects.length}</span>
+            </div>
+            <button
+              onClick={() => { setIsCreatingProject(true); setSelectedProject(null); }}
+              className="text-[9px] font-black uppercase tracking-widest text-stone-400 hover:text-ebony transition-colors"
+            >
+              + New
+            </button>
           </div>
 
-          {projects.filter(p => !p.isCompleted).length === 0 ? (
-            <div className="py-8 text-center">
-              <p className="text-stone-400 text-sm font-serif italic">No current projects.</p>
+          {activeProjects.length === 0 ? (
+            <div className="py-6 text-center">
+              <p className="text-stone-400 text-xs font-serif italic">No active projects.</p>
             </div>
           ) : (
-            <div className="space-y-1">
-              {projects.filter(p => !p.isCompleted).map(project => (
+            <div className="space-y-0.5">
+              {activeProjects.map(project => (
                 <div
                   key={project.token}
-                  onClick={() => {
-                    setSelectedProject(project);
-                    setIsCreatingProject(false);
-                    setPaymentPIN(project.paymentCode || '');
-                    setEditTitle(project.clientLabel);
-                    setEditDescription(project.description || '');
-                    setIsEditingPIN(false);
-                    setIsEditingTitle(false);
-                    setIsEditingDescription(false);
-                    preservedTitleRef.current = null;
-                    preservedDescriptionRef.current = null;
-                  }}
-                  className={`px-3 py-2.5 transition-all cursor-pointer rounded-sm min-w-0 ${
-                    selectedProject?.token === project.token 
-                      ? 'bg-stone-100 border-l-2 border-brass' 
+                  onClick={() => selectProject(project)}
+                  className={`px-2.5 py-2 transition-all cursor-pointer rounded-sm min-w-0 flex items-center justify-between gap-2 ${
+                    selectedProject?.token === project.token
+                      ? 'bg-stone-100 border-l-2 border-brass'
                       : 'hover:bg-stone-50 border-l-2 border-transparent'
                   }`}
                 >
-                  <div className="flex justify-between items-start gap-2 min-w-0">
-                    <h3 className="font-serif text-sm text-ebony truncate min-w-0">{project.clientLabel}</h3>
-                    <button 
-                      onClick={(e) => copyToken(project.token, e)} 
-                      className="text-stone-300 hover:text-brass transition-colors shrink-0 p-1"
+                  <div className="min-w-0">
+                    <div className="text-xs font-bold text-ebony truncate">{project.clientLabel}</div>
+                    <div className="text-[9px] text-stone-400 tracking-wider">{project.token}</div>
+                  </div>
+                  <div className="flex items-center gap-1 shrink-0">
+                    {project.depositPaid && project.finalPaid ? (
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" title="Fully paid"></span>
+                    ) : project.depositPaid ? (
+                      <span className="w-1.5 h-1.5 rounded-full bg-amber-400" title="Deposit paid"></span>
+                    ) : null}
+                    <button
+                      onClick={(e) => copyToken(project.token, e)}
+                      className="text-stone-300 hover:text-brass transition-colors p-0.5"
                     >
-                      <Copy size={12} />
+                      <Copy size={10} />
                     </button>
                   </div>
-                  <p className="text-[9px] font-bold tracking-widest text-stone-400 uppercase">{project.token}</p>
                 </div>
               ))}
             </div>
@@ -271,262 +251,208 @@ export default function AdminProjectsView({ projects, onUpdate }: AdminProjectsV
         </div>
       </div>
 
-      {/* Right Section - Project Details */}
+      {/* Right Section */}
       <div className="lg:col-span-2 min-w-0">
         {isCreatingProject ? (
-          <div className="p-4 sm:p-6 min-w-0">
-            <h2 className="text-[10px] font-black tracking-[0.2em] uppercase text-brass mb-4">Create New Project</h2>
-            <AdminCreateProject 
+          <div className="p-3 min-w-0">
+            <AdminCreateProject
               isOpen={true}
               onClose={() => setIsCreatingProject(false)}
               onProjectCreated={() => {
                 setIsCreatingProject(false);
                 onUpdate();
-              }} 
+              }}
             />
           </div>
         ) : selectedProject ? (
-          <div className="min-w-0 overflow-hidden">
-            <div className="p-4 sm:p-6 min-w-0">
-              <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-4 mb-6 pb-4 border-b border-stone-100 min-w-0">
-                <div className="flex-1 min-w-0">
-                  {isEditingTitle ? (
-                    <form onSubmit={handleSaveTitle} className="space-y-4">
-                      <input
-                        type="text"
-                        value={editTitle}
-                        onChange={(e) => setEditTitle(e.target.value)}
-                        className="text-3xl font-serif text-ebony mb-2 w-full border-b-2 border-stone-300 focus:border-brass focus:outline-none bg-transparent pb-2"
-                        placeholder="Project Title"
-                        required
-                      />
-                      <div className="flex gap-3">
-                        <button
-                          type="submit"
-                          className="px-6 py-2 bg-brass text-ebony hover:bg-ebony hover:text-white transition-all text-[11px] font-black uppercase tracking-widest shadow-sm"
-                        >
-                          Save Title
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setIsEditingTitle(false);
-                            setEditTitle(selectedProject.clientLabel);
-                          }}
-                          className="px-6 py-2 bg-stone-100 text-stone-600 hover:bg-stone-200 transition-all text-[11px] font-black uppercase tracking-widest"
-                        >
-                          Cancel
-                        </button>
-                      </div>
-                    </form>
-                  ) : (
-                    <div className="flex items-start gap-2">
-                      <h2 className="text-3xl font-serif text-ebony mb-2">{selectedProject.clientLabel}</h2>
-                      <button
-                        onClick={() => setIsEditingTitle(true)}
-                        className="text-[9px] font-black uppercase tracking-widest text-brass hover:text-ebony mt-2"
-                      >
-                        Edit
-                      </button>
-                    </div>
-                  )}
-                  <button
-                    onClick={() => copyProjectToken(selectedProject.token)}
-                    className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm text-[10px] font-bold tracking-widest text-brass uppercase hover:text-ebony hover:bg-brass/10 border border-transparent hover:border-brass/30 transition-all cursor-pointer relative group"
-                    title="Click to copy token"
-                  >
-                    <span>Project Token: {selectedProject.token}</span>
-                    <Copy 
-                      size={12} 
-                      className="opacity-0 group-hover:opacity-100 transition-opacity text-brass" 
+          <div className="min-w-0 overflow-hidden p-3">
+            {/* Header: Title + Token + PIN */}
+            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3 pb-3 border-b border-stone-100">
+              <div className="flex-1 min-w-0">
+                {isEditingTitle ? (
+                  <form onSubmit={handleSaveTitle} className="flex items-center gap-2">
+                    <input
+                      type="text"
+                      value={editTitle}
+                      onChange={(e) => setEditTitle(e.target.value)}
+                      className="text-sm font-bold text-ebony flex-1 border-b border-stone-300 focus:border-brass focus:outline-none bg-transparent pb-0.5"
+                      placeholder="Project Title"
+                      required
+                      autoFocus
                     />
-                    {tokenCopied && (
-                      <span className="absolute left-0 top-full mt-2 px-2 py-1 bg-brass text-ebony text-[9px] font-black uppercase tracking-widest whitespace-nowrap rounded-sm shadow-sm z-10">
-                        Copied!
-                      </span>
-                    )}
-                  </button>
-                </div>
-                <div className="text-left md:text-right shrink-0 min-w-0">
-                  {isEditingPIN ? (
-                    <form onSubmit={handleSavePIN} className="flex items-end gap-2">
-                      <div>
-                        <label className="text-[10px] font-bold tracking-widest text-stone-400 uppercase mb-1 block">Payment PIN</label>
-                        <input
-                          type="text"
-                          value={paymentPIN}
-                          onChange={(e) => setPaymentPIN(e.target.value)}
-                          placeholder="1234"
-                          className="text-xl font-serif tracking-[0.2em] border-b border-stone-200 focus:border-brass focus:outline-none w-24 text-center"
-                          maxLength={10}
-                        />
-                      </div>
-                      <div className="flex gap-1">
-                        <button
-                          type="submit"
-                          className="text-[10px] font-black uppercase tracking-widest text-brass hover:text-ebony"
-                        >
-                          Save
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setIsEditingPIN(false);
-                            setPaymentPIN(selectedProject.paymentCode || '');
-                          }}
-                          className="text-[10px] font-black uppercase tracking-widest text-stone-400 hover:text-ebony"
-                        >
-                          Cancel
-                        </button>
-                      </div>
-                    </form>
-                  ) : (
-                    <div>
-                      <div className="text-[10px] font-bold tracking-widest text-stone-400 uppercase mb-1">Payment PIN</div>
-                      <div className="flex items-center gap-2">
-                        <div className="text-xl font-serif tracking-[0.2em]">
-                          {selectedProject.paymentCode || 'Not set'}
-                        </div>
-                        <button
-                          onClick={() => setIsEditingPIN(true)}
-                          className="text-[9px] font-black uppercase tracking-widest text-brass hover:text-ebony"
-                        >
-                          Edit
-                        </button>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              <div className="mb-6 pb-6 border-b border-stone-100 space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-stone-400 block">Deposit</label>
-                    <label className="flex items-center gap-2 cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={selectedProject.depositPaid}
-                        onChange={() => handlePaymentToggle(selectedProject.token, 'depositPaid')}
-                        className="w-4 h-4 text-brass border-stone-300 focus:ring-brass rounded"
-                      />
-                      <span className="text-sm font-serif text-ebony">
-                        {selectedProject.depositPaid ? 'Paid' : 'Unpaid'}
-                      </span>
-                    </label>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-stone-400 block">Final Payment</label>
-                    <label className="flex items-center gap-2 cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={selectedProject.finalPaid}
-                        onChange={() => handlePaymentToggle(selectedProject.token, 'finalPaid')}
-                        className="w-4 h-4 text-brass border-stone-300 focus:ring-brass rounded"
-                      />
-                      <span className="text-sm font-serif text-ebony">
-                        {selectedProject.finalPaid ? 'Paid' : 'Unpaid'}
-                      </span>
-                    </label>
-                  </div>
-                </div>
-
-                {/* Completion / Move to Past Projects */}
-                <div className="rounded-sm border border-brass/25 bg-brass/5 px-4 py-3 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-                  <div className="space-y-0.5">
-                    <div className="text-[9px] font-black uppercase tracking-[0.28em] text-brass">Move to Past Projects</div>
-                    <div className="text-[12px] text-stone-600">
-                      Marks this project complete.
-                    </div>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => handleCompletionToggle(selectedProject.token)}
-                    disabled={!!selectedProject.isCompleted}
-                    className="px-4 py-2 bg-ebony text-white hover:bg-brass transition-all text-[10px] font-black uppercase tracking-widest shadow-sm disabled:opacity-60 disabled:cursor-not-allowed"
-                  >
-                    {selectedProject.isCompleted ? 'Moved' : 'Move'}
-                  </button>
-                </div>
-              </div>
-
-              <div className="mb-6 pb-6 border-b border-stone-100">
-                <div className="flex items-center justify-between mb-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-stone-400">Project Description</label>
-                  {!isEditingDescription && (
-                    <button
-                      onClick={() => setIsEditingDescription(true)}
-                      className="text-[9px] font-black uppercase tracking-widest text-brass hover:text-ebony"
-                    >
-                      {selectedProject.description ? 'Edit' : 'Add'}
-                    </button>
-                  )}
-                </div>
-                {isEditingDescription ? (
-                  <form onSubmit={handleSaveDescription} className="space-y-4">
-                    <textarea
-                      value={editDescription}
-                      onChange={(e) => setEditDescription(e.target.value)}
-                      className="w-full text-stone-600 font-serif italic text-lg border-2 border-stone-300 focus:border-brass focus:outline-none p-4 bg-stone-50 min-h-[120px] resize-y rounded-sm"
-                      placeholder="Add a project description..."
-                    />
-                    <div className="flex gap-3">
-                      <button
-                        type="submit"
-                        className="px-6 py-2 bg-brass text-ebony hover:bg-ebony hover:text-white transition-all text-[11px] font-black uppercase tracking-widest shadow-sm"
-                      >
-                        Save Description
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setIsEditingDescription(false);
-                          setEditDescription(selectedProject.description || '');
-                        }}
-                        className="px-6 py-2 bg-stone-100 text-stone-600 hover:bg-stone-200 transition-all text-[11px] font-black uppercase tracking-widest"
-                      >
-                        Cancel
-                      </button>
-                    </div>
+                    <button type="submit" className="text-[8px] font-black uppercase tracking-widest text-brass hover:text-ebony">Save</button>
+                    <button type="button" onClick={() => { setIsEditingTitle(false); setEditTitle(selectedProject.clientLabel); }} className="text-[8px] font-black uppercase tracking-widest text-stone-400 hover:text-ebony">Cancel</button>
                   </form>
                 ) : (
-                  <p className="text-stone-600 font-serif italic text-lg">
-                    {selectedProject.description || <span className="text-stone-400">No description added yet.</span>}
-                  </p>
+                  <div className="flex items-center gap-1.5">
+                    <h2 className="text-sm font-bold text-ebony">{selectedProject.clientLabel}</h2>
+                    <button onClick={() => setIsEditingTitle(true)} className="text-[8px] font-black uppercase tracking-widest text-stone-400 hover:text-brass">Edit</button>
+                  </div>
                 )}
+                <button
+                  onClick={() => copyProjectToken(selectedProject.token)}
+                  className="inline-flex items-center gap-1 mt-0.5 text-[9px] tracking-wider text-stone-400 hover:text-brass transition-colors group"
+                  title="Click to copy token"
+                >
+                  <span>{selectedProject.token}</span>
+                  <Copy size={9} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                  {tokenCopied && <span className="text-brass font-bold">Copied!</span>}
+                </button>
               </div>
 
-              {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4 border-t border-stone-100 mt-6">
+              <div className="shrink-0">
+                {isEditingPIN ? (
+                  <form onSubmit={handleSavePIN} className="flex items-center gap-1.5">
+                    <span className="text-[9px] text-stone-400 uppercase tracking-wider">PIN</span>
+                    <input
+                      type="text"
+                      value={paymentPIN}
+                      onChange={(e) => setPaymentPIN(e.target.value)}
+                      placeholder="1234"
+                      className="text-xs font-bold tracking-widest border-b border-stone-200 focus:border-brass focus:outline-none w-12 text-center"
+                      maxLength={10}
+                      autoFocus
+                    />
+                    <button type="submit" className="text-[8px] font-black uppercase tracking-widest text-brass hover:text-ebony">Save</button>
+                    <button type="button" onClick={() => { setIsEditingPIN(false); setPaymentPIN(selectedProject.paymentCode || ''); }} className="text-[8px] font-black uppercase tracking-widest text-stone-400 hover:text-ebony">Cancel</button>
+                  </form>
+                ) : (
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[9px] text-stone-400 uppercase tracking-wider">PIN</span>
+                    <span className="text-xs font-bold tracking-widest">{selectedProject.paymentCode || '—'}</span>
+                    <button onClick={() => setIsEditingPIN(true)} className="text-[8px] font-black uppercase tracking-widest text-stone-400 hover:text-brass">Edit</button>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Payment Status + Actions */}
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mb-3 pb-3 border-b border-stone-100">
+              <label className="flex items-center gap-1.5 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={selectedProject.depositPaid}
+                  onChange={() => handlePaymentToggle(selectedProject.token, 'depositPaid')}
+                  className="w-3 h-3 text-brass border-stone-300 focus:ring-brass rounded"
+                />
+                <span className={`text-[10px] font-bold uppercase tracking-wider ${selectedProject.depositPaid ? 'text-emerald-600' : 'text-stone-400'}`}>
+                  Deposit {selectedProject.depositPaid ? 'Paid' : 'Unpaid'}
+                </span>
+              </label>
+              <label className="flex items-center gap-1.5 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={selectedProject.finalPaid}
+                  onChange={() => handlePaymentToggle(selectedProject.token, 'finalPaid')}
+                  className="w-3 h-3 text-brass border-stone-300 focus:ring-brass rounded"
+                />
+                <span className={`text-[10px] font-bold uppercase tracking-wider ${selectedProject.finalPaid ? 'text-emerald-600' : 'text-stone-400'}`}>
+                  Final {selectedProject.finalPaid ? 'Paid' : 'Unpaid'}
+                </span>
+              </label>
+
+              <div className="ml-auto flex items-center gap-2">
                 <button
                   onClick={() => copyLink(selectedProject.token)}
-                  className="flex-1 px-6 py-3 min-h-[44px] bg-stone-100 text-ebony text-[11px] font-black uppercase tracking-widest hover:bg-stone-200 transition-all"
+                  className="text-[9px] font-black uppercase tracking-widest text-stone-400 hover:text-ebony transition-colors"
                 >
-                  Copy Project Link
+                  {linkCopied ? 'Copied!' : 'Copy Link'}
                 </button>
                 <button
                   onClick={() => router.push(`/client/p/${selectedProject.token}`)}
-                  className="flex-1 px-6 py-3 min-h-[44px] bg-ebony text-white text-[11px] font-black uppercase tracking-widest hover:bg-brass transition-all shadow-xl"
+                  className="text-[9px] font-black uppercase tracking-widest px-2.5 py-1 bg-ebony text-white hover:bg-brass transition-all rounded-sm"
                 >
-                  View Client View
+                  View Client Page
                 </button>
               </div>
             </div>
+
+            {/* Project Type */}
+            <div className="mb-3 pb-3 border-b border-stone-100">
+              <span className="text-[9px] font-black uppercase tracking-widest text-stone-400 mr-3">Type</span>
+              <div className="inline-flex flex-wrap gap-1 mt-1">
+                {['Island', 'Counter Top', 'Mantel', 'Table', 'Charcuterie Board', 'Other'].map((t) => {
+                  const active = editProjectType.includes(t);
+                  return (
+                    <button
+                      key={t}
+                      type="button"
+                      onClick={() => {
+                        const next = active ? editProjectType.filter(v => v !== t) : [...editProjectType, t];
+                        handleSaveProjectType(next);
+                      }}
+                      className={`text-[8px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full border transition-all ${
+                        active
+                          ? 'border-brass bg-brass/15 text-brass'
+                          : 'border-stone-200 text-stone-400 hover:border-stone-300'
+                      }`}
+                    >
+                      {t}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Description */}
+            <div className="mb-3 pb-3 border-b border-stone-100">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-[9px] font-black uppercase tracking-widest text-stone-400">Description</span>
+                {!isEditingDescription && (
+                  <button onClick={() => setIsEditingDescription(true)} className="text-[8px] font-black uppercase tracking-widest text-stone-400 hover:text-brass">
+                    {selectedProject.description ? 'Edit' : 'Add'}
+                  </button>
+                )}
+              </div>
+              {isEditingDescription ? (
+                <form onSubmit={handleSaveDescription} className="space-y-2">
+                  <textarea
+                    value={editDescription}
+                    onChange={(e) => setEditDescription(e.target.value)}
+                    className="w-full text-xs text-stone-600 border-0 border-b border-stone-200 focus:border-brass focus:outline-none bg-transparent min-h-[60px] resize-y"
+                    placeholder="Add a project description..."
+                    autoFocus
+                  />
+                  <div className="flex gap-2">
+                    <button type="submit" className="text-[9px] font-black uppercase tracking-widest px-3 py-1 bg-brass text-white hover:bg-ebony transition-all">Save</button>
+                    <button type="button" onClick={() => { setIsEditingDescription(false); setEditDescription(selectedProject.description || ''); }} className="text-[9px] font-black uppercase tracking-widest text-stone-400 hover:text-ebony">Cancel</button>
+                  </div>
+                </form>
+              ) : (
+                <p className="text-xs text-stone-500 font-serif italic leading-relaxed">
+                  {selectedProject.description || <span className="text-stone-300">No description.</span>}
+                </p>
+              )}
+            </div>
+
+            {/* Move to Past Projects */}
+            <div className="flex items-center justify-between gap-3 bg-stone-50 rounded-sm px-3 py-2">
+              <div>
+                <span className="text-[9px] font-black uppercase tracking-[0.2em] text-stone-500">Move to Past Projects</span>
+                <span className="text-[10px] text-stone-400 ml-2">Marks this project complete</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => handleCompletionToggle(selectedProject.token)}
+                disabled={!!selectedProject.isCompleted}
+                className="text-[9px] font-black uppercase tracking-widest px-3 py-1 bg-ebony text-white hover:bg-brass transition-all rounded-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {selectedProject.isCompleted ? 'Moved' : 'Complete'}
+              </button>
+            </div>
           </div>
         ) : (
-          <div className="h-full flex flex-col items-center justify-center p-8 sm:p-16 text-center min-w-0">
-            <h3 className="text-lg font-serif text-stone-300">Select a Project</h3>
-            <p className="text-stone-400 font-serif italic mt-2 mb-6 text-sm">Choose from the list or create a new one.</p>
+          <div className="h-full flex flex-col items-center justify-center p-8 text-center min-w-0">
+            <p className="text-stone-300 font-serif italic text-sm mb-3">Select a project or create a new one.</p>
             <button
               onClick={() => setIsCreatingProject(true)}
-              className="px-4 py-2 bg-brass text-white hover:bg-ebony transition-all text-[10px] font-black uppercase tracking-widest"
+              className="text-[9px] font-black uppercase tracking-widest px-3 py-1.5 bg-brass text-white hover:bg-ebony transition-all rounded-sm"
             >
               Create New Project
             </button>
           </div>
         )}
       </div>
-
     </div>
   );
 }

@@ -231,93 +231,78 @@ export default function AdminMedia() {
   }
 
   return (
-    <div className="space-y-5 min-w-0">
-      <div className="space-y-3 min-w-0">
+    <div className="space-y-4 min-w-0">
+      <div className="space-y-2 min-w-0">
         <h2 className="text-[10px] font-black tracking-[0.2em] uppercase text-brass">Upload Media</h2>
-        <div>
-          <label className="block text-sm font-normal text-site-gray mb-2 uppercase tracking-wide">
-            Select Images (Max 10MB each)
-          </label>
+        <div className="flex items-center gap-3">
           <input
             type="file"
             multiple
             accept="image/jpeg,image/jpg,image/png,image/gif,image/webp,image/svg+xml"
             onChange={handleFileUpload}
             disabled={uploading}
-            className="w-full px-4 py-2 border-0 border-b border-gray-300 bg-white focus:outline-none focus:border-site-gold transition-colors"
+            className="text-xs file:mr-2 file:py-1 file:px-3 file:border-0 file:text-[9px] file:font-black file:uppercase file:tracking-wider file:bg-stone-100 file:text-ebony file:cursor-pointer hover:file:bg-brass hover:file:text-white file:transition-all"
           />
-          <p className="mt-2 text-xs text-site-gray-light">
-            Supported formats: JPEG, PNG, GIF, WebP, SVG
-          </p>
+          <span className="text-[9px] text-stone-400 shrink-0">Max 10MB · JPEG, PNG, GIF, WebP, SVG</span>
+        </div>
           {uploading && (
-            <div className="mt-4">
-              <p className="text-sm text-site-gray-light mb-2">Uploading...</p>
-              <div className="w-full bg-gray-200 rounded-full h-2">
-                <div className="bg-brass h-2 rounded-full animate-pulse" style={{ width: '50%' }}></div>
+            <div className="mt-2">
+              <div className="w-full bg-gray-200 h-1 rounded-full">
+                <div className="bg-brass h-1 rounded-full animate-pulse" style={{ width: '50%' }}></div>
               </div>
             </div>
           )}
           {error && (
-            <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-sm">
-              <p className="text-sm text-red-700 whitespace-pre-wrap">{error}</p>
-              <button
-                onClick={() => setError(null)}
-                className="mt-2 text-xs text-red-600 hover:text-red-800"
-              >
-                Dismiss
-              </button>
+            <div className="mt-2 p-2 bg-red-50 rounded-sm flex items-start gap-2">
+              <p className="text-xs text-red-700 whitespace-pre-wrap flex-1">{error}</p>
+              <button onClick={() => setError(null)} className="text-[9px] text-red-500 hover:text-red-700 shrink-0">✕</button>
+            </div>
+          )}
+      </div>
+
+      <div className="space-y-3 min-w-0 border-t border-stone-100 pt-3">
+        <div className="flex items-center gap-3 min-w-0">
+          <h2 className="text-[10px] font-black tracking-[0.2em] uppercase text-brass">Media Library</h2>
+          <span className="text-[10px] text-stone-400">
+            {filteredMediaItems.length}
+            {searchQuery && filteredMediaItems.length !== mediaItems.length && ` of ${mediaItems.length}`}
+          </span>
+          {mediaItems.length > 0 && (
+            <div className="flex-1 max-w-xs ml-auto relative">
+              <input
+                type="text"
+                placeholder="Search..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full px-3 py-1 text-xs border-0 border-b border-stone-200 bg-transparent focus:outline-none focus:border-brass placeholder:text-stone-400"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-1 top-1/2 -translate-y-1/2 text-stone-400 hover:text-ebony text-xs"
+                >
+                  ✕
+                </button>
+              )}
             </div>
           )}
         </div>
-      </div>
-
-      <div className="space-y-4 min-w-0 border-t border-stone-100 pt-4">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 min-w-0">
-          <h2 className="text-[10px] font-black tracking-[0.2em] uppercase text-brass">Media Library</h2>
-          <span className="text-sm text-site-gray-light">
-            {filteredMediaItems.length} {filteredMediaItems.length === 1 ? 'item' : 'items'}
-            {searchQuery && filteredMediaItems.length !== mediaItems.length && (
-              <span className="ml-2">of {mediaItems.length}</span>
-            )}
-          </span>
-        </div>
-
-        {mediaItems.length > 0 && (
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Search media by name..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-4 py-2 border-0 border-b border-gray-300 bg-white focus:outline-none focus:border-site-gold transition-colors placeholder:text-site-gray-light"
-            />
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery('')}
-                className="absolute right-2 top-1/2 -translate-y-1/2 text-site-gray-light hover:text-black transition-colors text-sm"
-                aria-label="Clear search"
-              >
-                ✕
-              </button>
-            )}
-          </div>
-        )}
 
         {mediaItems.length === 0 ? (
-          <div className="py-12 text-center border-2 border-dashed border-stone-200 rounded-sm">
-            <p className="text-stone-300 font-serif italic">No media uploaded yet.</p>
+          <div className="py-8 text-center">
+            <p className="text-stone-300 font-serif italic text-sm">No media uploaded yet.</p>
           </div>
         ) : filteredMediaItems.length === 0 ? (
-          <div className="py-12 text-center border-2 border-dashed border-stone-200 rounded-sm">
-            <p className="text-stone-300 font-serif italic">
-              No media found matching "{searchQuery}".
+          <div className="py-8 text-center">
+            <p className="text-stone-300 font-serif italic text-sm">
+              No media found matching &ldquo;{searchQuery}&rdquo;.
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 min-w-0 max-w-full">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 min-w-0 max-w-full">
             {filteredMediaItems.map((item) => (
-              <div key={item.id} className="bg-stone-50 rounded-sm p-2 space-y-2 relative group min-w-0">
-                <div className="aspect-video bg-gray-100 flex items-center justify-center overflow-hidden rounded-sm">
+              <div key={item.id} className="bg-stone-50 rounded-sm overflow-hidden relative group min-w-0">
+                <div className="aspect-[4/3] bg-gray-100 overflow-hidden">
                   <img
                     src={item.url}
                     alt={item.name}
@@ -325,43 +310,34 @@ export default function AdminMedia() {
                     loading="lazy"
                   />
                 </div>
-                <div className="space-y-1">
-                  <p className="text-sm font-normal text-black truncate" title={item.name}>
+                <div className="px-2 py-1.5">
+                  <p className="text-[10px] text-stone-700 truncate" title={item.name}>
                     {item.name}
                   </p>
-                  <div className="flex items-center justify-between text-xs text-site-gray-light">
+                  <div className="flex items-center gap-1.5 text-[9px] text-stone-400">
                     <span>{formatDate(item.uploadedAt)}</span>
-                    {item.size && (
-                      <span>{formatFileSize(item.size)}</span>
-                    )}
+                    {item.size && <span>· {formatFileSize(item.size)}</span>}
                   </div>
-                  {item.width && item.height && (
-                    <p className="text-xs text-site-gray-light">
-                      {item.width} × {item.height}px
-                    </p>
-                  )}
                 </div>
-                <div className="flex gap-2 pt-2 border-t border-gray-200">
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100">
                   <button
                     onClick={(e) => {
+                      e.stopPropagation();
                       navigator.clipboard.writeText(item.url);
-                      // Show brief feedback
-                      const button = e.currentTarget;
-                      const originalText = button.textContent;
-                      if (originalText) {
-                        button.textContent = 'Copied!';
-                        setTimeout(() => {
-                          button.textContent = originalText;
-                        }, 2000);
-                      }
+                      const btn = e.currentTarget;
+                      btn.textContent = '✓';
+                      setTimeout(() => { btn.textContent = 'Copy'; }, 1500);
                     }}
-                    className="flex-1 px-3 py-3 min-h-[44px] bg-gray-200 text-site-gray hover:bg-site-gold hover:text-black transition-colors text-xs font-normal uppercase"
+                    className="px-2.5 py-1 bg-white text-ebony text-[9px] font-black uppercase tracking-wider hover:bg-brass hover:text-white transition-all rounded-sm"
                   >
-                    Copy URL
+                    Copy
                   </button>
                   <button
-                    onClick={() => setDeleteConfirm({ id: item.id, fileId: item.fileId, name: item.name })}
-                    className="flex-1 px-3 py-3 min-h-[44px] bg-gray-200 text-site-gray hover:bg-red-100 hover:text-red-700 transition-colors text-xs font-normal uppercase"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setDeleteConfirm({ id: item.id, fileId: item.fileId, name: item.name });
+                    }}
+                    className="px-2.5 py-1 bg-white text-red-600 text-[9px] font-black uppercase tracking-wider hover:bg-red-500 hover:text-white transition-all rounded-sm"
                   >
                     Delete
                   </button>

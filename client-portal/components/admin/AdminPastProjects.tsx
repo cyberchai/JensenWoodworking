@@ -24,7 +24,7 @@ export default function AdminPastProjects() {
   const [isCreating, setIsCreating] = useState(false);
   const [editTitle, setEditTitle] = useState('');
   const [editDescription, setEditDescription] = useState('');
-  const [editProjectType, setEditProjectType] = useState('');
+  const [editProjectType, setEditProjectType] = useState<string[]>([]);
   const [selectedImages, setSelectedImages] = useState<PastProjectImage[]>([]);
   const [isFeaturedOnHomePage, setIsFeaturedOnHomePage] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState<{ id: string; title: string } | null>(null);
@@ -71,7 +71,7 @@ export default function AdminPastProjects() {
     setEditingProject(null);
     setEditTitle('');
     setEditDescription('');
-    setEditProjectType('');
+    setEditProjectType([]);
     setSelectedImages([]);
     setIsFeaturedOnHomePage(false);
     setShowImageSelector(false);
@@ -82,7 +82,7 @@ export default function AdminPastProjects() {
     setIsCreating(false);
     setEditTitle(project.title);
     setEditDescription(project.description || '');
-    setEditProjectType(project.projectType || '');
+    setEditProjectType(project.projectType || []);
     setSelectedImages([...project.selectedImages]);
     setIsFeaturedOnHomePage(project.isFeaturedOnHomePage || false);
     setShowImageSelector(false);
@@ -93,7 +93,7 @@ export default function AdminPastProjects() {
     setIsCreating(false);
     setEditTitle('');
     setEditDescription('');
-    setEditProjectType('');
+    setEditProjectType([]);
     setSelectedImages([]);
     setIsFeaturedOnHomePage(false);
     setShowImageSelector(false);
@@ -108,7 +108,7 @@ export default function AdminPastProjects() {
         projectToken: `manual_${Date.now()}`,
         title: editTitle.trim(),
         description: editDescription.trim() || undefined,
-        projectType: editProjectType || undefined,
+        projectType: editProjectType.length > 0 ? editProjectType : undefined,
         selectedImages,
         isFeaturedOnHomePage,
       });
@@ -116,7 +116,7 @@ export default function AdminPastProjects() {
       await store.updatePastProject(editingProject.id, {
         title: editTitle.trim(),
         description: editDescription.trim() || undefined,
-        projectType: editProjectType || undefined,
+        projectType: editProjectType.length > 0 ? editProjectType : undefined,
         selectedImages,
         isFeaturedOnHomePage,
       });
@@ -230,19 +230,25 @@ export default function AdminPastProjects() {
               <label className="block text-sm font-normal text-site-gray mb-2 uppercase tracking-wide">
                 Project Type
               </label>
-              <select
-                value={editProjectType}
-                onChange={(e) => setEditProjectType(e.target.value)}
-                className="w-full px-4 py-2 border-0 border-b border-gray-300 bg-white focus:outline-none focus:border-site-gold transition-colors"
-              >
-                <option value="">— Select Type —</option>
-                <option value="Island">Island</option>
-                <option value="Counter Top">Counter Top</option>
-                <option value="Mantel">Mantel</option>
-                <option value="Table">Table</option>
-                <option value="Charcuterie Board">Charcuterie Board</option>
-                <option value="Other">Other</option>
-              </select>
+              <div className="flex flex-wrap gap-1.5">
+                {['Island', 'Counter Top', 'Mantel', 'Table', 'Charcuterie Board', 'Other'].map((t) => {
+                  const active = editProjectType.includes(t);
+                  return (
+                    <button
+                      key={t}
+                      type="button"
+                      onClick={() => setEditProjectType(active ? editProjectType.filter(v => v !== t) : [...editProjectType, t])}
+                      className={`text-[9px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full border transition-all ${
+                        active
+                          ? 'border-brass bg-brass/15 text-brass'
+                          : 'border-stone-200 text-stone-400 hover:border-stone-300'
+                      }`}
+                    >
+                      {t}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
             <div>
@@ -444,8 +450,8 @@ export default function AdminPastProjects() {
                   <div className="px-3 py-2.5">
                     <h3 className="text-sm font-serif text-ebony leading-snug mb-0.5 group-hover:text-brass transition-colors">{project.title}</h3>
                     <div className="flex items-center gap-2 text-[9px] font-bold uppercase tracking-wider text-stone-400">
-                      {project.projectType && <span className="text-brass">{project.projectType}</span>}
-                      {project.projectType && <span>·</span>}
+                      {project.projectType && project.projectType.length > 0 && <span className="text-brass">{project.projectType.join(' · ')}</span>}
+                      {project.projectType && project.projectType.length > 0 && <span>·</span>}
                       <span>{formatDate(project.completedAt)}</span>
                     </div>
                   </div>

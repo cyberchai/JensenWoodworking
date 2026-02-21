@@ -24,47 +24,37 @@ export default function AdminFeedbackList({ feedback, onUpdate }: AdminFeedbackL
   const testimonials = feedback.filter(f => f.isTestimonial);
 
   return (
-    <div className="space-y-8">
-      <div className="space-y-4">
-        <div className="flex items-center justify-between">
+    <div className="space-y-5">
+      <div className="space-y-2">
+        <div className="flex items-center gap-3">
           <h2 className="text-[10px] font-black tracking-[0.2em] uppercase text-brass">Testimonials</h2>
-          <span className="text-sm text-site-gray-light">
-            {testimonials.length} {testimonials.length === 1 ? 'testimonial' : 'testimonials'} displayed
-          </span>
+          <span className="text-[10px] text-stone-400">{testimonials.length}</span>
         </div>
-        
+
         {testimonials.length === 0 ? (
-          <p className="text-site-gray-light text-sm">No testimonials currently displayed.</p>
+          <p className="text-stone-400 text-xs py-4">No testimonials currently displayed.</p>
         ) : (
-          <div className="space-y-4">
+          <div className="space-y-1 min-w-0">
             {testimonials.map((item) => (
-              <div key={item.id} className="bg-stone-50 rounded-sm p-3 space-y-2">
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                      {item.clientName && (
-                        <span className="text-sm font-normal text-site-gray">
-                          {item.clientName}
-                        </span>
-                      )}
-                    </div>
-                    <p className="text-sm text-site-gray-light leading-relaxed mb-2">
-                      "{item.comment}"
-                    </p>
-                  </div>
+              <div key={item.id} className="flex items-start gap-3 p-2.5 bg-stone-50 rounded-sm group min-w-0">
+                <div className="flex-1 min-w-0">
+                  <span className="text-xs font-bold text-ebony">{item.clientName || 'Anonymous'}</span>
+                  <p className="text-xs text-stone-500 leading-relaxed line-clamp-2 mt-0.5">
+                    &ldquo;{item.comment}&rdquo;
+                  </p>
                 </div>
-                <div className="flex gap-2 pt-2 border-t border-gray-200">
+                <div className="flex items-center gap-1.5 shrink-0 pt-0.5">
                   <button
                     onClick={() => toggleTestimonial(item.id, true)}
-                    className="px-4 py-2 bg-site-gold text-black hover:bg-black hover:text-white transition-colors text-sm font-normal uppercase"
+                    className="text-[8px] font-black uppercase tracking-wider text-stone-400 hover:text-ebony transition-colors"
                   >
-                    Remove from Testimonials
+                    Remove
                   </button>
                   <button
                     onClick={() => deleteFeedback(item.id)}
-                    className="px-4 py-2 bg-gray-200 text-site-gray hover:bg-red-100 hover:text-red-700 transition-colors text-sm font-normal uppercase"
+                    className="text-[8px] font-black uppercase tracking-wider text-stone-300 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
                   >
-                    Delete
+                    ✕
                   </button>
                 </div>
               </div>
@@ -73,63 +63,54 @@ export default function AdminFeedbackList({ feedback, onUpdate }: AdminFeedbackL
         )}
       </div>
 
-      <div className="space-y-4 border-t border-stone-100 pt-4">
-        <h2 className="text-[10px] font-black tracking-[0.2em] uppercase text-brass">All Feedback</h2>
-        
+      <div className="space-y-2 border-t border-stone-100 pt-4">
+        <div className="flex items-center gap-3">
+          <h2 className="text-[10px] font-black tracking-[0.2em] uppercase text-brass">All Feedback</h2>
+          <span className="text-[10px] text-stone-400">{feedback.length}</span>
+        </div>
+
         {feedback.length === 0 ? (
-          <p className="text-site-gray-light text-sm">No feedback submitted yet.</p>
+          <p className="text-stone-400 text-xs py-4">No feedback submitted yet.</p>
         ) : (
-          <div className="space-y-4">
+          <div className="space-y-1 min-w-0">
             {feedback.map((item) => (
-              <div key={item.id} className="bg-stone-50 rounded-sm p-3 space-y-2">
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                      {item.clientName && (
-                        <span className="text-sm font-normal text-site-gray">
-                          {item.clientName}
-                        </span>
-                      )}
-                      {item.isTestimonial && (
-                        <span className="px-2 py-1 bg-site-gold text-black text-xs font-normal uppercase">
-                          Testimonial
-                        </span>
-                      )}
-                    </div>
-                    <p className="text-sm text-site-gray-light leading-relaxed mb-2">
-                      "{item.comment}"
-                    </p>
-                    <div className="flex items-center gap-4 text-xs text-site-gray-light">
-                      {item.allowTestimonial && (
-                        <span className="text-site-gold">✓ OK to use as testimonial</span>
-                      )}
-                    </div>
+              <div key={item.id} className="flex items-start gap-3 p-2.5 bg-stone-50 rounded-sm group min-w-0">
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-0.5">
+                    <span className="text-xs font-bold text-ebony">{item.clientName || 'Anonymous'}</span>
+                    {item.isTestimonial && (
+                      <span className="text-[8px] font-black uppercase tracking-wider text-brass bg-brass/10 px-1.5 py-0.5 rounded-full">Shown</span>
+                    )}
+                    {item.allowTestimonial && !item.isTestimonial && (
+                      <span className="text-[8px] text-brass">OK to feature</span>
+                    )}
                   </div>
+                  <p className="text-xs text-stone-500 leading-relaxed line-clamp-2">
+                    &ldquo;{item.comment}&rdquo;
+                  </p>
                 </div>
-                <div className="flex gap-2 pt-2 border-t border-gray-200">
+                <div className="flex items-center gap-1.5 shrink-0 pt-0.5">
                   {!item.isTestimonial && item.allowTestimonial && (
                     <button
-                      onClick={() => {
-                        toggleTestimonial(item.id, false);
-                      }}
-                      className="px-4 py-2 bg-site-gold text-black hover:bg-black hover:text-white transition-colors text-sm font-normal uppercase"
+                      onClick={() => toggleTestimonial(item.id, false)}
+                      className="text-[8px] font-black uppercase tracking-wider text-stone-400 hover:text-brass transition-colors"
                     >
-                      Add to Testimonials
+                      Feature
                     </button>
                   )}
                   {item.isTestimonial && (
                     <button
                       onClick={() => toggleTestimonial(item.id, true)}
-                      className="px-4 py-2 bg-gray-200 text-site-gray hover:bg-black hover:text-white transition-colors text-sm font-normal uppercase"
+                      className="text-[8px] font-black uppercase tracking-wider text-stone-400 hover:text-ebony transition-colors"
                     >
-                      Remove from Testimonials
+                      Hide
                     </button>
                   )}
                   <button
                     onClick={() => deleteFeedback(item.id)}
-                    className="px-4 py-2 bg-gray-200 text-site-gray hover:bg-red-100 hover:text-red-700 transition-colors text-sm font-normal uppercase"
+                    className="text-[8px] font-black uppercase tracking-wider text-stone-300 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
                   >
-                    Delete
+                    ✕
                   </button>
                 </div>
               </div>
@@ -140,4 +121,3 @@ export default function AdminFeedbackList({ feedback, onUpdate }: AdminFeedbackL
     </div>
   );
 }
-

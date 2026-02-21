@@ -54,6 +54,12 @@ const docToProject = (docSnap: QueryDocumentSnapshot<DocumentData>): Project => 
       }))
     : [];
   
+  // Normalize projectType: legacy string → array
+  let projectType: string[] | undefined;
+  if (data.projectType) {
+    projectType = Array.isArray(data.projectType) ? data.projectType : [data.projectType];
+  }
+
   // Always use secure handles - ignore any values stored in Firestore
   return {
     token: docSnap.id,
@@ -61,11 +67,12 @@ const docToProject = (docSnap: QueryDocumentSnapshot<DocumentData>): Project => 
     description: data.description,
     projectStartDate: data.projectStartDate ? timestampToNumber(data.projectStartDate) : undefined,
     paymentCode: data.paymentCode,
+    projectType,
     depositPaid: data.depositPaid || false,
     finalPaid: data.finalPaid || false,
     isCompleted: data.isCompleted || false,
-    venmoHandle: secureHandles.venmoHandle, // Enforce secure handle
-    paypalHandle: secureHandles.paypalHandle, // Enforce secure handle
+    venmoHandle: secureHandles.venmoHandle,
+    paypalHandle: secureHandles.paypalHandle,
     createdAt: timestampToNumber(data.createdAt),
     statusUpdates: statusUpdates.length > 0 ? statusUpdates : undefined,
   };
@@ -109,12 +116,17 @@ const docToContactRequest = (docSnap: QueryDocumentSnapshot<DocumentData>): Cont
 // Convert Firestore document to PastProject
 const docToPastProject = (docSnap: QueryDocumentSnapshot<DocumentData>): PastProject => {
   const data = docSnap.data();
+  // Normalize projectType: legacy string → array
+  let projectType: string[] | undefined;
+  if (data.projectType) {
+    projectType = Array.isArray(data.projectType) ? data.projectType : [data.projectType];
+  }
   return {
     id: docSnap.id,
     projectToken: data.projectToken,
     title: data.title,
     description: data.description,
-    projectType: data.projectType,
+    projectType,
     selectedImages: data.selectedImages || [],
     createdAt: timestampToNumber(data.createdAt),
     completedAt: timestampToNumber(data.completedAt),
@@ -204,6 +216,10 @@ export const firebaseStore = {
     if ((data as any).paymentCode && (data as any).paymentCode.trim()) {
       projectData.paymentCode = (data as any).paymentCode.trim();
     }
+
+    if (data.projectType && data.projectType.length > 0) {
+      projectData.projectType = data.projectType;
+    }
     
     const docRef = doc(db, PROJECTS_COLLECTION, token);
     await setDoc(docRef, projectData);
@@ -282,6 +298,13 @@ export const firebaseStore = {
       if (updates.depositPaid !== undefined) updateData.depositPaid = updates.depositPaid;
       if (updates.finalPaid !== undefined) updateData.finalPaid = updates.finalPaid;
       if (updates.isCompleted !== undefined) updateData.isCompleted = updates.isCompleted;
+      if (updates.projectType !== undefined) {
+        if (!updates.projectType || updates.projectType.length === 0) {
+          updateData.projectType = deleteField();
+        } else {
+          updateData.projectType = updates.projectType;
+        }
+      }
       
       // Prevent payment handles from being updated
       // If someone tries to update them, validate and reject
@@ -568,8 +591,8 @@ export const firebaseStore = {
     if (data.description && data.description.trim()) {
       pastProjectData.description = data.description.trim();
     }
-    if (data.projectType && data.projectType.trim()) {
-      pastProjectData.projectType = data.projectType.trim();
+    if (data.projectType && data.projectType.length > 0) {
+      pastProjectData.projectType = data.projectType;
     }
     
     const docRef = await addDoc(collection(db, PAST_PROJECTS_COLLECTION), pastProjectData);
@@ -596,10 +619,10 @@ export const firebaseStore = {
         }
       }
       if (updates.projectType !== undefined) {
-        if (updates.projectType === null || updates.projectType === undefined || (typeof updates.projectType === 'string' && updates.projectType.trim() === '')) {
+        if (!updates.projectType || updates.projectType.length === 0) {
           updateData.projectType = deleteField();
         } else {
-          updateData.projectType = typeof updates.projectType === 'string' ? updates.projectType.trim() : updates.projectType;
+          updateData.projectType = updates.projectType;
         }
       }
       if (updates.selectedImages !== undefined) updateData.selectedImages = updates.selectedImages;

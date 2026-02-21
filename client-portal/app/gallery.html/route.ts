@@ -35,8 +35,10 @@ function generateGalleryGridItem(project: PastProject): string {
   
   const title = escapeHtml(project.title);
   const description = escapeHtml(project.description || '');
-  const projectType = escapeHtml(project.projectType || 'Custom');
-  const location = projectType;
+  const types = project.projectType && project.projectType.length > 0 ? project.projectType : ['Custom'];
+  const projectTypeAttr = escapeHtml(types.join(','));
+  const displayType = escapeHtml(types[0]);
+  const location = displayType;
   let imageUrl = mainImage.url;
   if (!imageUrl.startsWith('http') && !imageUrl.startsWith('/')) {
     imageUrl = `/${imageUrl}`;
@@ -44,7 +46,7 @@ function generateGalleryGridItem(project: PastProject): string {
   
   return `
 					<!-- Gallery Block -->
-					<div class="gallery-grid-item" data-category="${location}" data-project-type="${projectType}" data-project-title="${title}" data-project-location="${location}" data-project-image="${imageUrl}" data-project-description="${description}" data-project-related-images='${relatedImagesJson}'>
+					<div class="gallery-grid-item" data-category="${location}" data-project-type="${projectTypeAttr}" data-project-title="${title}" data-project-location="${location}" data-project-image="${imageUrl}" data-project-description="${description}" data-project-related-images='${relatedImagesJson}'>
 						<div class="gallery-block">
 							<div class="inner-box">
 								<div class="image project-clickable">
@@ -53,7 +55,7 @@ function generateGalleryGridItem(project: PastProject): string {
 									<img src="${imageUrl}" alt="${title}" />
 									<div class="overlay-box">
 										<div class="content">
-											<div class="category">${location}</div>
+											<div class="category">${displayType}</div>
 											<h3><a href="javascript:void(0);" class="project-modal-trigger">${title}</a></h3>
 										</div>
 									</div>

@@ -85,55 +85,50 @@ export default function AdminAddFeedbackForm({ onFeedbackAdded }: AdminAddFeedba
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 p-4 bg-stone-50 rounded-sm">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-[11px] font-black uppercase tracking-[0.3em] text-ebony">Add Feedback</h3>
-        <button
-          type="button"
-          onClick={handleCancel}
-          className="text-stone-400 hover:text-ebony transition-colors"
-        >
-          <X size={18} />
+    <form onSubmit={handleSubmit} className="space-y-3 p-3 bg-stone-50 rounded-sm">
+      <div className="flex items-center justify-between">
+        <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-ebony">Add Feedback</h3>
+        <button type="button" onClick={handleCancel} className="text-stone-400 hover:text-ebony transition-colors">
+          <X size={14} />
         </button>
       </div>
 
       {error && (
-        <div className="bg-red-50 border border-red-200 p-4 rounded-sm">
-          <p className="text-sm text-red-700">{error}</p>
-        </div>
+        <p className="text-xs text-red-600 bg-red-50 px-2 py-1 rounded-sm">{error}</p>
       )}
 
-      <div>
-        <label htmlFor="clientName" className="block text-[11px] font-black uppercase tracking-widest text-ebony mb-2">
-          Client Name *
-        </label>
-        <input
-          id="clientName"
-          type="text"
-          value={clientName}
-          onChange={(e) => setClientName(e.target.value)}
-          required
-          className="w-full px-4 py-2 border-0 border-b border-stone-300 bg-white focus:outline-none focus:border-brass transition-colors"
-          placeholder="e.g., John & Jane Smith"
-        />
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label htmlFor="clientName" className="block text-[9px] font-black uppercase tracking-widest text-stone-500 mb-1">
+            Client Name *
+          </label>
+          <input
+            id="clientName"
+            type="text"
+            value={clientName}
+            onChange={(e) => setClientName(e.target.value)}
+            required
+            className="w-full px-3 py-1.5 text-sm border-0 border-b border-stone-300 bg-white focus:outline-none focus:border-brass"
+            placeholder="John & Jane Smith"
+          />
+        </div>
+        <div>
+          <label htmlFor="title" className="block text-[9px] font-black uppercase tracking-widest text-stone-500 mb-1">
+            Title
+          </label>
+          <input
+            id="title"
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="w-full px-3 py-1.5 text-sm border-0 border-b border-stone-300 bg-white focus:outline-none focus:border-brass"
+            placeholder="Optional title"
+          />
+        </div>
       </div>
 
       <div>
-        <label htmlFor="title" className="block text-[11px] font-black uppercase tracking-widest text-ebony mb-2">
-          Title
-        </label>
-        <input
-          id="title"
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="w-full px-4 py-2 border-0 border-b border-stone-300 bg-white focus:outline-none focus:border-brass transition-colors"
-          placeholder="Optional testimonial title/header"
-        />
-      </div>
-
-      <div>
-        <label htmlFor="comment" className="block text-[11px] font-black uppercase tracking-widest text-ebony mb-2">
+        <label htmlFor="comment" className="block text-[9px] font-black uppercase tracking-widest text-stone-500 mb-1">
           Comment *
         </label>
         <textarea
@@ -141,50 +136,35 @@ export default function AdminAddFeedbackForm({ onFeedbackAdded }: AdminAddFeedba
           value={comment}
           onChange={(e) => setComment(e.target.value)}
           required
-          rows={4}
-          className="w-full px-4 py-2 border-0 border-b border-stone-300 bg-white focus:outline-none focus:border-brass transition-colors resize-none"
-          placeholder="Enter the feedback comment..."
+          rows={3}
+          className="w-full px-3 py-1.5 text-sm border-0 border-b border-stone-300 bg-white focus:outline-none focus:border-brass resize-none"
+          placeholder="Feedback comment..."
         />
       </div>
 
-      <div className="space-y-3">
-        <label className="flex items-center gap-3 cursor-pointer">
-          <input
-            type="checkbox"
-            checked={allowTestimonial}
-            onChange={(e) => setAllowTestimonial(e.target.checked)}
-            className="w-4 h-4 text-brass border-stone-300 rounded focus:ring-brass focus:ring-2"
-          />
-          <span className="text-[11px] font-black uppercase tracking-widest text-ebony">
-            Allow use as testimonial
-          </span>
+      <div className="flex items-center gap-4">
+        <label className="flex items-center gap-2 cursor-pointer">
+          <input type="checkbox" checked={allowTestimonial} onChange={(e) => setAllowTestimonial(e.target.checked)} className="w-3 h-3 text-brass border-stone-300 rounded focus:ring-brass" />
+          <span className="text-[9px] font-black uppercase tracking-wider text-stone-600">Allow testimonial</span>
         </label>
-
-        <label className="flex items-center gap-3 cursor-pointer">
-          <input
-            type="checkbox"
-            checked={isTestimonial}
-            onChange={(e) => setIsTestimonial(e.target.checked)}
-            className="w-4 h-4 text-brass border-stone-300 rounded focus:ring-brass focus:ring-2"
-          />
-          <span className="text-[11px] font-black uppercase tracking-widest text-ebony">
-            Feature as testimonial (show in testimonials section)
-          </span>
+        <label className="flex items-center gap-2 cursor-pointer">
+          <input type="checkbox" checked={isTestimonial} onChange={(e) => setIsTestimonial(e.target.checked)} className="w-3 h-3 text-brass border-stone-300 rounded focus:ring-brass" />
+          <span className="text-[9px] font-black uppercase tracking-wider text-stone-600">Feature on site</span>
         </label>
       </div>
 
-      <div className="flex gap-3 pt-4">
+      <div className="flex gap-2">
         <button
           type="submit"
           disabled={isSubmitting}
-          className="px-6 py-2 bg-brass text-ebony hover:bg-ebony hover:text-white transition-all text-[11px] font-black uppercase tracking-widest shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+          className="px-4 py-1 bg-brass text-white hover:bg-ebony transition-all text-[9px] font-black uppercase tracking-widest disabled:opacity-50"
         >
-          {isSubmitting ? 'Adding...' : 'Add Feedback'}
+          {isSubmitting ? 'Adding...' : 'Add'}
         </button>
         <button
           type="button"
           onClick={handleCancel}
-          className="px-6 py-2 bg-stone-100 text-stone-600 hover:bg-stone-200 transition-all text-[11px] font-black uppercase tracking-widest"
+          className="px-3 py-1 text-stone-400 hover:text-ebony transition-colors text-[9px] font-black uppercase tracking-widest"
         >
           Cancel
         </button>

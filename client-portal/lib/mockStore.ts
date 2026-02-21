@@ -17,6 +17,7 @@ export interface Project {
   description?: string;
   projectStartDate?: number; // Unix timestamp
   paymentCode?: string; // PIN code for payment access
+  projectType?: string[]; // e.g. ["Island", "Counter Top"]
   depositPaid: boolean;
   finalPaid: boolean;
   isCompleted?: boolean; // Whether project is completed and moved to past projects
@@ -31,7 +32,7 @@ export interface PastProject {
   projectToken: string; // Reference to original project token
   title: string;
   description?: string;
-  projectType?: string; // e.g. "Island", "Counter Top", "Mantel", "Table", "Other"
+  projectType?: string[]; // e.g. ["Island", "Counter Top"]
   selectedImages: PastProjectImage[]; // Selected images from media gallery
   createdAt: number;
   completedAt: number; // When project was marked as completed

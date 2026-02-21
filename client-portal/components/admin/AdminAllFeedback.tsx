@@ -27,57 +27,47 @@ export default function AdminAllFeedback({ feedback, onUpdate }: AdminAllFeedbac
   };
 
   return (
-    <div className="space-y-4">
-      <h2 className="text-[10px] font-black tracking-[0.2em] uppercase text-brass">All Feedback</h2>
-      
+    <div className="space-y-3 border-t border-stone-100 pt-4">
+      <div className="flex items-center gap-3">
+        <h2 className="text-[10px] font-black tracking-[0.2em] uppercase text-brass">All Feedback</h2>
+        <span className="text-[10px] text-stone-400">{feedback.length}</span>
+      </div>
+
       {feedback.length === 0 ? (
-        <div className="py-8 text-center">
+        <div className="py-6 text-center">
           <p className="text-stone-300 font-serif italic text-sm">No feedback submitted yet.</p>
         </div>
       ) : (
-        <div className="space-y-2">
+        <div className="space-y-1 min-w-0">
           {feedback.map((item) => (
-            <div key={item.id} className="p-3 space-y-2 relative bg-stone-50 rounded-sm">
-              {/* Delete button in top right corner */}
-              <button
-                onClick={() => setDeleteConfirm({ id: item.id, clientName: item.clientName })}
-                className="absolute top-4 right-4 text-stone-300 hover:text-red-600 transition-colors text-xs"
-                title="Delete feedback"
-              >
-                ×
-              </button>
-
-              <div className="flex items-start justify-between pr-8">
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-2">
-                    {item.clientName && (
-                      <span className="text-sm font-normal text-site-gray">
-                        {item.clientName}
-                      </span>
-                    )}
-                  </div>
-                  <p className="text-sm text-site-gray-light leading-relaxed mb-2">
-                    "{item.comment}"
-                  </p>
-                  <div className="flex items-center gap-4 text-xs text-site-gray-light">
-                    {item.allowTestimonial && (
-                      <span className="text-site-gold">✓ OK to use as testimonial</span>
-                    )}
-                  </div>
+            <div key={item.id} className="flex items-start gap-3 p-2.5 bg-stone-50 rounded-sm group min-w-0">
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-0.5">
+                  <span className="text-xs font-bold text-ebony">{item.clientName || 'Anonymous'}</span>
+                  {item.allowTestimonial && (
+                    <span className="text-[8px] text-brass font-bold uppercase tracking-wider">OK to feature</span>
+                  )}
                 </div>
+                <p className="text-xs text-stone-500 leading-relaxed line-clamp-2">
+                  &ldquo;{item.comment}&rdquo;
+                </p>
               </div>
-              
-              {/* Featured/Hidden toggle */}
-              <div className="flex items-center justify-end pt-2 border-t border-stone-200">
-                <button 
+              <div className="flex items-center gap-1.5 shrink-0 pt-0.5">
+                <button
                   onClick={() => toggleTestimonial(item.id, item.isTestimonial)}
-                  className={`text-[9px] font-black uppercase tracking-[0.2em] px-3 py-1.5 border rounded-full transition-all ${
-                    item.isTestimonial 
-                      ? 'border-brass text-brass bg-brass/10 hover:bg-brass/20' 
-                      : 'border-stone-200 text-stone-300 hover:border-stone-300 hover:text-stone-400'
+                  className={`text-[8px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full transition-all ${
+                    item.isTestimonial
+                      ? 'bg-brass/15 text-brass'
+                      : 'bg-stone-200/60 text-stone-400'
                   }`}
                 >
-                  {item.isTestimonial ? 'Featured' : 'Hidden'}
+                  {item.isTestimonial ? 'Shown' : 'Hidden'}
+                </button>
+                <button
+                  onClick={() => setDeleteConfirm({ id: item.id, clientName: item.clientName })}
+                  className="text-[8px] font-black uppercase tracking-wider text-stone-300 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
+                >
+                  ✕
                 </button>
               </div>
             </div>
@@ -95,4 +85,3 @@ export default function AdminAllFeedback({ feedback, onUpdate }: AdminAllFeedbac
     </div>
   );
 }
-

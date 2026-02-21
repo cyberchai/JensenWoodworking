@@ -36,8 +36,9 @@ function generateGalleryBlock(project: PastProject): string {
   
   const title = escapeHtml(project.title);
   const description = escapeHtml(project.description || '');
-  const projectType = escapeHtml(project.projectType || 'Custom');
-  const location = projectType;
+  const types = project.projectType && project.projectType.length > 0 ? project.projectType : ['Custom'];
+  const displayType = escapeHtml(types[0]);
+  const location = displayType;
   let imageUrl = mainImage.url;
   if (!imageUrl.startsWith('http') && !imageUrl.startsWith('/')) {
     imageUrl = `/${imageUrl}`;
