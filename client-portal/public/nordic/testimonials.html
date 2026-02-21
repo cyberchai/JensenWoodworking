@@ -23,15 +23,24 @@
 		}
 		.logo a img,
 		.nav-logo a img {
-			height: 50px;
+			height: 70px;
 			width: auto;
 			display: block;
 		}
+		.main-header .logo a img.logo-white {
+			display: none;
+		}
 		.main-header.fixed-header .logo a img {
-			height: 45px;
+			height: 60px;
+		}
+		.main-header.fixed-header .logo a img.logo-dark {
+			display: none;
+		}
+		.main-header.fixed-header .logo a img.logo-white {
+			display: block;
 		}
 		.mobile-menu .nav-logo a img {
-			height: 40px;
+			height: 55px;
 		}
 		/* Your Project: only in expanded (mobile) menu, not top bar */
 		.main-menu .navigation .nav-mobile-only {
@@ -49,6 +58,68 @@
 			max-width: 200px;
 			height: auto;
 			display: block;
+		}
+
+		/* Responsive Footer Layout */
+		.main-footer .widgets-section .row {
+			display: flex;
+			flex-wrap: wrap;
+		}
+		.main-footer .widgets-section .footer-column {
+			float: none;
+			flex: 1 1 0;
+			min-width: 160px;
+		}
+		.main-footer .widgets-section .footer-column:first-child {
+			width: auto;
+			flex: 0 0 auto;
+			min-width: 200px;
+			margin-right: 20px;
+		}
+		@media (max-width: 900px) {
+			.main-footer .widgets-section .footer-column {
+				flex: 1 1 calc(50% - 30px);
+				min-width: 180px;
+			}
+			.main-footer .widgets-section .footer-column:first-child {
+				flex: 0 0 100%;
+				text-align: center;
+				margin-right: 0;
+				margin-bottom: 30px;
+			}
+			.main-footer .widgets-section .footer-column:first-child .logo a img {
+				margin: 0 auto;
+			}
+		}
+		@media (max-width: 599px) {
+			.main-footer .widgets-section .footer-column {
+				flex: 0 0 100%;
+			}
+		}
+		.main-footer .footer-bottom .row {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			justify-content: space-between;
+		}
+		.main-footer .footer-bottom .copy-column,
+		.main-footer .footer-bottom .pages-column {
+			float: none;
+			width: auto;
+			flex: 0 1 auto;
+		}
+		@media (max-width: 767px) {
+			.main-footer .footer-bottom .row {
+				justify-content: center;
+			}
+			.main-footer .footer-bottom .copy-column,
+			.main-footer .footer-bottom .pages-column {
+				flex: 0 0 100%;
+				text-align: center;
+			}
+			.main-footer .footer-bottom .pages-column {
+				margin-top: 10px;
+			}
 		}
 		
 		/* Testimonials Wall Grid - Professional Design */
@@ -440,7 +511,7 @@
 					<div class="inner-container clearfix">
 
 						<div class="pull-left logo-box">
-							<div class="logo"><a href="/home"><img src="/images/JensenWoodworkingLogo.png" alt="Jensen Woodworking"></a></div>
+							<div class="logo"><a href="/home"><img class="logo-dark" src="/images/JensenWoodworkingLogo.png" alt="Jensen Woodworking"><img class="logo-white" src="/images/whitelogo.png" alt="Jensen Woodworking"></a></div>
 						</div>
 
 						<div class="nav-outer pull-left clearfix">
