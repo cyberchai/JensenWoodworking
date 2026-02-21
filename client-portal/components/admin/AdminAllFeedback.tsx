@@ -27,17 +27,17 @@ export default function AdminAllFeedback({ feedback, onUpdate }: AdminAllFeedbac
   };
 
   return (
-    <div className="bg-white border border-stone-200 p-6 space-y-6 shadow-sm rounded-sm">
-      <h2 className="text-[11px] font-black tracking-[0.3em] uppercase text-brass">All Feedback</h2>
+    <div className="space-y-4">
+      <h2 className="text-[10px] font-black tracking-[0.2em] uppercase text-brass">All Feedback</h2>
       
       {feedback.length === 0 ? (
-        <div className="py-12 text-center border-2 border-dashed border-stone-200 rounded-sm bg-stone-50">
-          <p className="text-stone-300 font-serif italic">No feedback submitted yet.</p>
+        <div className="py-8 text-center">
+          <p className="text-stone-300 font-serif italic text-sm">No feedback submitted yet.</p>
         </div>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-2">
           {feedback.map((item) => (
-            <div key={item.id} className="border border-stone-200 p-4 space-y-3 relative bg-stone-50 rounded-sm shadow-sm">
+            <div key={item.id} className="p-3 space-y-2 relative bg-stone-50 rounded-sm">
               {/* Delete button in top right corner */}
               <button
                 onClick={() => setDeleteConfirm({ id: item.id, clientName: item.clientName })}

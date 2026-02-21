@@ -143,7 +143,7 @@ export default function AdminCreateProject({ onProjectCreated, isOpen: externalI
   }
 
   return (
-    <div className="bg-white border border-stone-100 p-8 shadow-sm space-y-6">
+    <div className="space-y-5">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-[11px] font-black uppercase tracking-[0.3em] text-ebony">Create Project</h3>
         <button

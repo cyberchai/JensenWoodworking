@@ -50,7 +50,7 @@ export default function PaymentPanel({
           <h4 className="font-serif text-2xl text-ebony mb-4">PayPal</h4>
           <p className="text-stone-400 text-sm mb-8 italic">Preferred for international transactions.</p>
           <a 
-            href={`https://paypal.me/${paypalHandle}`}
+            href={`https://www.paypal.com/paypalme/${paypalHandle}`}
             target="_blank"
             rel="noopener noreferrer"
             className="block text-center py-4 bg-stone-50 text-ebony text-[10px] font-black uppercase tracking-widest border border-transparent group-hover:bg-ebony group-hover:text-white transition-all"
@@ -62,7 +62,7 @@ export default function PaymentPanel({
           <h4 className="font-serif text-2xl text-ebony mb-4">Venmo</h4>
           <p className="text-stone-400 text-sm mb-8 italic">Best for domestic payments.</p>
           <a 
-            href={`https://venmo.com/u/${venmoHandle}`}
+            href={`https://account.venmo.com/u/${venmoHandle}`}
             target="_blank"
             rel="noopener noreferrer"
             className="block text-center py-4 bg-stone-50 text-ebony text-[10px] font-black uppercase tracking-widest border border-transparent group-hover:bg-ebony group-hover:text-white transition-all"

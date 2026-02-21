@@ -82,14 +82,14 @@ export default function AdminProjectList({ projects, onUpdate }: AdminProjectLis
   };
 
   return (
-    <div className="bg-white border border-gray-200 p-4 sm:p-6 space-y-6 min-w-0">
-      <h2 className="text-lg sm:text-xl font-normal text-black">Projects</h2>
+    <div className="space-y-4 min-w-0">
+      <h2 className="text-[10px] font-black tracking-[0.2em] uppercase text-brass">Projects</h2>
       
-      <div className="space-y-4">
+      <div className="space-y-2">
         {projects.map((project) => (
           <div
             key={project.token}
-            className="border border-gray-200 p-4 space-y-4 min-w-0"
+            className="bg-stone-50 rounded-sm p-3 space-y-3 min-w-0"
           >
             <div className="flex items-start justify-between gap-2 min-w-0">
               <div className="min-w-0">
@@ -163,7 +163,7 @@ export default function AdminProjectList({ projects, onUpdate }: AdminProjectLis
                           }
 
                           return (
-                            <div key={update.id} className="border border-gray-200 p-3 space-y-2">
+                            <div key={update.id} className="bg-white rounded-sm p-3 space-y-2">
                               <div className="flex items-start justify-between">
                                 <div className="flex-1">
                                   <p className="text-sm font-normal text-black">{update.title}</p>

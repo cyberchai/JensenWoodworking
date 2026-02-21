@@ -25,10 +25,9 @@ export default function AdminFeedbackList({ feedback, onUpdate }: AdminFeedbackL
 
   return (
     <div className="space-y-8">
-      {/* Testimonials Section */}
-      <div className="bg-white border border-gray-200 p-6 space-y-6">
+      <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-xl font-normal text-black">Testimonials</h2>
+          <h2 className="text-[10px] font-black tracking-[0.2em] uppercase text-brass">Testimonials</h2>
           <span className="text-sm text-site-gray-light">
             {testimonials.length} {testimonials.length === 1 ? 'testimonial' : 'testimonials'} displayed
           </span>
@@ -39,7 +38,7 @@ export default function AdminFeedbackList({ feedback, onUpdate }: AdminFeedbackL
         ) : (
           <div className="space-y-4">
             {testimonials.map((item) => (
-              <div key={item.id} className="border border-gray-200 p-4 space-y-3">
+              <div key={item.id} className="bg-stone-50 rounded-sm p-3 space-y-2">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
@@ -74,16 +73,15 @@ export default function AdminFeedbackList({ feedback, onUpdate }: AdminFeedbackL
         )}
       </div>
 
-      {/* All Feedback Section */}
-      <div className="bg-white border border-gray-200 p-6 space-y-6">
-        <h2 className="text-xl font-normal text-black">All Feedback</h2>
+      <div className="space-y-4 border-t border-stone-100 pt-4">
+        <h2 className="text-[10px] font-black tracking-[0.2em] uppercase text-brass">All Feedback</h2>
         
         {feedback.length === 0 ? (
           <p className="text-site-gray-light text-sm">No feedback submitted yet.</p>
         ) : (
           <div className="space-y-4">
             {feedback.map((item) => (
-              <div key={item.id} className="border border-gray-200 p-4 space-y-3">
+              <div key={item.id} className="bg-stone-50 rounded-sm p-3 space-y-2">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">

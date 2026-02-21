@@ -24,6 +24,7 @@ export default function AdminPastProjects() {
   const [isCreating, setIsCreating] = useState(false);
   const [editTitle, setEditTitle] = useState('');
   const [editDescription, setEditDescription] = useState('');
+  const [editProjectType, setEditProjectType] = useState('');
   const [selectedImages, setSelectedImages] = useState<PastProjectImage[]>([]);
   const [isFeaturedOnHomePage, setIsFeaturedOnHomePage] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState<{ id: string; title: string } | null>(null);
@@ -70,6 +71,7 @@ export default function AdminPastProjects() {
     setEditingProject(null);
     setEditTitle('');
     setEditDescription('');
+    setEditProjectType('');
     setSelectedImages([]);
     setIsFeaturedOnHomePage(false);
     setShowImageSelector(false);
@@ -80,6 +82,7 @@ export default function AdminPastProjects() {
     setIsCreating(false);
     setEditTitle(project.title);
     setEditDescription(project.description || '');
+    setEditProjectType(project.projectType || '');
     setSelectedImages([...project.selectedImages]);
     setIsFeaturedOnHomePage(project.isFeaturedOnHomePage || false);
     setShowImageSelector(false);
@@ -90,6 +93,7 @@ export default function AdminPastProjects() {
     setIsCreating(false);
     setEditTitle('');
     setEditDescription('');
+    setEditProjectType('');
     setSelectedImages([]);
     setIsFeaturedOnHomePage(false);
     setShowImageSelector(false);
@@ -100,19 +104,19 @@ export default function AdminPastProjects() {
     if (!editTitle.trim()) return;
 
     if (isCreating) {
-      // Create new past project
       await store.createPastProject({
-        projectToken: `manual_${Date.now()}`, // Use a unique token for manually created projects
+        projectToken: `manual_${Date.now()}`,
         title: editTitle.trim(),
         description: editDescription.trim() || undefined,
+        projectType: editProjectType || undefined,
         selectedImages,
         isFeaturedOnHomePage,
       });
     } else if (editingProject) {
-      // Update existing past project
       await store.updatePastProject(editingProject.id, {
         title: editTitle.trim(),
         description: editDescription.trim() || undefined,
+        projectType: editProjectType || undefined,
         selectedImages,
         isFeaturedOnHomePage,
       });
@@ -174,19 +178,19 @@ export default function AdminPastProjects() {
 
   if (loading) {
     return (
-      <div className="bg-white border border-gray-200 p-6">
+      <div className="py-6">
         <p className="text-site-gray-light text-sm">Loading past projects...</p>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6 min-w-0">
+    <div className="min-w-0">
       {(editingProject || isCreating) ? (
-        <div className="bg-white border border-gray-200 p-4 sm:p-6 space-y-6 min-w-0 overflow-hidden">
+        <div className="space-y-5 min-w-0 overflow-hidden">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 min-w-0">
-            <h2 className="text-xl font-normal text-black">
-              {isCreating ? 'Create New Past Project' : 'Edit Past Project'}
+            <h2 className="text-sm font-black uppercase tracking-[0.2em] text-ebony">
+              {isCreating ? 'New Past Project' : 'Edit Past Project'}
             </h2>
             <div className="flex items-center gap-4">
               {!isCreating && editingProject && !editingProject.projectToken.startsWith('manual_') && (
@@ -207,7 +211,7 @@ export default function AdminPastProjects() {
             </div>
           </div>
 
-          <form onSubmit={handleSave} className="space-y-6">
+          <form onSubmit={handleSave} className="space-y-4">
             <div>
               <label className="block text-sm font-normal text-site-gray mb-2 uppercase tracking-wide">
                 Title
@@ -224,12 +228,31 @@ export default function AdminPastProjects() {
 
             <div>
               <label className="block text-sm font-normal text-site-gray mb-2 uppercase tracking-wide">
+                Project Type
+              </label>
+              <select
+                value={editProjectType}
+                onChange={(e) => setEditProjectType(e.target.value)}
+                className="w-full px-4 py-2 border-0 border-b border-gray-300 bg-white focus:outline-none focus:border-site-gold transition-colors"
+              >
+                <option value="">— Select Type —</option>
+                <option value="Island">Island</option>
+                <option value="Counter Top">Counter Top</option>
+                <option value="Mantel">Mantel</option>
+                <option value="Table">Table</option>
+                <option value="Charcuterie Board">Charcuterie Board</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-sm font-normal text-site-gray mb-2 uppercase tracking-wide">
                 Description
               </label>
               <textarea
                 value={editDescription}
                 onChange={(e) => setEditDescription(e.target.value)}
-                className="w-full px-4 py-2 border-2 border-gray-300 bg-white focus:outline-none focus:border-site-gold transition-colors min-h-[120px] resize-y"
+                className="w-full px-4 py-2 border-0 border-b border-gray-300 bg-white focus:outline-none focus:border-site-gold transition-colors min-h-[80px] resize-y"
                 placeholder="Project description..."
               />
             </div>
@@ -252,9 +275,9 @@ export default function AdminPastProjects() {
             </div>
 
             <div>
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center justify-between mb-2">
                 <label className="block text-sm font-normal text-site-gray uppercase tracking-wide">
-                  Selected Images ({selectedImages.length})
+                  Project Images ({selectedImages.length})
                 </label>
                 <button
                   type="button"
@@ -264,10 +287,13 @@ export default function AdminPastProjects() {
                   {showImageSelector ? 'Hide' : 'Add from Gallery'}
                 </button>
               </div>
+              <p className="text-xs text-stone-400 mb-4">
+                Toggle each image to <strong>Visible</strong> or <strong>Hidden</strong>. Only visible images appear on the public website.
+              </p>
 
               {showImageSelector && (
-                <div className="mb-6 p-4 border border-gray-200 rounded-sm bg-stone-50 max-h-96 overflow-y-auto min-w-0">
-                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 min-w-0">
+                <div className="mb-4 p-3 bg-stone-50 rounded-sm max-h-80 overflow-y-auto min-w-0">
+                  <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 min-w-0">
                     {mediaItems.map((item) => {
                       const isSelected = selectedImages.some(img => img.url === item.url);
                       return (
@@ -306,9 +332,9 @@ export default function AdminPastProjects() {
               )}
 
               {selectedImages.length > 0 ? (
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
                   {selectedImages.map((image, index) => (
-                    <div key={index} className="border border-gray-200 p-3 space-y-2">
+                    <div key={index} className="space-y-1.5">
                       <div className="aspect-video bg-gray-100 rounded-sm overflow-hidden">
                         <img
                           src={image.url}
@@ -325,11 +351,11 @@ export default function AdminPastProjects() {
                           onClick={() => toggleImageFeatured(index)}
                           className={`flex-1 text-[9px] font-black uppercase tracking-[0.2em] px-2 py-1 border rounded-full transition-all ${
                             image.isFeatured
-                              ? 'border-brass text-brass bg-brass/10 hover:bg-brass/20'
+                              ? 'border-emerald-400 text-emerald-600 bg-emerald-50 hover:bg-emerald-100'
                               : 'border-stone-200 text-stone-300 hover:border-stone-300 hover:text-stone-400'
                           }`}
                         >
-                          {image.isFeatured ? 'Featured' : 'Hidden'}
+                          {image.isFeatured ? 'Visible' : 'Hidden'}
                         </button>
                         <button
                           type="button"
@@ -349,7 +375,7 @@ export default function AdminPastProjects() {
               )}
             </div>
 
-            <div className="flex gap-3 pt-4 border-t border-gray-200">
+            <div className="flex gap-3 pt-4">
               <button
                 type="submit"
                 className="px-6 py-2 bg-brass text-ebony hover:bg-ebony hover:text-white transition-all text-[11px] font-black uppercase tracking-widest shadow-sm"
@@ -367,86 +393,61 @@ export default function AdminPastProjects() {
           </form>
         </div>
       ) : (
-        <div className="bg-white border border-gray-200 p-6 space-y-6">
+        <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-normal text-black">Past Projects</h2>
-            <div className="flex items-center gap-4">
-              <span className="text-sm text-site-gray-light">
-                {pastProjects.length} {pastProjects.length === 1 ? 'project' : 'projects'}
+            <div className="flex items-center gap-3">
+              <h2 className="text-sm font-black uppercase tracking-[0.2em] text-ebony">Past Projects</h2>
+              <span className="text-[10px] text-stone-400">
+                {pastProjects.length}
               </span>
-              <button
-                onClick={handleCreateNew}
-                className="px-4 py-2 bg-brass text-ebony hover:bg-ebony hover:text-white transition-all text-[11px] font-black uppercase tracking-widest shadow-sm flex items-center gap-2"
-              >
-                <span>+</span>
-                <span>Manually Add Past Project</span>
-              </button>
             </div>
+            <button
+              onClick={handleCreateNew}
+              className="px-3 py-1.5 bg-brass text-white hover:bg-ebony transition-all text-[9px] font-black uppercase tracking-widest"
+            >
+              + Add Project
+            </button>
           </div>
 
           {pastProjects.length === 0 ? (
-            <div className="py-12 text-center border-2 border-dashed border-stone-200 rounded-sm">
-              <p className="text-stone-300 font-serif italic">No past projects yet.</p>
-              <p className="text-stone-400 text-sm mt-2">Complete a project to add it here.</p>
+            <div className="py-10 text-center">
+              <p className="text-stone-300 font-serif italic text-sm">No past projects yet.</p>
+              <p className="text-stone-400 text-xs mt-1">Complete a project to add it here.</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {pastProjects.map((project) => (
-                <div key={project.id} className="border border-gray-200 p-6 space-y-4">
-                  <div>
-                    <h3 className="text-lg font-serif text-ebony mb-2">{project.title}</h3>
-                    {project.description && (
-                      <p className="text-stone-600 font-serif italic text-sm mb-3">
-                        {project.description}
-                      </p>
-                    )}
-                    <p className="text-[9px] font-black uppercase tracking-[0.2em] text-stone-300">
-                      Completed: {formatDate(project.completedAt)}
-                    </p>
-                    <p className="text-[9px] font-black uppercase tracking-[0.2em] text-stone-300">
-                      Images: {project.selectedImages.length} ({project.selectedImages.filter(img => img.isFeatured).length} featured)
-                    </p>
-                    {project.isFeaturedOnHomePage && (
-                      <p className="text-[9px] font-black uppercase tracking-[0.2em] text-brass">
-                        ✓ Featured on Home Page
-                      </p>
-                    )}
-                  </div>
-
+                <div
+                  key={project.id}
+                  className="group bg-stone-50 hover:bg-stone-100/80 rounded-sm transition-colors cursor-pointer overflow-hidden"
+                  onClick={() => handleEdit(project)}
+                >
                   {project.selectedImages.length > 0 && (
-                    <div className="grid grid-cols-2 gap-2">
-                      {project.selectedImages.slice(0, 4).map((image, index) => (
-                        <div key={index} className="aspect-square bg-gray-100 rounded-sm overflow-hidden relative">
-                          <img
-                            src={image.url}
-                            alt={image.name}
-                            className="w-full h-full object-cover"
-                          />
-                          {image.isFeatured && (
-                            <div className="absolute top-1 right-1">
-                              <span className="text-[8px] font-black uppercase tracking-widest text-brass bg-white px-1.5 py-0.5 rounded-sm">
-                                Featured
-                              </span>
-                            </div>
-                          )}
-                        </div>
-                      ))}
+                    <div className="aspect-[16/10] bg-stone-200 overflow-hidden relative">
+                      <img
+                        src={project.selectedImages[0].url}
+                        alt={project.selectedImages[0].name}
+                        className="w-full h-full object-cover"
+                      />
+                      {project.selectedImages.length > 1 && (
+                        <span className="absolute bottom-1.5 right-1.5 text-[8px] font-bold text-white bg-black/50 px-1.5 py-0.5 rounded-sm">
+                          +{project.selectedImages.length - 1}
+                        </span>
+                      )}
+                      {project.isFeaturedOnHomePage && (
+                        <span className="absolute top-1.5 left-1.5 text-[7px] font-black uppercase tracking-wider text-white bg-brass/90 px-1.5 py-0.5 rounded-sm">
+                          Home
+                        </span>
+                      )}
                     </div>
                   )}
-
-                  <div className="flex gap-2 pt-4 border-t border-gray-200">
-                    <button
-                      onClick={() => handleEdit(project)}
-                      className="flex-1 px-3 py-2 bg-gray-200 text-site-gray hover:bg-site-gold hover:text-black transition-colors text-xs font-normal uppercase"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => setDeleteConfirm({ id: project.id, title: project.title })}
-                      className="flex-1 px-3 py-2 bg-gray-200 text-site-gray hover:bg-red-100 hover:text-red-700 transition-colors text-xs font-normal uppercase"
-                    >
-                      Delete
-                    </button>
+                  <div className="px-3 py-2.5">
+                    <h3 className="text-sm font-serif text-ebony leading-snug mb-0.5 group-hover:text-brass transition-colors">{project.title}</h3>
+                    <div className="flex items-center gap-2 text-[9px] font-bold uppercase tracking-wider text-stone-400">
+                      {project.projectType && <span className="text-brass">{project.projectType}</span>}
+                      {project.projectType && <span>·</span>}
+                      <span>{formatDate(project.completedAt)}</span>
+                    </div>
                   </div>
                 </div>
               ))}

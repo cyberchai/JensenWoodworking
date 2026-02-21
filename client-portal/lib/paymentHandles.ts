@@ -9,8 +9,8 @@
  */
 
 // Payment handles - hardcoded for security
-export const SECURE_VENMO_HANDLE = '@Klaus-Jensen';
-export const SECURE_PAYPAL_HANDLE = '@Klausduxbury';
+export const SECURE_VENMO_HANDLE = 'klaus-jensen';
+export const SECURE_PAYPAL_HANDLE = 'klausduxbury';
 
 /**
  * Validates and returns the secure payment handles.

@@ -36,7 +36,8 @@ function generateGalleryBlock(project: PastProject): string {
   
   const title = escapeHtml(project.title);
   const description = escapeHtml(project.description || '');
-  const location = 'Custom Project'; // Default location, can be enhanced later
+  const projectType = escapeHtml(project.projectType || 'Custom');
+  const location = projectType;
   let imageUrl = mainImage.url;
   if (!imageUrl.startsWith('http') && !imageUrl.startsWith('/')) {
     imageUrl = `/${imageUrl}`;
@@ -118,23 +119,17 @@ export async function GET() {
     let testimonials: Feedback[] = [];
     
     try {
-      // Get all past projects and filter for featured ones
       const allProjects: PastProject[] = await store.getAllPastProjects();
 
-      // Prefer explicit featured-on-home projects, but fall back to latest projects
-      const withDisplayImages = allProjects
+      featuredProjects = allProjects
+        .filter((project: PastProject) => project.isFeaturedOnHomePage === true)
         .map((project: PastProject) => {
-          const featuredImages = (project.selectedImages || []).filter(img => img.isFeatured);
-          const displayImages = featuredImages.length > 0 ? featuredImages : (project.selectedImages || []);
+          const visibleImages = (project.selectedImages || []).filter(img => img.isFeatured);
+          const displayImages = visibleImages.length > 0 ? visibleImages : (project.selectedImages || []);
           return { ...project, selectedImages: displayImages };
         })
-        .filter((project: PastProject) => (project.selectedImages || []).length > 0);
-
-      const explicitlyFeatured = withDisplayImages.filter(
-        (project: PastProject) => project.isFeaturedOnHomePage === true
-      );
-
-      featuredProjects = (explicitlyFeatured.length > 0 ? explicitlyFeatured : withDisplayImages).slice(0, 12);
+        .filter((project: PastProject) => (project.selectedImages || []).length > 0)
+        .slice(0, 12);
       
       // Get testimonials
       testimonials = (await store.getTestimonials()) as Feedback[];

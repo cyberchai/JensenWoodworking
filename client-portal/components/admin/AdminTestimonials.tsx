@@ -63,22 +63,22 @@ export default function AdminTestimonials({ feedback, onUpdate }: AdminTestimoni
   };
 
   return (
-    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 min-w-0">
+    <div className="space-y-4 min-w-0">
       <div className="flex items-center justify-between min-w-0">
-        <h2 className="text-[11px] font-black tracking-[0.3em] uppercase text-brass">Client Testimonials</h2>
+        <h2 className="text-[10px] font-black tracking-[0.2em] uppercase text-brass">Client Testimonials</h2>
       </div>
       
       <AdminAddFeedbackForm onFeedbackAdded={onUpdate} />
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10 min-w-0">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 min-w-0">
         {feedback.length === 0 ? (
-          <div className="col-span-2 py-12 text-center border-2 border-dashed border-stone-200 rounded-sm bg-stone-50 min-w-0">
-            <p className="text-stone-300 font-serif italic">No feedback submitted yet.</p>
+          <div className="col-span-2 py-8 text-center min-w-0">
+            <p className="text-stone-300 font-serif italic text-sm">No feedback submitted yet.</p>
           </div>
         ) : (
           feedback.map((item) => (
             <div 
               key={item.id} 
-              className="bg-white p-6 sm:p-8 border border-stone-200 shadow-sm relative italic font-serif text-stone-700 min-w-0 overflow-hidden"
+              className="bg-stone-50 p-4 sm:p-5 rounded-sm relative italic font-serif text-stone-700 min-w-0 overflow-hidden"
             >
               {/* Title Section */}
               <div className="mb-4 not-italic">

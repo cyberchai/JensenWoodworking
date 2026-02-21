@@ -255,7 +255,7 @@
 		}
 		
 		.gallery-filter-btn {
-			padding: 8px 15px;
+			padding: 10px 20px;
 			background-color: transparent;
 			border: 1px solid #e2e2e2;
 			color: #777;
@@ -266,33 +266,14 @@
 			text-transform: uppercase;
 			letter-spacing: 1px;
 			font-family: 'Inter', sans-serif;
-			text-align: left;
 			white-space: nowrap;
 		}
-		
-		.gallery-filter-btn {
-			padding: 10px 25px;
-			background-color: transparent;
-			border: 1px solid #e2e2e2;
-			color: #777;
-			font-size: 14px;
-			font-weight: 400;
-			cursor: pointer;
-			transition: all 0.3s ease;
-			text-transform: uppercase;
-			letter-spacing: 1px;
-			font-family: 'Inter', sans-serif;
-		}
-		
+
 		.gallery-filter-btn:hover,
 		.gallery-filter-btn.active {
 			background-color: #ffe1a0;
 			border-color: #ffe1a0;
 			color: #000;
-		}
-		
-		.filter-group-label {
-			display: none;
 		}
 		
 		.gallery-grid {
@@ -335,10 +316,50 @@
 			transform: scale(1.05);
 		}
 		
-		.gallery-contact-btn {
+		/* Gallery CTA Section */
+		.gallery-cta-section {
+			padding: 110px 0;
+			background: #fff;
 			text-align: center;
-			margin-top: 50px;
-			margin-bottom: 30px;
+		}
+		.gallery-cta-section .cta-inner {
+			max-width: 520px;
+			margin: 0 auto;
+		}
+		.gallery-cta-section .cta-subtitle {
+			font-size: 12px;
+			color: #999;
+			text-transform: uppercase;
+			letter-spacing: 0.2em;
+			margin-bottom: 18px;
+			font-weight: 400;
+		}
+		.gallery-cta-section h2 {
+			font-size: 42px;
+			font-weight: 400;
+			color: #000;
+			line-height: 1.2;
+			margin-bottom: 18px;
+		}
+		.gallery-cta-section p {
+			font-size: 16px;
+			line-height: 1.7;
+			color: #888;
+			font-weight: 300;
+			margin-bottom: 40px;
+		}
+		.gallery-cta-section .theme-btn {
+			font-size: 12px;
+			letter-spacing: 0.15em;
+			padding: 16px 45px;
+		}
+		@media (max-width: 768px) {
+			.gallery-cta-section {
+				padding: 80px 20px;
+			}
+			.gallery-cta-section h2 {
+				font-size: 30px;
+			}
 		}
 		
 		/* Project Modal Styles */
@@ -860,29 +881,29 @@
 		<!-- Projects Section -->
 		<section class="projects-section">
 			<div class="auto-container">
-				<!-- Filter Buttons -->
-				<div class="gallery-filter-wrapper">
-					<div class="gallery-filter-group" id="locationFilterGroup">
-						<button class="filter-group-main-btn" id="locationMainBtn">Location</button>
-						<div class="gallery-filter">
-							<button class="gallery-filter-btn active" data-filter-type="location" data-filter="all">All Locations</button>
-							<button class="gallery-filter-btn" data-filter-type="location" data-filter="Duxbury, MA">Duxbury, MA</button>
-							<button class="gallery-filter-btn" data-filter-type="location" data-filter="West Roxbury, MA">West Roxbury, MA</button>
-							<button class="gallery-filter-btn" data-filter-type="location" data-filter="East Boston, MA">East Boston, MA</button>
-							<button class="gallery-filter-btn" data-filter-type="location" data-filter="Winchester, MA">Winchester, MA</button>
-						</div>
-					</div>
-					<div class="gallery-filter-group" id="typeFilterGroup">
-						<button class="filter-group-main-btn" id="typeMainBtn">Type</button>
-						<div class="gallery-filter">
-							<button class="gallery-filter-btn active" data-filter-type="type" data-filter="all">All Types</button>
-							<button class="gallery-filter-btn" data-filter-type="type" data-filter="Island">Islands</button>
-							<button class="gallery-filter-btn" data-filter-type="type" data-filter="Counter Top">Counter Tops</button>
-							<button class="gallery-filter-btn" data-filter-type="type" data-filter="Mantel">Mantels</button>
-							<button class="gallery-filter-btn" data-filter-type="type" data-filter="Charcuterie Board">Charcuterie Boards</button>
-						</div>
+			<!-- Filter Buttons -->
+			<div class="gallery-filter-wrapper">
+				<div class="gallery-filter-group" id="locationFilterGroup">
+					<button class="filter-group-main-btn" id="locationMainBtn">Location</button>
+					<div class="gallery-filter" id="locationFilterOptions">
+						<button class="gallery-filter-btn active" data-loc="all">All Locations</button>
+						<button class="gallery-filter-btn" data-loc="Duxbury, MA">Duxbury</button>
+						<button class="gallery-filter-btn" data-loc="East Boston, MA">East Boston</button>
+						<button class="gallery-filter-btn" data-loc="West Roxbury, MA">West Roxbury</button>
+						<button class="gallery-filter-btn" data-loc="Winchester, MA">Winchester</button>
 					</div>
 				</div>
+				<div class="gallery-filter-group" id="typeFilterGroup">
+					<button class="filter-group-main-btn" id="typeMainBtn">Type</button>
+					<div class="gallery-filter" id="typeFilterOptions">
+						<button class="gallery-filter-btn active" data-type="all">All Types</button>
+						<button class="gallery-filter-btn" data-type="Island">Island</button>
+						<button class="gallery-filter-btn" data-type="Counter Top">Counter Top</button>
+						<button class="gallery-filter-btn" data-type="Mantel">Mantel</button>
+						<button class="gallery-filter-btn" data-type="Charcuterie Board">Charcuterie Board</button>
+					</div>
+				</div>
+			</div>
 			</div>
 			<div class="outer-container">
 				<div class="gallery-grid">
@@ -897,7 +918,7 @@
 									<img src="/images/gallery/1.jpg" alt="" />
 									<div class="overlay-box">
 										<div class="content">
-											<div class="category">Duxbury, MA</div>
+											<div class="category">Island</div>
 											<h3><a href="javascript:void(0);" class="project-modal-trigger">Black Walnut Island Top - 36" x 123" x 1.75"</a></h3>
 										</div>
 									</div>
@@ -916,7 +937,7 @@
 									<img src="/images/gallery/2.jpg" alt="" />
 									<div class="overlay-box">
 										<div class="content">
-											<div class="category">Duxbury, MA</div>
+											<div class="category">Island</div>
 											<h3><a href="javascript:void(0);" class="project-modal-trigger">Island Top - Black Walnut with Sapwood</a></h3>
 										</div>
 									</div>
@@ -935,7 +956,7 @@
 									<img src="/images/gallery/3.jpg" alt="" />
 									<div class="overlay-box">
 										<div class="content">
-											<div class="category">West Roxbury, MA</div>
+											<div class="category">Counter Top</div>
 											<h3><a href="javascript:void(0);" class="project-modal-trigger">Cherry Counter & Cherry Island</a></h3>
 										</div>
 									</div>
@@ -954,7 +975,7 @@
 									<img src="/images/gallery/4.jpg" alt="" />
 									<div class="overlay-box">
 										<div class="content">
-											<div class="category">East Boston, MA</div>
+											<div class="category">Island</div>
 											<h3><a href="javascript:void(0);" class="project-modal-trigger">Black Walnut Island Top - Farm Sink</a></h3>
 										</div>
 									</div>
@@ -973,7 +994,7 @@
 									<img src="/images/gallery/1.jpg" alt="" />
 									<div class="overlay-box">
 										<div class="content">
-											<div class="category">East Boston, MA</div>
+											<div class="category">Counter Top</div>
 											<h3><a href="javascript:void(0);" class="project-modal-trigger">Black Walnut Counter Top - Basement Kitchen</a></h3>
 										</div>
 									</div>
@@ -992,7 +1013,7 @@
 									<img src="/images/gallery/2.jpg" alt="" />
 									<div class="overlay-box">
 										<div class="content">
-											<div class="category">Winchester, MA</div>
+											<div class="category">Island</div>
 											<h3><a href="javascript:void(0);" class="project-modal-trigger">White Oak Quarter Sawn Butcher Block Island</a></h3>
 										</div>
 									</div>
@@ -1011,7 +1032,7 @@
 									<img src="/images/gallery/3.jpg" alt="" />
 									<div class="overlay-box">
 										<div class="content">
-											<div class="category">Duxbury, MA</div>
+											<div class="category">Mantel</div>
 											<h3><a href="javascript:void(0);" class="project-modal-trigger">Reclaimed Oak Fireplace Mantel</a></h3>
 										</div>
 									</div>
@@ -1030,7 +1051,7 @@
 									<img src="/images/gallery/4.jpg" alt="" />
 									<div class="overlay-box">
 										<div class="content">
-											<div class="category">West Roxbury, MA</div>
+											<div class="category">Charcuterie Board</div>
 											<h3><a href="javascript:void(0);" class="project-modal-trigger">Custom Walnut Charcuterie Board</a></h3>
 										</div>
 									</div>
@@ -1041,11 +1062,7 @@
 
 				</div>
 				
-				<!-- Contact Button -->
-				<div class="gallery-contact-btn">
-					<a href="contact.html" class="theme-btn btn-style-one"><span class="txt">Start Your Project</span></a>
 				</div>
-			</div>
 		</section>
 		<!-- End Projects Section -->
 
@@ -1221,146 +1238,74 @@
 
 	<!-- Gallery Filter and Modal Script -->
 	<script>
-		(function() {
-			// Filter functionality
-			const filterButtons = document.querySelectorAll('.gallery-filter-btn');
-			const galleryItems = document.querySelectorAll('.gallery-grid-item');
-			const locationMainBtn = document.getElementById('locationMainBtn');
-			const typeMainBtn = document.getElementById('typeMainBtn');
-			const locationFilterGroup = document.getElementById('locationFilterGroup');
-			const typeFilterGroup = document.getElementById('typeFilterGroup');
-			
-			// Track active filters
-			let activeLocationFilter = 'all';
-			let activeTypeFilter = 'all';
-			
-			// Update main button text based on active filter
-			function updateMainButtonText(filterType, filterValue) {
-				if (filterType === 'location') {
-					if (filterValue === 'all') {
-						locationMainBtn.textContent = 'Location';
-					} else {
-						locationMainBtn.textContent = filterValue;
-					}
-				} else if (filterType === 'type') {
-					if (filterValue === 'all') {
-						typeMainBtn.textContent = 'Type';
-					} else {
-						typeMainBtn.textContent = filterValue;
-					}
-				}
-			}
-			
-			// Toggle filter group
-			locationMainBtn.addEventListener('click', function(e) {
-				e.stopPropagation();
-				const isActive = locationFilterGroup.classList.contains('active');
-				
-				// Close other filter group
-				typeFilterGroup.classList.remove('active');
-				typeMainBtn.classList.remove('active');
-				
-				// Toggle this filter group
-				if (isActive) {
-					locationFilterGroup.classList.remove('active');
-					locationMainBtn.classList.remove('active');
-				} else {
-					locationFilterGroup.classList.add('active');
-					locationMainBtn.classList.add('active');
-				}
-			});
-			
-			typeMainBtn.addEventListener('click', function(e) {
-				e.stopPropagation();
-				const isActive = typeFilterGroup.classList.contains('active');
-				
-				// Close other filter group
-				locationFilterGroup.classList.remove('active');
-				locationMainBtn.classList.remove('active');
-				
-				// Toggle this filter group
-				if (isActive) {
-					typeFilterGroup.classList.remove('active');
-					typeMainBtn.classList.remove('active');
-				} else {
-					typeFilterGroup.classList.add('active');
-					typeMainBtn.classList.add('active');
-				}
-			});
-			
-			// Close filter groups when clicking outside
-			document.addEventListener('click', function(e) {
-				if (!locationFilterGroup.contains(e.target)) {
-					locationFilterGroup.classList.remove('active');
-					locationMainBtn.classList.remove('active');
-				}
-				if (!typeFilterGroup.contains(e.target)) {
-					typeFilterGroup.classList.remove('active');
-					typeMainBtn.classList.remove('active');
-				}
-			});
-			
+		window.addEventListener('load', function() {
+			var activeLoc = 'all';
+			var activeType = 'all';
+			var locGroup = document.getElementById('locationFilterGroup');
+			var typeGroup = document.getElementById('typeFilterGroup');
+			var locBtn = document.getElementById('locationMainBtn');
+			var typeBtn = document.getElementById('typeMainBtn');
+			var locOptions = document.getElementById('locationFilterOptions');
+			var typeOptions = document.getElementById('typeFilterOptions');
+
 			function applyFilters() {
-				galleryItems.forEach(function(item) {
-					const itemLocation = item.getAttribute('data-category');
-					const itemType = item.getAttribute('data-project-type');
-					
-					let showItem = true;
-					
-					// Check location filter
-					if (activeLocationFilter !== 'all' && itemLocation !== activeLocationFilter) {
-						showItem = false;
-					}
-					
-					// Check type filter
-					if (activeTypeFilter !== 'all' && itemType !== activeTypeFilter) {
-						showItem = false;
-					}
-					
-					if (showItem) {
-						item.classList.remove('hidden');
-					} else {
-						item.classList.add('hidden');
-					}
+				var items = document.querySelectorAll('.gallery-grid-item');
+				items.forEach(function(el) {
+					var loc = el.getAttribute('data-project-location') || '';
+					var type = el.getAttribute('data-project-type') || '';
+					var show = true;
+					if (activeLoc !== 'all' && loc !== activeLoc) show = false;
+					if (activeType !== 'all' && type !== activeType) show = false;
+					el.style.display = show ? '' : 'none';
+					if (show) el.classList.remove('hidden'); else el.classList.add('hidden');
 				});
 			}
-			
-			filterButtons.forEach(function(button) {
-				button.addEventListener('click', function() {
-					const filterType = this.getAttribute('data-filter-type');
-					const filterValue = this.getAttribute('data-filter');
-					
-					// Update active filter for this group
-					const filterGroup = this.closest('.gallery-filter');
-					filterGroup.querySelectorAll('.gallery-filter-btn').forEach(function(btn) {
-						btn.classList.remove('active');
-					});
-					this.classList.add('active');
-					
-					// Update active filter state
-					if (filterType === 'location') {
-						activeLocationFilter = filterValue;
-						updateMainButtonText('location', filterValue);
-						// Close the filter dropdown after selection
-						setTimeout(function() {
-							locationFilterGroup.classList.remove('active');
-							locationMainBtn.classList.remove('active');
-						}, 200);
-					} else if (filterType === 'type') {
-						activeTypeFilter = filterValue;
-						updateMainButtonText('type', filterValue);
-						// Close the filter dropdown after selection
-						setTimeout(function() {
-							typeFilterGroup.classList.remove('active');
-							typeMainBtn.classList.remove('active');
-						}, 200);
-					}
-					
-					// Apply both filters
+
+			locOptions.querySelectorAll('.gallery-filter-btn').forEach(function(btn) {
+				btn.addEventListener('click', function(e) {
+					e.stopPropagation();
+					activeLoc = btn.getAttribute('data-loc');
+					locOptions.querySelectorAll('.gallery-filter-btn').forEach(function(b) { b.classList.remove('active'); });
+					btn.classList.add('active');
+					locBtn.textContent = activeLoc === 'all' ? 'Location' : btn.textContent;
+					setTimeout(function() { locGroup.classList.remove('active'); locBtn.classList.remove('active'); }, 150);
 					applyFilters();
 				});
 			});
-			
+
+			typeOptions.querySelectorAll('.gallery-filter-btn').forEach(function(btn) {
+				btn.addEventListener('click', function(e) {
+					e.stopPropagation();
+					activeType = btn.getAttribute('data-type');
+					typeOptions.querySelectorAll('.gallery-filter-btn').forEach(function(b) { b.classList.remove('active'); });
+					btn.classList.add('active');
+					typeBtn.textContent = activeType === 'all' ? 'Type' : btn.textContent;
+					setTimeout(function() { typeGroup.classList.remove('active'); typeBtn.classList.remove('active'); }, 150);
+					applyFilters();
+				});
+			});
+
+			locBtn.addEventListener('click', function(e) {
+				e.stopPropagation();
+				var open = locGroup.classList.contains('active');
+				typeGroup.classList.remove('active'); typeBtn.classList.remove('active');
+				if (open) { locGroup.classList.remove('active'); locBtn.classList.remove('active'); }
+				else { locGroup.classList.add('active'); locBtn.classList.add('active'); }
+			});
+
+			typeBtn.addEventListener('click', function(e) {
+				e.stopPropagation();
+				var open = typeGroup.classList.contains('active');
+				locGroup.classList.remove('active'); locBtn.classList.remove('active');
+				if (open) { typeGroup.classList.remove('active'); typeBtn.classList.remove('active'); }
+				else { typeGroup.classList.add('active'); typeBtn.classList.add('active'); }
+			});
+
+			document.addEventListener('click', function(e) {
+				if (!locGroup.contains(e.target)) { locGroup.classList.remove('active'); locBtn.classList.remove('active'); }
+				if (!typeGroup.contains(e.target)) { typeGroup.classList.remove('active'); typeBtn.classList.remove('active'); }
+			});
+
 			// Modal functionality
 			const modal = document.getElementById('projectModal');
 			const modalImage = document.getElementById('modalImage');
@@ -1625,7 +1570,7 @@
 					});
 				});
 			}
-		})();
+		});
 	</script>
 
 	<!-- Dynamic Client Portal URL Script -->

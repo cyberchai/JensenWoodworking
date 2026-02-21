@@ -224,16 +224,16 @@ export default function AdminMedia() {
 
   if (loading) {
     return (
-      <div className="bg-white border border-gray-200 p-6">
+      <div className="py-6">
         <p className="text-site-gray-light text-sm">Loading media library...</p>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6 min-w-0">
-      <div className="bg-white border border-gray-200 p-4 sm:p-6 space-y-4 min-w-0">
-        <h2 className="text-lg sm:text-xl font-normal text-black">Upload Media</h2>
+    <div className="space-y-5 min-w-0">
+      <div className="space-y-3 min-w-0">
+        <h2 className="text-[10px] font-black tracking-[0.2em] uppercase text-brass">Upload Media</h2>
         <div>
           <label className="block text-sm font-normal text-site-gray mb-2 uppercase tracking-wide">
             Select Images (Max 10MB each)
@@ -271,9 +271,9 @@ export default function AdminMedia() {
         </div>
       </div>
 
-      <div className="bg-white border border-gray-200 p-4 sm:p-6 space-y-6 min-w-0">
+      <div className="space-y-4 min-w-0 border-t border-stone-100 pt-4">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 min-w-0">
-          <h2 className="text-lg sm:text-xl font-normal text-black">Media Library</h2>
+          <h2 className="text-[10px] font-black tracking-[0.2em] uppercase text-brass">Media Library</h2>
           <span className="text-sm text-site-gray-light">
             {filteredMediaItems.length} {filteredMediaItems.length === 1 ? 'item' : 'items'}
             {searchQuery && filteredMediaItems.length !== mediaItems.length && (
@@ -316,7 +316,7 @@ export default function AdminMedia() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 min-w-0 max-w-full">
             {filteredMediaItems.map((item) => (
-              <div key={item.id} className="border border-gray-200 p-4 space-y-3 relative group min-w-0">
+              <div key={item.id} className="bg-stone-50 rounded-sm p-2 space-y-2 relative group min-w-0">
                 <div className="aspect-video bg-gray-100 flex items-center justify-center overflow-hidden rounded-sm">
                   <img
                     src={item.url}

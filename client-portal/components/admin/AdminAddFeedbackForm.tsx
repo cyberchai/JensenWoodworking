@@ -85,7 +85,7 @@ export default function AdminAddFeedbackForm({ onFeedbackAdded }: AdminAddFeedba
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 p-8 border border-stone-100 bg-white shadow-sm">
+    <form onSubmit={handleSubmit} className="space-y-4 p-4 bg-stone-50 rounded-sm">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-[11px] font-black uppercase tracking-[0.3em] text-ebony">Add Feedback</h3>
         <button

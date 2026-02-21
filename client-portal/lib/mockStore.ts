@@ -31,6 +31,7 @@ export interface PastProject {
   projectToken: string; // Reference to original project token
   title: string;
   description?: string;
+  projectType?: string; // e.g. "Island", "Counter Top", "Mantel", "Table", "Other"
   selectedImages: PastProjectImage[]; // Selected images from media gallery
   createdAt: number;
   completedAt: number; // When project was marked as completed

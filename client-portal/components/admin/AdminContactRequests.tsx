@@ -78,29 +78,27 @@ export default function AdminContactRequests({ contactRequests, onUpdate }: Admi
   };
 
   return (
-    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 min-w-0">
+    <div className="space-y-4 min-w-0">
       <div className="flex items-center justify-between gap-4 min-w-0">
-        <h2 className="text-sm md:text-base font-black tracking-[0.3em] uppercase text-brass truncate">Commission Inquiries</h2>
-        <div className="text-xs md:text-sm text-stone-400 font-bold uppercase tracking-widest shrink-0">
-          {contactRequests.length} {contactRequests.length === 1 ? 'Inquiry' : 'Inquiries'}
-        </div>
+        <h2 className="text-[10px] font-black tracking-[0.2em] uppercase text-brass">Commission Inquiries</h2>
+        <span className="text-[10px] text-stone-400">{contactRequests.length}</span>
       </div>
 
       <div className="space-y-3">
         {contactRequests.length === 0 ? (
-          <div className="bg-white border border-stone-200 p-12 text-center shadow-sm rounded-sm">
-            <p className="text-stone-300 italic font-serif normal-case tracking-normal text-sm">
-              No recent inquiries found in the archives.
+          <div className="py-8 text-center">
+            <p className="text-stone-300 italic font-serif text-sm">
+              No recent inquiries found.
             </p>
           </div>
         ) : (
           contactRequests.map((request) => (
             <div
               key={request.id}
-              className="bg-white border border-stone-200 overflow-hidden hover:border-stone-300 transition-colors shadow-sm rounded-sm"
+              className="bg-stone-50 overflow-hidden hover:bg-stone-100/80 transition-colors rounded-sm"
             >
               {/* Compact Header Row */}
-              <div className="px-4 sm:px-6 md:px-8 py-4 md:py-6 flex items-start justify-between gap-4 border-b border-stone-200 min-w-0">
+              <div className="px-4 sm:px-5 py-3 flex items-start justify-between gap-4 border-b border-stone-200/50 min-w-0">
                 <div className="flex-1 min-w-0 space-y-3">
                   <div className="flex items-start justify-between gap-4 min-w-0">
                     <h3 className="text-base md:text-lg font-bold text-ebony uppercase tracking-wider break-words min-w-0">

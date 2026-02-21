@@ -35,8 +35,8 @@ function generateGalleryGridItem(project: PastProject): string {
   
   const title = escapeHtml(project.title);
   const description = escapeHtml(project.description || '');
-  const location = 'Custom Project'; // Default location, can be enhanced later
-  const projectType = 'Custom'; // Default type, can be enhanced later
+  const projectType = escapeHtml(project.projectType || 'Custom');
+  const location = projectType;
   let imageUrl = mainImage.url;
   if (!imageUrl.startsWith('http') && !imageUrl.startsWith('/')) {
     imageUrl = `/${imageUrl}`;

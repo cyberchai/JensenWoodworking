@@ -114,6 +114,7 @@ const docToPastProject = (docSnap: QueryDocumentSnapshot<DocumentData>): PastPro
     projectToken: data.projectToken,
     title: data.title,
     description: data.description,
+    projectType: data.projectType,
     selectedImages: data.selectedImages || [],
     createdAt: timestampToNumber(data.createdAt),
     completedAt: timestampToNumber(data.completedAt),
@@ -567,6 +568,9 @@ export const firebaseStore = {
     if (data.description && data.description.trim()) {
       pastProjectData.description = data.description.trim();
     }
+    if (data.projectType && data.projectType.trim()) {
+      pastProjectData.projectType = data.projectType.trim();
+    }
     
     const docRef = await addDoc(collection(db, PAST_PROJECTS_COLLECTION), pastProjectData);
     
@@ -589,6 +593,13 @@ export const firebaseStore = {
           updateData.description = deleteField();
         } else {
           updateData.description = typeof updates.description === 'string' ? updates.description.trim() : updates.description;
+        }
+      }
+      if (updates.projectType !== undefined) {
+        if (updates.projectType === null || updates.projectType === undefined || (typeof updates.projectType === 'string' && updates.projectType.trim() === '')) {
+          updateData.projectType = deleteField();
+        } else {
+          updateData.projectType = typeof updates.projectType === 'string' ? updates.projectType.trim() : updates.projectType;
         }
       }
       if (updates.selectedImages !== undefined) updateData.selectedImages = updates.selectedImages;
