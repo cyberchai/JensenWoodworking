@@ -187,11 +187,10 @@
 		
 		/* Gallery Grid Styles */
 		.gallery-filter-wrapper {
-			margin-bottom: 40px;
+			margin-bottom: 30px;
 			display: flex;
-			justify-content: center;
-			flex-wrap: wrap;
-			gap: 15px;
+			justify-content: flex-end;
+			padding-right: 60px;
 		}
 		
 		.gallery-filter-group {
@@ -199,55 +198,53 @@
 		}
 		
 		.filter-group-main-btn {
-			padding: 10px 25px;
+			padding: 6px 28px 6px 14px;
 			background-color: transparent;
-			border: 1px solid #e2e2e2;
-			color: #777;
-			font-size: 14px;
+			border: 1px solid #ddd;
+			color: #999;
+			font-size: 11px;
 			font-weight: 400;
 			cursor: pointer;
-			transition: all 0.3s ease;
+			transition: all 0.2s ease;
 			text-transform: uppercase;
-			letter-spacing: 1px;
+			letter-spacing: 1.5px;
 			font-family: 'Inter', sans-serif;
 			position: relative;
-			padding-right: 40px;
 		}
 		
 		.filter-group-main-btn::after {
-			content: '▼';
+			content: '›';
 			position: absolute;
-			right: 15px;
-			font-size: 10px;
-			transition: transform 0.3s ease;
+			right: 10px;
+			font-size: 14px;
+			line-height: 1;
+			transition: transform 0.2s ease;
+			transform: rotate(90deg);
 		}
 		
 		.filter-group-main-btn.active::after {
-			transform: rotate(180deg);
+			transform: rotate(270deg);
 		}
 		
 		.filter-group-main-btn:hover,
 		.filter-group-main-btn.active {
-			background-color: #ffe1a0;
-			border-color: #ffe1a0;
-			color: #000;
+			border-color: #333;
+			color: #333;
 		}
 		
 		.gallery-filter {
 			display: none;
 			position: absolute;
-			top: 100%;
-			left: 50%;
-			transform: translateX(-50%);
-			margin-top: 10px;
+			top: calc(100% + 4px);
+			right: 0;
 			background-color: #fff;
-			border: 1px solid #e2e2e2;
-			padding: 15px;
-			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+			border: 1px solid #eee;
+			padding: 4px 0;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 			z-index: 100;
-			min-width: 200px;
+			min-width: 140px;
 			flex-direction: column;
-			gap: 8px;
+			gap: 0;
 		}
 		
 		.gallery-filter-group.active .gallery-filter {
@@ -255,25 +252,29 @@
 		}
 		
 		.gallery-filter-btn {
-			padding: 10px 20px;
+			padding: 7px 16px;
 			background-color: transparent;
-			border: 1px solid #e2e2e2;
-			color: #777;
-			font-size: 13px;
+			border: none;
+			color: #888;
+			font-size: 11px;
 			font-weight: 400;
 			cursor: pointer;
-			transition: all 0.3s ease;
+			transition: all 0.15s ease;
 			text-transform: uppercase;
 			letter-spacing: 1px;
 			font-family: 'Inter', sans-serif;
 			white-space: nowrap;
+			text-align: left;
 		}
 
-		.gallery-filter-btn:hover,
+		.gallery-filter-btn:hover {
+			background-color: #f5f5f5;
+			color: #333;
+		}
+		
 		.gallery-filter-btn.active {
-			background-color: #ffe1a0;
-			border-color: #ffe1a0;
 			color: #000;
+			font-weight: 500;
 		}
 		
 		.gallery-grid {
@@ -663,23 +664,7 @@
 			}
 			
 			.gallery-filter-wrapper {
-				gap: 10px;
-			}
-			
-			.filter-group-main-btn {
-				padding: 8px 20px;
-				padding-right: 35px;
-				font-size: 12px;
-			}
-			
-			.gallery-filter {
-				min-width: 180px;
-				padding: 10px;
-			}
-			
-			.gallery-filter-btn {
-				padding: 6px 12px;
-				font-size: 11px;
+				padding-right: 20px;
 			}
 			
 			.project-modal-image-section {
@@ -870,7 +855,7 @@
 		<!--End Main Header -->
 
 		<!-- Page Banner Section -->
-		<section class="page-banner-section" style="background-image: url(images/main-slider/image-1.jpg)">
+		<section class="page-banner-section" style="background-image: url(/jw_projects/galleryimg.JPG); padding: 200px 0 60px;">
 			<div class="auto-container">
 				<div class="title">Gallery</div>
 				<h1>Selected Projects</h1>
@@ -883,25 +868,14 @@
 			<div class="auto-container">
 			<!-- Filter Buttons -->
 			<div class="gallery-filter-wrapper">
-				<div class="gallery-filter-group" id="locationFilterGroup">
-					<button class="filter-group-main-btn" id="locationMainBtn">Location</button>
-					<div class="gallery-filter" id="locationFilterOptions">
-						<button class="gallery-filter-btn active" data-loc="all">All Locations</button>
-						<button class="gallery-filter-btn" data-loc="Duxbury, MA">Duxbury</button>
-						<button class="gallery-filter-btn" data-loc="East Boston, MA">East Boston</button>
-						<button class="gallery-filter-btn" data-loc="West Roxbury, MA">West Roxbury</button>
-						<button class="gallery-filter-btn" data-loc="Winchester, MA">Winchester</button>
-					</div>
-				</div>
 				<div class="gallery-filter-group" id="typeFilterGroup">
-					<button class="filter-group-main-btn" id="typeMainBtn">Type</button>
+					<button class="filter-group-main-btn" id="typeMainBtn">Filter</button>
 					<div class="gallery-filter" id="typeFilterOptions">
-						<button class="gallery-filter-btn active" data-type="all">All Types</button>
+						<button class="gallery-filter-btn active" data-type="all">All</button>
 						<button class="gallery-filter-btn" data-type="Island">Island</button>
 						<button class="gallery-filter-btn" data-type="Counter Top">Counter Top</button>
 						<button class="gallery-filter-btn" data-type="Mantel">Mantel</button>
 						<button class="gallery-filter-btn" data-type="Table">Table</button>
-						<button class="gallery-filter-btn" data-type="Charcuterie Board">Charcuterie Board</button>
 					</div>
 				</div>
 			</div>
@@ -1240,40 +1214,22 @@
 	<!-- Gallery Filter and Modal Script -->
 	<script>
 		window.addEventListener('load', function() {
-			var activeLoc = 'all';
 			var activeType = 'all';
-			var locGroup = document.getElementById('locationFilterGroup');
 			var typeGroup = document.getElementById('typeFilterGroup');
-			var locBtn = document.getElementById('locationMainBtn');
 			var typeBtn = document.getElementById('typeMainBtn');
-			var locOptions = document.getElementById('locationFilterOptions');
 			var typeOptions = document.getElementById('typeFilterOptions');
 
 			function applyFilters() {
 				var items = document.querySelectorAll('.gallery-grid-item');
 				items.forEach(function(el) {
-					var loc = el.getAttribute('data-project-location') || '';
 					var typeAttr = el.getAttribute('data-project-type') || '';
 					var types = typeAttr.split(',');
 					var show = true;
-					if (activeLoc !== 'all' && loc !== activeLoc) show = false;
 					if (activeType !== 'all' && types.indexOf(activeType) === -1) show = false;
 					el.style.display = show ? '' : 'none';
 					if (show) el.classList.remove('hidden'); else el.classList.add('hidden');
 				});
 			}
-
-			locOptions.querySelectorAll('.gallery-filter-btn').forEach(function(btn) {
-				btn.addEventListener('click', function(e) {
-					e.stopPropagation();
-					activeLoc = btn.getAttribute('data-loc');
-					locOptions.querySelectorAll('.gallery-filter-btn').forEach(function(b) { b.classList.remove('active'); });
-					btn.classList.add('active');
-					locBtn.textContent = activeLoc === 'all' ? 'Location' : btn.textContent;
-					setTimeout(function() { locGroup.classList.remove('active'); locBtn.classList.remove('active'); }, 150);
-					applyFilters();
-				});
-			});
 
 			typeOptions.querySelectorAll('.gallery-filter-btn').forEach(function(btn) {
 				btn.addEventListener('click', function(e) {
@@ -1281,30 +1237,20 @@
 					activeType = btn.getAttribute('data-type');
 					typeOptions.querySelectorAll('.gallery-filter-btn').forEach(function(b) { b.classList.remove('active'); });
 					btn.classList.add('active');
-					typeBtn.textContent = activeType === 'all' ? 'Type' : btn.textContent;
+					typeBtn.textContent = activeType === 'all' ? 'Filter' : btn.textContent;
 					setTimeout(function() { typeGroup.classList.remove('active'); typeBtn.classList.remove('active'); }, 150);
 					applyFilters();
 				});
 			});
 
-			locBtn.addEventListener('click', function(e) {
-				e.stopPropagation();
-				var open = locGroup.classList.contains('active');
-				typeGroup.classList.remove('active'); typeBtn.classList.remove('active');
-				if (open) { locGroup.classList.remove('active'); locBtn.classList.remove('active'); }
-				else { locGroup.classList.add('active'); locBtn.classList.add('active'); }
-			});
-
 			typeBtn.addEventListener('click', function(e) {
 				e.stopPropagation();
 				var open = typeGroup.classList.contains('active');
-				locGroup.classList.remove('active'); locBtn.classList.remove('active');
 				if (open) { typeGroup.classList.remove('active'); typeBtn.classList.remove('active'); }
 				else { typeGroup.classList.add('active'); typeBtn.classList.add('active'); }
 			});
 
 			document.addEventListener('click', function(e) {
-				if (!locGroup.contains(e.target)) { locGroup.classList.remove('active'); locBtn.classList.remove('active'); }
 				if (!typeGroup.contains(e.target)) { typeGroup.classList.remove('active'); typeBtn.classList.remove('active'); }
 			});
 
