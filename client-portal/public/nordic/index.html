@@ -122,16 +122,49 @@
 			}
 		}
 		
-		/* Banner subtitle smaller than Jensen Woodworking title */
+		/* Banner: Jensen Woodworking as the hero h1 */
+		.banner-section .content-boxed h1 {
+			margin-top: 0;
+			font-family: 'Inter', sans-serif;
+			font-size: 72px;
+			font-weight: 300;
+			letter-spacing: 0.12em;
+			text-transform: none;
+		}
+		/* Banner subtitle below the hero title */
 		.banner-section .content-boxed .subtitle-h1 {
-			font-size: 36px;
-			line-height: 1.25;
+			font-size: 30px;
+			line-height: 1.35;
 			font-weight: 300;
 			letter-spacing: 0.04em;
+			color: #fff;
+			margin-top: 20px;
+			opacity: 0;
+			transform: scaleY(0);
+			transform-origin: top;
+			transition: all 1000ms ease;
+			transition-delay: 600ms;
 		}
-		@media (max-width: 767px) {
+		.owl-item.active .banner-section .content-boxed .subtitle-h1,
+		.banner-section .owl-item.active .content-boxed .subtitle-h1 {
+			opacity: 1;
+			transform: scaleY(1);
+		}
+		@media (max-width: 991px) {
+			.banner-section .content-boxed h1 {
+				font-size: 52px;
+			}
 			.banner-section .content-boxed .subtitle-h1 {
 				font-size: 26px;
+			}
+		}
+		@media (max-width: 767px) {
+			.banner-section .content-boxed h1 {
+				font-size: 36px;
+				letter-spacing: 0.08em;
+			}
+			.banner-section .content-boxed .subtitle-h1 {
+				font-size: 20px;
 			}
 		}
 		
@@ -1359,57 +1392,49 @@
 		<section class="banner-section" id="home">
 			<div class="main-slider-carousel owl-carousel owl-theme">
 
-				<div class="slide" style="background-image: url(images/main-slider/image-1.jpg)">
-					<div class="auto-container">
-						<!-- Content Boxed -->
-						<div class="content-boxed">
-							<div class="inner-boxed">
-								<div class="title">Jensen Woodworking</div>
-								<h1 class="subtitle-h1">Custom Furniture, <br>Tables & Countertops</h1>
-							</div>
+			<div class="slide" style="background-image: url(images/main-slider/image-1.jpg)">
+				<div class="auto-container">
+					<div class="content-boxed">
+						<div class="inner-boxed">
+							<h1>Jensen Woodworking</h1>
+							<div class="subtitle-h1">Quality Custom Countertops, Islands <br>& Surfaces</div>
 						</div>
-
 					</div>
 				</div>
+			</div>
 
-				<div class="slide" style="background-image: url(images/main-slider/image-1.jpg)">
-					<div class="auto-container">
-						<!-- Content Boxed -->
-						<div class="content-boxed">
-							<div class="inner-boxed">
-								<div class="title">Dining Tables</div>
-								<h1>Made to Fit <br> Your Home</h1>
-							</div>
+			<div class="slide" style="background-image: url(images/main-slider/image-1.jpg)">
+				<div class="auto-container">
+					<div class="content-boxed">
+						<div class="inner-boxed">
+							<h1>Jensen Woodworking</h1>
+							<div class="subtitle-h1">Solid Wood Countertops <br>Built to Spec</div>
 						</div>
-
 					</div>
 				</div>
+			</div>
 
-				<div class="slide" style="background-image: url(images/main-slider/image-1.jpg)">
-					<div class="auto-container">
-						<!-- Content Boxed -->
-						<div class="content-boxed">
-							<div class="inner-boxed">
-								<div class="title">Repair & Refinish</div>
-								<h1>Bring Heirlooms <br> Back to Life</h1>
-							</div>
+			<div class="slide" style="background-image: url(images/main-slider/image-1.jpg)">
+				<div class="auto-container">
+					<div class="content-boxed">
+						<div class="inner-boxed">
+							<h1>Jensen Woodworking</h1>
+							<div class="subtitle-h1">Kitchen Islands, Bartops <br>& Mantels</div>
 						</div>
-
 					</div>
 				</div>
+			</div>
 
-				<div class="slide" style="background-image: url(images/main-slider/image-1.jpg)">
-					<div class="auto-container">
-						<!-- Content Boxed -->
-						<div class="content-boxed">
-							<div class="inner-boxed">
-								<div class="title">Custom Woodworking</div>
-								<h1>Quality. Detail. <br> Made to Last.</h1>
-							</div>
+			<div class="slide" style="background-image: url(images/main-slider/image-1.jpg)">
+				<div class="auto-container">
+					<div class="content-boxed">
+						<div class="inner-boxed">
+							<h1>Jensen Woodworking</h1>
+							<div class="subtitle-h1">Custom Nordic Woodworking</div>
 						</div>
-
 					</div>
 				</div>
+			</div>
 
 			</div>
 
