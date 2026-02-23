@@ -6,12 +6,12 @@ import { getAuth, Auth } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
+  authDomain: "jensenwoodworking-mass.firebaseapp.com",
+  projectId: "jensenwoodworking-mass",
+  storageBucket: "jensenwoodworking-mass.firebasestorage.app",
+  messagingSenderId: "625142149100",
+  appId: "1:625142149100:web:c25ff165f9ee7c24db5ac9",
+  measurementId: "G-50N2XJ423S",
 };
 
 // Initialize Firebase
