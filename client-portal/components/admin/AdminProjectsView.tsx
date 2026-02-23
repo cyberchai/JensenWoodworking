@@ -371,7 +371,7 @@ export default function AdminProjectsView({ projects, onUpdate }: AdminProjectsV
             <div className="mb-3 pb-3 border-b border-stone-100">
               <span className="text-[9px] font-black uppercase tracking-widest text-stone-400 mr-3">Type</span>
               <div className="inline-flex flex-wrap gap-1 mt-1">
-                {['Island', 'Counter Top', 'Mantel', 'Table', 'Charcuterie Board', 'Other'].map((t) => {
+                {['Island Top', 'Bar Top', 'Counter Top', 'Mantel', 'Table', 'Charcuterie Board', 'Other'].map((t) => {
                   const active = editProjectType.includes(t);
                   return (
                     <button

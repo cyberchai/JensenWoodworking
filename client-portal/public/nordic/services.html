@@ -259,6 +259,40 @@
 			}
 		}
 
+		/* Build Time & Delivery cards */
+		.build-delivery-card {
+			position: relative;
+			overflow: hidden;
+			background: #fff;
+			border: none;
+			padding: 40px;
+			height: 100%;
+			box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+			transition: all 0.3s ease;
+		}
+
+		.build-delivery-card::before {
+			content: '';
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 5px;
+			height: 100%;
+			background-color: #ffe1a0;
+			transform: scaleY(0);
+			transform-origin: top;
+			transition: transform 0.3s ease;
+		}
+
+		.build-delivery-card:hover {
+			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+			transform: translateY(-5px);
+		}
+
+		.build-delivery-card:hover::before {
+			transform: scaleY(1);
+		}
+
 		/* Professional CTA Section */
 		.professional-cta-section {
 			padding: 110px 0;
@@ -467,7 +501,7 @@
 					
 					<!-- Product Card: Handmade Dining Tables -->
 					<div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 30px;">
-						<div class="project-type-card" style="background: #fff; border: 1px solid #e1e1e1; padding: 40px; height: 100%; transition: all 0.3s ease; cursor: pointer;">
+						<div class="project-type-card" data-project-types="Table" style="background: #fff; border: 1px solid #e1e1e1; padding: 40px; height: 100%; transition: all 0.3s ease; cursor: pointer;">
 							<div class="project-type-card-image-container">
 								<img src="/images/table.jpg" alt="Handmade Dining Tables" class="project-type-card-image" style="object-position: center;">
 							</div>
@@ -484,7 +518,7 @@
 
 					<!-- Product Card: Kitchen Counters & Island Tops -->
 					<div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 30px;">
-						<div class="project-type-card" style="background: #fff; border: 1px solid #e1e1e1; padding: 40px; height: 100%; transition: all 0.3s ease; cursor: pointer;">
+						<div class="project-type-card" data-project-types="Counter Top,Island Top,Island" style="background: #fff; border: 1px solid #e1e1e1; padding: 40px; height: 100%; transition: all 0.3s ease; cursor: pointer;">
 							<div class="project-type-card-image-container">
 								<img src="/images/counter.jpg" alt="Kitchen Counters & Island Tops" class="project-type-card-image" style="object-position: center;">
 							</div>
@@ -501,7 +535,7 @@
 
 					<!-- Product Card: Live Edge Dining Tables -->
 					<div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 30px;">
-						<div class="project-type-card" style="background: #fff; border: 1px solid #e1e1e1; padding: 40px; height: 100%; transition: all 0.3s ease; cursor: pointer;">
+						<div class="project-type-card" data-project-types="Table,Other" style="background: #fff; border: 1px solid #e1e1e1; padding: 40px; height: 100%; transition: all 0.3s ease; cursor: pointer;">
 							<div class="project-type-card-image-container">
 								<img src="/images/resource/image-1.jpg" alt="Live Edge Dining Tables" class="project-type-card-image" style="object-position: center;">
 							</div>
@@ -518,7 +552,7 @@
 
 					<!-- Product Card: Bar Tops -->
 					<div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 30px;">
-						<div class="project-type-card" style="background: #fff; border: 1px solid #e1e1e1; padding: 40px; height: 100%; transition: all 0.3s ease; cursor: pointer;">
+						<div class="project-type-card" data-project-types="Bar Top,Other" style="background: #fff; border: 1px solid #e1e1e1; padding: 40px; height: 100%; transition: all 0.3s ease; cursor: pointer;">
 							<div class="project-type-card-image-container">
 								<img src="/images/counter.jpg" alt="Bar Tops" class="project-type-card-image" style="object-position: center;">
 							</div>
@@ -535,7 +569,7 @@
 
 					<!-- Product Card: Custom-Designed Dining Tables -->
 					<div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 30px;">
-						<div class="project-type-card" style="background: #fff; border: 1px solid #e1e1e1; padding: 40px; height: 100%; transition: all 0.3s ease; cursor: pointer;">
+						<div class="project-type-card" data-project-types="Table,Other" style="background: #fff; border: 1px solid #e1e1e1; padding: 40px; height: 100%; transition: all 0.3s ease; cursor: pointer;">
 							<div class="project-type-card-image-container">
 								<img src="/images/table.jpg" alt="Custom-Designed Dining Tables" class="project-type-card-image" style="object-position: center;">
 							</div>
@@ -552,7 +586,7 @@
 
 					<!-- Product Card: Conference Tables & Desktops -->
 					<div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 30px;">
-						<div class="project-type-card" style="background: #fff; border: 1px solid #e1e1e1; padding: 40px; height: 100%; transition: all 0.3s ease; cursor: pointer;">
+						<div class="project-type-card" data-project-types="Table,Other" style="background: #fff; border: 1px solid #e1e1e1; padding: 40px; height: 100%; transition: all 0.3s ease; cursor: pointer;">
 							<div class="project-type-card-image-container">
 								<img src="/images/resource/image-1.jpg" alt="Corporate Conference Tables" class="project-type-card-image" style="object-position: center;">
 							</div>
@@ -586,7 +620,7 @@
 					<!-- Wood Type -->
 					<div class="col-lg-6 col-md-6 col-sm-12" style="margin-bottom: 50px;">
 						<div style="display: flex; gap: 30px; align-items: flex-start;">
-							<div style="flex: 0 0 100px; height: 100px; background: #8B4513; border: 1px solid #e1e1e1;"></div>
+							<img src="/images/wood-samples/black-walnut.jpg" alt="Black Walnut wood sample" style="flex: 0 0 100px; width: 100px; height: 100px; object-fit: cover; border: 1px solid #e1e1e1;">
 							<div style="flex: 1;">
 								<h4 style="font-size: 22px; margin-bottom: 10px; color: #000;">Black Walnut</h4>
 								<p style="color: #666; line-height: 1.8; margin-bottom: 15px;">Rich, dark brown with beautiful grain patterns. Known for its durability and elegant appearance. Perfect for statement pieces like dining tables and islands.</p>
@@ -601,7 +635,7 @@
 					<!-- Wood Type -->
 					<div class="col-lg-6 col-md-6 col-sm-12" style="margin-bottom: 50px;">
 						<div style="display: flex; gap: 30px; align-items: flex-start;">
-							<div style="flex: 0 0 100px; height: 100px; background: #D2691E; border: 1px solid #e1e1e1;"></div>
+							<img src="/images/wood-samples/cherry.jpg" alt="Cherry wood sample" style="flex: 0 0 100px; width: 100px; height: 100px; object-fit: cover; border: 1px solid #e1e1e1;">
 							<div style="flex: 1;">
 								<h4 style="font-size: 22px; margin-bottom: 10px; color: #000;">Cherry</h4>
 								<p style="color: #666; line-height: 1.8; margin-bottom: 15px;">Warm reddish-brown that deepens with age. Smooth grain and excellent workability. Ideal for elegant furniture and kitchen applications.</p>
@@ -616,7 +650,7 @@
 					<!-- Wood Type -->
 					<div class="col-lg-6 col-md-6 col-sm-12" style="margin-bottom: 50px;">
 						<div style="display: flex; gap: 30px; align-items: flex-start;">
-							<div style="flex: 0 0 100px; height: 100px; background: #DEB887; border: 1px solid #e1e1e1;"></div>
+							<img src="/images/wood-samples/white-oak.jpg" alt="White Oak wood sample" style="flex: 0 0 100px; width: 100px; height: 100px; object-fit: cover; border: 1px solid #e1e1e1;">
 							<div style="flex: 1;">
 								<h4 style="font-size: 22px; margin-bottom: 10px; color: #000;">White Oak</h4>
 								<p style="color: #666; line-height: 1.8; margin-bottom: 15px;">Light golden to medium brown with distinctive ray fleck patterns. Extremely durable and water-resistant. Perfect for butcher blocks and heavy-use surfaces.</p>
@@ -631,7 +665,7 @@
 					<!-- Wood Type -->
 					<div class="col-lg-6 col-md-6 col-sm-12" style="margin-bottom: 50px;">
 						<div style="display: flex; gap: 30px; align-items: flex-start;">
-							<div style="flex: 0 0 100px; height: 100px; background: #F5DEB3; border: 1px solid #e1e1e1;"></div>
+							<img src="/images/wood-samples/maple.jpg" alt="Maple wood sample" style="flex: 0 0 100px; width: 100px; height: 100px; object-fit: cover; border: 1px solid #e1e1e1;">
 							<div style="flex: 1;">
 								<h4 style="font-size: 22px; margin-bottom: 10px; color: #000;">Maple</h4>
 								<p style="color: #666; line-height: 1.8; margin-bottom: 15px;">Light, creamy color with subtle grain. Hard and durable, making it ideal for high-traffic areas. Classic choice for kitchen applications.</p>
@@ -646,7 +680,7 @@
 					<!-- Wood Type -->
 					<div class="col-lg-6 col-md-6 col-sm-12" style="margin-bottom: 50px;">
 						<div style="display: flex; gap: 30px; align-items: flex-start;">
-							<div style="flex: 0 0 100px; height: 100px; background: #C4B59D; border: 1px solid #e1e1e1;"></div>
+							<img src="/images/wood-samples/ash.jpg" alt="Ash wood sample" style="flex: 0 0 100px; width: 100px; height: 100px; object-fit: cover; border: 1px solid #e1e1e1;">
 							<div style="flex: 1;">
 								<h4 style="font-size: 22px; margin-bottom: 10px; color: #000;">Ash</h4>
 								<p style="color: #666; line-height: 1.8; margin-bottom: 15px;">Light cream to pale brown with a subtle, straight grain. Strong and flexible with excellent shock resistance. A versatile hardwood with clean, understated character.</p>
@@ -661,7 +695,7 @@
 					<!-- Wood Type -->
 					<div class="col-lg-6 col-md-6 col-sm-12" style="margin-bottom: 50px;">
 						<div style="display: flex; gap: 30px; align-items: flex-start;">
-							<div style="flex: 0 0 100px; height: 100px; background: #8B7355; border: 1px solid #e1e1e1;"></div>
+							<img src="/images/wood-samples/reclaimed.jpg" alt="Reclaimed wood sample" style="flex: 0 0 100px; width: 100px; height: 100px; object-fit: cover; border: 1px solid #e1e1e1;">
 							<div style="flex: 1;">
 								<h4 style="font-size: 22px; margin-bottom: 10px; color: #000;">Reclaimed Wood</h4>
 								<p style="color: #666; line-height: 1.8; margin-bottom: 15px;">Wood with history and character. Sourced from fallen trees, old barns, and reclaimed materials. Each piece tells a story and brings unique character to your space.</p>
@@ -676,7 +710,7 @@
 					<!-- Wood Type -->
 					<div class="col-lg-6 col-md-6 col-sm-12" style="margin-bottom: 50px;">
 						<div style="display: flex; gap: 30px; align-items: flex-start;">
-							<div style="flex: 0 0 100px; height: 100px; background: #A0522D; border: 1px solid #e1e1e1;"></div>
+							<img src="/images/wood-samples/live-edge.jpg" alt="Live Edge wood sample" style="flex: 0 0 100px; width: 100px; height: 100px; object-fit: cover; border: 1px solid #e1e1e1;">
 							<div style="flex: 1;">
 								<h4 style="font-size: 22px; margin-bottom: 10px; color: #000;">Live Edge</h4>
 								<p style="color: #666; line-height: 1.8; margin-bottom: 15px;">Natural edge slabs that preserve the tree's original shape. Available in various species. Creates stunning, one-of-a-kind pieces that celebrate the wood's natural beauty.</p>
@@ -754,19 +788,19 @@
 				</div>
 				<div class="row clearfix" style="margin-top: 60px;">
 					<div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 30px;">
-						<div style="background: #fff; border: 1px solid #e1e1e1; padding: 40px; height: 100%;">
+						<div class="build-delivery-card">
 							<h3 style="font-size: 24px; margin-bottom: 15px; color: #000;">Timing</h3>
 							<p style="color: #666; line-height: 1.8;">Custom builds typically take 3&ndash;6 weeks.</p>
 						</div>
 					</div>
 					<div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 30px;">
-						<div style="background: #fff; border: 1px solid #e1e1e1; padding: 40px; height: 100%;">
+						<div class="build-delivery-card">
 							<h3 style="font-size: 24px; margin-bottom: 15px; color: #000;">Local Delivery</h3>
 							<p style="color: #666; line-height: 1.8;">Local delivery includes blanket-wrapping and in-home placement; costs range from $0&ndash;$500 depending on size and distance.</p>
 						</div>
 					</div>
 					<div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 30px;">
-						<div style="background: #fff; border: 1px solid #e1e1e1; padding: 40px; height: 100%;">
+						<div class="build-delivery-card">
 							<h3 style="font-size: 24px; margin-bottom: 15px; color: #000;">Shipping</h3>
 							<p style="color: #666; line-height: 1.8;">We also ship throughout North America, using custom crates or triple-ply packaging to protect larger pieces.</p>
 						</div>
@@ -963,6 +997,110 @@
 						});
 					});
 				}
+			});
+		})();
+	</script>
+
+	<!-- Product Card Images from Tagged Projects -->
+	<script>
+		(function() {
+			function normalizeType(type) {
+				return String(type || '').trim().toLowerCase();
+			}
+
+			function normalizeImageUrl(url) {
+				if (!url) return '';
+				if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('/')) {
+					return url;
+				}
+				return '/' + url;
+			}
+
+			function getProjectImage(project) {
+				if (!project || !Array.isArray(project.selectedImages)) return '';
+				if (project.selectedImages.length === 0) return '';
+				return normalizeImageUrl(project.selectedImages[0].url);
+			}
+
+			function getProjectKey(project) {
+				if (!project) return '';
+				return String(project.id || project.projectToken || project.title || getProjectImage(project));
+			}
+
+			document.addEventListener('DOMContentLoaded', function() {
+				const cards = document.querySelectorAll('.project-type-card[data-project-types]');
+				if (!cards.length) return;
+
+				fetch('/api/past-projects')
+					.then(function(response) {
+						if (!response.ok) {
+							throw new Error('Failed to fetch projects');
+						}
+						return response.json();
+					})
+					.then(function(projects) {
+						if (!Array.isArray(projects) || projects.length === 0) return;
+
+						// Keep only projects that have at least one displayable image.
+						const projectsWithImages = projects.filter(function(project) {
+							return !!getProjectImage(project);
+						});
+
+						const usedImageUrls = new Set();
+						const usedProjectKeys = new Set();
+
+						cards.forEach(function(card) {
+							const imageEl = card.querySelector('.project-type-card-image');
+							if (!imageEl) return;
+
+							const desiredTypes = String(card.getAttribute('data-project-types') || '')
+								.split(',')
+								.map(normalizeType)
+								.filter(Boolean);
+							if (desiredTypes.length === 0) return;
+
+							const matchingProjects = projectsWithImages.filter(function(project) {
+								const projectTypes = Array.isArray(project.projectType) ? project.projectType.map(normalizeType) : [];
+								return desiredTypes.some(function(type) {
+									return projectTypes.includes(type);
+								});
+							});
+
+							if (matchingProjects.length === 0) return;
+
+							// Prefer unique images first, then unique projects, then allow reuse.
+							let match = matchingProjects.find(function(project) {
+								const imageUrl = getProjectImage(project);
+								return imageUrl && !usedImageUrls.has(imageUrl);
+							});
+
+							if (!match) {
+								match = matchingProjects.find(function(project) {
+									return !usedProjectKeys.has(getProjectKey(project));
+								});
+							}
+
+							if (!match) {
+								match = matchingProjects[0];
+							}
+
+							if (!match) return;
+
+							const matchedImage = getProjectImage(match);
+							if (!matchedImage) return;
+
+							usedImageUrls.add(matchedImage);
+							usedProjectKeys.add(getProjectKey(match));
+
+							imageEl.src = matchedImage;
+							if (match.title) {
+								imageEl.alt = match.title;
+							}
+						});
+					})
+					.catch(function(error) {
+						console.error('Error loading project card images:', error);
+					});
 			});
 		})();
 	</script>

@@ -158,14 +158,19 @@ export default function AdminPastProjects() {
     setSelectedImages(selectedImages.filter((_, i) => i !== index));
   };
 
-  const addImageFromGallery = (mediaItem: MediaItem) => {
-    const image: PastProjectImage = {
-      url: mediaItem.url,
-      fileId: mediaItem.fileId,
-      name: mediaItem.name,
-      isFeatured: true,
-    };
-    setSelectedImages([...selectedImages, image]);
+  const toggleGalleryImage = (mediaItem: MediaItem) => {
+    const existingIndex = selectedImages.findIndex(img => img.url === mediaItem.url);
+    if (existingIndex >= 0) {
+      setSelectedImages(selectedImages.filter((_, i) => i !== existingIndex));
+    } else {
+      const image: PastProjectImage = {
+        url: mediaItem.url,
+        fileId: mediaItem.fileId,
+        name: mediaItem.name,
+        isFeatured: true,
+      };
+      setSelectedImages([...selectedImages, image]);
+    }
   };
 
   const formatDate = (timestamp: number) => {
@@ -231,7 +236,7 @@ export default function AdminPastProjects() {
                 Project Type
               </label>
               <div className="flex flex-wrap gap-1.5">
-                {['Island', 'Counter Top', 'Mantel', 'Table', 'Charcuterie Board', 'Other'].map((t) => {
+                {['Island Top', 'Bar Top', 'Counter Top', 'Mantel', 'Table', 'Charcuterie Board', 'Other'].map((t) => {
                   const active = editProjectType.includes(t);
                   return (
                     <button
@@ -299,41 +304,44 @@ export default function AdminPastProjects() {
 
               {showImageSelector && (
                 <div className="mb-4 p-3 bg-stone-50 rounded-sm max-h-80 overflow-y-auto min-w-0">
-                  <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 min-w-0">
-                    {mediaItems.map((item) => {
-                      const isSelected = selectedImages.some(img => img.url === item.url);
-                      return (
-                        <div
-                          key={item.id}
-                          className={`relative border-2 rounded-sm overflow-hidden cursor-pointer transition-all ${
-                            isSelected ? 'border-brass' : 'border-gray-200 hover:border-gray-300'
-                          }`}
-                          onClick={() => !isSelected && addImageFromGallery(item)}
-                        >
-                          <div className="aspect-video bg-gray-100">
-                            <img
-                              src={item.url}
-                              alt={item.name}
-                              className="w-full h-full object-cover"
-                            />
-                          </div>
-                          {/* Tiny filename strip */}
-                          <div className="px-2 py-1 bg-white border-t border-gray-200">
-                            <div className="text-[9px] leading-tight text-stone-500 truncate" title={item.name}>
-                              {item.name}
+                  {mediaItems.length === 0 ? (
+                    <p className="text-stone-400 text-xs text-center py-4 italic">No images in gallery. Upload images first.</p>
+                  ) : (
+                    <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 min-w-0">
+                      {mediaItems.map((item) => {
+                        const isSelected = selectedImages.some(img => img.url === item.url);
+                        return (
+                          <div
+                            key={item.id}
+                            className={`relative border-2 rounded-sm overflow-hidden cursor-pointer transition-all ${
+                              isSelected ? 'border-brass ring-1 ring-brass/30' : 'border-gray-200 hover:border-gray-300'
+                            }`}
+                            onClick={() => toggleGalleryImage(item)}
+                          >
+                            <div className="aspect-video bg-gray-100">
+                              <img
+                                src={item.url}
+                                alt={item.name}
+                                className="w-full h-full object-cover"
+                              />
                             </div>
-                          </div>
-                          {isSelected && (
-                            <div className="absolute inset-0 bg-brass/20 flex items-center justify-center">
-                              <span className="text-[9px] font-black uppercase tracking-widest text-brass bg-white px-2 py-1 rounded-sm">
-                                Selected
-                              </span>
+                            <div className="px-2 py-1 bg-white border-t border-gray-200">
+                              <div className="text-[9px] leading-tight text-stone-500 truncate" title={item.name}>
+                                {item.name}
+                              </div>
                             </div>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </div>
+                            {isSelected && (
+                              <div className="absolute inset-0 bg-brass/20 flex items-center justify-center group/overlay">
+                                <span className="text-[9px] font-black uppercase tracking-widest bg-white px-2 py-1 rounded-sm text-brass">
+                                  ✓ Selected
+                                </span>
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
               )}
 

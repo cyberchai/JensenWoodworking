@@ -196,7 +196,7 @@ export default function AdminCreateProject({ onProjectCreated, isOpen: externalI
         <div>
           <label className="block text-[9px] font-black uppercase tracking-widest text-stone-500 mb-1">Type</label>
           <div className="flex flex-wrap gap-1.5">
-            {['Island', 'Counter Top', 'Mantel', 'Table', 'Charcuterie Board', 'Other'].map((t) => {
+            {['Island Top', 'Bar Top', 'Counter Top', 'Mantel', 'Table', 'Charcuterie Board', 'Other'].map((t) => {
               const active = projectType.includes(t);
               return (
                 <button
