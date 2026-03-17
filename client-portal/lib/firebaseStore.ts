@@ -125,7 +125,15 @@ const docToPastProject = (docSnap: QueryDocumentSnapshot<DocumentData>): PastPro
     id: docSnap.id,
     projectToken: data.projectToken,
     title: data.title,
+    clientName: data.clientName,
+    location: data.location || [data.clientCity, data.clientState].filter(Boolean).join(', ') || undefined,
+    clientCity: data.clientCity,
+    clientState: data.clientState,
     description: data.description,
+    material: data.material,
+    dimensions: data.dimensions,
+    details: data.details,
+    finish: data.finish,
     projectType,
     selectedImages: data.selectedImages || [],
     createdAt: timestampToNumber(data.createdAt),
@@ -591,6 +599,30 @@ export const firebaseStore = {
     if (data.description && data.description.trim()) {
       pastProjectData.description = data.description.trim();
     }
+    if (data.clientName && data.clientName.trim()) {
+      pastProjectData.clientName = data.clientName.trim();
+    }
+    if (data.location && data.location.trim()) {
+      pastProjectData.location = data.location.trim();
+    }
+    if (data.clientCity && data.clientCity.trim()) {
+      pastProjectData.clientCity = data.clientCity.trim();
+    }
+    if (data.clientState && data.clientState.trim()) {
+      pastProjectData.clientState = data.clientState.trim().toUpperCase();
+    }
+    if (data.material && data.material.trim()) {
+      pastProjectData.material = data.material.trim();
+    }
+    if (data.dimensions && data.dimensions.trim()) {
+      pastProjectData.dimensions = data.dimensions.trim();
+    }
+    if (data.details && data.details.trim()) {
+      pastProjectData.details = data.details.trim();
+    }
+    if (data.finish && data.finish.trim()) {
+      pastProjectData.finish = data.finish.trim();
+    }
     if (data.projectType && data.projectType.length > 0) {
       pastProjectData.projectType = data.projectType;
     }
@@ -616,6 +648,62 @@ export const firebaseStore = {
           updateData.description = deleteField();
         } else {
           updateData.description = typeof updates.description === 'string' ? updates.description.trim() : updates.description;
+        }
+      }
+      if (updates.clientName !== undefined) {
+        if (updates.clientName === null || updates.clientName === undefined || (typeof updates.clientName === 'string' && updates.clientName.trim() === '')) {
+          updateData.clientName = deleteField();
+        } else {
+          updateData.clientName = typeof updates.clientName === 'string' ? updates.clientName.trim() : updates.clientName;
+        }
+      }
+      if (updates.location !== undefined) {
+        if (updates.location === null || updates.location === undefined || (typeof updates.location === 'string' && updates.location.trim() === '')) {
+          updateData.location = deleteField();
+        } else {
+          updateData.location = typeof updates.location === 'string' ? updates.location.trim() : updates.location;
+        }
+      }
+      if (updates.clientCity !== undefined) {
+        if (updates.clientCity === null || updates.clientCity === undefined || (typeof updates.clientCity === 'string' && updates.clientCity.trim() === '')) {
+          updateData.clientCity = deleteField();
+        } else {
+          updateData.clientCity = typeof updates.clientCity === 'string' ? updates.clientCity.trim() : updates.clientCity;
+        }
+      }
+      if (updates.clientState !== undefined) {
+        if (updates.clientState === null || updates.clientState === undefined || (typeof updates.clientState === 'string' && updates.clientState.trim() === '')) {
+          updateData.clientState = deleteField();
+        } else {
+          updateData.clientState = typeof updates.clientState === 'string' ? updates.clientState.trim().toUpperCase() : updates.clientState;
+        }
+      }
+      if (updates.material !== undefined) {
+        if (updates.material === null || updates.material === undefined || (typeof updates.material === 'string' && updates.material.trim() === '')) {
+          updateData.material = deleteField();
+        } else {
+          updateData.material = typeof updates.material === 'string' ? updates.material.trim() : updates.material;
+        }
+      }
+      if (updates.dimensions !== undefined) {
+        if (updates.dimensions === null || updates.dimensions === undefined || (typeof updates.dimensions === 'string' && updates.dimensions.trim() === '')) {
+          updateData.dimensions = deleteField();
+        } else {
+          updateData.dimensions = typeof updates.dimensions === 'string' ? updates.dimensions.trim() : updates.dimensions;
+        }
+      }
+      if (updates.details !== undefined) {
+        if (updates.details === null || updates.details === undefined || (typeof updates.details === 'string' && updates.details.trim() === '')) {
+          updateData.details = deleteField();
+        } else {
+          updateData.details = typeof updates.details === 'string' ? updates.details.trim() : updates.details;
+        }
+      }
+      if (updates.finish !== undefined) {
+        if (updates.finish === null || updates.finish === undefined || (typeof updates.finish === 'string' && updates.finish.trim() === '')) {
+          updateData.finish = deleteField();
+        } else {
+          updateData.finish = typeof updates.finish === 'string' ? updates.finish.trim() : updates.finish;
         }
       }
       if (updates.projectType !== undefined) {

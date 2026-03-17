@@ -35,6 +35,12 @@ function generateGalleryGridItem(project: PastProject): string {
   
   const title = escapeHtml(project.title);
   const description = escapeHtml(project.description || '');
+  const clientName = escapeHtml(project.clientName || '');
+  const clientLocation = escapeHtml(project.location || [project.clientCity, project.clientState].filter(Boolean).join(', ') || '');
+  const material = escapeHtml(project.material || '');
+  const dimensions = escapeHtml(project.dimensions || '');
+  const details = escapeHtml(project.details || '');
+  const finish = escapeHtml(project.finish || '');
   const types = project.projectType && project.projectType.length > 0 ? project.projectType : ['Custom'];
   const projectTypeAttr = escapeHtml(types.join(','));
   const displayType = escapeHtml(types[0]);
@@ -46,7 +52,7 @@ function generateGalleryGridItem(project: PastProject): string {
   
   return `
 					<!-- Gallery Block -->
-					<div class="gallery-grid-item" data-category="${location}" data-project-type="${projectTypeAttr}" data-project-title="${title}" data-project-location="${location}" data-project-image="${imageUrl}" data-project-description="${description}" data-project-related-images='${relatedImagesJson}'>
+					<div class="gallery-grid-item" data-category="${location}" data-project-type="${projectTypeAttr}" data-project-title="${title}" data-project-location="${location}" data-project-image="${imageUrl}" data-project-description="${description}" data-project-client-name="${clientName}" data-project-client-location="${clientLocation}" data-project-material="${material}" data-project-dimensions="${dimensions}" data-project-details="${details}" data-project-finish="${finish}" data-project-related-images='${relatedImagesJson}'>
 						<div class="gallery-block">
 							<div class="inner-box">
 								<div class="image project-clickable">

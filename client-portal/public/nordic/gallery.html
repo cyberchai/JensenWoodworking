@@ -552,70 +552,67 @@
 			font-size: 42px;
 			font-weight: 400;
 			color: #000;
-			margin-bottom: 30px;
+			margin-bottom: 10px;
 			line-height: 1.2;
 			font-family: 'Heebo', sans-serif;
 		}
+
+		.project-client-line {
+			font-size: 15px;
+			line-height: 1.5;
+			color: #555;
+			margin-bottom: 24px;
+			font-weight: 500;
+		}
 		
 		.project-description {
-			font-size: 17px;
-			line-height: 1.8;
+			font-size: 16px;
+			line-height: 1.7;
 			color: #666;
-			margin-bottom: 40px;
+			margin-bottom: 30px;
 		}
 		
 		.project-description p {
 			margin: 0;
 		}
+
+		.project-description-label {
+			font-size: 14px;
+			color: #000;
+			letter-spacing: 1px;
+			text-transform: uppercase;
+			margin-bottom: 8px;
+			font-weight: 600;
+		}
 		
 		.project-divider {
 			border: none;
 			border-top: 1px solid #e2e2e2;
-			margin: 40px 0;
+			margin: 25px 0;
 		}
 		
 		/* Details Grid */
 		.project-details-grid {
 			display: grid;
-			grid-template-columns: repeat(3, 1fr);
-			gap: 40px;
-			margin-bottom: 50px;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 24px;
+			margin-bottom: 40px;
 		}
 		
 		.project-detail-item h3 {
-			font-size: 18px;
+			font-size: 13px;
 			font-weight: 500;
 			color: #000;
-			margin-bottom: 15px;
+			margin-bottom: 6px;
 			font-family: 'Heebo', sans-serif;
+			letter-spacing: 1px;
+			text-transform: uppercase;
 		}
-		
-		.materials-list {
-			list-style: none;
-			padding: 0;
-			margin: 0;
-		}
-		
-		.materials-list li {
+
+		.project-detail-value {
 			font-size: 16px;
 			color: #666;
-			line-height: 1.8;
-			padding-left: 20px;
-			position: relative;
-		}
-		
-		.materials-list li::before {
-			content: '•';
-			position: absolute;
-			left: 0;
-			color: #ffe1a0;
-		}
-		
-		.dimensions-text,
-		.completion-date {
-			font-size: 16px;
-			color: #666;
-			line-height: 1.8;
+			line-height: 1.6;
 			margin: 0;
 		}
 		
@@ -712,7 +709,7 @@
 			
 			.project-details-grid {
 				grid-template-columns: 1fr;
-				gap: 30px;
+				gap: 16px;
 			}
 			
 			.extra-images-title {
@@ -1139,20 +1136,26 @@
 			<div class="project-modal-content-section">
 				<div id="modalCategory" class="project-category-label"></div>
 				<h2 id="modalTitle" class="project-title"></h2>
+				<div id="modalClientLine" class="project-client-line" style="display: none;"></div>
+				<div class="project-description-label">Project Description</div>
 				<div id="modalDescription" class="project-description"></div>
 				<hr class="project-divider">
 				<div class="project-details-grid">
-					<div class="project-detail-item">
-						<h3>Materials</h3>
-						<ul id="modalMaterials" class="materials-list"></ul>
+					<div id="modalMaterialItem" class="project-detail-item" style="display: none;">
+						<h3>Material</h3>
+						<p id="modalMaterial" class="project-detail-value"></p>
 					</div>
-					<div class="project-detail-item">
+					<div id="modalDimensionsItem" class="project-detail-item" style="display: none;">
 						<h3>Dimensions</h3>
-						<p id="modalDimensions" class="dimensions-text"></p>
+						<p id="modalDimensions" class="project-detail-value"></p>
 					</div>
-					<div class="project-detail-item">
-						<h3>Completion</h3>
-						<p id="modalCompletion" class="completion-date"></p>
+					<div id="modalDetailsItem" class="project-detail-item" style="display: none;">
+						<h3>Details</h3>
+						<p id="modalDetails" class="project-detail-value"></p>
+					</div>
+					<div id="modalFinishItem" class="project-detail-item" style="display: none;">
+						<h3>Finish</h3>
+						<p id="modalFinish" class="project-detail-value"></p>
 					</div>
 				</div>
 				<div id="modalRelated" class="project-extra-images" style="display: none;">
@@ -1225,10 +1228,16 @@
 			const modalImage = document.getElementById('modalImage');
 			const modalCategory = document.getElementById('modalCategory');
 			const modalTitle = document.getElementById('modalTitle');
+			const modalClientLine = document.getElementById('modalClientLine');
 			const modalDescription = document.getElementById('modalDescription');
-			const modalMaterials = document.getElementById('modalMaterials');
+			const modalMaterial = document.getElementById('modalMaterial');
 			const modalDimensions = document.getElementById('modalDimensions');
-			const modalCompletion = document.getElementById('modalCompletion');
+			const modalDetails = document.getElementById('modalDetails');
+			const modalFinish = document.getElementById('modalFinish');
+			const modalMaterialItem = document.getElementById('modalMaterialItem');
+			const modalDimensionsItem = document.getElementById('modalDimensionsItem');
+			const modalDetailsItem = document.getElementById('modalDetailsItem');
+			const modalFinishItem = document.getElementById('modalFinishItem');
 			const closeBtn = document.querySelector('.project-modal-close');
 			const prevBtn = document.querySelector('.project-modal-nav-prev');
 			const nextBtn = document.querySelector('.project-modal-nav-next');
@@ -1246,34 +1255,18 @@
 				if (match) {
 					return match[0];
 				}
-				return 'Custom dimensions';
+				return '';
 			}
 			
-			// Extract materials from title/type
-			function getMaterials(title, type) {
-				const materials = [];
-				if (title.toLowerCase().includes('walnut') || title.toLowerCase().includes('black walnut')) {
-					materials.push('Black Walnut');
-				} else if (title.toLowerCase().includes('cherry')) {
-					materials.push('Cherry');
-				} else if (title.toLowerCase().includes('oak') || title.toLowerCase().includes('white oak')) {
-					materials.push('White Oak');
-				} else if (title.toLowerCase().includes('reclaimed')) {
-					materials.push('Reclaimed Oak');
-				}
-				
-				if (type && type.toLowerCase().includes('butcher')) {
-					materials.push('Food-safe finish');
+			function setDetail(itemEl, valueEl, value) {
+				if (!itemEl || !valueEl) return;
+				if (value && String(value).trim()) {
+					valueEl.textContent = String(value).trim();
+					itemEl.style.display = 'block';
 				} else {
-					materials.push('Rubio Monocoat finish');
+					valueEl.textContent = '';
+					itemEl.style.display = 'none';
 				}
-				
-				if (materials.length === 0) {
-					materials.push('Premium hardwood');
-					materials.push('Rubio Monocoat finish');
-				}
-				
-				return materials;
 			}
 			
 			// Update image and indicators
@@ -1335,6 +1328,12 @@
 				const description = projectBlock.getAttribute('data-project-description');
 				const relatedImagesJson = projectBlock.getAttribute('data-project-related-images');
 				const type = projectBlock.getAttribute('data-project-type');
+				const clientName = projectBlock.getAttribute('data-project-client-name') || '';
+				const clientLocation = projectBlock.getAttribute('data-project-client-location') || '';
+				const material = projectBlock.getAttribute('data-project-material') || '';
+				const dimensions = projectBlock.getAttribute('data-project-dimensions') || '';
+				const details = projectBlock.getAttribute('data-project-details') || '';
+				const finish = projectBlock.getAttribute('data-project-finish') || '';
 				
 				// Build image array (main image + related images)
 				currentProjectImages = [image];
@@ -1352,18 +1351,23 @@
 				modalCategory.textContent = location;
 				modalTitle.textContent = title;
 				modalDescription.innerHTML = '<p>' + description + '</p>';
+
+				const clientLine = clientName && clientLocation ? (clientName + ' \u2013 ' + clientLocation) : (clientName || clientLocation);
+				if (modalClientLine) {
+					if (clientLine) {
+						modalClientLine.textContent = clientLine;
+						modalClientLine.style.display = 'block';
+					} else {
+						modalClientLine.textContent = '';
+						modalClientLine.style.display = 'none';
+					}
+				}
 				
-				// Update details
-				const materials = getMaterials(title, type);
-				modalMaterials.innerHTML = '';
-				materials.forEach(function(material) {
-					const li = document.createElement('li');
-					li.textContent = material;
-					modalMaterials.appendChild(li);
-				});
-				
-				modalDimensions.textContent = extractDimensions(title);
-				modalCompletion.textContent = '2024'; // Default completion date
+				// Show any detail fields that exist
+				setDetail(modalMaterialItem, modalMaterial, material);
+				setDetail(modalDimensionsItem, modalDimensions, dimensions || extractDimensions(title));
+				setDetail(modalDetailsItem, modalDetails, details);
+				setDetail(modalFinishItem, modalFinish, finish);
 				
 				// Update image display
 				updateImageDisplay();

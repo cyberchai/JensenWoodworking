@@ -31,7 +31,15 @@ export interface PastProject {
   id: string;
   projectToken: string; // Reference to original project token
   title: string;
+  clientName?: string;
+  location?: string;
+  clientCity?: string;
+  clientState?: string;
   description?: string;
+  material?: string;
+  dimensions?: string;
+  details?: string;
+  finish?: string;
   projectType?: string[]; // e.g. ["Island Top", "Counter Top"]
   selectedImages: PastProjectImage[]; // Selected images from media gallery
   createdAt: number;

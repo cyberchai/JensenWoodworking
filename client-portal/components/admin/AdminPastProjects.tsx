@@ -23,7 +23,13 @@ export default function AdminPastProjects() {
   const [editingProject, setEditingProject] = useState<PastProject | null>(null);
   const [isCreating, setIsCreating] = useState(false);
   const [editTitle, setEditTitle] = useState('');
+  const [editClientName, setEditClientName] = useState('');
+  const [editLocation, setEditLocation] = useState('');
   const [editDescription, setEditDescription] = useState('');
+  const [editMaterial, setEditMaterial] = useState('');
+  const [editDimensions, setEditDimensions] = useState('');
+  const [editDetails, setEditDetails] = useState('');
+  const [editFinish, setEditFinish] = useState('');
   const [editProjectType, setEditProjectType] = useState<string[]>([]);
   const [selectedImages, setSelectedImages] = useState<PastProjectImage[]>([]);
   const [isFeaturedOnHomePage, setIsFeaturedOnHomePage] = useState(false);
@@ -70,7 +76,13 @@ export default function AdminPastProjects() {
     setIsCreating(true);
     setEditingProject(null);
     setEditTitle('');
+    setEditClientName('');
+    setEditLocation('');
     setEditDescription('');
+    setEditMaterial('');
+    setEditDimensions('');
+    setEditDetails('');
+    setEditFinish('');
     setEditProjectType([]);
     setSelectedImages([]);
     setIsFeaturedOnHomePage(false);
@@ -81,7 +93,13 @@ export default function AdminPastProjects() {
     setEditingProject(project);
     setIsCreating(false);
     setEditTitle(project.title);
+    setEditClientName(project.clientName || '');
+    setEditLocation(project.location || [project.clientCity, project.clientState].filter(Boolean).join(', '));
     setEditDescription(project.description || '');
+    setEditMaterial(project.material || '');
+    setEditDimensions(project.dimensions || '');
+    setEditDetails(project.details || '');
+    setEditFinish(project.finish || '');
     setEditProjectType(project.projectType || []);
     setSelectedImages([...project.selectedImages]);
     setIsFeaturedOnHomePage(project.isFeaturedOnHomePage || false);
@@ -92,7 +110,13 @@ export default function AdminPastProjects() {
     setEditingProject(null);
     setIsCreating(false);
     setEditTitle('');
+    setEditClientName('');
+    setEditLocation('');
     setEditDescription('');
+    setEditMaterial('');
+    setEditDimensions('');
+    setEditDetails('');
+    setEditFinish('');
     setEditProjectType([]);
     setSelectedImages([]);
     setIsFeaturedOnHomePage(false);
@@ -107,7 +131,13 @@ export default function AdminPastProjects() {
       await store.createPastProject({
         projectToken: `manual_${Date.now()}`,
         title: editTitle.trim(),
+        clientName: editClientName.trim() || undefined,
+        location: editLocation.trim() || undefined,
         description: editDescription.trim() || undefined,
+        material: editMaterial.trim() || undefined,
+        dimensions: editDimensions.trim() || undefined,
+        details: editDetails.trim() || undefined,
+        finish: editFinish.trim() || undefined,
         projectType: editProjectType.length > 0 ? editProjectType : undefined,
         selectedImages,
         isFeaturedOnHomePage,
@@ -115,7 +145,13 @@ export default function AdminPastProjects() {
     } else if (editingProject) {
       await store.updatePastProject(editingProject.id, {
         title: editTitle.trim(),
+        clientName: editClientName.trim() || undefined,
+        location: editLocation.trim() || undefined,
         description: editDescription.trim() || undefined,
+        material: editMaterial.trim() || undefined,
+        dimensions: editDimensions.trim() || undefined,
+        details: editDetails.trim() || undefined,
+        finish: editFinish.trim() || undefined,
         projectType: editProjectType.length > 0 ? editProjectType : undefined,
         selectedImages,
         isFeaturedOnHomePage,
@@ -219,16 +255,43 @@ export default function AdminPastProjects() {
           <form onSubmit={handleSave} className="space-y-4">
             <div>
               <label className="block text-sm font-normal text-site-gray mb-2 uppercase tracking-wide">
-                Title
+                Item Name
               </label>
               <input
                 type="text"
                 value={editTitle}
                 onChange={(e) => setEditTitle(e.target.value)}
                 className="w-full px-4 py-2 border-0 border-b border-gray-300 bg-white focus:outline-none focus:border-site-gold transition-colors"
-                placeholder="Project Title"
+                placeholder="Item Name"
                 required
               />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div>
+                <label className="block text-sm font-normal text-site-gray mb-2 uppercase tracking-wide">
+                  Client Name
+                </label>
+                <input
+                  type="text"
+                  value={editClientName}
+                  onChange={(e) => setEditClientName(e.target.value)}
+                  className="w-full px-4 py-2 border-0 border-b border-gray-300 bg-white focus:outline-none focus:border-site-gold transition-colors"
+                  placeholder="Client Name"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-normal text-site-gray mb-2 uppercase tracking-wide">
+                  Location
+                </label>
+                <input
+                  type="text"
+                  value={editLocation}
+                  onChange={(e) => setEditLocation(e.target.value)}
+                  className="w-full px-4 py-2 border-0 border-b border-gray-300 bg-white focus:outline-none focus:border-site-gold transition-colors"
+                  placeholder="City, State"
+                />
+              </div>
             </div>
 
             <div>
@@ -265,6 +328,58 @@ export default function AdminPastProjects() {
                 onChange={(e) => setEditDescription(e.target.value)}
                 className="w-full px-4 py-2 border-0 border-b border-gray-300 bg-white focus:outline-none focus:border-site-gold transition-colors min-h-[80px] resize-y"
                 placeholder="Project description..."
+              />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div>
+                <label className="block text-sm font-normal text-site-gray mb-2 uppercase tracking-wide">
+                  Material
+                </label>
+                <input
+                  type="text"
+                  value={editMaterial}
+                  onChange={(e) => setEditMaterial(e.target.value)}
+                  className="w-full px-4 py-2 border-0 border-b border-gray-300 bg-white focus:outline-none focus:border-site-gold transition-colors"
+                  placeholder="Material"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-normal text-site-gray mb-2 uppercase tracking-wide">
+                  Dimensions
+                </label>
+                <input
+                  type="text"
+                  value={editDimensions}
+                  onChange={(e) => setEditDimensions(e.target.value)}
+                  className="w-full px-4 py-2 border-0 border-b border-gray-300 bg-white focus:outline-none focus:border-site-gold transition-colors"
+                  placeholder="Dimensions"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-normal text-site-gray mb-2 uppercase tracking-wide">
+                Details
+              </label>
+              <textarea
+                value={editDetails}
+                onChange={(e) => setEditDetails(e.target.value)}
+                className="w-full px-4 py-2 border-0 border-b border-gray-300 bg-white focus:outline-none focus:border-site-gold transition-colors min-h-[70px] resize-y"
+                placeholder="Project details..."
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-normal text-site-gray mb-2 uppercase tracking-wide">
+                Finish
+              </label>
+              <input
+                type="text"
+                value={editFinish}
+                onChange={(e) => setEditFinish(e.target.value)}
+                className="w-full px-4 py-2 border-0 border-b border-gray-300 bg-white focus:outline-none focus:border-site-gold transition-colors"
+                placeholder="Finish"
               />
             </div>
 
