@@ -84,6 +84,22 @@
 				display: flex;
 			}
 		}
+		/* Landing hero: cap height so following section peeks (scroll cue) */
+		.page-banner-section {
+			min-height: 0 !important;
+			max-height: 92vh;
+			padding-top: clamp(88px, 15vh, 200px) !important;
+			padding-bottom: clamp(40px, 7vh, 88px) !important;
+			box-sizing: border-box;
+			background-size: cover !important;
+			background-position: center center !important;
+		}
+		/* Footer Contact column: sentence case (theme uses uppercase) */
+		.main-footer .contact-widget h3,
+		.main-footer .contact-widget ul li {
+			text-transform: none;
+		}
+
 		/* Footer Logo Styling */
 		.main-footer .logo a {
 			display: inline-block;
@@ -898,7 +914,7 @@
 		<!--End Main Header -->
 
 		<!-- Page Banner Section -->
-		<section class="page-banner-section" style="background-image: url(/jw_projects/galleryimg.JPG); padding: 200px 0 60px;">
+		<section class="page-banner-section" style="background-image: url(/jw_projects/galleryimg.JPG);">
 			<div class="auto-container">
 			<div class="title">Jensen Woodworking</div>
 			<h1>Gallery</h1>

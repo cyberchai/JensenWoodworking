@@ -64,14 +64,15 @@ function generateGalleryBlock(project: PastProject): string {
 }
 
 // Helper function to generate testimonial block HTML
-function generateTestimonialBlock(testimonial: Feedback, projectImages: string[] = []): string {
+function generateTestimonialBlock(testimonial: Feedback, projectImages: string[] = [], isActive = false): string {
   const clientName = escapeHtml(testimonial.clientName || 'Anonymous');
   const title = escapeHtml(testimonial.title || '');
   const testimonialId = escapeHtml(testimonial.id || '');
-  
+  const activeClass = isActive ? 'testimonial-block is-active' : 'testimonial-block';
+
   return `
 					<!-- Testimonial Block -->
-					<div class="testimonial-block" data-testimonial-id="${testimonialId}">
+					<div class="${activeClass}" data-testimonial-id="${testimonialId}">
 						<div class="inner-box">
 							<div class="quote icon_quotations"></div>
 							<div class="testimonial-header">
@@ -160,17 +161,17 @@ export async function GET() {
     // Replace testimonial blocks
     if (testimonials.length > 0) {
       // Get project images for testimonials (try to match by projectToken)
-      const testimonialBlocks = testimonials.map((testimonial: Feedback) => {
+      const testimonialBlocks = testimonials.map((testimonial: Feedback, index: number) => {
         // Try to find matching project images
         const matchingProject = featuredProjects.find(p => p.projectToken === testimonial.projectToken);
         const projectImages = matchingProject 
           ? matchingProject.selectedImages.map(img => img.url)
           : [];
-        return generateTestimonialBlock(testimonial, projectImages);
+        return generateTestimonialBlock(testimonial, projectImages, index === 0);
       }).join('\n');
       
       // Replace testimonial section - only carousel cards (no extra title list)
-      const testimonialSectionRegex = /(<div class="sec-title">\s*<h2>What Our Clients Say<\/h2>\s*<\/div>)(\s*<div class="testimonial-carousel home-testimonials">)[\s\S]*?(<\/div>\s*<\/div>\s*<\/section>\s*<!-- End Testimonial Section -->)/;
+      const testimonialSectionRegex = /(<div class="sec-title">\s*<div class="clearfix">\s*<div class="pull-left">\s*<h2>What Our Clients Say<\/h2>\s*<\/div>\s*<\/div>\s*<\/div>)(\s*<div class="testimonial-carousel home-testimonials">)[\s\S]*?(<\/div>\s*<\/div>\s*<\/section>\s*<!-- End Testimonial Section -->)/;
       html = html.replace(testimonialSectionRegex, `$1$2\n\n${testimonialBlocks}\n\n\t\t\t\t$3`);
       
     } else {
@@ -283,9 +284,6 @@ export async function GET() {
     padding: 32px 24px 28px 48px;
     min-height: 200px;
   }
-  .testimonial-section{
-    padding-top: 0 !important;
-  }
   .about-section{
     padding-bottom: 24px !important;
   }
@@ -297,11 +295,8 @@ export async function GET() {
   }
 }
 
-/* iPad: same tight spacing between About Jensen and What Our Clients Say */
+/* iPad: align About / testimonials spacing with static index */
 @media (min-width: 768px) and (max-width: 1180px){
-  .testimonial-section{
-    padding-top: 0 !important;
-  }
   .about-section{
     padding-bottom: 24px !important;
   }
@@ -318,8 +313,9 @@ export async function GET() {
   .banner-section,
   .banner-section .slide,
   .banner-section .main-slider-carousel {
-    min-height: 360px;
+    min-height: 300px;
     height: auto;
+    max-height: 70vh;
   }
 }
 </style></head>`

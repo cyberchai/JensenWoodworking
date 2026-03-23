@@ -84,6 +84,12 @@
 				display: flex;
 			}
 		}
+		/* Footer Contact column: sentence case (theme uses uppercase) */
+		.main-footer .contact-widget h3,
+		.main-footer .contact-widget ul li {
+			text-transform: none;
+		}
+
 		/* Footer Logo Styling */
 		.main-footer .logo a {
 			display: inline-block;
@@ -197,18 +203,18 @@
 			}
 		}
 		
-		/* Banner Section Full Height */
+		/* Banner: slightly below full viewport so next section peeks (scroll cue) */
 		.banner-section {
-			height: 100vh;
-			min-height: 100vh;
+			height: 92vh;
+			min-height: 92vh;
 		}
 		.banner-section .slide {
-			height: 100vh;
-			min-height: 100vh;
+			height: 92vh;
+			min-height: 92vh;
 		}
 		.banner-section .main-slider-carousel {
-			height: 100vh;
-			min-height: 100vh;
+			height: 92vh;
+			min-height: 92vh;
 		}
 		/* Single static slide: full-bleed background */
 		.banner-section .main-slider-carousel > .slide {
@@ -773,18 +779,112 @@
 			}
 		}
 		
-		/* iPad: extra padding below testimonial section before Services / Woodworking */
+		/* iPad: keep testimonials section tight above projects */
 		@media (min-width: 768px) and (max-width: 1024px) {
 			.testimonial-section {
-				padding-bottom: 48px;
+				padding-bottom: 20px;
 			}
 		}
 		
-		/* Testimonials: responsive grid */
+		/* What Our Clients Say — compact, one testimonial at a time (top spacing matches .projects-section) */
+		.testimonial-section {
+			padding: 150px 0 24px;
+		}
 		.testimonial-section .testimonial-carousel.home-testimonials {
-			display: grid;
-			grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-			gap: 12px;
+			position: relative;
+			max-width: 720px;
+			margin: 0 auto;
+		}
+		.testimonial-section .home-testimonials > .testimonial-block {
+			display: none;
+		}
+		.testimonial-section .home-testimonials > .testimonial-block.is-active {
+			display: block;
+		}
+		.home-testimonials-controls {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 8px;
+			margin-top: 8px;
+			padding-top: 4px;
+		}
+		/* Match project-modal-nav / site accent — no borders */
+		.home-testimonials-prev,
+		.home-testimonials-next {
+			border: none;
+			background: transparent;
+			color: #111;
+			width: 40px;
+			height: 40px;
+			line-height: 1;
+			font-size: 22px;
+			cursor: pointer;
+			padding: 0;
+			flex-shrink: 0;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			transition: background-color 0.3s ease, color 0.3s ease;
+		}
+		.home-testimonials-prev:hover,
+		.home-testimonials-next:hover {
+			background-color: #ffe1a0;
+			color: #000;
+		}
+		.home-testimonials-dots {
+			display: flex;
+			align-items: center;
+			gap: 6px;
+			padding: 0 4px;
+		}
+		.home-testimonials-dot {
+			width: 7px;
+			height: 7px;
+			border-radius: 50%;
+			border: none;
+			padding: 0;
+			background: #ccc;
+			cursor: pointer;
+			flex-shrink: 0;
+		}
+		.home-testimonials-dot.is-active {
+			background: #111;
+		}
+		/* Compact card + image strip inside home testimonial */
+		.home-testimonials .testimonial-carousel-container {
+			margin-bottom: 10px;
+		}
+		.home-testimonials .testimonial-carousel-slides {
+			height: 120px;
+		}
+		.home-testimonials .testimonial-block .inner-box {
+			padding: 12px 12px 12px 36px !important;
+			min-height: 0 !important;
+		}
+		.home-testimonials .testimonial-block .quote.icon_quotations {
+			font-size: 36px !important;
+			top: 8px !important;
+			left: 10px !important;
+			opacity: 0.22 !important;
+		}
+		.home-testimonials .testimonial-block .author {
+			margin-top: 6px !important;
+			font-size: 10px !important;
+			letter-spacing: 0.18em !important;
+		}
+		.home-testimonials .testimonial-block .inner-box p {
+			margin: 0;
+			font-size: 15px !important;
+			line-height: 1.45 !important;
+		}
+		@media (max-width: 768px) {
+			.home-testimonials .testimonial-carousel-slides {
+				height: 100px;
+			}
+			.home-testimonials .testimonial-block .inner-box {
+				padding: 10px 10px 10px 32px !important;
+			}
 		}
 		
 		/* Projects: horizontal scroll row */
@@ -896,55 +996,6 @@
 			box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
 		}
 
-		/* Home – Reach Out CTA (compact vertical rhythm) */
-		.home-contact-section {
-			padding: 28px 0 32px;
-			background-color: #fff;
-			border-top: none;
-		}
-
-		.home-contact-section .sec-title {
-			text-align: center;
-			margin-bottom: 12px;
-		}
-
-		.home-contact-section .sec-title .title {
-			font-size: 12px;
-			color: #999;
-			text-transform: uppercase;
-			letter-spacing: 0.2em;
-			margin-bottom: 6px;
-			font-weight: 400;
-		}
-
-		.home-contact-section .sec-title h2 {
-			font-size: 42px;
-			font-weight: 400;
-			color: #000;
-			line-height: 1.15;
-		}
-
-		.home-contact-cta {
-			text-align: center;
-		}
-
-		.home-contact-cta .theme-btn {
-			font-size: 12px;
-			letter-spacing: 0.15em;
-			padding: 12px 36px;
-		}
-
-		@media (max-width: 768px) {
-			.home-contact-section {
-				padding: 20px 0 24px;
-			}
-			.home-contact-section .sec-title h2 {
-				font-size: 28px;
-			}
-			.home-contact-section .sec-title {
-				margin-bottom: 10px;
-			}
-		}
 	</style>
 
 	<!-- Open Graph (OG) meta tags are snippets of code that control how URLs are displayed when shared on social media  -->
@@ -1135,14 +1186,18 @@
 		<!-- Testimonial Section -->
 		<section class="testimonial-section">
 			<div class="auto-container">
-				<!-- Sec Title -->
+				<!-- Sec Title (same structure as Selected Projects) -->
 				<div class="sec-title">
-					<h2>What Our Clients Say</h2>
+					<div class="clearfix">
+						<div class="pull-left">
+							<h2>What Our Clients Say</h2>
+						</div>
+					</div>
 				</div>
 				<div class="testimonial-carousel home-testimonials">
 
 					<!-- Testimonial Block -->
-					<div class="testimonial-block" data-testimonial-images='["images/gallery/1.jpg", "images/gallery/2.jpg"]'>
+					<div class="testimonial-block is-active" data-testimonial-images='["images/gallery/1.jpg", "images/gallery/2.jpg"]'>
 						<div class="inner-box">
 							<div class="testimonial-carousel-container">
 								<div class="testimonial-carousel-slides">
@@ -1439,20 +1494,6 @@
 			</div>
 	</section>
 	<!-- End Projects Section -->
-
-	<!-- Home Reach Out CTA -->
-	<section class="home-contact-section contact-page-section" id="reach-out">
-		<div class="auto-container">
-			<div class="sec-title">
-				<div class="title">Reach Out</div>
-				<h2>Tell Us About Your Project</h2>
-			</div>
-			<div class="home-contact-cta">
-				<a href="contact.html" class="theme-btn btn-style-one"><span class="txt">Contact Me</span></a>
-			</div>
-		</div>
-	</section>
-	<!-- End Home Reach Out CTA -->
 
 	<!-- Main Footer -->
 		<footer class="main-footer" id="contact">
@@ -1909,6 +1950,88 @@
 					// Initialize first slide
 					showSlide(0);
 				});
+			});
+		})();
+	</script>
+
+	<!-- Home: one testimonial at a time (rotate) -->
+	<script>
+		(function() {
+			document.addEventListener('DOMContentLoaded', function() {
+				var wrap = document.querySelector('.home-testimonials');
+				if (!wrap) return;
+				var blocks = wrap.querySelectorAll('.testimonial-block');
+				if (!blocks.length) return;
+
+				var controls = wrap.querySelector('.home-testimonials-controls');
+				if (!controls) {
+					controls = document.createElement('div');
+					controls.className = 'home-testimonials-controls';
+					controls.setAttribute('aria-label', 'Testimonial navigation');
+					controls.innerHTML = '<button type="button" class="home-testimonials-prev" aria-label="Previous testimonial">‹</button>' +
+						'<div class="home-testimonials-dots" role="tablist"></div>' +
+						'<button type="button" class="home-testimonials-next" aria-label="Next testimonial">›</button>';
+					wrap.appendChild(controls);
+				}
+
+				var prevBtn = controls.querySelector('.home-testimonials-prev');
+				var nextBtn = controls.querySelector('.home-testimonials-next');
+				var dotsWrap = controls.querySelector('.home-testimonials-dots');
+				var current = 0;
+				var timer = null;
+				var AUTO_MS = 7000;
+
+				function show(i) {
+					current = (i + blocks.length) % blocks.length;
+					for (var b = 0; b < blocks.length; b++) {
+						blocks[b].classList.toggle('is-active', b === current);
+						blocks[b].setAttribute('aria-hidden', b === current ? 'false' : 'true');
+					}
+					var dots = dotsWrap.querySelectorAll('.home-testimonials-dot');
+					for (var d = 0; d < dots.length; d++) {
+						dots[d].classList.toggle('is-active', d === current);
+						dots[d].setAttribute('aria-selected', d === current ? 'true' : 'false');
+					}
+				}
+
+				dotsWrap.innerHTML = '';
+				for (var idx = 0; idx < blocks.length; idx++) {
+					(function(index) {
+						var dot = document.createElement('button');
+						dot.type = 'button';
+						dot.className = 'home-testimonials-dot';
+						dot.setAttribute('role', 'tab');
+						dot.setAttribute('aria-label', 'Show testimonial ' + (index + 1));
+						dot.addEventListener('click', function() {
+							show(index);
+							resetTimer();
+						});
+						dotsWrap.appendChild(dot);
+					})(idx);
+				}
+
+				function next() { show(current + 1); }
+				function prev() { show(current - 1); }
+
+				function resetTimer() {
+					if (timer) clearInterval(timer);
+					if (blocks.length > 1) timer = setInterval(next, AUTO_MS);
+				}
+
+				if (blocks.length <= 1) {
+					controls.style.display = 'none';
+					show(0);
+					return;
+				}
+
+				if (prevBtn) prevBtn.addEventListener('click', function() { prev(); resetTimer(); });
+				if (nextBtn) nextBtn.addEventListener('click', function() { next(); resetTimer(); });
+
+				wrap.addEventListener('mouseenter', function() { if (timer) clearInterval(timer); });
+				wrap.addEventListener('mouseleave', function() { resetTimer(); });
+
+				show(0);
+				resetTimer();
 			});
 		})();
 	</script>
