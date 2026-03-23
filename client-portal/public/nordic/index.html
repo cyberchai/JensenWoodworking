@@ -157,7 +157,8 @@
 			}
 		}
 		
-		/* Banner: Jensen Woodworking as the hero h1 */
+		/* Banner: Jensen Woodworking as the hero h1
+		   Theme (main.css) hides h1 until an ancestor has .active (.slide.active). */
 		.banner-section .content-boxed h1 {
 			margin-top: 0;
 			font-family: 'Inter', sans-serif;
@@ -165,6 +166,9 @@
 			font-weight: 300;
 			letter-spacing: 0.12em;
 			text-transform: none;
+			opacity: 1;
+			transform: scaleY(1);
+			transform-origin: top;
 		}
 		/* Banner subtitle below the hero title */
 		.banner-section .content-boxed .subtitle-h1 {
@@ -174,16 +178,6 @@
 			letter-spacing: 0.04em;
 			color: #fff;
 			margin-top: 30px;
-			opacity: 0;
-			transform: scaleY(0);
-			transform-origin: top;
-			transition: all 1000ms ease;
-			transition-delay: 600ms;
-		}
-		.owl-item.active .banner-section .content-boxed .subtitle-h1,
-		.banner-section .owl-item.active .content-boxed .subtitle-h1 {
-			opacity: 1;
-			transform: scaleY(1);
 		}
 		@media (max-width: 991px) {
 			.banner-section .content-boxed h1 {
@@ -214,11 +208,13 @@
 		}
 		.banner-section .main-slider-carousel {
 			height: 100vh;
+			min-height: 100vh;
 		}
-		.banner-section .owl-stage-outer,
-		.banner-section .owl-stage,
-		.banner-section .owl-item {
-			height: 100vh;
+		/* Single static slide: full-bleed background */
+		.banner-section .main-slider-carousel > .slide {
+			background-repeat: no-repeat;
+			background-position: center center;
+			background-size: cover;
 		}
 		
 		/* Social Box SVG Icons */
@@ -784,52 +780,27 @@
 			}
 		}
 		
-		/* Owl Carousel Navigation SVG Arrows */
-		.owl-nav .owl-prev,
-		.owl-nav .owl-next {
-			position: relative;
-			display: inline-flex;
-			align-items: center;
-			justify-content: center;
-			width: auto;
-			height: auto;
-			background-color: transparent;
-			border: none;
-			cursor: pointer;
-			transition: all 0.3s ease;
-			font-size: 0;
-			line-height: 0;
+		/* Testimonials: responsive grid */
+		.testimonial-section .testimonial-carousel.home-testimonials {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+			gap: 12px;
 		}
 		
-		.owl-nav .owl-prev span,
-		.owl-nav .owl-next span {
-			display: none !important;
+		/* Projects: horizontal scroll row */
+		.projects-section .project-carousel.home-projects {
+			display: flex;
+			flex-wrap: nowrap;
+			gap: 12px;
+			overflow-x: auto;
+			overflow-y: hidden;
+			-webkit-overflow-scrolling: touch;
+			padding-bottom: 4px;
+			scroll-snap-type: x proximity;
 		}
-		
-		.owl-nav .owl-prev::before,
-		.owl-nav .owl-next::before {
-			content: '';
-			display: block;
-			width: 24px;
-			height: 24px;
-			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 18l-6-6 6-6'/%3E%3C/svg%3E");
-			background-size: contain;
-			background-repeat: no-repeat;
-			background-position: center;
-			transition: all 0.3s ease;
-		}
-		
-		.owl-nav .owl-next::before {
-			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 18l6-6-6-6'/%3E%3C/svg%3E");
-		}
-		
-		.owl-nav .owl-prev:hover::before,
-		.owl-nav .owl-next:hover::before {
-			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 18l-6-6 6-6'/%3E%3C/svg%3E");
-		}
-		
-		.owl-nav .owl-next:hover::before {
-			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 18l6-6-6-6'/%3E%3C/svg%3E");
+		.projects-section .project-carousel.home-projects .gallery-block {
+			flex: 0 0 min(320px, 82vw);
+			scroll-snap-align: start;
 		}
 		
 		/* Scroll to Top Animation */
@@ -913,179 +884,6 @@
 				font-size: 24px;
 			}
 		}
-		
-		/* Center Service Box Content Horizontally */
-		.service-box .inner-box {
-			text-align: center;
-		}
-		
-		.service-box .inner-box .content {
-			display: inline-block;
-			text-align: left;
-			position: relative;
-		}
-		
-		/* Remove Service Box Image Animations */
-		.service-box .inner-box:hover .content .icon,
-		.service-box .inner-box .content .icon {
-			transform: none !important;
-			-webkit-transform: none !important;
-			-moz-transform: none !important;
-			-ms-transform: none !important;
-			-o-transform: none !important;
-		}
-		
-		/* Make Service Box Images Fill Content Height */
-		.service-box .inner-box .content .icon {
-			position: absolute;
-			top: 0;
-			bottom: 0;
-			height: 100% !important;
-			width: 80px !important;
-		}
-		
-		/* Add Spacing Above Services Title */
-		#services .sec-title {
-			margin-top: 60px;
-		}
-		
-		/* Desktop: ensure services image column is visible (theme uses background-image) */
-		@media (min-width: 1181px) {
-			#services .image-column {
-				display: block !important;
-				visibility: visible !important;
-				background-repeat: no-repeat !important;
-				background-position: 50% !important;
-				background-size: cover !important;
-			}
-		}
-		
-		/* Mobile + iPad: hide services image column; content full width */
-		@media (max-width: 1180px) {
-			#services .image-column {
-				display: none !important;
-			}
-			#services .content-column {
-				width: 100% !important;
-			}
-			#services .content-column .inner-column {
-				max-width: 100%;
-			}
-		}
-		
-		/* Keep service boxes vertically stacked and fill available space */
-		.blocks-outer .service-box {
-			width: 100%;
-			margin-bottom: 30px;
-		}
-		
-		.blocks-outer .service-box:last-child {
-			margin-bottom: 0;
-		}
-		
-		/* Service card image – desktop: image left of text */
-		#services .service-box .inner-box {
-			position: relative;
-		}
-		#services .service-box .inner-box .service-box-image {
-			position: absolute;
-			left: 0;
-			top: 0;
-			width: 140px;
-			height: 100%;
-			min-height: 120px;
-			overflow: hidden;
-		}
-		#services .service-box .inner-box .service-box-image img {
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
-			object-position: center;
-			display: block;
-		}
-		#services .service-box .inner-box .content {
-			padding-left: 160px;
-		}
-		
-		/* Mobile: service cards – image above text */
-		@media (max-width: 767px) {
-			#services .service-box .inner-box .service-box-image {
-				position: relative;
-				width: 100%;
-				max-width: 280px;
-				height: 160px;
-				min-height: 0;
-				margin: 0 auto 20px;
-			}
-			#services .service-box .inner-box .content {
-				display: block;
-				text-align: center;
-				padding-left: 0;
-			}
-			#services .service-box .inner-box .content .icon {
-				position: relative !important;
-				top: auto !important;
-				bottom: auto !important;
-				width: 100% !important;
-				max-width: 200px;
-				height: auto !important;
-				min-height: 0 !important;
-				display: block;
-				margin: 0 auto 20px;
-				border-radius: 0;
-			}
-			#services .service-box .inner-box .content h5,
-			#services .service-box .inner-box .content p {
-				text-align: left;
-			}
-			#services .service-box .inner-box {
-				text-align: left;
-			}
-		}
-		
-		/* iPad: image above text, card layout */
-		@media (min-width: 768px) and (max-width: 1180px) {
-			#services .service-box .inner-box .service-box-image {
-				position: relative;
-				width: 100%;
-				max-width: 320px;
-				height: 180px;
-				min-height: 0;
-				margin-bottom: 20px;
-			}
-			#services .service-box .inner-box {
-				display: flex;
-				flex-direction: column;
-				min-height: 200px;
-				text-align: left;
-			}
-			#services .service-box .inner-box .content {
-				display: flex;
-				flex-direction: column;
-				flex: 1;
-				width: 100%;
-				padding: 0 0 0 0;
-				justify-content: center;
-			}
-			#services .service-box .inner-box .content h5 {
-				margin-bottom: 12px;
-			}
-			#services .service-box .inner-box .content p {
-				flex: 1;
-			}
-		}
-		/* Products – Clean service-box cards */
-		#services .service-box .inner-box {
-			border: none;
-			overflow: hidden;
-			box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-		}
-		#services .service-box .inner-box:before {
-			left: 0;
-		}
-		#services .service-box .inner-box:hover {
-			box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-		}
 
 		/* Testimonials – Clean card styling */
 		.testimonial-section .testimonial-block .inner-box {
@@ -1098,16 +896,16 @@
 			box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
 		}
 
-		/* Home Contact Form Section */
+		/* Home – Reach Out CTA (compact vertical rhythm) */
 		.home-contact-section {
-			padding: 120px 0 130px;
+			padding: 28px 0 32px;
 			background-color: #fff;
 			border-top: none;
 		}
 
 		.home-contact-section .sec-title {
 			text-align: center;
-			margin-bottom: 60px;
+			margin-bottom: 12px;
 		}
 
 		.home-contact-section .sec-title .title {
@@ -1115,7 +913,7 @@
 			color: #999;
 			text-transform: uppercase;
 			letter-spacing: 0.2em;
-			margin-bottom: 15px;
+			margin-bottom: 6px;
 			font-weight: 400;
 		}
 
@@ -1123,195 +921,28 @@
 			font-size: 42px;
 			font-weight: 400;
 			color: #000;
-			line-height: 1.2;
+			line-height: 1.15;
 		}
 
-		.home-contact-section .contact-form {
-			max-width: 600px;
-			margin: 0 auto;
-		}
-
-		.home-contact-section .contact-form .form-group {
-			margin-bottom: 0;
-		}
-
-		.home-contact-section .contact-form input[type="text"],
-		.home-contact-section .contact-form input[type="email"],
-		.home-contact-section .contact-form input[type="tel"] {
-			width: 100%;
-			border: none;
-			border-bottom: 1px solid #e0e0e0;
-			background: transparent;
-			padding: 16px 0;
-			font-size: 15px;
-			color: #000;
-			font-family: 'Inter', 'Heebo', sans-serif;
-			font-weight: 300;
-			letter-spacing: 0.01em;
-			border-radius: 0;
-			outline: none;
-			transition: border-color 0.3s ease;
-		}
-
-		.home-contact-section .contact-form input:focus {
-			border-bottom-color: #ffe1a0;
-		}
-
-		.home-contact-section .contact-form input::placeholder,
-		.home-contact-section .contact-form textarea::placeholder {
-			color: #bbb;
-			font-weight: 300;
-		}
-
-		.home-contact-section .contact-form textarea {
-			width: 100%;
-			border: none;
-			border-bottom: 1px solid #e0e0e0;
-			background: transparent;
-			padding: 16px 0;
-			font-size: 15px;
-			color: #000;
-			font-family: 'Inter', 'Heebo', sans-serif;
-			font-weight: 300;
-			letter-spacing: 0.01em;
-			border-radius: 0;
-			outline: none;
-			resize: none;
-			height: 120px;
-			line-height: 1.7;
-			transition: border-color 0.3s ease;
-		}
-
-		.home-contact-section .contact-form textarea:focus {
-			border-bottom-color: #ffe1a0;
-		}
-
-		.home-contact-section .form-fields-row {
-			display: flex;
-			gap: 30px;
-		}
-
-		.home-contact-section .form-fields-row .form-group {
-			flex: 1;
-		}
-
-		@media (max-width: 600px) {
-			.home-contact-section .form-fields-row {
-				flex-direction: column;
-				gap: 0;
-			}
-		}
-
-		.home-contact-section .toggles-row {
-			display: flex;
-			gap: 36px;
-			align-items: center;
-			flex-wrap: wrap;
-			padding: 22px 0;
-		}
-
-		.home-contact-section .toggle-item {
-			display: flex;
-			align-items: center;
-			gap: 12px;
-			cursor: pointer;
-		}
-
-		.home-contact-section .toggle-item label {
-			color: #888;
-			font-size: 13px;
-			font-weight: 400;
-			letter-spacing: 0.03em;
-			margin: 0;
-			cursor: pointer;
-		}
-
-		.home-contact-section .toggle-switch {
-			position: relative;
-			display: inline-block;
-			width: 16px;
-			height: 16px;
-		}
-
-		.home-contact-section .toggle-switch input {
-			position: absolute;
-			opacity: 0;
-			width: 0;
-			height: 0;
-		}
-
-		.home-contact-section .toggle-slider {
-			position: absolute;
-			cursor: pointer;
-			inset: 0;
-			border: 1px solid #ccc;
-			background: transparent;
-			border-radius: 0;
-			transition: all 0.3s ease;
-		}
-
-		.home-contact-section .toggle-slider:before {
-			content: "";
-			position: absolute;
-			inset: 2px;
-			background: transparent;
-			transition: all 0.3s ease;
-		}
-
-		.home-contact-section .toggle-switch input:checked + .toggle-slider {
-			border-color: #000;
-		}
-
-		.home-contact-section .toggle-switch input:checked + .toggle-slider:before {
-			background: #000;
-			transform: none;
-		}
-
-		.home-contact-section .submit-row {
+		.home-contact-cta {
 			text-align: center;
-			margin-top: 40px;
 		}
 
-		.home-contact-section .submit-row .theme-btn {
+		.home-contact-cta .theme-btn {
 			font-size: 12px;
 			letter-spacing: 0.15em;
-			padding: 16px 45px;
-		}
-
-		#home-form-message {
-			display: none;
-			padding: 16px 20px;
-			margin-bottom: 24px;
-			text-align: center;
-			font-size: 14px;
-			font-weight: 300;
-		}
-
-		#home-form-message.success {
-			background-color: transparent;
-			color: #2a2a2a;
-			border: 1px solid #e0e0e0;
-		}
-
-		#home-form-message.error {
-			background-color: transparent;
-			color: #a00;
-			border: 1px solid #e0c0c0;
-		}
-
-		#home-form-message.show {
-			display: block;
+			padding: 12px 36px;
 		}
 
 		@media (max-width: 768px) {
 			.home-contact-section {
-				padding: 80px 0 90px;
+				padding: 20px 0 24px;
 			}
 			.home-contact-section .sec-title h2 {
-				font-size: 30px;
+				font-size: 28px;
 			}
 			.home-contact-section .sec-title {
-				margin-bottom: 40px;
+				margin-bottom: 10px;
 			}
 		}
 	</style>
@@ -1453,63 +1084,20 @@
 		</header>
 		<!--End Main Header -->
 
-		<!-- Banner Section -->
+		<!-- Banner Section (static hero) -->
 		<section class="banner-section" id="home">
-			<div class="main-slider-carousel owl-carousel owl-theme">
-
-			<div class="slide" style="background-image: url(images/main-slider/image-1.jpg)">
-				<div class="auto-container">
-					<div class="content-boxed">
-						<div class="inner-boxed">
-							<h1>Jensen Woodworking</h1>
-							<div class="subtitle-h1">Quality Custom Countertops, Islands <br>& Surfaces</div>
+			<div class="main-slider-carousel">
+				<div class="slide active" style="background-image: url(/bg-masthead.jpg)">
+					<div class="auto-container">
+						<div class="content-boxed">
+							<div class="inner-boxed">
+								<h1>Jensen Woodworking</h1>
+								<div class="subtitle-h1">Quality Custom Countertops, Islands <br>& Surfaces</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-
-			<div class="slide" style="background-image: url(images/main-slider/image-1.jpg)">
-				<div class="auto-container">
-					<div class="content-boxed">
-						<div class="inner-boxed">
-							<h1>Jensen Woodworking</h1>
-							<div class="subtitle-h1">Solid Wood Countertops <br>Built to Spec</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="slide" style="background-image: url(images/main-slider/image-1.jpg)">
-				<div class="auto-container">
-					<div class="content-boxed">
-						<div class="inner-boxed">
-							<h1>Jensen Woodworking</h1>
-							<div class="subtitle-h1">Live Edge Tables, Dining Tables <br>&amp; Bar Tops</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="slide" style="background-image: url(images/main-slider/image-1.jpg)">
-				<div class="auto-container">
-					<div class="content-boxed">
-						<div class="inner-boxed">
-							<h1>Jensen Woodworking</h1>
-							<div class="subtitle-h1">Custom Nordic Woodworking</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			</div>
-
-			<!-- Scroll Down Btn -->
-			<div class="mouse-btn-down scroll-to-target" data-target=".about-section">
-				<div class="chevron"></div>
-				<div class="chevron"></div>
-				<div class="chevron"></div>
-			</div>
-
 
 		</section>
 		<!-- End Banner Section -->
@@ -1551,7 +1139,7 @@
 				<div class="sec-title">
 					<h2>What Our Clients Say</h2>
 				</div>
-				<div class="testimonial-carousel owl-carousel owl-theme">
+				<div class="testimonial-carousel home-testimonials">
 
 					<!-- Testimonial Block -->
 					<div class="testimonial-block" data-testimonial-images='["images/gallery/1.jpg", "images/gallery/2.jpg"]'>
@@ -1660,62 +1248,6 @@
 		</section>
 		<!-- End Testimonial Section -->
 
-		<!-- Fluid Section One -->
-		<section class="fluid-section-one" id="services">
-			<div class="outer-container clearfix">
-
-				<!-- Content Column -->
-				<div class="content-column">
-					<div class="inner-column">
-						<!-- Sec Title -->
-						<div class="sec-title">
-							<div class="title">Products</div>
-							<h2>Heirloom-quality pieces built with intention</h2>
-						</div>
-
-						<!-- Blocks Outer -->
-						<div class="blocks-outer">
-
-							<!-- Service Box -->
-							<div class="service-box">
-								<div class="inner-box">
-									<div class="service-box-image">
-										<img src="/images/table.jpg" alt="Handmade Dining Tables">
-									</div>
-									<div class="content">
-										<h5><a href="services.html">Handmade Dining Tables</a></h5>
-										<p>Handcrafted one at a time from responsibly sourced hardwoods &mdash; Ash, Oak, Walnut, and more. Each table is shaped around the client&rsquo;s vision, blending elegance, durability, and natural beauty.</p>
-									</div>
-								</div>
-							</div>
-
-							<!-- Service Box -->
-							<div class="service-box">
-								<div class="inner-box">
-									<div class="service-box-image">
-										<img src="/images/counter.jpg" alt="Kitchen Counters & Island Tops">
-									</div>
-									<div class="content">
-										<h5><a href="services.html">Kitchen Counters &amp; Island Tops</a></h5>
-										<p>Butcher-block and wide-plank styles using select hardwoods like Oak, Maple, and Walnut. Our island tops often become the visual focal point of a high-end kitchen, adding natural warmth that invites gathering.</p>
-									</div>
-								</div>
-							</div>
-
-						</div>
-
-					</div>
-				</div>
-
-				<!-- Image Column -->
-				<div class="image-column" style="background-image:url(/jw_projects/DuxburyMAThreeKitchCounters2.JPG)">
-					<figure class="image-box"><img src="/jw_projects/DuxburyMAThreeKitchCounters2.JPG" alt=""></figure>
-				</div>
-
-			</div>
-		</section>
-		<!-- End Fluid Section One -->
-
 		<!-- Projects Section -->
 		<section class="projects-section" id="projects">
 			<div class="auto-container">
@@ -1731,7 +1263,7 @@
 				</div>
 			</div>
 			<div class="outer-container">
-				<div class="project-carousel owl-carousel owl-theme">
+				<div class="project-carousel home-projects">
 
 					<!-- Gallery Block -->
 					<div class="gallery-block" data-project-title="Black Walnut Island Top - 36&quot; x 123&quot; x 1.75&quot;" data-project-location="Duxbury, MA" data-project-image="images/gallery/1.jpg" data-project-description="A stunning black walnut island top crafted with precision. This 36&quot; x 123&quot; x 1.75&quot; piece showcases the natural beauty of black walnut with its rich, dark tones and distinctive grain patterns. Perfect for a modern kitchen island that serves as both a functional workspace and a statement piece." data-project-related-images='["images/gallery/2.jpg", "images/gallery/3.jpg", "images/gallery/4.jpg"]'>
@@ -1908,56 +1440,19 @@
 	</section>
 	<!-- End Projects Section -->
 
-	<!-- Home Contact Form Section -->
+	<!-- Home Reach Out CTA -->
 	<section class="home-contact-section contact-page-section" id="reach-out">
 		<div class="auto-container">
 			<div class="sec-title">
 				<div class="title">Reach Out</div>
 				<h2>Tell Us About Your Project</h2>
 			</div>
-			<div class="contact-form">
-				<div id="home-form-message"></div>
-				<form id="home-contact-form" method="POST">
-					<div class="form-fields-row">
-						<div class="form-group">
-							<input type="text" name="username" placeholder="Your Name" required>
-						</div>
-						<div class="form-group">
-							<input type="email" name="email" placeholder="Your Email" required>
-						</div>
-					</div>
-					<div class="form-group">
-						<input type="tel" name="phone" placeholder="Your Phone">
-					</div>
-					<div class="form-group">
-						<div class="toggles-row">
-							<div class="toggle-item">
-								<label for="home_contractor_involved">Contractor Involved?</label>
-								<label class="toggle-switch">
-									<input type="checkbox" id="home_contractor_involved" name="contractor_involved">
-									<span class="toggle-slider"></span>
-								</label>
-							</div>
-							<div class="toggle-item">
-								<label for="home_designer_involved">Designer Involved?</label>
-								<label class="toggle-switch">
-									<input type="checkbox" id="home_designer_involved" name="designer_involved">
-									<span class="toggle-slider"></span>
-								</label>
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<textarea name="message" placeholder="Tell us about your project — dimensions, materials, timing..." rows="5" required></textarea>
-					</div>
-					<div class="submit-row">
-						<button type="submit" class="theme-btn btn-style-one"><span class="txt">Send Message</span></button>
-					</div>
-				</form>
+			<div class="home-contact-cta">
+				<a href="contact.html" class="theme-btn btn-style-one"><span class="txt">Contact Me</span></a>
 			</div>
 		</div>
 	</section>
-	<!-- End Home Contact Form Section -->
+	<!-- End Home Reach Out CTA -->
 
 	<!-- Main Footer -->
 		<footer class="main-footer" id="contact">
@@ -2083,7 +1578,6 @@
 	<script src="/js/jquery.mCustomScrollbar.concat.min.js"></script>
 	<script src="/js/jquery.fancybox.js"></script>
 	<script src="/js/appear.js"></script>
-	<script src="/js/owl.js"></script>
 	<script src="/js/wow.js"></script>
 	<script src="/js/parallax.min.js"></script>
 	<script src="/js/tilt.jquery.min.js"></script>
@@ -2417,89 +1911,6 @@
 				});
 			});
 		})();
-	</script>
-
-	<!-- Home Contact Form Submission to Firestore -->
-	<script>
-		document.addEventListener('DOMContentLoaded', function() {
-			var form = document.getElementById('home-contact-form');
-			var messageDiv = document.getElementById('home-form-message');
-			
-			if (!form || !messageDiv) return;
-			
-			var submitButton = form.querySelector('button[type="submit"]');
-			var originalButtonText = submitButton ? submitButton.querySelector('.txt').textContent : 'Send Message';
-			
-			form.addEventListener('submit', function(e) {
-				e.preventDefault();
-				
-				var formData = new FormData(form);
-				
-				var contractorCheckbox = form.querySelector('#home_contractor_involved');
-				var designerCheckbox = form.querySelector('#home_designer_involved');
-				
-				if (contractorCheckbox) {
-					formData.set('contractor_involved', contractorCheckbox.checked ? 'Yes' : 'No');
-				}
-				if (designerCheckbox) {
-					formData.set('designer_involved', designerCheckbox.checked ? 'Yes' : 'No');
-				}
-				
-				submitButton.disabled = true;
-				submitButton.querySelector('.txt').textContent = 'Sending...';
-				messageDiv.classList.remove('show', 'success', 'error');
-				
-				var apiEndpoint;
-				var protocol = window.location.protocol;
-				var hostname = window.location.hostname;
-				
-				if (protocol === 'file:') {
-					apiEndpoint = 'http://localhost:3000/api/contact';
-				} else if (hostname === 'localhost' || hostname === '127.0.0.1') {
-					var port = window.location.port || '3000';
-					apiEndpoint = 'http://localhost:' + port + '/api/contact';
-				} else {
-					apiEndpoint = '/api/contact';
-				}
-				
-				fetch(apiEndpoint, {
-					method: 'POST',
-					body: formData,
-					headers: { 'Accept': 'application/json' }
-				})
-				.then(function(response) {
-					if (response.ok) {
-						messageDiv.textContent = 'Thank you! Your message has been sent. We\'ll get back to you soon.';
-						messageDiv.className = 'show success';
-						messageDiv.style.display = 'block';
-						form.reset();
-						messageDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-						setTimeout(function() {
-							messageDiv.classList.remove('show');
-							messageDiv.style.display = 'none';
-						}, 5000);
-					} else {
-						return response.json().then(function(data) {
-							throw new Error(data.error || 'An error occurred');
-						});
-					}
-				})
-				.catch(function(error) {
-					messageDiv.textContent = 'Sorry, there was an error. Please try again or email kpnjensen@gmail.com directly.';
-					messageDiv.className = 'show error';
-					messageDiv.style.display = 'block';
-					messageDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-					console.error('Form submission error:', error);
-				})
-				.finally(function() {
-					if (submitButton) {
-						submitButton.disabled = false;
-						var txt = submitButton.querySelector('.txt');
-						if (txt) txt.textContent = originalButtonText;
-					}
-				});
-			});
-		});
 	</script>
 
 	<!-- Dynamic Client Portal URL Script -->

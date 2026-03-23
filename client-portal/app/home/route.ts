@@ -154,7 +154,7 @@ export async function GET() {
     // Always replace (so hard-coded items never show)
     const galleryBlocks = featuredProjects.map(project => generateGalleryBlock(project)).join('\n');
     // Find and replace everything between the carousel div opening and closing
-    const galleryRegex = /(<div class="project-carousel owl-carousel owl-theme">)[\s\S]*?(<\/div>\s*<\/div>\s*<\/section>\s*<!-- End Projects Section -->)/;
+    const galleryRegex = /(<div class="project-carousel home-projects">)[\s\S]*?(<\/div>\s*<\/div>\s*<\/section>\s*<!-- End Projects Section -->)/;
     html = html.replace(galleryRegex, `$1\n\n${galleryBlocks}\n\n\t\t\t\t$2`);
     
     // Replace testimonial blocks
@@ -170,7 +170,7 @@ export async function GET() {
       }).join('\n');
       
       // Replace testimonial section - only carousel cards (no extra title list)
-      const testimonialSectionRegex = /(<div class="sec-title">\s*<h2>What Our Clients Say<\/h2>\s*<\/div>)(\s*<div class="testimonial-carousel owl-carousel owl-theme">)[\s\S]*?(<\/div>\s*<\/div>\s*<\/section>\s*<!-- End Testimonial Section -->)/;
+      const testimonialSectionRegex = /(<div class="sec-title">\s*<h2>What Our Clients Say<\/h2>\s*<\/div>)(\s*<div class="testimonial-carousel home-testimonials">)[\s\S]*?(<\/div>\s*<\/div>\s*<\/section>\s*<!-- End Testimonial Section -->)/;
       html = html.replace(testimonialSectionRegex, `$1$2\n\n${testimonialBlocks}\n\n\t\t\t\t$3`);
       
     } else {
@@ -317,10 +317,7 @@ export async function GET() {
 @media (max-height: 500px) {
   .banner-section,
   .banner-section .slide,
-  .banner-section .main-slider-carousel,
-  .banner-section .owl-stage-outer,
-  .banner-section .owl-stage,
-  .banner-section .owl-item {
+  .banner-section .main-slider-carousel {
     min-height: 360px;
     height: auto;
   }
