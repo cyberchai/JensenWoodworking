@@ -1626,6 +1626,26 @@
 	<script src="/js/jquery-ui.js"></script>
 	<script src="/js/script.js"></script>
 
+	<!-- Sticky header on scroll: same .fixed-header behavior as inner pages (script.js may not finish if home carousel init errors without Owl) -->
+	<script>
+		(function () {
+			var header = document.querySelector('.main-header');
+			if (!header) return;
+			var threshold = 100;
+			function syncFixedHeader() {
+				var y = window.scrollY || document.documentElement.scrollTop;
+				header.classList.toggle('fixed-header', y > threshold);
+			}
+			window.addEventListener('scroll', syncFixedHeader, { passive: true });
+			window.addEventListener('resize', syncFixedHeader);
+			if (document.readyState === 'loading') {
+				document.addEventListener('DOMContentLoaded', syncFixedHeader);
+			} else {
+				syncFixedHeader();
+			}
+		})();
+	</script>
+
 	<!-- Project Modal Script -->
 	<script>
 		(function() {
