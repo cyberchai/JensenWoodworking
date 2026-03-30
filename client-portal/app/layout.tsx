@@ -7,6 +7,10 @@ import { AuthProvider } from '@/components/auth/AuthProvider';
 export const metadata: Metadata = {
   title: 'Jensen Woodworking - Client Portal',
   description: 'View and manage your custom woodworking project',
+  icons: {
+    icon: '/images/JensenWoodworkingLogo.png',
+    apple: '/images/JensenWoodworkingLogo.png',
+  },
 };
 
 export default function RootLayout({
@@ -27,7 +31,7 @@ export default function RootLayout({
               >
                 <div className="p-1 rounded-sm transition-all group-hover:opacity-80">
                   <img 
-                    src="/images/logo.png" 
+                    src="/images/JensenWoodworkingLogo.png" 
                     alt="Jensen Woodworking" 
                     className="h-7 sm:h-9 w-auto"
                   />
