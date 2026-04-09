@@ -174,116 +174,38 @@
 			}
 		}
 		
-		/* About page content rows: keep image and text balanced */
-		.about-section,
-		.about-jensen-section {
-			position: relative;
-			padding: 150px 0;
+		/* About page feature rows: match the shared home/services split-image treatment */
+		.about-section.nordic-split-section,
+		.about-jensen-section.nordic-split-section {
 			background-color: #fff;
 		}
 		
-		.about-section .row,
-		.about-jensen-section .row {
-			display: flex;
-			align-items: stretch;
+		.about-section .nordic-split-content .inner-column,
+		.about-jensen-section .nordic-split-content .inner-column {
+			max-width: 560px;
 		}
 		
-		.about-section .image-column,
-		.about-jensen-section .image-column,
-		.about-section .content-column,
-		.about-jensen-section .content-column {
-			display: flex;
-		}
-		
-		.about-section .image-column,
-		.about-jensen-section .image-column {
-			padding-right: 60px;
-		}
-		
-		.about-section .image-column .inner-column,
-		.about-jensen-section .image-column .inner-column,
-		.about-section .content-column .inner-column,
-		.about-jensen-section .content-column .inner-column {
-			width: 100%;
-		}
-		
-		.about-section .image-column .image,
-		.about-jensen-section .image-column .image {
-			height: 100%;
-		}
-		
-		.about-section .image-column img,
-		.about-jensen-section .image-column img {
-			width: 100%;
-			height: 100%;
-			display: block;
-			object-fit: cover;
-		}
-		
-		.about-section .content-column,
-		.about-jensen-section .content-column {
-			padding-left: 60px;
-			align-items: center;
-		}
-		
-		.about-section .content-column .inner-column,
-		.about-jensen-section .content-column .inner-column {
-			max-width: 540px;
-			margin-left: auto;
-			margin-right: auto;
-			padding-left: 24px;
-			padding-right: 24px;
-		}
-		
-		.about-section .content-column p,
-		.about-jensen-section .content-column p {
+		.about-section .nordic-split-content p,
+		.about-jensen-section .nordic-split-content p {
 			margin-bottom: 18px;
 		}
 		
-		.about-jensen-section .content-column p:last-child,
-		.about-section .content-column p:last-child {
-			margin-bottom: 0;
+		.about-section .nordic-split-content .theme-btn {
+			margin-top: 16px;
 		}
 		
-		@media (max-width: 991px) {
-			.about-section .row,
-			.about-jensen-section .row {
-				display: block;
-			}
-			
-			.about-section .image-column,
-			.about-jensen-section .image-column {
-				display: block;
-				padding-right: 0;
-				margin-bottom: 40px;
-			}
-			
-			.about-section .content-column,
-			.about-jensen-section .content-column {
-				display: block;
-				padding-left: 0;
-			}
-			
-			.about-section .image-column img,
-			.about-jensen-section .image-column img {
-				height: auto;
-			}
+		.about-jensen-section .nordic-split-image img {
+			object-position: center top;
 		}
 		
 		@media (max-width: 767px) {
-			.about-section .content-column .inner-column,
-			.about-jensen-section .content-column .inner-column {
-				padding-left: 20px;
-				padding-right: 20px;
+			.about-section .nordic-split-content .sec-title,
+			.about-jensen-section .nordic-split-content .sec-title {
+				margin-bottom: 18px;
 			}
 		}
 		
 		@media (min-width: 768px) and (max-width: 1180px) {
-			.about-section .content-column .inner-column,
-			.about-jensen-section .content-column .inner-column {
-				padding-left: 20px;
-				padding-right: 20px;
-			}
 			.instagram-reels-grid .instagram-embed-wrapper:not(:first-child) {
 				display: none;
 			}
@@ -633,12 +555,11 @@
 		<!-- End Page Banner Section -->
 
 		<!-- About Section -->
-		<section class="about-section">
-			<div class="auto-container">
-				<div class="row clearfix">
+		<section class="about-section nordic-split-section">
+			<div class="outer-container nordic-split-shell">
 
 					<!-- Image Column -->
-					<div class="image-column col-lg-6 col-md-12 col-sm-12">
+					<div class="image-column col-lg-6 col-md-12 col-sm-12 nordic-split-image">
 						<div class="inner-column">
 							<div class="image">
 								<img src="/images/resource/about.jpg" alt="" />
@@ -647,35 +568,30 @@
 					</div>
 
 					<!-- Content Column -->
-					<div class="content-column col-lg-6 col-md-12 col-sm-12">
+					<div class="content-column col-lg-6 col-md-12 col-sm-12 nordic-split-content">
 						<div class="inner-column">
 							<!-- Sec Title -->
 							<div class="sec-title">
 								<div class="title">About Jensen Woodworking</div>
 								<h2>Custom woodwork crafted in coastal Massachusetts</h2>
 							</div>
-							<p>I was introduced to woodworking in the 6th grade in Denmark through an elective course. My first completed projects were a dog bed frame and a hockey stick. After we moved to the United States, I continued working with carpentry tools, building a shed for my parents, a new deck, and a loft for my apartment after college. I have always been drawn to both the creative aspects of working with wood and the satisfaction that comes from completing a project with your own hands.</p>
-							<p>After graduating from the Tuck School of Business, I began acquiring more tools and taking on increasingly challenging builds. I was a huge fan of Norm Abram on The New Yankee Workshop and This Old House, and built several of his projects, including a crib that all three of my children spent time in.</p>
-							<p>In 2006, we moved to Duxbury and settled into a house located within the Historic Shipbuilder District. At one time, Duxbury had more than ten shipyards and was the largest shipbuilding town on the East Coast. It is inspiring to practice woodworking in the same place where some of the finest craftsmen in American history once worked.</p>
-							<p>Over the years, I continued refining my skills and acquiring the right tools for the craft. I especially enjoy working with traditional hand tools such as hand planes, chisels, and saws, while also appreciating the full range of techniques and tools that allow a project to come together with the highest level of quality.</p>
-							<p>A few years ago, I began receiving requests to commission custom pieces such as kitchen countertops, an island top, and dining tables. What I enjoy most is not only the design process but also seeing a piece come to life in someone else's home. I have also worked with clients who have had a beloved tree come down due to age or a storm. Using that wood to create a new piece of furniture allows the tree to live on in a meaningful way.</p>
-							<p>I am excited to showcase my work here and look forward to connecting with new clients. I work exclusively on custom commissions and do not keep inventory. If you have an idea or concept for a one of a kind piece of furniture, give me a call and let's bring it to life.</p>
+							<p>I was introduced to woodworking in sixth grade in Denmark, where an elective course first taught me the satisfaction of shaping something useful by hand. After moving to the United States, I kept building whenever I could, from practical carpentry projects to furniture for family and friends.</p>
+							<p>After Tuck, I invested more seriously in the craft, inspired by makers like Norm Abram and drawn equally to design, precision, and the quiet rhythm of the shop. Over time, the work grew from personal projects into custom commissions for countertops, island tops, dining tables, and other pieces meant to be lived with every day.</p>
+							<p>Working from Duxbury's historic shipbuilding district feels especially fitting. The tradition of skilled making here, together with my love of honest materials and well-made details, shapes every project that leaves the shop.</p>
+							<p>I work exclusively on custom commissions and would be glad to talk through an idea with you.</p>
 							<a href="contact.html" class="theme-btn btn-style-one"><span class="txt">Contact Me</span></a>
 						</div>
 					</div>
-
-				</div>
 			</div>
 		</section>
 		<!-- End About Section -->
 
 		<!-- About Jensen Section -->
-		<section class="about-jensen-section">
-			<div class="auto-container">
-				<div class="row clearfix">
+		<section class="about-jensen-section nordic-split-section nordic-split-reverse">
+			<div class="outer-container nordic-split-shell">
 					
 					<!-- Image Column -->
-					<div class="image-column col-lg-6 col-md-12 col-sm-12">
+					<div class="image-column col-lg-6 col-md-12 col-sm-12 nordic-split-image">
 						<div class="inner-column">
 							<div class="image">
 								<img src="/images/pfp.webp" alt="Klaus Jensen" />
@@ -684,22 +600,19 @@
 					</div>
 
 					<!-- Content Column -->
-					<div class="content-column col-lg-6 col-md-12 col-sm-12">
+					<div class="content-column col-lg-6 col-md-12 col-sm-12 nordic-split-content">
 						<div class="inner-column">
 							<!-- Sec Title -->
 							<div class="sec-title">
 								<div class="title">About Klaus Jensen</div>
 								<h2>30 years of care, patience, and doing things properly</h2>
 							</div>
-							<p>I've been working with wood for over 30 years, first making pieces for family and friends, and eventually building a practice around care, patience, and doing things properly. I'm drawn to work that feels quiet but confident—pieces that don't ask for attention, but earn it over time.</p>
-							<p>My Danish background has always shaped how I think about making things: simple forms, honest materials, and a belief that function and beauty should never compete. That sensibility carries through everything I build. I also bring the discipline of an Ivy League education into the shop—an attention to detail, proportion, and process that shows up in the finished work, even when it isn't immediately visible.</p>
-							<p>My workshop sits in Duxbury's historic shipbuilding district, where skilled carpenters once built vessels meant to last at sea. Working here keeps me connected to that tradition. I'm especially drawn to wood with a history—fallen trees, reclaimed material—giving it a second life with intention.</p>
-							<p>I use a mix of traditional hand tools and modern equipment. There's nothing better than a sharp block plane or a perfectly cut joint. I focus mainly on kitchen countertops, dining tables, islands, bartops, and mantels, but many projects start simply with a conversation.</p>
+							<p>I've been working with wood for more than 30 years, building a practice around patience, proportion, and doing things properly. I'm drawn to pieces that feel quiet but confident and grow more meaningful with daily use.</p>
+							<p>My Danish background still guides the work: simple forms, honest materials, and a belief that function and beauty should belong together. I use both traditional hand tools and modern equipment, depending on what the piece asks for, and I am especially drawn to wood with a history, including reclaimed material and fallen trees.</p>
+							<p>From kitchen countertops and islands to dining tables, bartops, mantels, and one-off commissions, each project starts with a conversation and is built to feel natural in the space it joins.</p>
 							<p>If you have something in mind, I'd be glad to talk.</p>
 						</div>
 					</div>
-
-				</div>
 			</div>
 		</section>
 		<!-- End About Jensen Section -->
