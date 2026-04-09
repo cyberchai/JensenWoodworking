@@ -2,15 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+html {
+  font-family: 'Poppins', sans-serif;
+}
 
 body {
   @apply bg-white text-site-gray-light;
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  line-height: 1.7em;
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  line-height: 1.75;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
 }
 
+body,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+button,
+input,
+select,
+textarea {
+  font-family: 'Poppins', sans-serif;
+}

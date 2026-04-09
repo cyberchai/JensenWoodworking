@@ -174,33 +174,58 @@
 			}
 		}
 		
-		/* About Jensen Section Styling */
+		/* About page content rows: keep image and text balanced */
+		.about-section,
 		.about-jensen-section {
 			position: relative;
 			padding: 150px 0;
 			background-color: #fff;
 		}
 		
+		.about-section .row,
 		.about-jensen-section .row {
 			display: flex;
-			align-items: center;
+			align-items: stretch;
 		}
 		
+		.about-section .image-column,
+		.about-jensen-section .image-column,
+		.about-section .content-column,
+		.about-jensen-section .content-column {
+			display: flex;
+		}
+		
+		.about-section .image-column,
 		.about-jensen-section .image-column {
 			padding-right: 60px;
 		}
 		
+		.about-section .image-column .inner-column,
+		.about-jensen-section .image-column .inner-column,
+		.about-section .content-column .inner-column,
+		.about-jensen-section .content-column .inner-column {
+			width: 100%;
+		}
+		
+		.about-section .image-column .image,
+		.about-jensen-section .image-column .image {
+			height: 100%;
+		}
+		
+		.about-section .image-column img,
 		.about-jensen-section .image-column img {
 			width: 100%;
-			height: auto;
+			height: 100%;
 			display: block;
+			object-fit: cover;
 		}
 		
+		.about-section .content-column,
 		.about-jensen-section .content-column {
 			padding-left: 60px;
+			align-items: center;
 		}
 		
-		/* Center text block within the right half */
 		.about-section .content-column .inner-column,
 		.about-jensen-section .content-column .inner-column {
 			max-width: 540px;
@@ -210,63 +235,51 @@
 			padding-right: 24px;
 		}
 		
+		.about-section .content-column p,
 		.about-jensen-section .content-column p {
-			margin-bottom: 0.9em;
-			line-height: 1.8;
-			color: #666;
+			margin-bottom: 18px;
 		}
 		
-		.about-jensen-section .content-column p:last-child {
-			margin-bottom: 0;
-		}
-		
-		.about-section .content-column p {
-			margin-bottom: 0.9em;
-		}
-		
+		.about-jensen-section .content-column p:last-child,
 		.about-section .content-column p:last-child {
 			margin-bottom: 0;
 		}
 		
-		/* Desktop only: original theme paragraph size (unaffected by iPad/mobile increases) */
-		@media (min-width: 1181px) {
-			.about-section .content-column p,
-			.about-jensen-section .content-column p {
-				font-size: 14px !important;
-				line-height: 1.8em;
-			}
-		}
-		
 		@media (max-width: 991px) {
+			.about-section .row,
+			.about-jensen-section .row {
+				display: block;
+			}
+			
+			.about-section .image-column,
 			.about-jensen-section .image-column {
+				display: block;
 				padding-right: 0;
 				margin-bottom: 40px;
 			}
 			
+			.about-section .content-column,
 			.about-jensen-section .content-column {
+				display: block;
 				padding-left: 0;
+			}
+			
+			.about-section .image-column img,
+			.about-jensen-section .image-column img {
+				height: auto;
 			}
 		}
 		
 		@media (max-width: 767px) {
-			.about-jensen-section .content-column p {
-				font-size: 20px !important;
-			}
-			.about-section .content-column p {
-				font-size: 20px !important;
-			}
+			.about-section .content-column .inner-column,
 			.about-jensen-section .content-column .inner-column {
 				padding-left: 20px;
+				padding-right: 20px;
 			}
 		}
 		
-		/* iPad: match home page About Jensen Woodworking paragraph size (22px) + horizontal spacing like mobile */
 		@media (min-width: 768px) and (max-width: 1180px) {
-			.about-jensen-section .content-column p,
-			.about-section .content-column p {
-				font-size: 22px !important;
-				line-height: 1.85em;
-			}
+			.about-section .content-column .inner-column,
 			.about-jensen-section .content-column .inner-column {
 				padding-left: 20px;
 				padding-right: 20px;
@@ -486,10 +499,9 @@
 	<meta property="og:description" content="Learn about Jensen Woodworking - Handcrafted custom countertops, tables, mantels, and restorations by Klaus Jensen in Duxbury, Massachusetts." />
 
 	<!-- Fonts -->
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link
-		href="https://fonts.googleapis.com/css2?family=Heebo:wght@100;300;400;500;600;700;800;900&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
-		rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
 	<!-- Add site Favicon -->
 	<link rel="shortcut icon" href="/images/JensenWoodworkingLogo.png" type="image/png">
@@ -643,17 +655,11 @@
 								<h2>Custom woodwork crafted in coastal Massachusetts</h2>
 							</div>
 							<p>I was introduced to woodworking in the 6th grade in Denmark through an elective course. My first completed projects were a dog bed frame and a hockey stick. After we moved to the United States, I continued working with carpentry tools, building a shed for my parents, a new deck, and a loft for my apartment after college. I have always been drawn to both the creative aspects of working with wood and the satisfaction that comes from completing a project with your own hands.</p>
-							<br>
 							<p>After graduating from the Tuck School of Business, I began acquiring more tools and taking on increasingly challenging builds. I was a huge fan of Norm Abram on The New Yankee Workshop and This Old House, and built several of his projects, including a crib that all three of my children spent time in.</p>
-							<br>
 							<p>In 2006, we moved to Duxbury and settled into a house located within the Historic Shipbuilder District. At one time, Duxbury had more than ten shipyards and was the largest shipbuilding town on the East Coast. It is inspiring to practice woodworking in the same place where some of the finest craftsmen in American history once worked.</p>
-							<br>
 							<p>Over the years, I continued refining my skills and acquiring the right tools for the craft. I especially enjoy working with traditional hand tools such as hand planes, chisels, and saws, while also appreciating the full range of techniques and tools that allow a project to come together with the highest level of quality.</p>
-							<br>
 							<p>A few years ago, I began receiving requests to commission custom pieces such as kitchen countertops, an island top, and dining tables. What I enjoy most is not only the design process but also seeing a piece come to life in someone else's home. I have also worked with clients who have had a beloved tree come down due to age or a storm. Using that wood to create a new piece of furniture allows the tree to live on in a meaningful way.</p>
-							<br>
 							<p>I am excited to showcase my work here and look forward to connecting with new clients. I work exclusively on custom commissions and do not keep inventory. If you have an idea or concept for a one of a kind piece of furniture, give me a call and let's bring it to life.</p>
-							<br>
 							<a href="contact.html" class="theme-btn btn-style-one"><span class="txt">Contact Me</span></a>
 						</div>
 					</div>
@@ -926,4 +932,3 @@
 </body>
 
 </html>
-
