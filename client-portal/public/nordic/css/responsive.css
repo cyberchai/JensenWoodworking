@@ -220,7 +220,7 @@ p,
 /* Shared Nordic split-section layout for image/text feature rows */
 .nordic-split-section{
   position:relative;
-  padding:clamp(72px,8vw,104px) 0;
+  padding:clamp(24px,3vw,40px) 0;
   background-color:#fff;
   overflow:hidden;
 }
@@ -325,7 +325,7 @@ p,
 
 @media only screen and (max-width:991px){
   .nordic-split-section{
-    padding:0 0 72px;
+    padding:0 0 40px;
   }
 
   .nordic-split-shell{
@@ -354,7 +354,7 @@ p,
 
 @media only screen and (max-width:767px){
   .nordic-split-section{
-    padding-bottom:56px;
+    padding-bottom:28px;
   }
 
   .nordic-split-content{
@@ -364,4 +364,53 @@ p,
   .nordic-split-image img{
     min-height:clamp(240px,70vw,320px);
   }
+}
+
+/* Shared Nordic surface palette */
+:root{
+  --jw-bg:#f5f1e9;
+  --jw-bg-soft:#faf7f2;
+  --jw-surface:#fff;
+  --jw-border-soft:rgba(122,100,62,.14);
+}
+
+body,
+.page-wrapper{
+  background-color:var(--jw-bg);
+}
+
+.about-section,
+.about-jensen-section,
+.projects-section,
+.gallery-page-section,
+.contact-page-section,
+.instagram-reels-section,
+.sponsors-section,
+.sidebar-page-container,
+.page-title-two-section,
+.press-section,
+.project-detail-section{
+  background-color:transparent!important;
+}
+
+.nordic-split-section{
+  background-color:transparent!important;
+}
+
+.nordic-split-content,
+.home-testimonials .testimonial-block .inner-box,
+.testimonials-shell,
+.testimonials-cta-content,
+.testimonials-empty,
+.project-modal-content{
+  background-color:var(--jw-surface);
+}
+
+.main-footer,
+.main-footer.style-two{
+  background:transparent;
+}
+
+.main-footer .footer-bottom{
+  border-top-color:var(--jw-border-soft);
 }

@@ -20,6 +20,44 @@ function escapeHtml(text: string): string {
   return text.replace(/[&<>"']/g, (m) => map[m]);
 }
 
+function normalizeAssetUrl(url: string): string {
+  if (!url) return '';
+  if (url.startsWith('http') || url.startsWith('/')) {
+    return url;
+  }
+  return `/${url}`;
+}
+
+function truncateAtWord(text: string, maxLength: number): string {
+  const normalized = text.replace(/\s+/g, ' ').trim();
+  if (normalized.length <= maxLength) {
+    return normalized;
+  }
+
+  const truncated = normalized.slice(0, maxLength);
+  const lastSpace = truncated.lastIndexOf(' ');
+  const safeTruncate = lastSpace > maxLength * 0.6 ? truncated.slice(0, lastSpace) : truncated;
+  return `${safeTruncate.trim()}...`;
+}
+
+function normalizeQuoteText(text: string): string {
+  return text
+    .replace(/\s+/g, ' ')
+    .trim()
+    .replace(/^["'“”]+/, '')
+    .replace(/["'“”]+$/, '');
+}
+
+function buildLocationLabel(project?: PastProject): string {
+  if (!project) return '';
+  if (project.location?.trim()) {
+    return project.location.trim();
+  }
+
+  const parts = [project.clientCity?.trim(), project.clientState?.trim()].filter(Boolean);
+  return parts.join(', ');
+}
+
 // Helper function to generate gallery block HTML
 function generateGalleryBlock(project: PastProject): string {
   if (!project.selectedImages || project.selectedImages.length === 0) {
@@ -64,21 +102,60 @@ function generateGalleryBlock(project: PastProject): string {
 }
 
 // Helper function to generate testimonial block HTML
-function generateTestimonialBlock(testimonial: Feedback, projectImages: string[] = [], isActive = false): string {
+function generateTestimonialBlock(testimonial: Feedback, matchingProject?: PastProject, isActive = false): string {
   const clientName = escapeHtml(testimonial.clientName || 'Anonymous');
-  const title = escapeHtml(testimonial.title || '');
+  const projectLabel = escapeHtml((testimonial.projectName || matchingProject?.title || testimonial.title || 'Custom Commission').trim());
+  const location = escapeHtml(buildLocationLabel(matchingProject));
+  const quoteText = escapeHtml(
+    truncateAtWord(
+      normalizeQuoteText(testimonial.comment || testimonial.title || testimonial.projectName || 'Kind words from a recent commission.'),
+      280
+    )
+  );
   const testimonialId = escapeHtml(testimonial.id || '');
   const activeClass = isActive ? 'testimonial-block is-active' : 'testimonial-block';
+  const imageUrls = (matchingProject?.selectedImages || [])
+    .map((image) => normalizeAssetUrl(image.url))
+    .slice(0, 4);
+  const hasImages = imageUrls.length > 0;
+  const mediaClass = hasImages ? 'testimonial-media' : 'testimonial-media testimonial-media-placeholder';
+  const slidesHtml = hasImages
+    ? imageUrls
+        .map(
+          (imageUrl, index) =>
+            `<img class="testimonial-carousel-image${index === 0 ? ' active' : ''}" src="${imageUrl}" alt="${projectLabel} - View ${index + 1}">`
+        )
+        .join('\n')
+    : '';
+  const carouselHtml = hasImages
+    ? `
+							<div class="testimonial-carousel-container">
+								<div class="testimonial-carousel-slides">
+${slidesHtml}
+								</div>
+								${imageUrls.length > 1 ? `
+								<button class="testimonial-carousel-arrow testimonial-carousel-prev" aria-label="Previous image">‹</button>
+								<button class="testimonial-carousel-arrow testimonial-carousel-next" aria-label="Next image">›</button>` : ''}
+							</div>`
+    : '';
+  const locationHtml = location ? `<div class="testimonial-location">${location}</div>` : '';
 
   return `
 					<!-- Testimonial Block -->
 					<div class="${activeClass}" data-testimonial-id="${testimonialId}">
 						<div class="inner-box">
-							<div class="quote icon_quotations"></div>
-							<div class="testimonial-header">
-								${title ? `<div class="testimonial-title-link"><a href="testimonials.html?id=${testimonialId}" class="testimonial-title">${title}</a></div>` : ''}
+							<div class="${mediaClass}">
+${carouselHtml}
+								<div class="testimonial-project-label">${projectLabel}</div>
 							</div>
-							<div class="author">${clientName}</div>
+							<div class="testimonial-copy-panel">
+								<div class="quote icon_quotations"></div>
+								<p class="testimonial-quote-text">${quoteText}</p>
+								<div class="testimonial-meta-row">
+									<div class="author">${clientName}</div>
+									${locationHtml}
+								</div>
+							</div>
 						</div>
 					</div>`;
 }
@@ -117,13 +194,14 @@ export async function GET() {
     html = html.replace(/url\(['"]?images\/main-slider\/image-1\.jpg['"]?\)/g, 'url(/bg-masthead.jpg)');
     
     // Fetch dynamic content directly from store
+    let allPastProjects: PastProject[] = [];
     let featuredProjects: PastProject[] = [];
     let testimonials: Feedback[] = [];
     
     try {
-      const allProjects: PastProject[] = await store.getAllPastProjects();
+      allPastProjects = await store.getAllPastProjects();
 
-      featuredProjects = allProjects
+      featuredProjects = allPastProjects
         .filter((project: PastProject) => project.isFeaturedOnHomePage === true)
         .map((project: PastProject) => {
           const visibleImages = (project.selectedImages || []).filter(img => img.isFeatured);
@@ -160,14 +238,9 @@ export async function GET() {
     
     // Replace testimonial blocks
     if (testimonials.length > 0) {
-      // Get project images for testimonials (try to match by projectToken)
       const testimonialBlocks = testimonials.map((testimonial: Feedback, index: number) => {
-        // Try to find matching project images
-        const matchingProject = featuredProjects.find(p => p.projectToken === testimonial.projectToken);
-        const projectImages = matchingProject 
-          ? matchingProject.selectedImages.map(img => img.url)
-          : [];
-        return generateTestimonialBlock(testimonial, projectImages, index === 0);
+        const matchingProject = allPastProjects.find((project) => project.projectToken === testimonial.projectToken);
+        return generateTestimonialBlock(testimonial, matchingProject, index === 0);
       }).join('\n');
       
       // Replace testimonial section - only carousel cards (no extra title list)
@@ -222,92 +295,6 @@ export async function GET() {
   .projects-section .project-carousel .gallery-block .inner-box .image{height:320px;}
 }
 
-/* Injected by Next route: decorative Testimonial carousel cards */
-.testimonial-section .testimonial-block .inner-box{
-  position: relative;
-  padding: 40px 36px 32px 56px;
-  background: #ffffff;
-  border: 1px solid #e5e5e5;
-  box-shadow: none;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 220px;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.testimonial-section .testimonial-block:hover .inner-box{
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
-}
-
-.testimonial-section .testimonial-block .quote.icon_quotations{
-  position: absolute;
-  top: 22px;
-  left: 26px;
-  font-size: 60px;
-  line-height: 1;
-  color: #ffe1a0;
-  opacity: 0.25;
-}
-
-/* Testimonial title link styling */
-.testimonial-title-link {
-  margin-bottom: 10px;
-}
-
-.testimonial-title {
-  font-size: 18px;
-  font-weight: 600;
-  color: #000;
-  text-decoration: none;
-  transition: color 0.3s ease;
-  display: inline-block;
-  line-height: 1.4;
-}
-
-.testimonial-title:hover {
-  color: #ffe1a0;
-  text-decoration: underline;
-}
-
-.testimonial-section .testimonial-block .author{
-  margin-top: 12px;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: #777777;
-}
-
-@media (max-width: 767px){
-  .testimonial-section .testimonial-block .inner-box{
-    padding: 32px 24px 28px 48px;
-    min-height: 200px;
-  }
-  .about-section{
-    padding-bottom: 24px !important;
-  }
-  .about-section .about-content-column{
-    padding-bottom: 24px !important;
-  }
-  .testimonial-section .sec-title{
-    margin-bottom: 32px !important;
-  }
-}
-
-/* iPad: align About / testimonials spacing with static index */
-@media (min-width: 768px) and (max-width: 1180px){
-  .about-section{
-    padding-bottom: 24px !important;
-  }
-  .about-section .about-content-column{
-    padding-bottom: 24px !important;
-  }
-  .testimonial-section .sec-title{
-    margin-bottom: 32px !important;
-  }
-}
-
 /* Optional: cap banner height on very short viewports so CTA stays visible */
 @media (max-height: 500px) {
   .banner-section,
@@ -319,33 +306,6 @@ export async function GET() {
   }
 }
 </style></head>`
-    );
-
-    // Inject "view more" toggle script for testimonials
-    html = html.replace(
-      /<\/body>/i,
-      `<script>
-(function(){
-  function init(){
-    var buttons = document.querySelectorAll('.testimonial-view-more');
-    if (!buttons || !buttons.length) return;
-    buttons.forEach(function(btn){
-      btn.addEventListener('click', function(){
-        var block = btn.closest('.testimonial-block');
-        if (!block) return;
-        var expanded = block.classList.toggle('is-expanded');
-        btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
-        btn.textContent = expanded ? 'View less' : 'View more';
-      });
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-})();
-</script></body>`
     );
     
     return new NextResponse(html, {
