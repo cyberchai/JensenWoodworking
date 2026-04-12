@@ -399,11 +399,15 @@ body,
 
 .nordic-split-content,
 .home-testimonials .testimonial-block .inner-box,
-.testimonials-shell,
-.testimonials-cta-content,
-.testimonials-empty,
 .project-modal-content{
   background-color:var(--jw-surface);
+}
+
+/* Testimonials page stream sits on body --jw-bg; keep shell transparent (not white cards) */
+.testimonials-shell,
+.testimonials-cta-content,
+.testimonials-empty{
+  background-color:transparent;
 }
 
 .main-footer,

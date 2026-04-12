@@ -216,145 +216,59 @@
 			}
 		}
 		
-		@media (min-width: 768px) and (max-width: 1180px) {
-			.instagram-reels-grid .instagram-embed-wrapper:not(:first-child) {
-				display: none;
-			}
-			.instagram-reels-grid {
-				display: flex;
-				justify-content: center;
-			}
-			.instagram-reels-grid .instagram-embed-wrapper:first-child {
-				width: auto;
-				max-width: 540px;
-				flex: 0 0 auto;
-			}
-		}
-		
-		@media (max-width: 767px) {
-			.instagram-reels-grid .instagram-embed-wrapper:not(:first-child) {
-				display: none;
-			}
-		}
-		
-		/* Instagram Section - consistent with site sections */
+		/* Instagram — single embed (Nordic) */
 		.instagram-reels-section {
 			position: relative;
-			padding: 72px 0;
+			padding: 44px 0 48px;
 			background-color: var(--jw-bg, #f5f1e9);
 			border-top: 1px solid var(--jw-border-soft, rgba(122, 100, 62, 0.14));
 		}
-		
-		.instagram-reels-section .sec-title {
-			margin-bottom: 48px;
+		/* Match split + sponsors: use theme .sec-title / h2 / .title only; tighten spacing in this band */
+		.instagram-reels-section .sec-title.centered {
+			margin-bottom: 24px;
 		}
-		
-		.instagram-reels-section .sec-title .title {
-			font-size: 11px;
-			color: #888;
-			text-transform: uppercase;
-			letter-spacing: 0.15em;
-			margin-bottom: 10px;
+		.instagram-reels-section .sec-title.centered .title {
+			margin-bottom: 12px;
 		}
-		
-		.instagram-reels-section .sec-title h2,
-		.instagram-reels-section .sec-title h3 {
-			font-size: 28px;
-			font-weight: 400;
-			color: #1a1a1a;
-			margin-bottom: 14px;
-			line-height: 1.25;
+		.instagram-reels-section .sec-title.centered p {
+			max-width: 28em;
+			margin-left: auto;
+			margin-right: auto;
 		}
-		
-		.instagram-reels-section .sec-title p {
-			max-width: 440px;
+		.instagram-spotlight {
+			max-width: 420px;
 			margin: 0 auto;
-			font-size: 14px;
-			line-height: 1.65;
-			color: #666;
-			font-weight: 400;
 		}
-		
-		.instagram-reels-grid {
-			display: grid;
-			grid-template-columns: repeat(3, 1fr);
-			gap: 24px;
-			margin-top: 0;
-		}
-		
-		.instagram-reels-grid .instagram-embed-wrapper {
-			position: relative;
-			width: 100%;
-			cursor: pointer;
-			transition: opacity 0.25s ease, box-shadow 0.25s ease;
-		}
-		
-		.instagram-reels-grid .instagram-embed-wrapper.minimized {
-			opacity: 0.72;
-		}
-		
-		.instagram-reels-grid .instagram-embed-wrapper.expanded {
-			opacity: 1;
-			z-index: 2;
-		}
-		
-		.instagram-reels-grid iframe {
-			width: 100% !important;
-			max-width: 100%;
+		.instagram-spotlight-viewport {
+			border: 1px solid rgba(26, 24, 22, 0.08);
+			background: #faf8f5;
 			border-radius: 2px;
-			border: 1px solid #e8e8e8;
-			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+			overflow: hidden;
+		}
+		.instagram-spotlight-viewport iframe {
 			display: block;
-			margin: 0 auto;
-			transition: box-shadow 0.25s ease;
+			width: 100% !important;
+			min-width: 0 !important;
+			max-width: 100%;
+			margin: 0;
+			border: 0;
+			vertical-align: top;
 		}
-		
-		.instagram-reels-grid .instagram-embed-wrapper.minimized iframe {
-			pointer-events: none;
-		}
-		
-		.instagram-reels-grid .instagram-embed-wrapper.minimized::after {
-			content: '';
-			position: absolute;
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			background: rgba(255, 255, 255, 0.15);
-			pointer-events: none;
-			border-radius: 2px;
-		}
-		
-		.instagram-reels-grid .instagram-embed-wrapper.expanded iframe {
-			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-		}
-		
 		.instagram-reels-section .instagram-cta-wrap {
 			text-align: center;
-			margin-top: 40px;
+			margin-top: 18px;
 		}
-		
-		.instagram-reels-section .instagram-cta-wrap .theme-btn {
-			font-size: 13px;
-			padding: 10px 24px;
+		.instagram-reels-section .instagram-spotlight-cta {
+			font-size: 12px;
+			padding: 8px 20px;
+			letter-spacing: 0.06em;
 		}
-		
 		@media (max-width: 991px) {
 			.instagram-reels-section {
-				padding: 56px 0;
+				padding: 36px 0 40px;
 			}
-			
-			.instagram-reels-grid {
-				grid-template-columns: 1fr;
-				gap: 32px;
-			}
-			
-			.instagram-reels-grid iframe {
+			.instagram-spotlight {
 				max-width: 100%;
-			}
-			
-			.instagram-reels-grid .instagram-embed-wrapper.minimized {
-				opacity: 0.88;
 			}
 		}
 		
@@ -628,31 +542,25 @@
 		</section>
 		<!-- End About Jensen Section -->
 
-		<!-- Instagram Reels Section -->
+		<!-- Instagram: single embed -->
 		<section class="instagram-reels-section">
 			<div class="auto-container">
 				<div class="sec-title centered">
-					<div class="title">On Instagram</div>
-					<h2>Follow Our Process</h2>
-					<p>See our latest projects and behind-the-scenes content.</p>
+					<div class="title">Instagram</div>
+					<h2>See more our process</h2>
+					<p>Short clips from my shop.</p>
 				</div>
-				<div class="instagram-reels-grid">
-					<div class="instagram-embed-wrapper minimized" data-reel="0">
-						<iframe class="instagram-media instagram-media-rendered" id="instagram-embed-0" src="https://www.instagram.com/reel/DNZdNDFNTv8/embed/captioned/?cr=1&amp;v=14&amp;wp=652&amp;rd=https%3A%2F%2Fjensentemplateone.vercel.app&amp;rp=%2F#%7B%22ci%22%3A0%2C%22os%22%3A463.19999998807907%2C%22ls%22%3A224.5%2C%22le%22%3A350.5%7D" allowtransparency="true" allowfullscreen="true" frameborder="0" height="809" data-instgrm-payload-id="instagram-media-payload-0" scrolling="no" style="background: white; max-width: 540px; width: calc(100% - 2px); border-radius: 3px; border: 1px solid rgb(219, 219, 219); box-shadow: none; display: block; margin: 0px 0px 12px; min-width: 326px; padding: 0px;"></iframe>
-					</div>
-					<div class="instagram-embed-wrapper expanded" data-reel="1">
-						<iframe class="instagram-media instagram-media-rendered" id="instagram-embed-1" src="https://www.instagram.com/reel/DRanVLmDmra/embed/captioned/?cr=1&amp;v=14&amp;wp=652&amp;rd=https%3A%2F%2Fjensentemplateone.vercel.app&amp;rp=%2F#%7B%22ci%22%3A1%2C%22os%22%3A465%2C%22ls%22%3A224.5%2C%22le%22%3A350.5%7D" allowtransparency="true" allowfullscreen="true" frameborder="0" height="749" data-instgrm-payload-id="instagram-media-payload-1" scrolling="no" style="background: white; max-width: 540px; width: calc(100% - 2px); border-radius: 3px; border: 1px solid rgb(219, 219, 219); box-shadow: none; display: block; margin: 0px 0px 12px; min-width: 326px; padding: 0px;"></iframe>
-					</div>
-					<div class="instagram-embed-wrapper minimized" data-reel="2">
-						<iframe class="instagram-media instagram-media-rendered" id="instagram-embed-2" src="https://www.instagram.com/reel/DKnVvphPt_t/embed/captioned/?cr=1&amp;v=14&amp;wp=652&amp;rd=https%3A%2F%2Fjensentemplateone.vercel.app&amp;rp=%2F#%7B%22ci%22%3A2%2C%22os%22%3A465.80000001192093%2C%22ls%22%3A224.5%2C%22le%22%3A350.5%7D" allowtransparency="true" allowfullscreen="true" frameborder="0" height="613" data-instgrm-payload-id="instagram-media-payload-2" scrolling="no" style="background: white; max-width: 540px; width: calc(100% - 2px); border-radius: 3px; border: 1px solid rgb(219, 219, 219); box-shadow: none; display: block; margin: 0px 0px 12px; min-width: 326px; padding: 0px;"></iframe>
+				<div class="instagram-spotlight">
+					<div class="instagram-spotlight-viewport">
+						<iframe title="Instagram reel from Jensen Woodworking" class="instagram-media" src="https://www.instagram.com/reel/DNZdNDFNTv8/embed/" allowtransparency="true" allowfullscreen="true" frameborder="0" scrolling="no"></iframe>
 					</div>
 				</div>
 				<div class="instagram-cta-wrap">
-					<a href="https://www.instagram.com/klauspnjensen/" target="_blank" rel="noopener noreferrer" class="theme-btn btn-style-one"><span class="txt">View on Instagram</span></a>
+					<a href="https://www.instagram.com/klauspnjensen/" target="_blank" rel="noopener noreferrer" class="theme-btn btn-style-one instagram-spotlight-cta"><span class="txt">Open Instagram</span></a>
 				</div>
 			</div>
 		</section>
-		<!-- End Instagram Reels Section -->
+		<!-- End Instagram section -->
 
 		<!-- Partners Section -->
 		<section class="sponsors-section">
@@ -782,32 +690,6 @@
 	<!-- Instagram Embed Script -->
 	<script async src="//www.instagram.com/embed.js"></script>
 	
-	<!-- Instagram Reels Toggle Script -->
-	<script>
-		document.addEventListener('DOMContentLoaded', function() {
-			const reelWrappers = document.querySelectorAll('.instagram-embed-wrapper');
-			
-			reelWrappers.forEach(function(wrapper) {
-				wrapper.addEventListener('click', function(e) {
-					// Don't trigger if clicking directly on the iframe
-					if (e.target.tagName === 'IFRAME') {
-						return;
-					}
-					
-					// Remove expanded class from all wrappers
-					reelWrappers.forEach(function(w) {
-						w.classList.remove('expanded');
-						w.classList.add('minimized');
-					});
-					
-					// Add expanded class to clicked wrapper
-					this.classList.remove('minimized');
-					this.classList.add('expanded');
-				});
-			});
-		});
-	</script>
-
 	<!-- Dynamic Client Portal URL Script -->
 	<script>
 		(function() {
