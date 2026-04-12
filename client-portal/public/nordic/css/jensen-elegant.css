@@ -317,7 +317,7 @@ body.jensen-elegant .banner-section .content-boxed h1 {
 }
 
 body.jensen-elegant .banner-section .content-boxed .subtitle-h1 {
-  max-width: 560px;
+  max-width: min(720px, 92vw);
   color: rgba(255, 247, 239, 0.82);
   font-family: "Poppins", sans-serif;
   font-size: clamp(1rem, 1.8vw, 1.35rem);
