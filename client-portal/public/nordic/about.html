@@ -90,7 +90,7 @@
 			min-height: 0 !important;
 			max-height: 92vh;
 			padding-top: clamp(88px, 15vh, 200px) !important;
-			padding-bottom: clamp(40px, 7vh, 88px) !important;
+			padding-bottom: 0 !important;
 			box-sizing: border-box;
 			background-size: cover !important;
 			background-position: center center !important;
@@ -174,10 +174,21 @@
 			}
 		}
 		
-		/* About page feature rows: match the shared home/services split-image treatment */
+		/* About page feature rows: Nordic cream (match body --jw-bg), flush two rows (no beige gap) */
 		.about-section.nordic-split-section,
 		.about-jensen-section.nordic-split-section {
-			background-color: #fff;
+			background-color: var(--jw-bg, #f5f1e9) !important;
+		}
+		.about-section.nordic-split-section .nordic-split-content,
+		.about-jensen-section.nordic-split-section .nordic-split-content {
+			background-color: var(--jw-bg, #f5f1e9);
+		}
+		.about-section.nordic-split-section {
+			padding-top: 0 !important;
+			padding-bottom: 0 !important;
+		}
+		.about-jensen-section.nordic-split-section {
+			padding-top: 0 !important;
 		}
 		
 		.about-section .nordic-split-content .inner-column,
@@ -230,8 +241,8 @@
 		.instagram-reels-section {
 			position: relative;
 			padding: 72px 0;
-			background-color: #fff;
-			border-top: 1px solid #eee;
+			background-color: var(--jw-bg, #f5f1e9);
+			border-top: 1px solid var(--jw-border-soft, rgba(122, 100, 62, 0.14));
 		}
 		
 		.instagram-reels-section .sec-title {

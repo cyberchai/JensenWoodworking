@@ -1219,10 +1219,12 @@
 						<p id="modalFinish" class="project-detail-value"></p>
 					</div>
 				</div>
+				<!-- "More from this project" strip — disabled; use focus image prev/next. Restore with the related JS block in the gallery modal script.
 				<div id="modalRelated" class="project-extra-images" style="display: none;">
 					<h3 class="extra-images-title">More from this project</h3>
 					<div id="modalRelatedImages" class="project-images-row"></div>
 				</div>
+				-->
 			</div>
 		</div>
 	</div>
@@ -1433,6 +1435,7 @@
 				// Update image display
 				updateImageDisplay();
 				
+				/* Related images grid ("More from this project") — disabled with HTML; restore both blocks together.
 				// Handle related images grid
 				const relatedImagesContainer = document.getElementById('modalRelatedImages');
 				const relatedSection = document.getElementById('modalRelated');
@@ -1478,6 +1481,7 @@
 				} else {
 					relatedSection.style.display = 'none';
 				}
+				*/
 				
 				modal.classList.add('active');
 				document.body.style.overflow = 'hidden';
