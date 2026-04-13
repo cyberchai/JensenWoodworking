@@ -792,35 +792,38 @@
 			position: absolute;
 			top: auto;
 			bottom: 22px;
-			width: 44px;
-			height: 44px;
-			border: 1px solid rgba(23, 21, 18, 0.08);
-			background: rgba(255, 255, 255, 0.86);
+			width: 36px;
+			height: 36px;
+			border: none;
+			border-radius: 50%;
+			background: rgba(255, 255, 255, 0.28);
 			backdrop-filter: blur(10px);
-			color: #171512;
-			font-size: 22px;
+			-webkit-backdrop-filter: blur(10px);
+			color: rgba(23, 21, 18, 0.72);
+			font-size: 20px;
+			font-weight: 300;
 			line-height: 1;
 			cursor: pointer;
-			transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+			transition: background-color 0.22s ease, color 0.22s ease, transform 0.22s ease;
 			z-index: 3;
 			display: flex;
 			align-items: center;
 			justify-content: center;
+			-webkit-tap-highlight-color: transparent;
 		}
 		
 		.home-testimonials .testimonial-carousel-arrow:hover {
-			background: #ffe1a0;
-			border-color: #ffe1a0;
-			color: #000;
+			background: rgba(255, 255, 255, 0.5);
+			color: #171512;
 		}
 		
 		.home-testimonials .testimonial-carousel-prev {
 			left: auto;
-			right: 74px;
+			right: 64px;
 		}
 		
 		.home-testimonials .testimonial-carousel-next {
-			right: 22px;
+			right: 20px;
 		}
 		
 		.home-testimonials .testimonial-carousel-arrow.hidden {
@@ -917,56 +920,67 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			gap: 16px;
-			margin-top: 24px;
+			gap: 6px;
+			margin-top: 18px;
 		}
 		
 		.home-testimonials-prev,
 		.home-testimonials-next {
-			border: 1px solid rgba(23, 21, 18, 0.12);
-			background: #fff;
-			color: #171512;
-			width: 42px;
-			height: 42px;
+			border: none;
+			background: transparent;
+			color: rgba(38, 31, 26, 0.42);
+			width: 32px;
+			height: 32px;
 			line-height: 1;
-			font-size: 20px;
+			font-size: 28px;
+			font-weight: 200;
+			letter-spacing: 0;
 			cursor: pointer;
 			padding: 0;
 			flex-shrink: 0;
 			display: inline-flex;
 			align-items: center;
 			justify-content: center;
-			transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+			transition: color 0.2s ease, opacity 0.2s ease;
+			-webkit-tap-highlight-color: transparent;
 		}
 		
 		.home-testimonials-prev:hover,
 		.home-testimonials-next:hover {
-			background: #ffe1a0;
-			border-color: #ffe1a0;
-			color: #000;
+			background: transparent;
+			border: none;
+			color: rgba(38, 31, 26, 0.88);
+		}
+		
+		.home-testimonials-prev:focus-visible,
+		.home-testimonials-next:focus-visible,
+		.home-testimonials-dot:focus-visible {
+			outline: 1px solid rgba(122, 100, 62, 0.45);
+			outline-offset: 3px;
 		}
 		
 		.home-testimonials-dots {
 			display: flex;
 			align-items: center;
-			gap: 10px;
-			padding: 0 4px;
+			gap: 5px;
+			padding: 0 10px;
 		}
 		
 		.home-testimonials-dot {
-			width: 30px;
-			height: 2px;
+			width: 22px;
+			height: 1px;
 			border: none;
 			padding: 0;
-			background: rgba(23, 21, 18, 0.18);
+			border-radius: 1px;
+			background: rgba(38, 31, 26, 0.14);
 			cursor: pointer;
 			flex-shrink: 0;
-			transition: background-color 0.3s ease, transform 0.3s ease;
+			transition: background-color 0.22s ease, opacity 0.22s ease;
 		}
 		
 		.home-testimonials-dot.is-active {
-			background: #b28c48;
-			transform: scaleX(1.08);
+			background: rgba(122, 86, 46, 0.55);
+			opacity: 1;
 		}
 		
 		@media (max-width: 991px) {
@@ -1020,18 +1034,18 @@
 			}
 			
 			.home-testimonials .testimonial-carousel-arrow {
-				width: 38px;
-				height: 38px;
+				width: 34px;
+				height: 34px;
 				bottom: 18px;
 				font-size: 18px;
 			}
 			
 			.home-testimonials .testimonial-carousel-prev {
-				right: 62px;
+				right: 56px;
 			}
 			
 			.home-testimonials .testimonial-carousel-next {
-				right: 18px;
+				right: 16px;
 			}
 			
 			.home-testimonials .testimonial-copy-panel {
@@ -1060,22 +1074,24 @@
 			}
 			
 			.home-testimonials-controls {
-				margin-top: 18px;
-				gap: 12px;
+				margin-top: 16px;
+				gap: 4px;
 			}
 			
 			.home-testimonials-prev,
 			.home-testimonials-next {
-				width: 38px;
-				height: 38px;
+				width: 30px;
+				height: 30px;
+				font-size: 26px;
 			}
 			
 			.home-testimonials-dots {
-				gap: 8px;
+				gap: 4px;
+				padding: 0 8px;
 			}
 			
 			.home-testimonials-dot {
-				width: 22px;
+				width: 18px;
 			}
 		}
 		
@@ -1354,9 +1370,9 @@
 							<h2>Custom woodwork crafted in coastal Massachusetts</h2>
 						</div>
 						<div class="bold-text">Handcrafted furniture made with quality and care</div>
-						<p>Jensen Woodworking grew out of three decades of making pieces for family, friends, and homes across coastal Massachusetts. Working in Duxbury's historic shipbuilding district keeps me close to a tradition of careful craftsmanship, and I am especially drawn to wood with character, whether sustainably sourced hardwood or a fallen tree worth giving new life.</p>
-						<p>I build kitchen countertops, islands, dining tables, bartops, mantels, and one-off commissions with a mix of traditional hand tools and modern precision. The goal is always the same: lasting work that feels beautiful, useful, and entirely at home in the room it belongs in.</p>
-						<a href="contact.html" class="theme-btn btn-style-one"><span class="txt">Contact Me</span></a>
+						<p>Jensen Woodworking brings three decades of craftsmanship to coastal Massachusetts, creating custom countertops, mantels, and one-off furniture commissions.</p>
+						<p>I focus on high-quality, sustainably sourced materials, often giving new life to fallen trees with unique character. My goal is to build beautiful, functional pieces that balance traditional methods with the needs of a modern home.</p>
+						<a href="about.html" class="theme-btn btn-style-one"><span class="txt">Learn more about our workshop</span></a>
 					</div>
 				</div>
 
