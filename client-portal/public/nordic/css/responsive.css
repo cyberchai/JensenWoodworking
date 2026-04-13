@@ -481,3 +481,19 @@ body,
 .main-footer .footer-bottom{
   border-top-color:var(--jw-border-soft);
 }
+
+/* Footer: main.css uses #666/#999 — align with site browns */
+.main-footer .contact-widget ul li,
+.main-footer .contact-widget ul li a,
+.main-footer .link-widget ul li,
+.main-footer .link-widget ul li a,
+.main-footer .language-column ul li,
+.main-footer .language-column ul li a,
+.main-footer .copy-column .copyright{
+  color:var(--jw-body-color)!important;
+}
+
+.main-footer .contact-widget ul li a:hover,
+.main-footer .link-widget ul li a:hover{
+  color:var(--jw-heading-color)!important;
+}
