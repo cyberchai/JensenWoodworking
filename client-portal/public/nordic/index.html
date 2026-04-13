@@ -166,7 +166,7 @@
 		/* Banner: Jensen Woodworking as the hero h1
 		   Theme (main.css) hides h1 until an ancestor has .active (.slide.active). */
 		.banner-section .content-boxed .inner-boxed {
-			max-width: 920px;
+			max-width: min(1040px, 92vw);
 		}
 
 		.banner-section .content-boxed h1 {
@@ -186,7 +186,7 @@
 		}
 		/* Banner subtitle below the hero title */
 		.banner-section .content-boxed .subtitle-h1 {
-			max-width: 720px;
+			max-width: min(820px, 100%);
 			padding-top: 18px;
 			border-top: 1px solid rgba(255, 225, 160, 0.7);
 			font-size: clamp(28px, 2.6vw, 40px);
@@ -204,7 +204,7 @@
 			}
 			.banner-section .content-boxed .subtitle-h1 {
 				font-size: 26px;
-				max-width: 620px;
+				max-width: min(700px, 100%);
 			}
 		}
 		@media (max-width: 767px) {
@@ -272,10 +272,6 @@
 			background-color: var(--jw-bg, #f5f1e9);
 		}
 		
-		#about .about-content-column .inner-column {
-			max-width: 560px;
-		}
-		
 		#about .about-content-column .sec-title {
 			margin-bottom: 24px;
 		}
@@ -308,18 +304,6 @@
 		
 		#about .about-content-column .theme-btn {
 			margin-top: 16px;
-		}
-		
-		@media (max-width: 1199px) {
-			#about .about-content-column .inner-column {
-				max-width: 520px;
-			}
-		}
-		
-		@media (max-width: 991px) {
-			#about .about-content-column .inner-column {
-				max-width: 100%;
-			}
 		}
 		
 		@media (max-width: 767px) {
@@ -716,7 +700,7 @@
 		
 		.testimonial-section .testimonial-carousel.home-testimonials {
 			position: relative;
-			max-width: 1120px;
+			max-width: min(1320px, 94vw);
 			margin: 0 auto;
 		}
 		

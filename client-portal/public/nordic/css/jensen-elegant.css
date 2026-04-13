@@ -450,7 +450,7 @@ body.jensen-page-home .fluid-section-one .content-column {
 body.jensen-page-home .about-section .about-content-column .inner-column,
 body.jensen-page-home .fluid-section-one .content-column .inner-column,
 body.jensen-page-services .services-process-section .content-column .inner-column {
-  max-width: 620px;
+  max-width: min(76ch, 100%);
   margin: 0;
   padding: 0;
 }
@@ -727,7 +727,7 @@ body.jensen-page-about .about-jensen-section .content-column {
 body.jensen-page-about .about-section .inner-column,
 body.jensen-page-about .about-jensen-section .inner-column {
   padding: 0;
-  max-width: 620px;
+  max-width: min(76ch, 100%);
   margin: 0;
 }
 
