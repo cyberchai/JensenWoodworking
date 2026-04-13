@@ -5,9 +5,12 @@
   --jw-surface: rgba(255, 251, 244, 0.92);
   --jw-surface-strong: #fffaf3;
   --jw-surface-dark: #17120e;
-  --jw-text: #201913;
-  --jw-muted: #6f6253;
-  --jw-muted-strong: #5a4d40;
+  --jw-text: #261f1a;
+  --jw-body-color: #534433;
+  --jw-heading-color: #261f1a;
+  --jw-label-color: #6b5847;
+  --jw-muted: #534433;
+  --jw-muted-strong: #6b5847;
   --jw-line: rgba(93, 67, 38, 0.12);
   --jw-line-strong: rgba(93, 67, 38, 0.22);
   --jw-accent: #b89061;
@@ -654,7 +657,7 @@ body.jensen-elegant .contact-form .form-group textarea {
 
 body.jensen-elegant .contact-form .form-group input::placeholder,
 body.jensen-elegant .contact-form .form-group textarea::placeholder {
-  color: rgba(111, 98, 83, 0.76);
+  color: rgba(83, 68, 51, 0.58);
 }
 
 body.jensen-elegant .contact-form .form-group input[type="text"]:focus,
@@ -1123,7 +1126,7 @@ body.jensen-page-contact .contact-page-section h3 {
 }
 
 body.jensen-page-contact .contact-page-section h3 span {
-  color: var(--jw-muted);
+  color: var(--jw-body-color, #534433);
 }
 
 body.jensen-page-contact .contact-page-section h6 {
@@ -1157,7 +1160,7 @@ body.jensen-page-contact .contact-page-section ul {
 body.jensen-page-contact .contact-page-section ul li {
   margin-bottom: 0;
   padding: 14px 0;
-  color: var(--jw-muted);
+  color: var(--jw-body-color, #534433);
   font-size: 15px;
   line-height: 1.85;
   border-top: 1px solid var(--jw-line);

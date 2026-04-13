@@ -5,7 +5,9 @@
   --jw-font-body:'Poppins',sans-serif;
   --jw-heading-weight:600;
   --jw-body-weight:400;
-  --jw-body-color:#5f5a54;
+  --jw-body-color:#534433;
+  --jw-heading-color:#261f1a;
+  --jw-label-color:#6b5847;
 }
 
 html,
@@ -71,6 +73,38 @@ h6,
   line-height:1.2;
 }
 
+h2,
+h3,
+h4,
+h5,
+h6,
+.main-footer h3,
+.sec-title h2,
+.sec-title h3,
+.page-title-two-section h1,
+.contact-page-section .info-column h2,
+.contact-page-section .info-column h3,
+.project-detail-section h3,
+.blog-detail .inner-box h4,
+.related-projects .title-box h3,
+.comment-form .group-title h3,
+.team-block .inner-box .lower-content h4,
+.project-modal-content-section .project-title,
+.project-modal-content-section .extra-images-title,
+.project-modal-content-section .project-detail-item h3{
+  color:var(--jw-heading-color);
+}
+
+.sec-title .title{
+  color:var(--jw-label-color);
+}
+
+.page-banner-section .auto-container .title,
+.page-banner-section .auto-container h1,
+.page-banner-section .auto-container p{
+  color:rgba(255,250,245,.95)!important;
+}
+
 p,
 .sec-title .text,
 .about-section p,
@@ -108,8 +142,42 @@ p,
   font-family:var(--jw-font-body);
   font-size:clamp(15px,1rem + 0.15vw,18px)!important;
   line-height:1.8!important;
-  color:var(--jw-body-color);
+  color:var(--jw-body-color)!important;
   font-weight:var(--jw-body-weight);
+}
+
+/* main.css legacy grays (#666/#999) beat generic paragraph selectors — lock to theme browns */
+.about-section .content-column p,
+.about-section .content-column .bold-text,
+.about-jensen-section .content-column p,
+.about-jensen-section .content-column .bold-text,
+.about-section .nordic-split-content p,
+.about-jensen-section .nordic-split-content p,
+.about-section .nordic-split-content .bold-text{
+  color:var(--jw-body-color)!important;
+}
+
+.contact-page-section .info-column h3 span,
+.contact-page-section .info-column ul li,
+.contact-page-section .info-column ul li a{
+  color:var(--jw-body-color)!important;
+}
+
+.contact-page-section .contact-form .form-group input:not([type="checkbox"]):not([type="submit"]):not([type="button"]),
+.contact-page-section .contact-form .form-group textarea,
+.contact-page-section .contact-form .form-group select{
+  color:var(--jw-heading-color)!important;
+}
+
+.contact-page-section .contact-form .form-group input::placeholder,
+.contact-page-section .contact-form .form-group textarea::placeholder{
+  color:rgba(83,68,51,.58)!important;
+  opacity:1!important;
+}
+
+.contact-page-section .contact-form .form-group input::-webkit-input-placeholder,
+.contact-page-section .contact-form .form-group textarea::-webkit-input-placeholder{
+  color:rgba(83,68,51,.58)!important;
 }
 
 .sec-title .title,
