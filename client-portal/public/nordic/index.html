@@ -165,41 +165,59 @@
 		
 		/* Banner: Jensen Woodworking as the hero h1
 		   Theme (main.css) hides h1 until an ancestor has .active (.slide.active). */
+		.banner-section .content-boxed .inner-boxed {
+			max-width: min(1040px, 92vw);
+		}
+
 		.banner-section .content-boxed h1 {
 			margin-top: 0;
-			font-family: 'Inter', sans-serif;
-			font-size: 72px;
-			font-weight: 300;
-			letter-spacing: 0.12em;
+			margin-bottom: 18px;
+			font-family: 'Poppins', sans-serif;
+			font-size: clamp(70px, 7vw, 108px);
+			font-weight: 600;
+			line-height: 0.98;
+			letter-spacing: 0.045em;
 			text-transform: none;
+			color: #fff;
+			text-shadow: 0 14px 34px rgba(0, 0, 0, 0.22);
 			opacity: 1;
 			transform: scaleY(1);
 			transform-origin: top;
 		}
 		/* Banner subtitle below the hero title */
 		.banner-section .content-boxed .subtitle-h1 {
-			font-size: 30px;
-			line-height: 1.35;
-			font-weight: 300;
-			letter-spacing: 0.04em;
-			color: #fff;
-			margin-top: 30px;
+			max-width: min(820px, 100%);
+			padding-top: 18px;
+			border-top: 1px solid rgba(255, 225, 160, 0.7);
+			font-size: clamp(28px, 2.6vw, 40px);
+			line-height: 1.22;
+			font-weight: 500;
+			letter-spacing: 0.02em;
+			color: #f8f0df;
+			text-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+			margin-top: 0;
 		}
 		@media (max-width: 991px) {
 			.banner-section .content-boxed h1 {
-				font-size: 52px;
+				font-size: 58px;
+				letter-spacing: 0.035em;
 			}
 			.banner-section .content-boxed .subtitle-h1 {
 				font-size: 26px;
+				max-width: min(700px, 100%);
 			}
 		}
 		@media (max-width: 767px) {
 			.banner-section .content-boxed h1 {
-				font-size: 36px;
-				letter-spacing: 0.08em;
+				font-size: 40px;
+				margin-bottom: 14px;
+				letter-spacing: 0.03em;
+				line-height: 1.02;
 			}
 			.banner-section .content-boxed .subtitle-h1 {
 				font-size: 20px;
+				padding-top: 14px;
+				line-height: 1.3;
 			}
 		}
 		
@@ -239,91 +257,83 @@
 			height: 24px;
 		}
 		
-		/* About Section Image Left Edge Styling */
-		.about-section {
-			position: relative;
+		/* About section: use the shared split layout, with home-specific typography */
+		#about.nordic-split-section {
+			background-color: transparent;
+			padding: 0;
 		}
 		
-		.about-section .about-image-column {
-			position: absolute;
-			left: 0;
-			top: 0;
-			width: 50%;
-			height: 100%;
+		#about .about-image-column {
 			background-size: cover;
 			background-position: center;
 		}
 		
-		.about-section .about-content-column {
-			margin-left: 50%;
-			padding: 80px 60px;
+		#about .about-content-column {
+			background-color: var(--jw-bg, #f5f1e9);
 		}
 		
-		/* Center text block within the right half */
-		#about .about-content-column .inner-column {
-			max-width: 540px;
-			margin-left: auto;
-			margin-right: auto;
-			padding-left: 24px;
-			padding-right: 24px;
+		#about .about-content-column .sec-title {
+			margin-bottom: 24px;
+		}
+		
+		#about .about-content-column .sec-title .title {
+			font-size: 16px;
+			margin-bottom: 16px;
+		}
+		
+		#about .about-content-column .sec-title h2 {
+			font-size: clamp(32px, 2.4vw, 46px);
+			line-height: 1.14em;
+		}
+		
+		#about .about-content-column .bold-text {
+			font-size: clamp(18px, 1.2vw, 24px);
+			line-height: 1.45em;
+			margin-bottom: 20px;
 		}
 		
 		#about .about-content-column p {
-			margin-bottom: 0.9em;
+			font-size: 16px;
+			line-height: 1.85em;
+			margin-bottom: 18px;
 		}
+		
 		#about .about-content-column p:last-child {
 			margin-bottom: 0;
 		}
 		
-		.about-section .about-image-column .image-box {
-			width: 100%;
-			height: 100%;
-			margin: 0;
+		#about .about-content-column .theme-btn {
+			margin-top: 16px;
 		}
 		
-		.about-section .about-image-column .image-box img {
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
-		}
-		
-		@media (max-width: 991px) {
-			.about-section .about-image-column {
-				position: relative;
-				width: 100%;
-				height: 400px;
+		@media (max-width: 767px) {
+			#about .about-content-column .sec-title {
+				margin-bottom: 18px;
 			}
 			
-			.about-section .about-content-column {
-				margin-left: 0;
-				padding: 60px 30px;
+			#about .about-content-column .sec-title .title {
+				font-size: 13px;
 			}
-		}
-		
-		/* About section – desktop: original theme sizes */
-		#about .about-content-column .sec-title .title {
-			font-size: 18px;
-		}
-		#about .about-content-column .sec-title h2 {
-			font-size: 42px;
-			line-height: 1.2em;
-		}
-		@media (max-width: 767px) {
+			
 			#about .about-content-column .sec-title h2 {
-				font-size: 40px;
+				font-size: 28px;
 			}
-		}
-		#about .about-content-column .bold-text {
-			font-size: 24px;
-			line-height: 1.4em;
-		}
-		#about .about-content-column p {
-			font-size: 14px;
-			line-height: 1.8em;
-			margin-bottom: 0.9em;
-		}
-		#about .about-content-column p:last-child {
-			margin-bottom: 0;
+			
+			#about .about-content-column .bold-text {
+				font-size: 17px;
+				margin-bottom: 16px;
+			}
+			
+			#about .about-content-column p {
+				font-size: 15px;
+				line-height: 1.8em;
+				margin-bottom: 16px;
+			}
+			
+			#about .about-content-column .theme-btn {
+				width: 100%;
+				text-align: center;
+			}
 		}
 		
 		/* Project Modal Styles */
@@ -499,7 +509,7 @@
 		
 		.project-category-label {
 			font-size: 13px;
-			color: #777;
+			color: var(--jw-label-color, #6b5847);
 			text-transform: uppercase;
 			letter-spacing: 2px;
 			margin-bottom: 15px;
@@ -512,13 +522,13 @@
 			color: #000;
 			margin-bottom: 30px;
 			line-height: 1.2;
-			font-family: 'Heebo', sans-serif;
+			font-family: 'Poppins', sans-serif;
 		}
 		
 		.project-description {
 			font-size: 17px;
 			line-height: 1.8;
-			color: #666;
+			color: var(--jw-body-color, #534433);
 			margin-bottom: 40px;
 		}
 		
@@ -545,7 +555,7 @@
 			font-weight: 500;
 			color: #000;
 			margin-bottom: 15px;
-			font-family: 'Heebo', sans-serif;
+			font-family: 'Poppins', sans-serif;
 		}
 		
 		.materials-list {
@@ -556,7 +566,7 @@
 		
 		.materials-list li {
 			font-size: 16px;
-			color: #666;
+			color: var(--jw-body-color, #534433);
 			line-height: 1.8;
 			padding-left: 20px;
 			position: relative;
@@ -572,7 +582,7 @@
 		.dimensions-text,
 		.completion-date {
 			font-size: 16px;
-			color: #666;
+			color: var(--jw-body-color, #534433);
 			line-height: 1.8;
 			margin: 0;
 		}
@@ -589,7 +599,7 @@
 			font-weight: 400;
 			color: #000;
 			margin-bottom: 30px;
-			font-family: 'Heebo', sans-serif;
+			font-family: 'Poppins', sans-serif;
 			letter-spacing: 0.5px;
 		}
 		
@@ -678,212 +688,394 @@
 			}
 		}
 		
-		/* Testimonial Quote Fix */
-		.testimonial-block .quote.icon_quotations {
-			font-family: 'Inter', sans-serif;
-			font-size: 60px;
-			line-height: 1;
-			color: #ffe1a0;
-			opacity: 0.3;
+		/* Home testimonials: editorial feature panel */
+		.testimonial-section {
+			padding: 56px 0 24px;
+			background: transparent;
 		}
 		
-		.testimonial-block .quote.icon_quotations::before {
-			content: '"';
+		.testimonial-section .sec-title {
+			margin-bottom: 24px;
 		}
 		
-		/* Testimonial Carousel */
-		.testimonial-carousel-container {
-			margin-bottom: 25px;
+		.testimonial-section .testimonial-carousel.home-testimonials {
 			position: relative;
+			max-width: min(1320px, 94vw);
+			margin: 0 auto;
 		}
 		
-		.testimonial-carousel-slides {
-			position: relative;
-			width: 100%;
-			height: 200px;
+		.testimonial-section .home-testimonials > .testimonial-block {
+			display: none;
+		}
+		
+		.testimonial-section .home-testimonials > .testimonial-block.is-active {
+			display: block;
+		}
+		
+		.home-testimonials .testimonial-block .inner-box {
+			display: grid;
+			grid-template-columns: minmax(0, 0.96fr) minmax(0, 1.04fr);
+			min-height: 480px;
+			background: #fff;
+			border: 1px solid rgba(23, 21, 18, 0.08);
+			box-shadow: 0 24px 70px rgba(23, 21, 18, 0.07);
 			overflow: hidden;
 		}
 		
-		.testimonial-carousel-image {
+		.home-testimonials .testimonial-media {
+			position: relative;
+			min-height: 100%;
+			background: #e9e1d5;
+		}
+		
+		.home-testimonials .testimonial-media-placeholder {
+			background: linear-gradient(135deg, #f1ebdf 0%, #ddd0be 100%);
+		}
+		
+		.home-testimonials .testimonial-carousel-container {
+			position: absolute;
+			inset: 0;
+			margin: 0;
+		}
+		
+		.home-testimonials .testimonial-carousel-slides {
+			position: relative;
+			width: 100%;
+			height: 100%;
+			min-height: 480px;
+			overflow: hidden;
+		}
+		
+		.home-testimonials .testimonial-carousel-slides::after {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background: linear-gradient(180deg, rgba(12, 10, 7, 0.04) 0%, rgba(12, 10, 7, 0.28) 100%);
+			pointer-events: none;
+			z-index: 1;
+		}
+		
+		.home-testimonials .testimonial-carousel-image {
 			position: absolute;
 			top: 0;
 			left: 0;
 			width: 100%;
 			height: 100%;
 			object-fit: cover;
-			border-radius: 0;
 			opacity: 0;
-			transition: opacity 0.5s ease;
+			transform: scale(1.04);
+			transition: opacity 0.45s ease, transform 1.4s ease;
 		}
 		
-		.testimonial-carousel-image.active {
+		.home-testimonials .testimonial-carousel-image.active {
 			opacity: 1;
+			transform: scale(1);
 		}
 		
-		.testimonial-carousel-arrow {
+		.home-testimonials .testimonial-carousel-arrow {
 			position: absolute;
-			top: 50%;
-			transform: translateY(-50%);
-			background-color: rgba(0, 0, 0, 0.5);
-			color: #fff;
+			top: auto;
+			bottom: 22px;
+			width: 36px;
+			height: 36px;
 			border: none;
-			width: 40px;
-			height: 40px;
-			font-size: 24px;
+			border-radius: 50%;
+			background: rgba(255, 255, 255, 0.28);
+			backdrop-filter: blur(10px);
+			-webkit-backdrop-filter: blur(10px);
+			color: rgba(23, 21, 18, 0.72);
+			font-size: 20px;
+			font-weight: 300;
 			line-height: 1;
 			cursor: pointer;
-			transition: all 0.3s ease;
-			z-index: 10;
+			transition: background-color 0.22s ease, color 0.22s ease, transform 0.22s ease;
+			z-index: 3;
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			border-radius: 0;
-			opacity: 0;
-			pointer-events: none;
+			-webkit-tap-highlight-color: transparent;
 		}
 		
-		.testimonial-block:hover .testimonial-carousel-arrow:not(.hidden) {
-			opacity: 1;
-			pointer-events: auto;
+		.home-testimonials .testimonial-carousel-arrow:hover {
+			background: rgba(255, 255, 255, 0.5);
+			color: #171512;
 		}
 		
-		.testimonial-carousel-arrow:hover {
-			background-color: rgba(0, 0, 0, 0.8);
+		.home-testimonials .testimonial-carousel-prev {
+			left: auto;
+			right: 64px;
 		}
 		
-		.testimonial-carousel-prev {
-			left: 10px;
+		.home-testimonials .testimonial-carousel-next {
+			right: 20px;
 		}
 		
-		.testimonial-carousel-next {
-			right: 10px;
-		}
-		
-		.testimonial-carousel-arrow.hidden {
+		.home-testimonials .testimonial-carousel-arrow.hidden {
 			display: none;
 		}
 		
-		.testimonial-block .inner-box {
-			position: relative;
+		.home-testimonials .testimonial-project-label {
+			position: absolute;
+			left: 24px;
+			bottom: 24px;
+			z-index: 2;
+			display: inline-flex;
+			align-items: center;
+			gap: 12px;
+			max-width: calc(100% - 120px);
+			padding: 12px 16px;
+			background: rgba(255, 255, 255, 0.9);
+			backdrop-filter: blur(14px);
+			font-size: 11px;
+			font-weight: 600;
+			letter-spacing: 0.18em;
+			text-transform: uppercase;
+			color: #171512;
 		}
 		
-		@media (max-width: 768px) {
-			.testimonial-carousel-slides {
-				height: 180px;
-			}
-			
-			.testimonial-carousel-arrow {
-				width: 35px;
-				height: 35px;
-				font-size: 20px;
-			}
+		.home-testimonials .testimonial-project-label::before {
+			content: '';
+			width: 28px;
+			height: 1px;
+			background: #b28c48;
+			flex-shrink: 0;
 		}
 		
-		/* iPad: keep testimonials section tight above projects */
-		@media (min-width: 768px) and (max-width: 1024px) {
-			.testimonial-section {
-				padding-bottom: 20px;
-			}
+		.home-testimonials .testimonial-copy-panel {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			padding: clamp(34px, 4vw, 56px);
 		}
 		
-		/* What Our Clients Say — compact, one testimonial at a time (top spacing matches .projects-section) */
-		.testimonial-section {
-			padding: 150px 0 24px;
-		}
-		.testimonial-section .testimonial-carousel.home-testimonials {
-			position: relative;
-			max-width: 720px;
-			margin: 0 auto;
-		}
-		.testimonial-section .home-testimonials > .testimonial-block {
-			display: none;
-		}
-		.testimonial-section .home-testimonials > .testimonial-block.is-active {
+		.home-testimonials .quote.icon_quotations {
+			position: static;
 			display: block;
+			margin-bottom: 18px;
+			font-family: 'Libre Baskerville', serif;
+			font-size: 98px;
+			line-height: 0.72;
+			color: rgba(178, 140, 72, 0.28);
+			opacity: 1;
 		}
+		
+		.home-testimonials .quote.icon_quotations::before {
+			content: '“';
+		}
+		
+		.home-testimonials .testimonial-quote-text {
+			margin: 0;
+			font-size: clamp(24px, 1.25rem + 0.7vw, 34px) !important;
+			line-height: 1.52 !important;
+			letter-spacing: -0.02em;
+			color: #171512;
+		}
+		
+		.home-testimonials .testimonial-meta-row {
+			display: flex;
+			align-items: flex-end;
+			justify-content: space-between;
+			gap: 16px;
+			margin-top: 28px;
+			padding-top: 20px;
+			border-top: 1px solid rgba(122, 100, 62, 0.18);
+		}
+		
+		.home-testimonials .testimonial-block .author {
+			margin: 0 !important;
+			font-size: 20px !important;
+			line-height: 1.3 !important;
+			font-weight: 500;
+			letter-spacing: 0 !important;
+			text-transform: none !important;
+			color: #171512;
+		}
+		
+		.home-testimonials .testimonial-location {
+			font-size: 11px;
+			font-weight: 600;
+			letter-spacing: 0.18em;
+			text-transform: uppercase;
+			color: #8e7b60;
+			white-space: nowrap;
+		}
+		
 		.home-testimonials-controls {
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			gap: 8px;
-			margin-top: 8px;
-			padding-top: 4px;
+			gap: 6px;
+			margin-top: 18px;
 		}
-		/* Match project-modal-nav / site accent — no borders */
+		
 		.home-testimonials-prev,
 		.home-testimonials-next {
 			border: none;
 			background: transparent;
-			color: #111;
-			width: 40px;
-			height: 40px;
+			color: rgba(38, 31, 26, 0.42);
+			width: 32px;
+			height: 32px;
 			line-height: 1;
-			font-size: 22px;
+			font-size: 28px;
+			font-weight: 200;
+			letter-spacing: 0;
 			cursor: pointer;
 			padding: 0;
 			flex-shrink: 0;
 			display: inline-flex;
 			align-items: center;
 			justify-content: center;
-			transition: background-color 0.3s ease, color 0.3s ease;
+			transition: color 0.2s ease, opacity 0.2s ease;
+			-webkit-tap-highlight-color: transparent;
 		}
+		
 		.home-testimonials-prev:hover,
 		.home-testimonials-next:hover {
-			background-color: #ffe1a0;
-			color: #000;
+			background: transparent;
+			border: none;
+			color: rgba(38, 31, 26, 0.88);
 		}
+		
+		.home-testimonials-prev:focus-visible,
+		.home-testimonials-next:focus-visible,
+		.home-testimonials-dot:focus-visible {
+			outline: 1px solid rgba(122, 100, 62, 0.45);
+			outline-offset: 3px;
+		}
+		
 		.home-testimonials-dots {
 			display: flex;
 			align-items: center;
-			gap: 6px;
-			padding: 0 4px;
+			gap: 5px;
+			padding: 0 10px;
 		}
+		
 		.home-testimonials-dot {
-			width: 7px;
-			height: 7px;
-			border-radius: 50%;
+			width: 22px;
+			height: 1px;
 			border: none;
 			padding: 0;
-			background: #ccc;
+			border-radius: 1px;
+			background: rgba(38, 31, 26, 0.14);
 			cursor: pointer;
 			flex-shrink: 0;
+			transition: background-color 0.22s ease, opacity 0.22s ease;
 		}
+		
 		.home-testimonials-dot.is-active {
-			background: #111;
+			background: rgba(122, 86, 46, 0.55);
+			opacity: 1;
 		}
-		/* Compact card + image strip inside home testimonial */
-		.home-testimonials .testimonial-carousel-container {
-			margin-bottom: 10px;
-		}
-		.home-testimonials .testimonial-carousel-slides {
-			height: 120px;
-		}
-		.home-testimonials .testimonial-block .inner-box {
-			padding: 12px 12px 12px 36px !important;
-			min-height: 0 !important;
-		}
-		.home-testimonials .testimonial-block .quote.icon_quotations {
-			font-size: 36px !important;
-			top: 8px !important;
-			left: 10px !important;
-			opacity: 0.22 !important;
-		}
-		.home-testimonials .testimonial-block .author {
-			margin-top: 6px !important;
-			font-size: 10px !important;
-			letter-spacing: 0.18em !important;
-		}
-		.home-testimonials .testimonial-block .inner-box p {
-			margin: 0;
-			font-size: 15px !important;
-			line-height: 1.45 !important;
-		}
-		@media (max-width: 768px) {
-			.home-testimonials .testimonial-carousel-slides {
-				height: 100px;
+		
+		@media (max-width: 991px) {
+			.testimonial-section {
+				padding: 44px 0 18px;
 			}
+			
 			.home-testimonials .testimonial-block .inner-box {
-				padding: 10px 10px 10px 32px !important;
+				grid-template-columns: 1fr;
+				min-height: 0;
+			}
+			
+			.home-testimonials .testimonial-carousel-container {
+				position: relative;
+			}
+			
+			.home-testimonials .testimonial-carousel-slides {
+				min-height: 340px;
+			}
+			
+			.home-testimonials .testimonial-copy-panel {
+				padding: 34px 30px;
+			}
+			
+			.home-testimonials .quote.icon_quotations {
+				font-size: 74px;
+				margin-bottom: 14px;
+			}
+			
+			.home-testimonials .testimonial-quote-text {
+				font-size: 24px !important;
+			}
+		}
+		
+		@media (max-width: 767px) {
+			.testimonial-section {
+				padding: 36px 0 12px;
+			}
+			
+			.home-testimonials .testimonial-carousel-slides {
+				min-height: 260px;
+			}
+			
+			.home-testimonials .testimonial-project-label {
+				left: 18px;
+				bottom: 18px;
+				max-width: calc(100% - 96px);
+				padding: 10px 14px;
+				font-size: 10px;
+				letter-spacing: 0.16em;
+			}
+			
+			.home-testimonials .testimonial-carousel-arrow {
+				width: 34px;
+				height: 34px;
+				bottom: 18px;
+				font-size: 18px;
+			}
+			
+			.home-testimonials .testimonial-carousel-prev {
+				right: 56px;
+			}
+			
+			.home-testimonials .testimonial-carousel-next {
+				right: 16px;
+			}
+			
+			.home-testimonials .testimonial-copy-panel {
+				padding: 26px 22px 24px;
+			}
+			
+			.home-testimonials .quote.icon_quotations {
+				font-size: 60px;
+			}
+			
+			.home-testimonials .testimonial-quote-text {
+				font-size: 20px !important;
+				line-height: 1.62 !important;
+			}
+			
+			.home-testimonials .testimonial-meta-row {
+				flex-direction: column;
+				align-items: flex-start;
+				gap: 8px;
+				margin-top: 22px;
+				padding-top: 16px;
+			}
+			
+			.home-testimonials .testimonial-block .author {
+				font-size: 18px !important;
+			}
+			
+			.home-testimonials-controls {
+				margin-top: 16px;
+				gap: 4px;
+			}
+			
+			.home-testimonials-prev,
+			.home-testimonials-next {
+				width: 30px;
+				height: 30px;
+				font-size: 26px;
+			}
+			
+			.home-testimonials-dots {
+				gap: 4px;
+				padding: 0 8px;
+			}
+			
+			.home-testimonials-dot {
+				width: 18px;
 			}
 		}
 		
@@ -901,6 +1093,11 @@
 		.projects-section .project-carousel.home-projects .gallery-block {
 			flex: 0 0 min(320px, 82vw);
 			scroll-snap-align: start;
+		}
+		
+		/* Match gallery.html: translucent yellow hover (theme default is solid #ffe1a0) */
+		.projects-section .project-carousel.home-projects .gallery-block .inner-box .image .hover-color-layer {
+			background-color: rgba(255, 225, 160, 0.75);
 		}
 		
 		/* Scroll to Top Animation */
@@ -984,18 +1181,6 @@
 				font-size: 24px;
 			}
 		}
-
-		/* Testimonials – Clean card styling */
-		.testimonial-section .testimonial-block .inner-box {
-			border: none !important;
-			overflow: hidden;
-			box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-			transition: all 500ms ease;
-		}
-		.testimonial-section .testimonial-block .inner-box:hover {
-			box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-		}
-
 	</style>
 
 	<!-- Open Graph (OG) meta tags are snippets of code that control how URLs are displayed when shared on social media  -->
@@ -1009,10 +1194,9 @@
 	<meta property="og:description" content="Jensen Woodworking - Handcrafted custom countertops, tables, mantels, and restorations by Klaus Jensen in Duxbury, Massachusetts. 30+ years of experience creating beautiful, functional pieces that last for generations." />
 
 	<!-- Fonts -->
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link
-		href="https://fonts.googleapis.com/css2?family=Heebo:wght@100;300;400;500;600;700;800;900&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
-		rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
 	<!-- Add site Favicon -->
 	<link rel="shortcut icon" href="/images/JensenWoodworkingLogo.png" type="image/png">
@@ -1087,7 +1271,6 @@
 										<li class="current"><a href="/home">Home</a></li>
 										<li><a href="about.html">About</a></li>
 										<li><a href="gallery.html">Gallery</a></li>
-										<li><a href="services.html">Services</a></li>
 										<li><a href="testimonials.html">Testimonials</a></li>
 										<li><a href="contact.html">Contact</a></li>
 										<li class="nav-mobile-only"><a href="#" class="client-portal-link" data-path="/client/project">Your Project</a></li>
@@ -1143,7 +1326,7 @@
 						<div class="content-boxed">
 							<div class="inner-boxed">
 								<h1>Jensen Woodworking</h1>
-								<div class="subtitle-h1">Quality Custom Countertops, Islands <br>& Surfaces</div>
+								<div class="subtitle-h1">Quality Custom Countertops,<br>Islands & Surfaces</div>
 							</div>
 						</div>
 					</div>
@@ -1154,16 +1337,16 @@
 		<!-- End Banner Section -->
 
 		<!-- About Section -->
-		<section class="about-section" id="about">
-			<div class="outer-container clearfix">
+		<section class="about-section nordic-split-section" id="about">
+			<div class="outer-container nordic-split-shell">
 
 				<!-- Image Column -->
-				<div class="image-column about-image-column" style="background-image:url(images/resource/about.jpg)">
-					<figure class="image-box"><img src="/images/resource/about.jpg" alt=""></figure>
+				<div class="image-column about-image-column nordic-split-image" style="background-image:url(images/resource/aboutpage.jpg)">
+					<figure class="image-box"><img src="/images/resource/aboutpage.jpg" alt=""></figure>
 				</div>
 
 				<!-- Content Column -->
-				<div class="content-column about-content-column">
+				<div class="content-column about-content-column nordic-split-content">
 					<div class="inner-column">
 						<!-- Sec Title -->
 						<div class="sec-title">
@@ -1171,11 +1354,9 @@
 							<h2>Custom woodwork crafted in coastal Massachusetts</h2>
 						</div>
 						<div class="bold-text">Handcrafted furniture made with quality and care</div>
-						<p>I am passionate about creating beautiful and functional pieces that will last for generations. I began woodworking 30 years ago when I started crafting furniture for family and friends. Today, I am inspired by the natural beauty of wood and the satisfaction of creating something that will be cherished for years to come. My workshop is located in the heart of the historic Shipbuilding District in Duxbury - the many shipyards employed some of the finest woodworkers and carpenters back in the day. I also love the story of each piece of wood and finding ways to repurpose fallen trees - giving them a new lease on life.</p>
-						<br>
-						<p>My process is rooted in traditional woodworking techniques and modern technology. I never get tired of a carefully honed blockplane peeling off perfect wood shavings. Or a perfectly cut piece of lumber using modern equipment. I start with carefully selected, sustainably sourced wood and use precision tools to create each piece. I believe that attention to detail and quality craftsmanship are essential to creating furniture that is both beautiful and functional. I focus primarily on kitchen countertops, bartops, mantels and dining tables and kitchen islands. But your imagination is my limit!</p>
-						<br>
-						<a href="contact.html" class="theme-btn btn-style-one"><span class="txt">Contact Me</span></a>
+						<p>Jensen Woodworking brings three decades of craftsmanship to coastal Massachusetts, creating custom countertops, mantels, and one-off furniture commissions.</p>
+						<p>I focus on high-quality, sustainably sourced materials, often giving new life to fallen trees with unique character. My goal is to build beautiful, functional pieces that balance traditional methods with the needs of a modern home.</p>
+						<a href="about.html" class="theme-btn btn-style-one"><span class="txt">Learn more about our workshop</span></a>
 					</div>
 				</div>
 
@@ -1199,102 +1380,150 @@
 					<!-- Testimonial Block -->
 					<div class="testimonial-block is-active" data-testimonial-images='["images/gallery/1.jpg", "images/gallery/2.jpg"]'>
 						<div class="inner-box">
-							<div class="testimonial-carousel-container">
-								<div class="testimonial-carousel-slides">
-									<img class="testimonial-carousel-image active" src="/images/gallery/1.jpg" alt="Kitchen Island - View 1">
-									<img class="testimonial-carousel-image" src="/images/gallery/2.jpg" alt="Kitchen Island - View 2">
+							<div class="testimonial-media">
+								<div class="testimonial-carousel-container">
+									<div class="testimonial-carousel-slides">
+										<img class="testimonial-carousel-image active" src="/images/gallery/1.jpg" alt="Kitchen Island - View 1">
+										<img class="testimonial-carousel-image" src="/images/gallery/2.jpg" alt="Kitchen Island - View 2">
+									</div>
+									<button class="testimonial-carousel-arrow testimonial-carousel-prev" aria-label="Previous image">‹</button>
+									<button class="testimonial-carousel-arrow testimonial-carousel-next" aria-label="Next image">›</button>
 								</div>
-								<button class="testimonial-carousel-arrow testimonial-carousel-prev" aria-label="Previous image">‹</button>
-								<button class="testimonial-carousel-arrow testimonial-carousel-next" aria-label="Next image">›</button>
+								<div class="testimonial-project-label">Kitchen Island Countertop</div>
 							</div>
-							<div class="quote icon_quotations"></div>
-							<div class="author">Sarah & Michael T. <span>/ Duxbury, MA</span></div>
-							<p>"The kitchen island Klaus built for us is absolutely stunning. The attention to detail and quality of craftsmanship exceeded our expectations. It's the centerpiece of our home."</p>
+							<div class="testimonial-copy-panel">
+								<div class="quote icon_quotations"></div>
+								<p class="testimonial-quote-text">The kitchen island Klaus built for us is absolutely stunning. The attention to detail and quality of craftsmanship exceeded our expectations. It has become the centerpiece of our home.</p>
+								<div class="testimonial-meta-row">
+									<div class="author">Sarah &amp; Michael T.</div>
+									<div class="testimonial-location">Duxbury, MA</div>
+								</div>
+							</div>
 						</div>
 					</div>
 
 					<!-- Testimonial Block -->
 					<div class="testimonial-block" data-testimonial-images='["images/gallery/3.jpg", "images/gallery/4.jpg", "images/gallery/1.jpg"]'>
 						<div class="inner-box">
-							<div class="testimonial-carousel-container">
-								<div class="testimonial-carousel-slides">
-									<img class="testimonial-carousel-image active" src="/images/gallery/3.jpg" alt="Dining Table - View 1">
-									<img class="testimonial-carousel-image" src="/images/gallery/4.jpg" alt="Dining Table - View 2">
-									<img class="testimonial-carousel-image" src="/images/gallery/1.jpg" alt="Dining Table - View 3">
+							<div class="testimonial-media">
+								<div class="testimonial-carousel-container">
+									<div class="testimonial-carousel-slides">
+										<img class="testimonial-carousel-image active" src="/images/gallery/3.jpg" alt="Dining Table - View 1">
+										<img class="testimonial-carousel-image" src="/images/gallery/4.jpg" alt="Dining Table - View 2">
+										<img class="testimonial-carousel-image" src="/images/gallery/1.jpg" alt="Dining Table - View 3">
+									</div>
+									<button class="testimonial-carousel-arrow testimonial-carousel-prev" aria-label="Previous image">‹</button>
+									<button class="testimonial-carousel-arrow testimonial-carousel-next" aria-label="Next image">›</button>
 								</div>
-								<button class="testimonial-carousel-arrow testimonial-carousel-prev" aria-label="Previous image">‹</button>
-								<button class="testimonial-carousel-arrow testimonial-carousel-next" aria-label="Next image">›</button>
+								<div class="testimonial-project-label">Custom Walnut Dining Table</div>
 							</div>
-							<div class="quote icon_quotations"></div>
-							<div class="author">Jennifer M. <span>/ Plymouth, MA</span></div>
-							<p>"Working with Jensen Woodworking was a pleasure from start to finish. Klaus helped us choose the perfect wood and finish for our dining table. It's beautiful and built to last."</p>
+							<div class="testimonial-copy-panel">
+								<div class="quote icon_quotations"></div>
+								<p class="testimonial-quote-text">Working with Jensen Woodworking was a pleasure from start to finish. Klaus helped us choose the right wood and finish for our dining table, and the final piece feels both refined and built to last.</p>
+								<div class="testimonial-meta-row">
+									<div class="author">Jennifer M.</div>
+									<div class="testimonial-location">Plymouth, MA</div>
+								</div>
+							</div>
 						</div>
 					</div>
 
 					<!-- Testimonial Block -->
 					<div class="testimonial-block" data-testimonial-images='["images/gallery/2.jpg", "images/gallery/3.jpg"]'>
 						<div class="inner-box">
-							<div class="testimonial-carousel-container">
-								<div class="testimonial-carousel-slides">
-									<img class="testimonial-carousel-image active" src="/images/gallery/2.jpg" alt="Custom Mantel - View 1">
-									<img class="testimonial-carousel-image" src="/images/gallery/3.jpg" alt="Custom Mantel - View 2">
+							<div class="testimonial-media">
+								<div class="testimonial-carousel-container">
+									<div class="testimonial-carousel-slides">
+										<img class="testimonial-carousel-image active" src="/images/gallery/2.jpg" alt="Custom Mantel - View 1">
+										<img class="testimonial-carousel-image" src="/images/gallery/3.jpg" alt="Custom Mantel - View 2">
+									</div>
+									<button class="testimonial-carousel-arrow testimonial-carousel-prev" aria-label="Previous image">‹</button>
+									<button class="testimonial-carousel-arrow testimonial-carousel-next" aria-label="Next image">›</button>
 								</div>
-								<button class="testimonial-carousel-arrow testimonial-carousel-prev" aria-label="Previous image">‹</button>
-								<button class="testimonial-carousel-arrow testimonial-carousel-next" aria-label="Next image">›</button>
+								<div class="testimonial-project-label">Custom Reclaimed Mantel</div>
 							</div>
-							<div class="quote icon_quotations"></div>
-							<div class="author">Robert & Linda C. <span>/ Hingham, MA</span></div>
-							<p>"After three months of searching, we found Klaus. The custom mantel he created transformed our living room. The reclaimed wood has so much character and history."</p>
+							<div class="testimonial-copy-panel">
+								<div class="quote icon_quotations"></div>
+								<p class="testimonial-quote-text">After months of searching, we found Klaus. The custom mantel he created transformed our living room, and the reclaimed wood brings so much character and history into the space.</p>
+								<div class="testimonial-meta-row">
+									<div class="author">Robert &amp; Linda C.</div>
+									<div class="testimonial-location">Hingham, MA</div>
+								</div>
+							</div>
 						</div>
 					</div>
 
 					<!-- Testimonial Block -->
 					<div class="testimonial-block" data-testimonial-images='["images/gallery/4.jpg"]'>
 						<div class="inner-box">
-							<div class="testimonial-carousel-container">
-								<div class="testimonial-carousel-slides">
-									<img class="testimonial-carousel-image active" src="/images/gallery/4.jpg" alt="Bar Top">
+							<div class="testimonial-media">
+								<div class="testimonial-carousel-container">
+									<div class="testimonial-carousel-slides">
+										<img class="testimonial-carousel-image active" src="/images/gallery/4.jpg" alt="Bar Top">
+									</div>
+								</div>
+								<div class="testimonial-project-label">Custom Bar Top</div>
+							</div>
+							<div class="testimonial-copy-panel">
+								<div class="quote icon_quotations"></div>
+								<p class="testimonial-quote-text">The bar top Klaus installed is exactly what we wanted. He understood the vision immediately, and the finish looks beautiful while still feeling easy to live with every day.</p>
+								<div class="testimonial-meta-row">
+									<div class="author">David &amp; Emily J.</div>
+									<div class="testimonial-location">Scituate, MA</div>
 								</div>
 							</div>
-							<div class="quote icon_quotations"></div>
-							<div class="author">David & Emily J. <span>/ Scituate, MA</span></div>
-							<p>"The bar top Klaus installed is perfect. He understood our vision and delivered exactly what we wanted. The Rubio Monocoat finish looks incredible and is so easy to maintain."</p>
 						</div>
 					</div>
 
 					<!-- Testimonial Block -->
 					<div class="testimonial-block" data-testimonial-images='["images/gallery/1.jpg", "images/gallery/2.jpg", "images/gallery/3.jpg", "images/gallery/4.jpg"]'>
 						<div class="inner-box">
-							<div class="testimonial-carousel-container">
-								<div class="testimonial-carousel-slides">
-									<img class="testimonial-carousel-image active" src="/images/gallery/1.jpg" alt="Restoration - Before">
-									<img class="testimonial-carousel-image" src="/images/gallery/2.jpg" alt="Restoration - Process">
-									<img class="testimonial-carousel-image" src="/images/gallery/3.jpg" alt="Restoration - Detail">
-									<img class="testimonial-carousel-image" src="/images/gallery/4.jpg" alt="Restoration - After">
+							<div class="testimonial-media">
+								<div class="testimonial-carousel-container">
+									<div class="testimonial-carousel-slides">
+										<img class="testimonial-carousel-image active" src="/images/gallery/1.jpg" alt="Restoration - Before">
+										<img class="testimonial-carousel-image" src="/images/gallery/2.jpg" alt="Restoration - Process">
+										<img class="testimonial-carousel-image" src="/images/gallery/3.jpg" alt="Restoration - Detail">
+										<img class="testimonial-carousel-image" src="/images/gallery/4.jpg" alt="Restoration - After">
+									</div>
+									<button class="testimonial-carousel-arrow testimonial-carousel-prev" aria-label="Previous image">‹</button>
+									<button class="testimonial-carousel-arrow testimonial-carousel-next" aria-label="Next image">›</button>
 								</div>
-								<button class="testimonial-carousel-arrow testimonial-carousel-prev" aria-label="Previous image">‹</button>
-								<button class="testimonial-carousel-arrow testimonial-carousel-next" aria-label="Next image">›</button>
+								<div class="testimonial-project-label">Heirloom Table Restoration</div>
 							</div>
-							<div class="quote icon_quotations"></div>
-							<div class="author">Patricia O. <span>/ Marshfield, MA</span></div>
-							<p>"Klaus repaired and refinished our family heirloom dining table. It looks brand new while maintaining its original character. We couldn't be happier with the results."</p>
+							<div class="testimonial-copy-panel">
+								<div class="quote icon_quotations"></div>
+								<p class="testimonial-quote-text">Klaus repaired and refinished our family heirloom dining table so beautifully. It feels refreshed and cared for, while still preserving the character that made it special to us.</p>
+								<div class="testimonial-meta-row">
+									<div class="author">Patricia O.</div>
+									<div class="testimonial-location">Marshfield, MA</div>
+								</div>
+							</div>
 						</div>
 					</div>
 
 					<!-- Testimonial Block -->
 					<div class="testimonial-block" data-testimonial-images='["images/gallery/3.jpg", "images/gallery/4.jpg"]'>
 						<div class="inner-box">
-							<div class="testimonial-carousel-container">
-								<div class="testimonial-carousel-slides">
-									<img class="testimonial-carousel-image active" src="/images/gallery/3.jpg" alt="Custom Project - View 1">
-									<img class="testimonial-carousel-image" src="/images/gallery/4.jpg" alt="Custom Project - View 2">
+							<div class="testimonial-media">
+								<div class="testimonial-carousel-container">
+									<div class="testimonial-carousel-slides">
+										<img class="testimonial-carousel-image active" src="/images/gallery/3.jpg" alt="Custom Project - View 1">
+										<img class="testimonial-carousel-image" src="/images/gallery/4.jpg" alt="Custom Project - View 2">
+									</div>
+									<button class="testimonial-carousel-arrow testimonial-carousel-prev" aria-label="Previous image">‹</button>
+									<button class="testimonial-carousel-arrow testimonial-carousel-next" aria-label="Next image">›</button>
 								</div>
-								<button class="testimonial-carousel-arrow testimonial-carousel-prev" aria-label="Previous image">‹</button>
-								<button class="testimonial-carousel-arrow testimonial-carousel-next" aria-label="Next image">›</button>
+								<div class="testimonial-project-label">Custom Countertop Commission</div>
 							</div>
-							<div class="quote icon_quotations"></div>
-							<div class="author">James & Maria R. <span>/ Kingston, MA</span></div>
-							<p>"Great communication, flexible scheduling, and exceptional craftsmanship. Klaus explained every step of the process and the final product is exactly what we envisioned."</p>
+							<div class="testimonial-copy-panel">
+								<div class="quote icon_quotations"></div>
+								<p class="testimonial-quote-text">Great communication, flexible scheduling, and exceptional craftsmanship. Klaus explained every step clearly, and the final piece feels exactly right in our home.</p>
+								<div class="testimonial-meta-row">
+									<div class="author">James &amp; Maria R.</div>
+									<div class="testimonial-location">Kingston, MA</div>
+								</div>
+							</div>
 						</div>
 					</div>
 
@@ -1529,7 +1758,6 @@
 								<h3>Quick Links</h3>
 								<ul>
 									<li><a href="gallery.html">Gallery</a></li>
-									<li><a href="services.html">Services</a></li>
 									<li><a href="about.html">Our Story</a></li>
 									<li><a href="contact.html">Contact</a></li>
 									<li><a href="testimonials.html">Testimonials</a></li>
@@ -1605,10 +1833,12 @@
 						<p id="modalCompletion" class="completion-date"></p>
 					</div>
 				</div>
+				<!-- "More from this project" strip — disabled; use focus image prev/next. Restore with the related JS block in the project modal script.
 				<div id="modalRelated" class="project-extra-images" style="display: none;">
 					<h3 class="extra-images-title">More from this project</h3>
 					<div id="modalRelatedImages" class="project-images-row"></div>
 				</div>
+				-->
 			</div>
 		</div>
 	</div>
@@ -1797,6 +2027,7 @@
 				// Update image display
 				updateImageDisplay();
 				
+				/* Related images grid ("More from this project") — disabled with HTML; restore both blocks together.
 				// Handle related images grid
 				const relatedImagesContainer = document.getElementById('modalRelatedImages');
 				const relatedSection = document.getElementById('modalRelated');
@@ -1842,6 +2073,7 @@
 				} else {
 					relatedSection.style.display = 'none';
 				}
+				*/
 				
 				modal.classList.add('active');
 				document.body.style.overflow = 'hidden';

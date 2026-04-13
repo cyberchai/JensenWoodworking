@@ -38,12 +38,11 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        serif: ['Georgia', 'serif'],
+        sans: ['Poppins', 'sans-serif'],
+        serif: ['Poppins', 'sans-serif'],
       },
     },
   },
   plugins: [],
 }
 export default config
-

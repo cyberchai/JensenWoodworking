@@ -173,359 +173,231 @@
 			}
 		}
 		
-		/* Testimonials Wall Grid */
-		.testimonials-wall {
-			display: grid;
-			grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-			gap: 40px;
-			margin-top: 80px;
+		/* Testimonials: editorial stream rather than card wall */
+		.testimonial-section {
+			padding: 110px 0 40px;
+			background-color: var(--jw-bg, #f5f1e9);
 		}
 
-		.testimonial-card {
-			background: #fff;
-			border: none;
-			border-left: 3px solid #ffe1a0;
-			padding: 0;
-			display: flex;
-			flex-direction: column;
-			transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-			position: relative;
-			cursor: pointer;
-		}
-
-		.testimonial-card::before {
-			content: '';
-			position: absolute;
-			left: 0;
-			top: 0;
-			bottom: 0;
-			width: 3px;
-			background: #ffe1a0;
-			transform: scaleY(0);
-			transform-origin: bottom;
-			transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-		}
-
-		.testimonial-card:hover::before {
-			transform: scaleY(1);
-		}
-
-		.testimonial-card:hover {
-			box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
-		}
-
-		.testimonial-card-content {
-			padding: 40px 40px 30px 50px;
-			flex-grow: 1;
-			display: flex;
-			flex-direction: column;
-			position: relative;
-			overflow: hidden;
-		}
-
-		.testimonial-quote {
-			font-size: 72px;
-			line-height: 1;
-			color: #ffe1a0;
-			opacity: 0.15;
-			font-family: 'Inter', sans-serif;
-			font-weight: 300;
-			position: absolute;
-			top: 20px;
-			left: 50px;
-		}
-
-		.testimonial-text {
-			font-size: 16px;
-			line-height: 1.8;
-			color: #2a2a2a;
-			margin-bottom: 0;
-			flex-grow: 1;
-			position: relative;
-			font-weight: 300;
-			letter-spacing: 0.01em;
-		}
-
-		.testimonial-text-snippet {
-			display: block;
-		}
-
-		.testimonial-text-full {
-			display: none;
-		}
-
-		.testimonial-read-more {
-			margin-top: 30px;
-			padding-top: 20px;
-			border-top: 1px solid #f0f0f0;
-			background: none;
-		}
-
-		.testimonial-read-more span {
-			font-size: 12px;
-			text-transform: uppercase;
-			letter-spacing: 1.5px;
-			color: #999;
-			font-weight: 500;
-			font-family: 'Inter', sans-serif;
-			transition: color 0.3s ease;
-			background: none;
-			display: inline;
-		}
-
-		.testimonial-card:hover .testimonial-read-more span {
-			color: #000;
-		}
-
-		.testimonial-expand-btn,
-		.testimonial-read-more button {
-			background: none !important;
-			border: none;
-			padding: 0;
-			margin: 0;
-		}
-
-		.testimonial-author {
-			margin-top: auto;
-			padding: 25px 40px 28px 50px;
-			background: #fafafa;
-			font-size: 13px;
-			color: #666;
-			border-top: 1px solid #f0f0f0;
-		}
-
-		.testimonial-author-name {
-			font-weight: 600;
-			color: #000;
-			display: block;
-			margin-bottom: 4px;
-			letter-spacing: 0.02em;
-		}
-
-		.testimonial-author-location {
-			color: #999;
-			font-weight: 300;
-		}
-
-		/* Testimonial Overlay */
-		.testimonial-overlay {
-			position: fixed;
-			inset: 0;
-			z-index: 10000;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			opacity: 0;
-			visibility: hidden;
-			pointer-events: none;
-			transition: opacity 0.4s ease, visibility 0.4s ease;
-		}
-
-		.testimonial-overlay.active {
-			opacity: 1;
-			visibility: visible;
-			pointer-events: auto;
-		}
-
-		.testimonial-overlay-backdrop {
-			position: absolute;
-			inset: 0;
-			background: rgba(0, 0, 0, 0.65);
-			cursor: pointer;
-		}
-
-		.testimonial-overlay-pane {
-			position: relative;
-			background: #fff;
-			max-width: 540px;
-			width: 90%;
-			max-height: 85vh;
-			overflow-y: auto;
-			border-left: 3px solid #ffe1a0;
-			transform: translateY(30px);
-			transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-		}
-
-		.testimonial-overlay.active .testimonial-overlay-pane {
-			transform: translateY(0);
-		}
-
-		.testimonial-overlay-close {
-			position: absolute;
-			top: 20px;
-			right: 20px;
-			width: 36px;
-			height: 36px;
-			background: none;
-			border: none;
-			cursor: pointer;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			color: #999;
-			transition: color 0.3s ease;
-			z-index: 2;
-		}
-
-		.testimonial-overlay-close:hover {
-			color: #000;
-		}
-
-		.testimonial-overlay-body {
-			padding: 40px 40px 30px;
-			position: relative;
-		}
-
-		.testimonial-overlay-quote {
-			font-size: 72px;
-			line-height: 1;
-			color: #ffe1a0;
-			opacity: 0.12;
-			font-family: 'Inter', sans-serif;
-			font-weight: 300;
-			position: absolute;
-			top: 18px;
-			left: 40px;
-		}
-
-		.testimonial-overlay-text {
-			font-size: 15px !important;
-			line-height: 1.8 !important;
-			color: #2a2a2a !important;
-			font-weight: 300;
-			letter-spacing: 0.01em;
-			position: relative;
-			display: block !important;
-			visibility: visible !important;
-			opacity: 1 !important;
-		}
-
-		.testimonial-overlay-author {
-			padding: 20px 40px 24px;
-			background: #fafafa;
-			border-top: 1px solid #f0f0f0;
-		}
-
-		.testimonial-overlay-author .testimonial-author-name {
-			font-size: 13px;
-			margin-bottom: 3px;
-		}
-
-		.testimonial-overlay-author .testimonial-author-location {
-			font-size: 12px;
-		}
-
-		@media (max-width: 991px) {
-			.testimonials-wall {
-				grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-				gap: 35px;
-			}
-		}
-
-		@media (max-width: 768px) {
-			.testimonials-wall {
-				grid-template-columns: 1fr;
-				gap: 30px;
-				margin-top: 50px;
-			}
-
-			.testimonial-card-content {
-				padding: 35px 30px 25px 40px;
-			}
-
-			.testimonial-quote {
-				font-size: 60px;
-				top: 15px;
-				left: 40px;
-			}
-
-			.testimonial-text {
-				font-size: 18px;
-			}
-
-			.testimonial-author {
-				padding: 22px 30px 25px 40px;
-			}
-
-			.testimonial-overlay-pane {
-				width: 95%;
-				max-height: 90vh;
-			}
-
-			.testimonial-overlay-body {
-				padding: 35px 28px 24px;
-			}
-
-			.testimonial-overlay-quote {
-				font-size: 56px;
-				left: 28px;
-			}
-
-			.testimonial-overlay-text {
-				font-size: 14px !important;
-			}
-
-			.testimonial-overlay-author {
-				padding: 18px 28px 22px;
-			}
-
-			.testimonial-overlay-close {
-				top: 18px;
-				right: 18px;
-			}
-		}
-		
-		/* Testimonials CTA Section */
-		.testimonials-cta {
-			padding: 110px 0;
-			text-align: center;
-			background: #fff;
-			border-top: none;
-		}
-
-		.testimonials-cta-content {
-			max-width: 520px;
+		.testimonials-shell {
+			max-width: 1080px;
 			margin: 0 auto;
 		}
 
-		.testimonials-cta .cta-subtitle {
+		.testimonials-intro {
+			padding-bottom: 38px;
+			margin-bottom: 8px;
+			border-bottom: 1px solid rgba(122, 100, 62, 0.2);
+		}
+
+		.testimonials-intro .sec-title {
+			margin-bottom: 0;
+		}
+
+		.testimonials-lead {
+			max-width: 640px;
+			margin-top: 24px;
+			font-size: 18px;
+			line-height: 1.85;
+			color: var(--jw-body-color, #534433);
+		}
+
+		.testimonials-stream {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.testimonial-entry {
+			display: grid;
+			grid-template-columns: 190px minmax(0, 1fr);
+			gap: 38px;
+			padding: 42px 0;
+			border-bottom: 1px solid rgba(122, 100, 62, 0.16);
+			transition: background-color 0.25s ease;
+		}
+
+		.testimonial-entry:first-child {
+			padding-top: 36px;
+		}
+
+		.testimonial-entry.is-target {
+			background: linear-gradient(90deg, rgba(255, 225, 160, 0.22) 0%, rgba(255, 225, 160, 0) 72%);
+		}
+
+		.testimonial-meta {
+			display: flex;
+			flex-direction: column;
+			gap: 14px;
+			padding-top: 6px;
+		}
+
+		.testimonial-index {
 			font-size: 12px;
-			color: #999;
+			font-weight: 600;
+			letter-spacing: 0.24em;
 			text-transform: uppercase;
-			letter-spacing: 0.2em;
-			margin-bottom: 18px;
+			color: #b28c48;
+		}
+
+		.testimonial-client {
+			font-size: 19px;
+			line-height: 1.35;
+			font-weight: 500;
+			color: #171512;
+		}
+
+		.testimonial-project {
+			font-size: 11px;
+			font-weight: 600;
+			letter-spacing: 0.18em;
+			text-transform: uppercase;
+			color: #9b8d7a;
+		}
+
+		.testimonial-panel {
+			position: relative;
+			padding-left: 54px;
+		}
+
+		.testimonial-quote-mark {
+			position: absolute;
+			top: -6px;
+			left: 0;
+			font-family: 'Libre Baskerville', serif;
+			font-size: 82px;
+			line-height: 0.8;
+			color: rgba(178, 140, 72, 0.38);
+		}
+
+		.testimonial-copy {
+			max-width: 760px;
+			color: #171512;
+			padding-top: 6px;
+		}
+
+		.testimonial-copy,
+		.testimonial-copy p {
+			font-size: clamp(20px, 1.08rem + 0.6vw, 29px) !important;
+			line-height: 1.58 !important;
+			letter-spacing: -0.01em;
 			font-weight: 400;
 		}
 
-		.testimonials-cta h3 {
-			font-size: 42px;
-			font-weight: 400;
-			color: #000;
-			line-height: 1.2;
-			margin-bottom: 18px;
-			letter-spacing: 0;
+		.testimonial-copy p {
+			margin: 0;
+			color: inherit;
 		}
 
-		.testimonials-cta p {
-			font-size: 16px;
-			color: #888;
-			line-height: 1.7;
-			margin-bottom: 40px;
-			font-weight: 300;
+		.testimonial-copy p + p {
+			margin-top: 1.05em;
 		}
 
-		.testimonials-cta .theme-btn {
-			font-size: 12px;
-			letter-spacing: 0.15em;
-			padding: 16px 45px;
+		.testimonial-copy-full[hidden],
+		.testimonial-copy-snippet[hidden] {
+			display: none;
 		}
 
-		@media (max-width: 768px) {
-			.testimonials-cta {
-				padding: 80px 20px;
+		.testimonial-toggle {
+			margin-top: 22px;
+			padding: 0;
+			border: none;
+			background: none;
+			display: inline-flex;
+			align-items: center;
+			gap: 14px;
+			font-family: 'Poppins', sans-serif;
+			font-size: 11px;
+			font-weight: 600;
+			letter-spacing: 0.18em;
+			text-transform: uppercase;
+			color: #7d6544;
+			cursor: pointer;
+			transition: color 0.2s ease;
+		}
+
+		.testimonial-toggle:hover {
+			color: #171512;
+		}
+
+		.testimonial-toggle-icon {
+			font-size: 18px;
+			line-height: 1;
+			transition: transform 0.25s ease;
+		}
+
+		.testimonial-entry.is-expanded .testimonial-toggle-icon {
+			transform: rotate(45deg);
+		}
+
+		.testimonials-empty {
+			padding: 56px 0 8px;
+			max-width: 620px;
+		}
+
+		.testimonials-empty p {
+			font-size: 18px !important;
+			line-height: 1.8 !important;
+			color: var(--jw-body-color, #534433);
+			margin-bottom: 28px;
+		}
+
+		@media (max-width: 991px) {
+			.testimonial-entry {
+				grid-template-columns: 1fr;
+				gap: 22px;
 			}
-			.testimonials-cta h3 {
-				font-size: 30px;
+
+			.testimonial-meta {
+				display: grid;
+				grid-template-columns: repeat(3, minmax(0, 1fr));
+				gap: 18px;
+				padding-top: 0;
+				align-items: end;
+			}
+		}
+
+		@media (max-width: 767px) {
+			.testimonial-section {
+				padding: 82px 0 20px;
+			}
+
+			.testimonials-intro {
+				padding-bottom: 34px;
+				margin-bottom: 2px;
+			}
+
+			.testimonials-lead {
+				font-size: 16px;
+				margin-top: 18px;
+			}
+
+			.testimonial-entry {
+				padding: 30px 0;
+				gap: 18px;
+			}
+
+			.testimonial-meta {
+				grid-template-columns: 1fr;
+				gap: 8px;
+			}
+
+			.testimonial-panel {
+				padding-left: 32px;
+			}
+
+			.testimonial-quote-mark {
+				font-size: 56px;
+			}
+
+			.testimonial-copy,
+			.testimonial-copy p {
+				font-size: 18px !important;
+				line-height: 1.68 !important;
+			}
+
+			.testimonial-toggle {
+				margin-top: 18px;
+				letter-spacing: 0.14em;
 			}
 		}
 		
@@ -603,10 +475,9 @@
 	<meta property="og:description" content="Read testimonials from satisfied clients of Jensen Woodworking." />
 
 	<!-- Fonts -->
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link
-		href="https://fonts.googleapis.com/css2?family=Heebo:wght@100;300;400;500;600;700;800;900&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
-		rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
 	<!-- Add site Favicon -->
 	<link rel="shortcut icon" href="/images/JensenWoodworkingLogo.png" type="image/png">
@@ -680,7 +551,6 @@
 										<li><a href="/home">Home</a></li>
 										<li><a href="about.html">About</a></li>
 										<li><a href="gallery.html">Gallery</a></li>
-										<li><a href="services.html">Services</a></li>
 										<li class="current"><a href="testimonials.html">Testimonials</a></li>
 										<li><a href="contact.html">Contact</a></li>
 										<li class="nav-mobile-only"><a href="#" class="client-portal-link" data-path="/client/project">Your Project</a></li>
@@ -738,101 +608,53 @@
 		<!-- End Page Banner Section -->
 
 		<!-- Testimonial Section -->
-		<section class="testimonial-section" style="padding: 100px 0;">
+		<section class="testimonial-section">
 			<div class="auto-container">
-			<div class="testimonials-wall">
-
-				<div class="testimonial-card">
-					<div class="testimonial-card-content">
-						<div class="testimonial-quote">&ldquo;</div>
-						<div class="testimonial-text">
-							<span class="testimonial-text-snippet">The kitchen island Klaus built for us is absolutely stunning. The attention to detail and quality of craftsmanship exceeded our expectations. It&rsquo;s the centerpiece of our home.</span>
-							<span class="testimonial-text-full" style="display:none;">The kitchen island Klaus built for us is absolutely stunning. The attention to detail and quality of craftsmanship exceeded our expectations. It&rsquo;s the centerpiece of our home. Every guest who visits comments on its beauty and the precision of the work. We couldn&rsquo;t be happier with our decision to work with Jensen Woodworking.</span>
+				<div class="testimonials-shell">
+					<div class="testimonials-intro">
+						<div class="testimonials-copy">
+							<div class="sec-title">
+								<div class="title">Client Notes</div>
+								<h2>Kind words from homes we have worked in</h2>
+							</div>
+							<p class="testimonials-lead">Every commission is built to be lived with daily. These notes come directly from the families and spaces that now use the work, from kitchen islands and dining tables to mantels, countertops, and one-off custom pieces.</p>
 						</div>
-						<div class="testimonial-read-more"><span>Read More</span></div>
-					</div>
-					<div class="testimonial-author">
-						<span class="testimonial-author-name">Sarah &amp; Michael T.</span>
-						<span class="testimonial-author-location">Duxbury, MA</span>
-					</div>
-				</div>
 
-				<div class="testimonial-card">
-					<div class="testimonial-card-content">
-						<div class="testimonial-quote">&ldquo;</div>
-						<div class="testimonial-text">
-							<span class="testimonial-text-snippet">Working with Jensen Woodworking was a pleasure from start to finish. Klaus helped us choose the perfect wood and finish for our dining table. It&rsquo;s beautiful and built to last.</span>
-							<span class="testimonial-text-full" style="display:none;">Working with Jensen Woodworking was a pleasure from start to finish. Klaus helped us choose the perfect wood and finish for our dining table. It&rsquo;s beautiful and built to last. The entire process was smooth, and Klaus was always available to answer our questions. The final product exceeded our expectations in every way.</span>
-						</div>
-						<div class="testimonial-read-more"><span>Read More</span></div>
 					</div>
-					<div class="testimonial-author">
-						<span class="testimonial-author-name">Jennifer M.</span>
-						<span class="testimonial-author-location">Plymouth, MA</span>
-					</div>
-				</div>
 
-				<div class="testimonial-card">
-					<div class="testimonial-card-content">
-						<div class="testimonial-quote">&ldquo;</div>
-						<div class="testimonial-text">
-							<span class="testimonial-text-snippet">After three months of searching, we found Klaus. The custom mantel he created transformed our living room. The reclaimed wood has so much character and history.</span>
-							<span class="testimonial-text-full" style="display:none;">After three months of searching, we found Klaus. The custom mantel he created transformed our living room. The reclaimed wood has so much character and history. It&rsquo;s become the focal point of our home, and we love telling the story behind the wood to everyone who visits.</span>
-						</div>
-						<div class="testimonial-read-more"><span>Read More</span></div>
-					</div>
-					<div class="testimonial-author">
-						<span class="testimonial-author-name">Robert &amp; Linda C.</span>
-						<span class="testimonial-author-location">Hingham, MA</span>
-					</div>
-				</div>
+					<!-- Testimonials Stream -->
+					<div class="testimonials-stream" id="testimonialsStream">
+						<article class="testimonial-entry">
+							<div class="testimonial-meta">
+								<div class="testimonial-index">01</div>
+								<div class="testimonial-client">Sarah &amp; Michael T.</div>
+								<div class="testimonial-project">Kitchen Island Countertop</div>
+							</div>
+							<div class="testimonial-panel">
+								<div class="testimonial-quote-mark">&ldquo;</div>
+								<div class="testimonial-copy">
+									<span class="testimonial-copy-full"><p>The kitchen island Klaus built for us is absolutely stunning. The attention to detail and quality of craftsmanship exceeded our expectations. It has become the centerpiece of our home and still feels calm, warm, and effortless in the space.</p></span>
+								</div>
+							</div>
+						</article>
 
-				<div class="testimonial-card">
-					<div class="testimonial-card-content">
-						<div class="testimonial-quote">&ldquo;</div>
-						<div class="testimonial-text">
-							<span class="testimonial-text-snippet">The bar top Klaus installed is perfect. He understood our vision and delivered exactly what we wanted. The Rubio Monocoat finish looks incredible and is so easy to maintain.</span>
-							<span class="testimonial-text-full" style="display:none;">The bar top Klaus installed is perfect. He understood our vision and delivered exactly what we wanted. The Rubio Monocoat finish looks incredible and is so easy to maintain. We use it daily and it still looks brand new. Klaus&rsquo;s attention to detail and craftsmanship is truly exceptional.</span>
-						</div>
-						<div class="testimonial-read-more"><span>Read More</span></div>
+						<article class="testimonial-entry">
+							<div class="testimonial-meta">
+								<div class="testimonial-index">02</div>
+								<div class="testimonial-client">Jennifer M.</div>
+								<div class="testimonial-project">Custom Walnut Dining Table</div>
+							</div>
+							<div class="testimonial-panel">
+								<div class="testimonial-quote-mark">&ldquo;</div>
+								<div class="testimonial-copy">
+									<span class="testimonial-copy-full"><p>Working with Jensen Woodworking was a pleasure from start to finish. Klaus helped us choose the right wood and finish, kept the process clear, and delivered a dining table that feels both refined and built to last.</p></span>
+								</div>
+							</div>
+						</article>
 					</div>
-					<div class="testimonial-author">
-						<span class="testimonial-author-name">David &amp; Emily J.</span>
-						<span class="testimonial-author-location">Scituate, MA</span>
-					</div>
-				</div>
+					<!-- End Testimonials Stream -->
 
-				<div class="testimonial-card">
-					<div class="testimonial-card-content">
-						<div class="testimonial-quote">&ldquo;</div>
-						<div class="testimonial-text">
-							<span class="testimonial-text-snippet">Klaus repaired and refinished our family heirloom dining table. It looks brand new while maintaining its original character. We couldn&rsquo;t be happier with the results.</span>
-							<span class="testimonial-text-full" style="display:none;">Klaus repaired and refinished our family heirloom dining table. It looks brand new while maintaining its original character. We couldn&rsquo;t be happier with the results. The table has been in our family for generations, and Klaus treated it with the respect and care it deserved. His restoration work brought it back to life.</span>
-						</div>
-						<div class="testimonial-read-more"><span>Read More</span></div>
-					</div>
-					<div class="testimonial-author">
-						<span class="testimonial-author-name">Patricia O.</span>
-						<span class="testimonial-author-location">Marshfield, MA</span>
-					</div>
 				</div>
-
-				<div class="testimonial-card">
-					<div class="testimonial-card-content">
-						<div class="testimonial-quote">&ldquo;</div>
-						<div class="testimonial-text">
-							<span class="testimonial-text-snippet">Great communication, flexible scheduling, and exceptional craftsmanship. Klaus explained every step of the process and the final product is exactly what we envisioned.</span>
-							<span class="testimonial-text-full" style="display:none;">Great communication, flexible scheduling, and exceptional craftsmanship. Klaus explained every step of the process and the final product is exactly what we envisioned. From the initial consultation to the final installation, everything was handled professionally. We highly recommend Jensen Woodworking for any custom woodworking project.</span>
-						</div>
-						<div class="testimonial-read-more"><span>Read More</span></div>
-					</div>
-					<div class="testimonial-author">
-						<span class="testimonial-author-name">James &amp; Maria R.</span>
-						<span class="testimonial-author-location">Kingston, MA</span>
-					</div>
-				</div>
-
-			</div>
 			</div>
 		</section>
 		<!-- End Testimonial Section -->
@@ -872,7 +694,6 @@
 								<h3>Quick Links</h3>
 								<ul>
 									<li><a href="gallery.html">Gallery</a></li>
-									<li><a href="services.html">Services</a></li>
 									<li><a href="about.html">Our Story</a></li>
 									<li><a href="contact.html">Contact</a></li>
 									<li><a href="testimonials.html">Testimonials</a></li>
@@ -927,63 +748,50 @@
 	<script src="/js/jquery-ui.js"></script>
 	<script src="/js/script.js"></script>
 
-	<!-- Testimonial Reading Overlay -->
-	<div class="testimonial-overlay" id="testimonialOverlay">
-		<div class="testimonial-overlay-backdrop"></div>
-		<div class="testimonial-overlay-pane">
-			<button class="testimonial-overlay-close" aria-label="Close">
-				<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-				</svg>
-			</button>
-			<div class="testimonial-overlay-body">
-				<div class="testimonial-overlay-quote">"</div>
-				<div class="testimonial-overlay-text" id="overlayText"></div>
-			</div>
-			<div class="testimonial-overlay-author">
-				<span class="testimonial-author-name" id="overlayName"></span>
-				<span class="testimonial-author-location" id="overlayLocation"></span>
-			</div>
-		</div>
-	</div>
-
-	<!-- Testimonial Overlay Script -->
+	<!-- Testimonial Expansion Script -->
 	<script>
 		(function() {
-			var overlay = document.getElementById('testimonialOverlay');
-			var overlayText = document.getElementById('overlayText');
-			var overlayName = document.getElementById('overlayName');
-			var overlayLocation = document.getElementById('overlayLocation');
+			function setExpanded(entry, expanded) {
+				entry.classList.toggle('is-expanded', expanded);
+				var button = entry.querySelector('.testimonial-toggle');
+				var snippet = entry.querySelector('.testimonial-copy-snippet');
+				var full = entry.querySelector('.testimonial-copy-full');
+				var label = entry.querySelector('.testimonial-toggle-label');
 
-			function openOverlay(card) {
-				var fullEl = card.querySelector('.testimonial-text-full');
-				var nameEl = card.querySelector('.testimonial-author-name');
-				var locEl = card.querySelector('.testimonial-author-location');
-
-				overlayText.textContent = fullEl ? fullEl.textContent : '';
-				overlayName.textContent = nameEl ? nameEl.textContent : '';
-				overlayLocation.textContent = locEl ? locEl.textContent : '';
-
-				overlay.classList.add('active');
-				document.body.style.overflow = 'hidden';
+				if (snippet) snippet.hidden = expanded;
+				if (full) full.hidden = !expanded;
+				if (button) button.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+				if (label) label.textContent = expanded ? 'Collapse note' : 'Read the full note';
 			}
 
-			function closeOverlay() {
-				overlay.classList.remove('active');
-				document.body.style.overflow = '';
-			}
+			document.addEventListener('click', function(event) {
+				var button = event.target.closest('.testimonial-toggle');
+				if (!button) return;
 
-			document.querySelectorAll('.testimonial-card').forEach(function(card) {
-				card.addEventListener('click', function() {
-					openOverlay(card);
-				});
+				var entry = button.closest('.testimonial-entry');
+				if (!entry) return;
+
+				var expanded = button.getAttribute('aria-expanded') === 'true';
+				setExpanded(entry, !expanded);
 			});
 
-			overlay.querySelector('.testimonial-overlay-backdrop').addEventListener('click', closeOverlay);
-			overlay.querySelector('.testimonial-overlay-close').addEventListener('click', closeOverlay);
+			document.addEventListener('DOMContentLoaded', function() {
+				var params = new URLSearchParams(window.location.search);
+				var testimonialId = params.get('id');
+				if (!testimonialId) return;
 
-			document.addEventListener('keydown', function(e) {
-				if (e.key === 'Escape') closeOverlay();
+				var entry = document.querySelector('[data-testimonial-id="' + testimonialId + '"]');
+				if (!entry) return;
+
+				entry.classList.add('is-target');
+				var button = entry.querySelector('.testimonial-toggle');
+				if (button) {
+					setExpanded(entry, true);
+				}
+
+				setTimeout(function() {
+					entry.scrollIntoView({ behavior: 'smooth', block: 'center' });
+				}, 120);
 			});
 		})();
 	</script>

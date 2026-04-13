@@ -1,0 +1,1746 @@
+:root {
+  --jw-bg: #faf3e3;
+  --jw-bg-soft: #f5ebd8;
+  --jw-bg-deep: #eadcc5;
+  --jw-surface: rgba(255, 251, 244, 0.92);
+  --jw-surface-strong: #fffaf3;
+  --jw-surface-dark: #17120e;
+  --jw-text: #261f1a;
+  --jw-body-color: #534433;
+  --jw-heading-color: #261f1a;
+  --jw-label-color: #6b5847;
+  --jw-muted: #534433;
+  --jw-muted-strong: #6b5847;
+  --jw-line: rgba(93, 67, 38, 0.12);
+  --jw-line-strong: rgba(93, 67, 38, 0.22);
+  --jw-accent: #b89061;
+  --jw-accent-soft: #d9c09f;
+  --jw-shadow-soft: 0 20px 50px rgba(65, 45, 23, 0.08);
+  --jw-shadow-card: 0 30px 80px rgba(65, 45, 23, 0.12);
+  --jw-radius-sm: 20px;
+  --jw-radius-md: 28px;
+  --jw-radius-lg: 36px;
+  --jw-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+body.jensen-elegant {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.9;
+  color: var(--jw-muted);
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.7), transparent 38%),
+    linear-gradient(180deg, #fffaf4 0%, var(--jw-bg) 46%, #f6ecdc 100%);
+}
+
+body.jensen-elegant ::selection {
+  color: #fffaf3;
+  background: rgba(141, 103, 58, 0.72);
+}
+
+body.jensen-elegant .page-wrapper {
+  background: transparent;
+}
+
+body.jensen-elegant a {
+  color: var(--jw-accent);
+  transition:
+    color 220ms ease,
+    opacity 220ms ease,
+    transform 220ms var(--jw-ease);
+}
+
+body.jensen-elegant a:hover {
+  color: var(--jw-text);
+}
+
+body.jensen-elegant h1,
+body.jensen-elegant h2,
+body.jensen-elegant h3,
+body.jensen-elegant h4,
+body.jensen-elegant h5,
+body.jensen-elegant h6 {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 500;
+  color: var(--jw-text);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+}
+
+body.jensen-elegant p,
+body.jensen-elegant li,
+body.jensen-elegant label,
+body.jensen-elegant input,
+body.jensen-elegant textarea,
+body.jensen-elegant button {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+}
+
+body.jensen-elegant p {
+  font-size: 16px;
+  line-height: 1.95;
+  color: var(--jw-muted);
+}
+
+body.jensen-elegant strong {
+  color: var(--jw-text);
+  font-weight: 500;
+}
+
+body.jensen-elegant img {
+  border-radius: 0;
+}
+
+body.jensen-elegant .auto-container {
+  max-width: 1280px;
+  padding: 0 28px;
+}
+
+body.jensen-elegant .outer-container {
+  padding-left: 36px;
+  padding-right: 36px;
+}
+
+body.jensen-elegant .theme-btn {
+  border-radius: 999px;
+}
+
+body.jensen-elegant .btn-style-one {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 54px;
+  padding: 14px 32px;
+  border: 1px solid transparent;
+  background: linear-gradient(135deg, #e6cfab 0%, #b48a5a 100%);
+  box-shadow: 0 18px 35px rgba(122, 86, 46, 0.18);
+  color: var(--jw-text);
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+body.jensen-elegant .btn-style-one:before {
+  background: linear-gradient(135deg, #201812 0%, #3a2a1c 100%);
+}
+
+body.jensen-elegant .btn-style-one:hover {
+  color: #fffaf3;
+  box-shadow: 0 22px 42px rgba(38, 28, 17, 0.22);
+  transform: translateY(-2px);
+}
+
+body.jensen-elegant .btn-style-two {
+  border-radius: 999px;
+  padding: 13px 26px;
+  border-color: var(--jw-line-strong);
+  background: transparent;
+  color: var(--jw-text);
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+}
+
+body.jensen-elegant .btn-style-two:before {
+  background: linear-gradient(135deg, #e8d2b0 0%, #c59d69 100%);
+}
+
+body.jensen-elegant .sec-title {
+  margin-bottom: 34px;
+}
+
+body.jensen-elegant .sec-title .title {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+  color: var(--jw-muted-strong);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+body.jensen-elegant .sec-title .title:before {
+  content: "";
+  width: 42px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(184, 144, 97, 0.95), rgba(184, 144, 97, 0.1));
+}
+
+body.jensen-elegant .sec-title h2,
+body.jensen-elegant .sec-title h3 {
+  font-size: clamp(2.8rem, 5vw, 4.6rem);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  max-width: 12ch;
+}
+
+body.jensen-elegant .sec-title.centered h2,
+body.jensen-elegant .sec-title.centered h3,
+body.jensen-elegant .sec-title.centered p {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body.jensen-elegant .sec-title .text,
+body.jensen-elegant .sec-title p {
+  max-width: 720px;
+  margin-top: 22px;
+  color: var(--jw-muted);
+  font-size: 16px;
+}
+
+body.jensen-elegant .main-header {
+  position: absolute;
+  background: transparent;
+}
+
+body.jensen-elegant .main-header .outer-container {
+  padding-left: 34px;
+  padding-right: 34px;
+}
+
+body.jensen-elegant .main-header .header-upper {
+  background: linear-gradient(180deg, rgba(24, 18, 14, 0.42), rgba(24, 18, 14, 0.2));
+  border-bottom: 1px solid rgba(255, 250, 243, 0.08);
+  backdrop-filter: blur(16px);
+}
+
+body.jensen-elegant .main-header.fixed-header .header-upper,
+body.jensen-page-contact .main-header .header-upper {
+  background: rgba(26, 20, 16, 0.9);
+  border-bottom-color: rgba(255, 250, 243, 0.12);
+}
+
+body.jensen-elegant .main-header .header-upper .logo-box,
+body.jensen-page-contact .main-header .header-upper .logo-box {
+  padding-top: 22px;
+  padding-bottom: 22px;
+}
+
+body.jensen-elegant .main-header.fixed-header .header-upper .logo-box {
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+body.jensen-elegant .main-menu .navigation > li {
+  margin-right: 28px;
+}
+
+body.jensen-elegant .main-menu .navigation > li:before {
+  bottom: 40px;
+  height: 1px;
+  background-color: rgba(255, 250, 243, 0.24);
+  transform-origin: left center;
+}
+
+body.jensen-elegant .main-menu .navigation > li > a,
+body.jensen-page-contact .main-header .main-menu .navigation > li > a {
+  padding: 37px 0;
+  color: rgba(255, 250, 243, 0.92);
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+body.jensen-elegant .main-header.fixed-header .main-menu .navigation > li > a {
+  padding: 25px 0;
+}
+
+body.jensen-elegant .main-header .header-upper .outer-box .mobile-nav-toggler,
+body.jensen-elegant .main-header .header-upper .language-list li a {
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 0.16em;
+}
+
+body.jensen-elegant .mobile-menu .menu-box {
+  background: #fff9f1;
+}
+
+body.jensen-elegant .mobile-menu .navigation li > a {
+  font-family: "Poppins", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--jw-text);
+}
+
+body.jensen-elegant .banner-section,
+body.jensen-elegant .page-banner-section {
+  position: relative;
+  overflow: hidden;
+}
+
+body.jensen-elegant .banner-section:before,
+body.jensen-elegant .page-banner-section:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(115deg, rgba(17, 13, 10, 0.72) 0%, rgba(17, 13, 10, 0.3) 48%, rgba(17, 13, 10, 0.18) 100%),
+    linear-gradient(180deg, rgba(17, 13, 10, 0.06), rgba(17, 13, 10, 0.5));
+  z-index: 1;
+}
+
+body.jensen-elegant .banner-section .auto-container,
+body.jensen-elegant .page-banner-section .auto-container {
+  position: relative;
+  z-index: 2;
+}
+
+body.jensen-elegant .banner-section .slide {
+  position: relative;
+}
+
+body.jensen-elegant .banner-section .content-boxed {
+  max-width: 780px;
+  padding-top: clamp(150px, 20vh, 220px);
+}
+
+body.jensen-elegant .banner-section .content-boxed h1 {
+  max-width: 8ch;
+  margin-bottom: 18px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(3.8rem, 8vw, 7rem);
+  font-weight: 500;
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  color: #fff7ef;
+  text-transform: none;
+}
+
+body.jensen-elegant .banner-section .content-boxed .subtitle-h1 {
+  max-width: min(720px, 92vw);
+  color: rgba(255, 247, 239, 0.82);
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(1rem, 1.8vw, 1.35rem);
+  font-weight: 300;
+  line-height: 1.85;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+body.jensen-elegant .mouse-btn-down {
+  z-index: 2;
+}
+
+body.jensen-elegant .page-banner-section {
+  padding: 260px 0 118px !important;
+  background-attachment: scroll;
+  background-position: center center;
+}
+
+body.jensen-elegant .page-banner-section .title {
+  margin-bottom: 18px;
+  color: rgba(255, 239, 219, 0.82);
+  font-family: "Poppins", sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+}
+
+body.jensen-elegant .page-banner-section h1 {
+  max-width: 10ch;
+  color: #fffaf3;
+  font-size: clamp(3.6rem, 7vw, 6rem);
+  font-weight: 500;
+  line-height: 0.94;
+  letter-spacing: -0.04em;
+  text-transform: none;
+}
+
+body.jensen-elegant .about-section,
+body.jensen-elegant .about-jensen-section,
+body.jensen-elegant .instagram-reels-section,
+body.jensen-elegant .projects-section,
+body.jensen-elegant .fluid-section-one,
+body.jensen-elegant .home-contact-section,
+body.jensen-elegant .contact-page-section,
+body.jensen-elegant .testimonial-section,
+body.jensen-elegant .professional-cta-section,
+body.jensen-elegant .sponsors-section {
+  position: relative;
+}
+
+body.jensen-page-home .about-section,
+body.jensen-page-about .about-section,
+body.jensen-page-about .about-jensen-section,
+body.jensen-page-services .about-section,
+body.jensen-page-services .fluid-section-one,
+body.jensen-page-contact .contact-page-section,
+body.jensen-page-testimonials .testimonial-section {
+  padding-top: clamp(88px, 10vw, 128px);
+  padding-bottom: clamp(88px, 10vw, 128px);
+}
+
+body.jensen-page-home .about-section,
+body.jensen-page-about .about-section,
+body.jensen-page-services .services-intro-section,
+body.jensen-page-contact .contact-page-section {
+  background: transparent;
+}
+
+body.jensen-page-home .about-section .outer-container,
+body.jensen-page-home .fluid-section-one .outer-container,
+body.jensen-page-services .services-process-section .outer-container {
+  display: grid;
+  grid-template-columns: minmax(320px, 1.02fr) minmax(340px, 0.98fr);
+  align-items: center;
+  gap: clamp(40px, 5vw, 88px);
+}
+
+body.jensen-page-home .about-section .about-image-column,
+body.jensen-page-home .fluid-section-one .image-column,
+body.jensen-page-services .services-process-section .image-column {
+  position: relative;
+  left: auto;
+  top: auto;
+  width: auto;
+  height: 100%;
+  min-height: 620px;
+  border-radius: var(--jw-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--jw-shadow-card);
+}
+
+body.jensen-page-home .about-section .about-image-column:before,
+body.jensen-page-home .fluid-section-one .image-column:before,
+body.jensen-page-services .services-process-section .image-column:before,
+body.jensen-page-about .about-section .image-column .image:before,
+body.jensen-page-about .about-jensen-section .image-column .image:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(19, 14, 10, 0.02), rgba(19, 14, 10, 0.3));
+  z-index: 1;
+  pointer-events: none;
+}
+
+body.jensen-page-home .about-section .about-image-column .image-box,
+body.jensen-page-home .fluid-section-one .image-column .image-box,
+body.jensen-page-services .services-process-section .image-column .image-box {
+  height: 100%;
+}
+
+body.jensen-page-home .about-section .about-image-column img,
+body.jensen-page-home .fluid-section-one .image-column img,
+body.jensen-page-services .services-process-section .image-column img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+body.jensen-page-home .about-section .about-content-column,
+body.jensen-page-home .fluid-section-one .content-column {
+  margin-left: 0;
+  padding: 0;
+}
+
+body.jensen-page-home .about-section .about-content-column .inner-column,
+body.jensen-page-home .fluid-section-one .content-column .inner-column,
+body.jensen-page-services .services-process-section .content-column .inner-column {
+  max-width: min(76ch, 100%);
+  margin: 0;
+  padding: 0;
+}
+
+body.jensen-elegant .bold-text {
+  margin-bottom: 18px;
+  color: var(--jw-text);
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.85;
+}
+
+body.jensen-page-home .testimonial-section {
+  padding-top: 96px;
+  padding-bottom: 112px;
+  background: linear-gradient(180deg, rgba(255, 251, 244, 0.2), rgba(255, 251, 244, 0.72));
+}
+
+body.jensen-page-home .testimonial-section .sec-title h2 {
+  max-width: none;
+}
+
+body.jensen-page-home .testimonial-block .inner-box {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  height: 100%;
+  padding: 28px;
+  border: 1px solid var(--jw-line);
+  border-radius: var(--jw-radius-md);
+  background: var(--jw-surface);
+  box-shadow: var(--jw-shadow-soft);
+}
+
+body.jensen-page-home .testimonial-section .owl-stage {
+  display: flex;
+}
+
+body.jensen-page-home .testimonial-section .owl-item {
+  display: flex;
+  height: auto;
+}
+
+body.jensen-page-home .testimonial-carousel-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: calc(var(--jw-radius-md) - 6px);
+  background: #eadfcf;
+}
+
+body.jensen-page-home .testimonial-carousel-image {
+  width: 100%;
+  aspect-ratio: 1.15 / 1;
+  object-fit: cover;
+}
+
+body.jensen-page-home .testimonial-block .quote {
+  color: rgba(184, 144, 97, 0.34);
+  font-size: 44px;
+}
+
+body.jensen-page-home .testimonial-block .author {
+  order: 2;
+  color: var(--jw-text);
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+body.jensen-page-home .testimonial-block .author span {
+  color: var(--jw-muted);
+  font-weight: 300;
+}
+
+body.jensen-page-home .testimonial-block p {
+  order: 3;
+  margin: 0;
+  color: var(--jw-muted-strong);
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+body.jensen-page-home .service-box {
+  margin-bottom: 22px;
+}
+
+body.jensen-page-home .service-box .inner-box {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 24px;
+  padding: 24px;
+  border: 1px solid var(--jw-line);
+  border-radius: var(--jw-radius-md);
+  background: var(--jw-surface);
+  box-shadow: var(--jw-shadow-soft);
+  transition:
+    transform 320ms var(--jw-ease),
+    box-shadow 320ms ease,
+    border-color 320ms ease;
+}
+
+body.jensen-page-home .service-box .inner-box:hover {
+  transform: translateY(-8px);
+  border-color: rgba(184, 144, 97, 0.35);
+  box-shadow: var(--jw-shadow-card);
+}
+
+body.jensen-page-home .service-box-image {
+  overflow: hidden;
+  border-radius: calc(var(--jw-radius-md) - 8px);
+}
+
+body.jensen-page-home .service-box-image img {
+  width: 100%;
+  height: 100%;
+  min-height: 150px;
+  object-fit: cover;
+  transition: transform 700ms var(--jw-ease);
+}
+
+body.jensen-page-home .service-box .inner-box:hover .service-box-image img {
+  transform: scale(1.06);
+}
+
+body.jensen-page-home .service-box .content h5 {
+  margin-bottom: 10px;
+  font-size: clamp(2rem, 2.5vw, 2.5rem);
+}
+
+body.jensen-page-home .service-box .content h5 a {
+  color: var(--jw-text);
+}
+
+body.jensen-page-home .service-box .content p {
+  margin: 0;
+}
+
+body.jensen-page-home .projects-section {
+  padding-top: 96px;
+  padding-bottom: 48px;
+  background: rgba(255, 249, 239, 0.58);
+}
+
+body.jensen-page-home .projects-section .projects {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--jw-text);
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+body.jensen-page-home .projects-section .gallery-block .inner-box {
+  overflow: hidden;
+  border-radius: var(--jw-radius-md);
+  box-shadow: var(--jw-shadow-soft);
+}
+
+body.jensen-page-home .projects-section .gallery-block .image img {
+  min-height: 420px;
+  object-fit: cover;
+}
+
+body.jensen-page-home .home-contact-section {
+  padding-top: 108px;
+  padding-bottom: 128px;
+  background:
+    linear-gradient(180deg, rgba(250, 243, 227, 0.78), rgba(250, 243, 227, 0.98)),
+    linear-gradient(90deg, rgba(184, 144, 97, 0.06), rgba(184, 144, 97, 0));
+}
+
+body.jensen-page-home .home-contact-section .sec-title h2 {
+  max-width: 11ch;
+}
+
+body.jensen-page-home .home-contact-section .contact-form {
+  padding: clamp(28px, 5vw, 42px);
+  border: 1px solid var(--jw-line);
+  border-radius: var(--jw-radius-lg);
+  background: var(--jw-surface);
+  box-shadow: var(--jw-shadow-card);
+}
+
+body.jensen-elegant .contact-form .form-group input[type="text"],
+body.jensen-elegant .contact-form .form-group input[type="password"],
+body.jensen-elegant .contact-form .form-group input[type="tel"],
+body.jensen-elegant .contact-form .form-group input[type="email"],
+body.jensen-elegant .contact-form .form-group select,
+body.jensen-elegant .contact-form .form-group textarea {
+  padding-left: 0;
+  padding-right: 0;
+  border-bottom: 1px solid var(--jw-line-strong);
+  background: transparent;
+  color: var(--jw-text);
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+body.jensen-elegant .contact-form .form-group input::placeholder,
+body.jensen-elegant .contact-form .form-group textarea::placeholder {
+  color: rgba(83, 68, 51, 0.58);
+}
+
+body.jensen-elegant .contact-form .form-group input[type="text"]:focus,
+body.jensen-elegant .contact-form .form-group input[type="password"]:focus,
+body.jensen-elegant .contact-form .form-group input[type="tel"]:focus,
+body.jensen-elegant .contact-form .form-group input[type="email"]:focus,
+body.jensen-elegant .contact-form .form-group select:focus,
+body.jensen-elegant .contact-form .form-group textarea:focus {
+  border-color: var(--jw-accent);
+}
+
+body.jensen-page-home .form-fields-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+body.jensen-page-home .toggles-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+body.jensen-page-home .toggle-item,
+body.jensen-page-contact .contact-toggle-row {
+  padding: 16px 18px;
+  border: 1px solid var(--jw-line);
+  border-radius: 18px;
+  background: rgba(248, 241, 228, 0.8);
+}
+
+body.jensen-page-home .toggle-item label,
+body.jensen-page-contact .contact-toggle-row label {
+  margin: 0;
+  color: var(--jw-text);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
+
+body.jensen-elegant .toggle-switch .toggle-slider {
+  background: rgba(111, 98, 83, 0.22);
+}
+
+body.jensen-elegant .toggle-switch input:checked + .toggle-slider {
+  background: var(--jw-accent);
+}
+
+body.jensen-page-about .about-section .row,
+body.jensen-page-about .about-jensen-section .row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+  gap: clamp(34px, 5vw, 82px);
+}
+
+body.jensen-page-about .about-section .image-column,
+body.jensen-page-about .about-jensen-section .image-column,
+body.jensen-page-about .about-section .content-column,
+body.jensen-page-about .about-jensen-section .content-column {
+  width: auto;
+  max-width: none;
+  flex: none;
+  padding: 0;
+}
+
+body.jensen-page-about .about-section .inner-column,
+body.jensen-page-about .about-jensen-section .inner-column {
+  padding: 0;
+  max-width: min(76ch, 100%);
+  margin: 0;
+}
+
+body.jensen-page-about .about-section .content-column p,
+body.jensen-page-about .about-jensen-section .content-column p {
+  font-size: 16px !important;
+  line-height: 1.95 !important;
+}
+
+body.jensen-page-about .about-section .image-column .image,
+body.jensen-page-about .about-jensen-section .image-column .image {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--jw-radius-lg);
+  box-shadow: var(--jw-shadow-card);
+}
+
+body.jensen-page-about .about-section .image-column img,
+body.jensen-page-about .about-jensen-section .image-column img {
+  width: 100%;
+  min-height: 620px;
+  object-fit: cover;
+}
+
+body.jensen-page-about .instagram-reels-section {
+  background: rgba(255, 250, 243, 0.56);
+  border-top: 1px solid var(--jw-line);
+}
+
+body.jensen-page-about .instagram-reels-grid {
+  gap: 24px;
+}
+
+body.jensen-page-about .instagram-embed-wrapper {
+  padding: 10px;
+  border: 1px solid var(--jw-line);
+  border-radius: 26px;
+  background: var(--jw-surface);
+  box-shadow: var(--jw-shadow-soft);
+}
+
+body.jensen-page-about .instagram-embed-wrapper iframe {
+  border-radius: 18px !important;
+}
+
+body.jensen-page-about .sponsors-section {
+  padding-top: 86px;
+  padding-bottom: 112px;
+}
+
+body.jensen-page-about .sponsors-section .image-box {
+  height: 100%;
+  padding: 28px 26px;
+  border: 1px solid var(--jw-line);
+  border-radius: var(--jw-radius-md);
+  background: var(--jw-surface);
+  box-shadow: var(--jw-shadow-soft);
+}
+
+body.jensen-page-about .sponsors-section .image-box h4 {
+  margin-bottom: 12px;
+  font-size: 2rem;
+}
+
+body.jensen-page-about .sponsors-section .image-box p {
+  margin-bottom: 14px;
+}
+
+body.jensen-page-services .services-intro-section {
+  padding-top: 90px !important;
+  padding-bottom: 64px !important;
+}
+
+body.jensen-page-services .services-intro-section .sec-title h2,
+body.jensen-page-services .services-woods-section .sec-title h2 {
+  max-width: none;
+}
+
+body.jensen-page-services .services-type-section {
+  padding-top: 64px !important;
+  padding-bottom: 118px !important;
+  background:
+    radial-gradient(circle at top left, rgba(184, 144, 97, 0.08), transparent 35%),
+    linear-gradient(180deg, rgba(255, 250, 243, 0.65), rgba(247, 239, 225, 0.95)) !important;
+}
+
+body.jensen-page-services .project-type-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  height: 100%;
+  padding: 30px !important;
+  border: 1px solid var(--jw-line) !important;
+  border-radius: var(--jw-radius-md);
+  background: var(--jw-surface) !important;
+  box-shadow: var(--jw-shadow-soft);
+  overflow: hidden;
+  transition:
+    transform 380ms var(--jw-ease),
+    box-shadow 380ms ease,
+    border-color 380ms ease;
+}
+
+body.jensen-page-services .project-type-card:hover {
+  transform: translateY(-10px);
+  border-color: rgba(184, 144, 97, 0.38) !important;
+  box-shadow: var(--jw-shadow-card);
+}
+
+body.jensen-page-services .project-type-card::before {
+  width: 100%;
+  height: 2px;
+  transform: scaleX(0);
+  transform-origin: left center;
+  background: linear-gradient(90deg, var(--jw-accent), rgba(184, 144, 97, 0));
+}
+
+body.jensen-page-services .project-type-card:hover::before {
+  transform: scaleX(1);
+}
+
+body.jensen-page-services .project-type-card-image-container {
+  position: relative;
+  height: 260px;
+  margin-bottom: 26px;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #e7dcc8;
+}
+
+body.jensen-page-services .project-type-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 760ms var(--jw-ease);
+}
+
+body.jensen-page-services .project-type-card:hover .project-type-card-image {
+  transform: scale(1.06);
+}
+
+body.jensen-page-services .project-type-card h3 {
+  margin-bottom: 12px !important;
+  color: var(--jw-text) !important;
+  font-size: clamp(2rem, 2.8vw, 2.8rem) !important;
+  line-height: 0.96;
+}
+
+body.jensen-page-services .project-type-card p {
+  margin-bottom: 22px !important;
+}
+
+body.jensen-page-services .project-type-card ul {
+  display: grid;
+  gap: 10px;
+  margin-top: auto !important;
+  padding-top: 18px !important;
+  border-top: 1px solid var(--jw-line);
+  color: var(--jw-muted) !important;
+  font-size: 14px !important;
+}
+
+body.jensen-page-services .project-type-card ul li {
+  position: relative;
+  padding-left: 22px;
+  color: var(--jw-muted) !important;
+}
+
+body.jensen-page-services .project-type-card ul li:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--jw-accent);
+}
+
+body.jensen-page-services .services-woods-section {
+  background: rgba(255, 251, 244, 0.45);
+}
+
+body.jensen-page-services .wood-species-card {
+  display: grid !important;
+  grid-template-columns: 118px minmax(0, 1fr);
+  gap: 26px !important;
+  height: 100%;
+  padding: 26px;
+  border: 1px solid var(--jw-line);
+  border-radius: 24px;
+  background: var(--jw-surface);
+  box-shadow: var(--jw-shadow-soft);
+  transition:
+    transform 320ms var(--jw-ease),
+    box-shadow 320ms ease,
+    border-color 320ms ease;
+}
+
+body.jensen-page-services .wood-species-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--jw-shadow-card);
+  border-color: rgba(184, 144, 97, 0.28);
+}
+
+body.jensen-page-services .wood-species-swatch {
+  position: relative;
+  height: 118px !important;
+  min-height: 118px;
+  border-radius: 22px;
+  border: 1px solid rgba(32, 25, 19, 0.06);
+  overflow: hidden;
+}
+
+body.jensen-page-services .wood-species-swatch:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(0, 0, 0, 0.08)),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.08) 0,
+      rgba(255, 255, 255, 0.08) 2px,
+      rgba(255, 255, 255, 0) 2px,
+      rgba(255, 255, 255, 0) 9px
+    );
+  mix-blend-mode: soft-light;
+}
+
+body.jensen-page-services .wood-species-copy h4 {
+  margin-bottom: 10px !important;
+  color: var(--jw-text) !important;
+  font-size: 2.2rem !important;
+  line-height: 1;
+}
+
+body.jensen-page-services .wood-species-copy > div {
+  margin-top: 12px;
+  color: var(--jw-muted-strong) !important;
+  font-size: 12px !important;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  line-height: 1.9;
+  text-transform: uppercase;
+}
+
+body.jensen-page-services .services-process-section {
+  padding-top: 110px !important;
+  padding-bottom: 118px !important;
+}
+
+body.jensen-page-services .process-step {
+  position: relative;
+  padding: 0 0 26px 64px;
+  margin-bottom: 26px !important;
+  border-bottom: 1px solid var(--jw-line);
+  counter-increment: process-step;
+}
+
+body.jensen-page-services .process-step:last-of-type {
+  margin-bottom: 38px !important;
+}
+
+body.jensen-page-services .process-step:before {
+  content: counter(process-step, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: -2px;
+  color: rgba(184, 144, 97, 0.4);
+  font-family: "Cormorant Garamond", serif;
+  font-size: 3rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+body.jensen-page-services .services-process-section .content-column .inner-column {
+  counter-reset: process-step;
+}
+
+body.jensen-page-services .process-step h4 {
+  margin-bottom: 10px !important;
+  color: var(--jw-text) !important;
+  font-size: 2rem !important;
+}
+
+body.jensen-elegant .professional-cta-section {
+  padding: 86px 0 !important;
+  border-top: 1px solid var(--jw-line-strong) !important;
+  background:
+    radial-gradient(circle at top, rgba(184, 144, 97, 0.1), transparent 42%),
+    linear-gradient(180deg, rgba(255, 250, 243, 0.72), rgba(247, 239, 225, 0.9)) !important;
+}
+
+body.jensen-elegant .professional-cta-section .cta-inner,
+body.jensen-elegant .professional-cta-section .sec-title {
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+body.jensen-elegant .professional-cta-section .cta-subtitle,
+body.jensen-elegant .professional-cta-section .title {
+  margin-bottom: 14px !important;
+  color: var(--jw-muted-strong) !important;
+  font-family: "Poppins", sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.28em !important;
+  text-transform: uppercase !important;
+}
+
+body.jensen-elegant .professional-cta-section .title:before {
+  display: none;
+}
+
+body.jensen-elegant .professional-cta-section h2,
+body.jensen-elegant .professional-cta-section h3 {
+  margin-bottom: 16px !important;
+  color: var(--jw-text) !important;
+  font-size: clamp(3rem, 5vw, 4.4rem) !important;
+  line-height: 0.98 !important;
+  letter-spacing: -0.03em !important;
+}
+
+body.jensen-elegant .professional-cta-section p {
+  max-width: 620px;
+  margin: 0 auto 30px !important;
+  color: var(--jw-muted) !important;
+  font-size: 16px !important;
+  line-height: 1.9 !important;
+  font-weight: 300 !important;
+}
+
+body.jensen-elegant .professional-cta-section .theme-btn,
+body.jensen-elegant .professional-cta-section .theme-btn.btn-style-one {
+  display: inline-flex !important;
+  min-height: 54px !important;
+  padding: 14px 32px !important;
+  font-size: 12px !important;
+}
+
+body.jensen-page-services .thin-image-section {
+  height: 160px !important;
+}
+
+body.jensen-page-services .thin-image-section img {
+  filter: saturate(0.82) contrast(1.02);
+}
+
+body.jensen-page-contact .main-header {
+  position: fixed;
+}
+
+body.jensen-page-contact .contact-page-section {
+  padding-top: 170px !important;
+  padding-bottom: 120px !important;
+}
+
+body.jensen-page-contact .contact-page-section .row {
+  display: grid;
+  grid-template-columns: minmax(320px, 0.94fr) minmax(340px, 1.06fr);
+  gap: 28px;
+}
+
+body.jensen-page-contact .contact-page-section .info-column,
+body.jensen-page-contact .contact-page-section .form-column {
+  width: auto;
+  max-width: none;
+  flex: none;
+  padding: 0 !important;
+  border: 0 !important;
+  margin: 0 !important;
+}
+
+body.jensen-page-contact .contact-page-section .inner-column {
+  height: 100%;
+  padding: clamp(30px, 5vw, 46px);
+  border: 1px solid var(--jw-line);
+  border-radius: var(--jw-radius-lg);
+  background: var(--jw-surface);
+  box-shadow: var(--jw-shadow-card);
+}
+
+body.jensen-page-contact .contact-page-section h2 {
+  margin-bottom: 18px;
+  color: var(--jw-text);
+  font-size: clamp(3rem, 5vw, 4.8rem);
+  line-height: 0.95;
+}
+
+body.jensen-page-contact .contact-page-section h3 {
+  margin-bottom: 18px;
+  font-size: clamp(2.2rem, 3.2vw, 3rem);
+}
+
+body.jensen-page-contact .contact-page-section h3 span {
+  color: var(--jw-body-color, #534433);
+}
+
+body.jensen-page-contact .contact-page-section h6 {
+  margin: 0 0 20px !important;
+  color: var(--jw-muted-strong) !important;
+  font-family: "Poppins", sans-serif;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.28em !important;
+  text-transform: uppercase !important;
+}
+
+body.jensen-page-contact .contact-image-quadrant {
+  gap: 10px !important;
+}
+
+body.jensen-page-contact .contact-image-quadrant img {
+  height: 180px !important;
+  border-radius: 18px;
+  transition: transform 700ms var(--jw-ease);
+}
+
+body.jensen-page-contact .contact-image-quadrant:hover img {
+  transform: scale(1.03);
+}
+
+body.jensen-page-contact .contact-page-section ul {
+  margin-bottom: 34px;
+}
+
+body.jensen-page-contact .contact-page-section ul li {
+  margin-bottom: 0;
+  padding: 14px 0;
+  color: var(--jw-body-color, #534433);
+  font-size: 15px;
+  line-height: 1.85;
+  border-top: 1px solid var(--jw-line);
+}
+
+body.jensen-page-contact .contact-page-section ul li:last-child {
+  border-bottom: 1px solid var(--jw-line);
+}
+
+body.jensen-page-contact .address-copy {
+  color: var(--jw-text);
+}
+
+body.jensen-page-contact .address-copy:hover {
+  color: var(--jw-accent);
+}
+
+body.jensen-page-contact .address-copy:after,
+body.jensen-page-contact .info-tooltip {
+  border-radius: 14px;
+  background: var(--jw-surface-dark);
+  color: #fff7ef;
+}
+
+body.jensen-page-contact .address-copy.copied:after {
+  background: var(--jw-accent);
+  color: #fff7ef;
+}
+
+body.jensen-page-contact .contact-toggle-group {
+  display: grid;
+  gap: 14px;
+}
+
+body.jensen-page-contact .contact-toggle-row {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+}
+
+body.jensen-page-contact .contact-message-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  color: var(--jw-text) !important;
+  font-size: 13px !important;
+  font-weight: 400;
+}
+
+body.jensen-page-contact .contact-page-section .theme-btn.btn-style-one {
+  font-size: 12px !important;
+}
+
+body.jensen-page-testimonials .page-banner-section {
+  padding-bottom: 92px !important;
+}
+
+body.jensen-page-testimonials .testimonial-section {
+  background:
+    radial-gradient(circle at top left, rgba(184, 144, 97, 0.08), transparent 32%),
+    linear-gradient(180deg, rgba(255, 250, 243, 0.82), rgba(247, 239, 225, 0.94));
+}
+
+body.jensen-page-testimonials .testimonials-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 28px;
+  align-items: end;
+  margin-bottom: 44px;
+}
+
+body.jensen-page-testimonials .testimonials-header-copy {
+  max-width: 520px;
+}
+
+body.jensen-page-testimonials .testimonials-header-copy p {
+  margin-bottom: 0;
+}
+
+body.jensen-page-testimonials .testimonials-header-meta {
+  display: grid;
+  gap: 14px;
+  justify-items: start;
+  padding: 24px 26px;
+  border: 1px solid var(--jw-line);
+  border-radius: 24px;
+  background: rgba(255, 251, 244, 0.72);
+  box-shadow: var(--jw-shadow-soft);
+}
+
+body.jensen-page-testimonials .testimonials-header-meta span {
+  color: var(--jw-muted-strong);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+body.jensen-page-testimonials .testimonials-header-meta p {
+  margin: 0;
+  color: var(--jw-text);
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+body.jensen-page-testimonials .testimonials-wall {
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 0;
+}
+
+body.jensen-page-testimonials .testimonials-wall > * {
+  grid-column: span 4;
+}
+
+body.jensen-page-testimonials .testimonial-card {
+  height: 100%;
+  border: 1px solid var(--jw-line);
+  border-left: 1px solid var(--jw-line);
+  border-radius: var(--jw-radius-md);
+  background: var(--jw-surface);
+  box-shadow: var(--jw-shadow-soft);
+  overflow: hidden;
+  transition:
+    transform 380ms var(--jw-ease),
+    box-shadow 380ms ease,
+    border-color 380ms ease;
+}
+
+body.jensen-page-testimonials .testimonial-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(184, 144, 97, 0.28);
+  box-shadow: var(--jw-shadow-card);
+}
+
+body.jensen-page-testimonials .testimonial-card:before {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--jw-accent), rgba(184, 144, 97, 0));
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+body.jensen-page-testimonials .testimonial-card:hover:before {
+  transform: scaleX(1);
+}
+
+body.jensen-page-testimonials .testimonial-card-content {
+  padding: 34px 32px 26px;
+}
+
+body.jensen-page-testimonials .testimonial-quote {
+  top: 18px;
+  left: 30px;
+  color: rgba(184, 144, 97, 0.24);
+  font-family: "Cormorant Garamond", serif;
+  font-size: 92px;
+  font-weight: 500;
+}
+
+body.jensen-page-testimonials .testimonial-text {
+  color: var(--jw-muted-strong);
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+body.jensen-page-testimonials .testimonial-text-full {
+  display: none;
+}
+
+body.jensen-page-testimonials .testimonial-text-fade {
+  height: 60px;
+  margin-top: -48px;
+  background: linear-gradient(180deg, rgba(255, 250, 243, 0), rgba(255, 250, 243, 1));
+}
+
+body.jensen-page-testimonials .testimonial-expand-container,
+body.jensen-page-testimonials .testimonial-read-more {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--jw-line);
+}
+
+body.jensen-page-testimonials .testimonial-expand-btn,
+body.jensen-page-testimonials .testimonial-read-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+body.jensen-page-testimonials .testimonial-expand-btn span,
+body.jensen-page-testimonials .testimonial-read-more span {
+  color: var(--jw-text);
+  font-family: "Poppins", sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+body.jensen-page-testimonials .testimonial-expand-btn .expand-icon {
+  font-size: 10px;
+  transition: transform 220ms ease;
+}
+
+body.jensen-page-testimonials .testimonial-card.expanded .testimonial-text-snippet {
+  display: none !important;
+}
+
+body.jensen-page-testimonials .testimonial-card.expanded .testimonial-text-full {
+  display: inline !important;
+}
+
+body.jensen-page-testimonials .testimonial-card.expanded .testimonial-text-fade {
+  display: none !important;
+}
+
+body.jensen-page-testimonials .testimonial-card.expanded .testimonial-expand-btn .expand-icon {
+  transform: rotate(180deg);
+}
+
+body.jensen-page-testimonials .testimonial-author {
+  padding: 22px 32px 28px;
+  border-top: 1px solid rgba(93, 67, 38, 0.08);
+  background: rgba(237, 225, 206, 0.32);
+}
+
+body.jensen-page-testimonials .testimonial-author-name {
+  margin-bottom: 3px;
+  color: var(--jw-text);
+  font-family: "Poppins", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+body.jensen-page-testimonials .testimonial-author-location {
+  color: var(--jw-muted);
+  font-size: 13px;
+}
+
+body.jensen-page-testimonials .testimonial-overlay-backdrop {
+  background: rgba(17, 13, 10, 0.72);
+  backdrop-filter: blur(6px);
+}
+
+body.jensen-page-testimonials .testimonial-overlay-pane {
+  width: min(720px, 92%);
+  max-width: 720px;
+  border-left: 0;
+  border: 1px solid rgba(255, 247, 239, 0.12);
+  border-radius: 32px;
+  background: linear-gradient(180deg, #fffaf3 0%, #f4e9d8 100%);
+  box-shadow: 0 40px 100px rgba(17, 13, 10, 0.28);
+}
+
+body.jensen-page-testimonials .testimonial-overlay-body {
+  padding: 40px 36px 28px;
+}
+
+body.jensen-page-testimonials .testimonial-overlay-quote {
+  left: 34px;
+  color: rgba(184, 144, 97, 0.2);
+  font-family: "Cormorant Garamond", serif;
+  font-size: 90px;
+  font-weight: 500;
+}
+
+body.jensen-page-testimonials .testimonial-overlay-text {
+  color: var(--jw-muted-strong) !important;
+  font-family: "Poppins", sans-serif !important;
+  font-size: 15px !important;
+  line-height: 2 !important;
+}
+
+body.jensen-page-testimonials .testimonial-overlay-author {
+  padding: 18px 36px 24px;
+  border-top: 1px solid rgba(93, 67, 38, 0.08);
+  background: rgba(255, 255, 255, 0.26);
+}
+
+body.jensen-elegant .main-footer {
+  padding-top: 86px;
+  background:
+    radial-gradient(circle at top left, rgba(184, 144, 97, 0.12), transparent 28%),
+    linear-gradient(180deg, #1e1712 0%, #140f0c 100%);
+}
+
+body.jensen-elegant .main-footer .outer-container {
+  padding-left: 42px;
+  padding-right: 42px;
+}
+
+body.jensen-elegant .main-footer .widgets-section {
+  padding-bottom: 14px;
+}
+
+body.jensen-elegant .main-footer .footer-column {
+  margin-bottom: 22px;
+}
+
+body.jensen-elegant .main-footer .footer-widget {
+  height: 100%;
+  padding: 28px 26px 24px;
+  border: 1px solid rgba(255, 250, 243, 0.08);
+  border-radius: 24px;
+  background: rgba(255, 250, 243, 0.03);
+  backdrop-filter: blur(10px);
+}
+
+body.jensen-elegant .main-footer .logo-widget {
+  padding: 6px 0 0;
+  border: 0;
+  background: transparent;
+}
+
+body.jensen-elegant .main-footer .logo-widget img {
+  filter: brightness(1.04);
+}
+
+body.jensen-elegant .main-footer h3 {
+  margin-bottom: 14px;
+  color: #f8e8cf;
+  font-family: "Poppins", sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+body.jensen-elegant .main-footer .contact-widget ul li,
+body.jensen-elegant .main-footer .link-widget ul li,
+body.jensen-elegant .main-footer .link-widget ul li a {
+  color: rgba(250, 243, 227, 0.74);
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.95;
+  letter-spacing: 0.01em;
+  text-transform: none;
+}
+
+body.jensen-elegant .main-footer .link-widget ul li a:hover,
+body.jensen-elegant .main-footer .contact-widget ul li a:hover,
+body.jensen-elegant .main-footer .page-nav li a:hover {
+  color: #fff8f0;
+}
+
+body.jensen-elegant .main-footer .link-widget ul li a:hover {
+  padding-left: 0;
+}
+
+body.jensen-elegant .main-footer .footer-bottom {
+  margin-top: 48px;
+  padding: 26px 0 42px;
+  border-top: 1px solid rgba(255, 250, 243, 0.08);
+}
+
+body.jensen-elegant .main-footer .copy-column .copyright {
+  color: rgba(250, 243, 227, 0.62);
+  font-family: "Poppins", sans-serif;
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+body.jensen-elegant .main-footer .page-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 14px 24px;
+}
+
+body.jensen-elegant .main-footer .page-nav li {
+  margin: 0;
+}
+
+body.jensen-elegant .main-footer .pages-column .page-nav li a {
+  color: rgba(250, 243, 227, 0.82);
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+body.jensen-elegant .scroll-to-top {
+  right: 24px;
+  bottom: 24px;
+  width: 58px;
+  height: 58px;
+  border-radius: 999px;
+  background: rgba(23, 18, 14, 0.92);
+  box-shadow: 0 18px 40px rgba(17, 13, 10, 0.18);
+}
+
+body.jensen-elegant .scroll-to-top:hover {
+  width: 58px;
+  height: 58px;
+  border-radius: 999px;
+  clip-path: none;
+  background: var(--jw-accent);
+  color: #fff8f0;
+}
+
+body.jensen-elegant .scroll-to-top:hover span {
+  transform: none;
+  opacity: 1;
+}
+
+body.jensen-elegant .scroll-to-top:after {
+  display: none;
+}
+
+body.jensen-elegant .elegant-reveal {
+  opacity: 0;
+  transform: translate3d(0, 36px, 0);
+  filter: blur(8px);
+  transition:
+    opacity 700ms var(--jw-ease) var(--reveal-delay, 0ms),
+    transform 900ms var(--jw-ease) var(--reveal-delay, 0ms),
+    filter 900ms var(--jw-ease) var(--reveal-delay, 0ms);
+  will-change: opacity, transform, filter;
+}
+
+body.jensen-elegant .elegant-reveal.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  filter: blur(0);
+}
+
+@media (max-width: 1199px) {
+  body.jensen-page-testimonials .testimonials-wall > * {
+    grid-column: span 6;
+  }
+
+  body.jensen-page-home .about-section .outer-container,
+  body.jensen-page-home .fluid-section-one .outer-container,
+  body.jensen-page-services .services-process-section .outer-container,
+  body.jensen-page-about .about-section .row,
+  body.jensen-page-about .about-jensen-section .row,
+  body.jensen-page-contact .contact-page-section .row {
+    gap: 28px;
+  }
+}
+
+@media (max-width: 991px) {
+  body.jensen-elegant .outer-container,
+  body.jensen-elegant .main-header .outer-container,
+  body.jensen-elegant .main-footer .outer-container {
+    padding-left: 22px;
+    padding-right: 22px;
+  }
+
+  body.jensen-elegant .sec-title h2,
+  body.jensen-elegant .sec-title h3 {
+    max-width: none;
+  }
+
+  body.jensen-page-home .about-section .outer-container,
+  body.jensen-page-home .fluid-section-one .outer-container,
+  body.jensen-page-services .services-process-section .outer-container,
+  body.jensen-page-about .about-section .row,
+  body.jensen-page-about .about-jensen-section .row,
+  body.jensen-page-contact .contact-page-section .row,
+  body.jensen-page-testimonials .testimonials-header {
+    grid-template-columns: 1fr;
+  }
+
+  body.jensen-page-home .about-section .about-image-column,
+  body.jensen-page-home .fluid-section-one .image-column,
+  body.jensen-page-services .services-process-section .image-column,
+  body.jensen-page-about .about-section .image-column img,
+  body.jensen-page-about .about-jensen-section .image-column img {
+    min-height: 440px;
+  }
+
+  body.jensen-page-home .service-box .inner-box {
+    grid-template-columns: 1fr;
+  }
+
+  body.jensen-page-home .service-box-image img {
+    min-height: 220px;
+  }
+
+  body.jensen-page-home .form-fields-row,
+  body.jensen-page-home .toggles-row {
+    grid-template-columns: 1fr;
+  }
+
+  body.jensen-page-services .wood-species-card {
+    grid-template-columns: 96px minmax(0, 1fr);
+  }
+
+  body.jensen-page-testimonials .testimonials-wall > * {
+    grid-column: span 12;
+  }
+
+  body.jensen-elegant .main-footer .page-nav {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 767px) {
+  body.jensen-elegant {
+    font-size: 15px;
+  }
+
+  body.jensen-elegant .auto-container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  body.jensen-elegant .page-banner-section {
+    padding-top: 188px !important;
+    padding-bottom: 74px !important;
+  }
+
+  body.jensen-elegant .banner-section .content-boxed {
+    padding-top: 160px;
+  }
+
+  body.jensen-page-home .about-section .about-image-column,
+  body.jensen-page-home .fluid-section-one .image-column,
+  body.jensen-page-services .services-process-section .image-column,
+  body.jensen-page-about .about-section .image-column img,
+  body.jensen-page-about .about-jensen-section .image-column img {
+    min-height: 360px;
+  }
+
+  body.jensen-page-services .project-type-card {
+    padding: 24px !important;
+  }
+
+  body.jensen-page-services .project-type-card-image-container {
+    height: 210px;
+  }
+
+  body.jensen-page-services .wood-species-card {
+    grid-template-columns: 1fr;
+  }
+
+  body.jensen-page-services .wood-species-swatch {
+    min-height: 88px;
+  }
+
+  body.jensen-page-contact .contact-image-quadrant img {
+    height: 120px !important;
+  }
+
+  body.jensen-page-testimonials .testimonial-card-content {
+    padding: 28px 24px 22px;
+  }
+
+  body.jensen-page-testimonials .testimonial-author {
+    padding: 20px 24px 24px;
+  }
+
+  body.jensen-page-testimonials .testimonial-overlay-body {
+    padding: 34px 24px 24px;
+  }
+
+  body.jensen-page-testimonials .testimonial-overlay-author {
+    padding: 18px 24px 22px;
+  }
+
+  body.jensen-elegant .main-footer {
+    padding-top: 70px;
+  }
+
+  body.jensen-elegant .main-footer .footer-widget {
+    padding: 24px 22px 20px;
+  }
+
+  body.jensen-elegant .scroll-to-top {
+    right: 18px;
+    bottom: 18px;
+  }
+}

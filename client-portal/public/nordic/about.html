@@ -90,7 +90,7 @@
 			min-height: 0 !important;
 			max-height: 92vh;
 			padding-top: clamp(88px, 15vh, 200px) !important;
-			padding-bottom: clamp(40px, 7vh, 88px) !important;
+			padding-bottom: 0 !important;
 			box-sizing: border-box;
 			background-size: cover !important;
 			background-position: center center !important;
@@ -174,241 +174,96 @@
 			}
 		}
 		
-		/* About Jensen Section Styling */
-		.about-jensen-section {
-			position: relative;
-			padding: 150px 0;
-			background-color: #fff;
+		/* About page feature rows: Nordic cream (match body --jw-bg), flush two rows (no beige gap) */
+		.about-section.nordic-split-section,
+		.about-jensen-section.nordic-split-section {
+			background-color: var(--jw-bg, #f5f1e9) !important;
+		}
+		.about-section.nordic-split-section .nordic-split-content,
+		.about-jensen-section.nordic-split-section .nordic-split-content {
+			background-color: var(--jw-bg, #f5f1e9);
+		}
+		.about-section.nordic-split-section {
+			padding-top: 0 !important;
+			padding-bottom: 0 !important;
+		}
+		.about-jensen-section.nordic-split-section {
+			padding-top: 0 !important;
 		}
 		
-		.about-jensen-section .row {
-			display: flex;
-			align-items: center;
+		.about-section .nordic-split-content p,
+		.about-jensen-section .nordic-split-content p {
+			margin-bottom: 18px;
 		}
 		
-		.about-jensen-section .image-column {
-			padding-right: 60px;
+		.about-section .nordic-split-content .theme-btn {
+			margin-top: 16px;
 		}
 		
-		.about-jensen-section .image-column img {
-			width: 100%;
-			height: auto;
-			display: block;
-		}
-		
-		.about-jensen-section .content-column {
-			padding-left: 60px;
-		}
-		
-		/* Center text block within the right half */
-		.about-section .content-column .inner-column,
-		.about-jensen-section .content-column .inner-column {
-			max-width: 540px;
-			margin-left: auto;
-			margin-right: auto;
-			padding-left: 24px;
-			padding-right: 24px;
-		}
-		
-		.about-jensen-section .content-column p {
-			margin-bottom: 0.9em;
-			line-height: 1.8;
-			color: #666;
-		}
-		
-		.about-jensen-section .content-column p:last-child {
-			margin-bottom: 0;
-		}
-		
-		.about-section .content-column p {
-			margin-bottom: 0.9em;
-		}
-		
-		.about-section .content-column p:last-child {
-			margin-bottom: 0;
-		}
-		
-		/* Desktop only: original theme paragraph size (unaffected by iPad/mobile increases) */
-		@media (min-width: 1181px) {
-			.about-section .content-column p,
-			.about-jensen-section .content-column p {
-				font-size: 14px !important;
-				line-height: 1.8em;
-			}
-		}
-		
-		@media (max-width: 991px) {
-			.about-jensen-section .image-column {
-				padding-right: 0;
-				margin-bottom: 40px;
-			}
-			
-			.about-jensen-section .content-column {
-				padding-left: 0;
-			}
+		.about-jensen-section .nordic-split-image img {
+			object-position: center top;
 		}
 		
 		@media (max-width: 767px) {
-			.about-jensen-section .content-column p {
-				font-size: 20px !important;
-			}
-			.about-section .content-column p {
-				font-size: 20px !important;
-			}
-			.about-jensen-section .content-column .inner-column {
-				padding-left: 20px;
+			.about-section .nordic-split-content .sec-title,
+			.about-jensen-section .nordic-split-content .sec-title {
+				margin-bottom: 18px;
 			}
 		}
 		
-		/* iPad: match home page About Jensen Woodworking paragraph size (22px) + horizontal spacing like mobile */
-		@media (min-width: 768px) and (max-width: 1180px) {
-			.about-jensen-section .content-column p,
-			.about-section .content-column p {
-				font-size: 22px !important;
-				line-height: 1.85em;
-			}
-			.about-jensen-section .content-column .inner-column {
-				padding-left: 20px;
-				padding-right: 20px;
-			}
-			.instagram-reels-grid .instagram-embed-wrapper:not(:first-child) {
-				display: none;
-			}
-			.instagram-reels-grid {
-				display: flex;
-				justify-content: center;
-			}
-			.instagram-reels-grid .instagram-embed-wrapper:first-child {
-				width: auto;
-				max-width: 540px;
-				flex: 0 0 auto;
-			}
-		}
-		
-		@media (max-width: 767px) {
-			.instagram-reels-grid .instagram-embed-wrapper:not(:first-child) {
-				display: none;
-			}
-		}
-		
-		/* Instagram Section - consistent with site sections */
+		/* Instagram — single embed (Nordic) */
 		.instagram-reels-section {
 			position: relative;
-			padding: 72px 0;
-			background-color: #fff;
-			border-top: 1px solid #eee;
+			padding: 44px 0 48px;
+			background-color: var(--jw-bg, #f5f1e9);
+			border-top: 1px solid var(--jw-border-soft, rgba(122, 100, 62, 0.14));
 		}
-		
-		.instagram-reels-section .sec-title {
-			margin-bottom: 48px;
+		/* Match split + sponsors: use theme .sec-title / h2 / .title only; tighten spacing in this band */
+		.instagram-reels-section .sec-title.centered {
+			margin-bottom: 24px;
 		}
-		
-		.instagram-reels-section .sec-title .title {
-			font-size: 11px;
-			color: #888;
-			text-transform: uppercase;
-			letter-spacing: 0.15em;
-			margin-bottom: 10px;
+		.instagram-reels-section .sec-title.centered .title {
+			margin-bottom: 12px;
 		}
-		
-		.instagram-reels-section .sec-title h2,
-		.instagram-reels-section .sec-title h3 {
-			font-size: 28px;
-			font-weight: 400;
-			color: #1a1a1a;
-			margin-bottom: 14px;
-			line-height: 1.25;
+		.instagram-reels-section .sec-title.centered p {
+			max-width: 28em;
+			margin-left: auto;
+			margin-right: auto;
 		}
-		
-		.instagram-reels-section .sec-title p {
-			max-width: 440px;
+		.instagram-spotlight {
+			max-width: 420px;
 			margin: 0 auto;
-			font-size: 14px;
-			line-height: 1.65;
-			color: #666;
-			font-weight: 400;
 		}
-		
-		.instagram-reels-grid {
-			display: grid;
-			grid-template-columns: repeat(3, 1fr);
-			gap: 24px;
-			margin-top: 0;
-		}
-		
-		.instagram-reels-grid .instagram-embed-wrapper {
-			position: relative;
-			width: 100%;
-			cursor: pointer;
-			transition: opacity 0.25s ease, box-shadow 0.25s ease;
-		}
-		
-		.instagram-reels-grid .instagram-embed-wrapper.minimized {
-			opacity: 0.72;
-		}
-		
-		.instagram-reels-grid .instagram-embed-wrapper.expanded {
-			opacity: 1;
-			z-index: 2;
-		}
-		
-		.instagram-reels-grid iframe {
-			width: 100% !important;
-			max-width: 100%;
+		.instagram-spotlight-viewport {
+			border: 1px solid rgba(26, 24, 22, 0.08);
+			background: #faf8f5;
 			border-radius: 2px;
-			border: 1px solid #e8e8e8;
-			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+			overflow: hidden;
+		}
+		.instagram-spotlight-viewport iframe {
 			display: block;
-			margin: 0 auto;
-			transition: box-shadow 0.25s ease;
+			width: 100% !important;
+			min-width: 0 !important;
+			max-width: 100%;
+			margin: 0;
+			border: 0;
+			vertical-align: top;
 		}
-		
-		.instagram-reels-grid .instagram-embed-wrapper.minimized iframe {
-			pointer-events: none;
-		}
-		
-		.instagram-reels-grid .instagram-embed-wrapper.minimized::after {
-			content: '';
-			position: absolute;
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			background: rgba(255, 255, 255, 0.15);
-			pointer-events: none;
-			border-radius: 2px;
-		}
-		
-		.instagram-reels-grid .instagram-embed-wrapper.expanded iframe {
-			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-		}
-		
 		.instagram-reels-section .instagram-cta-wrap {
 			text-align: center;
-			margin-top: 40px;
+			margin-top: 18px;
 		}
-		
-		.instagram-reels-section .instagram-cta-wrap .theme-btn {
-			font-size: 13px;
-			padding: 10px 24px;
+		.instagram-reels-section .instagram-spotlight-cta {
+			font-size: 12px;
+			padding: 8px 20px;
+			letter-spacing: 0.06em;
 		}
-		
 		@media (max-width: 991px) {
 			.instagram-reels-section {
-				padding: 56px 0;
+				padding: 36px 0 40px;
 			}
-			
-			.instagram-reels-grid {
-				grid-template-columns: 1fr;
-				gap: 32px;
-			}
-			
-			.instagram-reels-grid iframe {
+			.instagram-spotlight {
 				max-width: 100%;
-			}
-			
-			.instagram-reels-grid .instagram-embed-wrapper.minimized {
-				opacity: 0.88;
 			}
 		}
 		
@@ -486,10 +341,9 @@
 	<meta property="og:description" content="Learn about Jensen Woodworking - Handcrafted custom countertops, tables, mantels, and restorations by Klaus Jensen in Duxbury, Massachusetts." />
 
 	<!-- Fonts -->
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link
-		href="https://fonts.googleapis.com/css2?family=Heebo:wght@100;300;400;500;600;700;800;900&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
-		rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
 	<!-- Add site Favicon -->
 	<link rel="shortcut icon" href="/images/JensenWoodworkingLogo.png" type="image/png">
@@ -563,7 +417,6 @@
 										<li><a href="/home">Home</a></li>
 										<li class="current"><a href="about.html">About</a></li>
 										<li><a href="gallery.html">Gallery</a></li>
-										<li><a href="services.html">Services</a></li>
 										<li><a href="testimonials.html">Testimonials</a></li>
 										<li><a href="contact.html">Contact</a></li>
 										<li class="nav-mobile-only"><a href="#" class="client-portal-link" data-path="/client/project">Your Project</a></li>
@@ -621,55 +474,43 @@
 		<!-- End Page Banner Section -->
 
 		<!-- About Section -->
-		<section class="about-section">
-			<div class="auto-container">
-				<div class="row clearfix">
+		<section class="about-section nordic-split-section">
+			<div class="outer-container nordic-split-shell">
 
 					<!-- Image Column -->
-					<div class="image-column col-lg-6 col-md-12 col-sm-12">
+					<div class="image-column col-lg-6 col-md-12 col-sm-12 nordic-split-image">
 						<div class="inner-column">
 							<div class="image">
-								<img src="/images/resource/about.jpg" alt="" />
+								<img src="/images/resource/aboutpage.jpg" alt="" />
 							</div>
 						</div>
 					</div>
 
 					<!-- Content Column -->
-					<div class="content-column col-lg-6 col-md-12 col-sm-12">
+					<div class="content-column col-lg-6 col-md-12 col-sm-12 nordic-split-content">
 						<div class="inner-column">
 							<!-- Sec Title -->
 							<div class="sec-title">
 								<div class="title">About Jensen Woodworking</div>
 								<h2>Custom woodwork crafted in coastal Massachusetts</h2>
 							</div>
-							<p>I was introduced to woodworking in the 6th grade in Denmark through an elective course. My first completed projects were a dog bed frame and a hockey stick. After we moved to the United States, I continued working with carpentry tools, building a shed for my parents, a new deck, and a loft for my apartment after college. I have always been drawn to both the creative aspects of working with wood and the satisfaction that comes from completing a project with your own hands.</p>
-							<br>
-							<p>After graduating from the Tuck School of Business, I began acquiring more tools and taking on increasingly challenging builds. I was a huge fan of Norm Abram on The New Yankee Workshop and This Old House, and built several of his projects, including a crib that all three of my children spent time in.</p>
-							<br>
-							<p>In 2006, we moved to Duxbury and settled into a house located within the Historic Shipbuilder District. At one time, Duxbury had more than ten shipyards and was the largest shipbuilding town on the East Coast. It is inspiring to practice woodworking in the same place where some of the finest craftsmen in American history once worked.</p>
-							<br>
-							<p>Over the years, I continued refining my skills and acquiring the right tools for the craft. I especially enjoy working with traditional hand tools such as hand planes, chisels, and saws, while also appreciating the full range of techniques and tools that allow a project to come together with the highest level of quality.</p>
-							<br>
-							<p>A few years ago, I began receiving requests to commission custom pieces such as kitchen countertops, an island top, and dining tables. What I enjoy most is not only the design process but also seeing a piece come to life in someone else's home. I have also worked with clients who have had a beloved tree come down due to age or a storm. Using that wood to create a new piece of furniture allows the tree to live on in a meaningful way.</p>
-							<br>
-							<p>I am excited to showcase my work here and look forward to connecting with new clients. I work exclusively on custom commissions and do not keep inventory. If you have an idea or concept for a one of a kind piece of furniture, give me a call and let's bring it to life.</p>
-							<br>
+							<p>I was introduced to woodworking in sixth grade in Denmark, where an elective course first taught me the satisfaction of shaping something useful by hand. After moving to the United States, I kept building whenever I could, from practical carpentry projects to furniture for family and friends.</p>
+							<p>After Tuck, I invested more seriously in the craft, inspired by makers like Norm Abram and drawn equally to design, precision, and the quiet rhythm of the shop. Over time, the work grew from personal projects into custom commissions for countertops, island tops, dining tables, and other pieces meant to be lived with every day.</p>
+							<p>Working from Duxbury's historic shipbuilding district feels especially fitting. The tradition of skilled making here, together with my love of honest materials and well-made details, shapes every project that leaves the shop.</p>
+							<p>I work exclusively on custom commissions and would be glad to talk through an idea with you.</p>
 							<a href="contact.html" class="theme-btn btn-style-one"><span class="txt">Contact Me</span></a>
 						</div>
 					</div>
-
-				</div>
 			</div>
 		</section>
 		<!-- End About Section -->
 
 		<!-- About Jensen Section -->
-		<section class="about-jensen-section">
-			<div class="auto-container">
-				<div class="row clearfix">
+		<section class="about-jensen-section nordic-split-section nordic-split-reverse">
+			<div class="outer-container nordic-split-shell">
 					
 					<!-- Image Column -->
-					<div class="image-column col-lg-6 col-md-12 col-sm-12">
+					<div class="image-column col-lg-6 col-md-12 col-sm-12 nordic-split-image">
 						<div class="inner-column">
 							<div class="image">
 								<img src="/images/pfp.webp" alt="Klaus Jensen" />
@@ -678,51 +519,42 @@
 					</div>
 
 					<!-- Content Column -->
-					<div class="content-column col-lg-6 col-md-12 col-sm-12">
+					<div class="content-column col-lg-6 col-md-12 col-sm-12 nordic-split-content">
 						<div class="inner-column">
 							<!-- Sec Title -->
 							<div class="sec-title">
 								<div class="title">About Klaus Jensen</div>
 								<h2>30 years of care, patience, and doing things properly</h2>
 							</div>
-							<p>I've been working with wood for over 30 years, first making pieces for family and friends, and eventually building a practice around care, patience, and doing things properly. I'm drawn to work that feels quiet but confident—pieces that don't ask for attention, but earn it over time.</p>
-							<p>My Danish background has always shaped how I think about making things: simple forms, honest materials, and a belief that function and beauty should never compete. That sensibility carries through everything I build. I also bring the discipline of an Ivy League education into the shop—an attention to detail, proportion, and process that shows up in the finished work, even when it isn't immediately visible.</p>
-							<p>My workshop sits in Duxbury's historic shipbuilding district, where skilled carpenters once built vessels meant to last at sea. Working here keeps me connected to that tradition. I'm especially drawn to wood with a history—fallen trees, reclaimed material—giving it a second life with intention.</p>
-							<p>I use a mix of traditional hand tools and modern equipment. There's nothing better than a sharp block plane or a perfectly cut joint. I focus mainly on kitchen countertops, dining tables, islands, bartops, and mantels, but many projects start simply with a conversation.</p>
+							<p>I've been working with wood for more than 30 years, building a practice around patience, proportion, and doing things properly. I'm drawn to pieces that feel quiet but confident and grow more meaningful with daily use.</p>
+							<p>My Danish background still guides the work: simple forms, honest materials, and a belief that function and beauty should belong together. I use both traditional hand tools and modern equipment, depending on what the piece asks for, and I am especially drawn to wood with a history, including reclaimed material and fallen trees.</p>
+							<p>From kitchen countertops and islands to dining tables, bartops, mantels, and one-off commissions, each project starts with a conversation and is built to feel natural in the space it joins.</p>
 							<p>If you have something in mind, I'd be glad to talk.</p>
 						</div>
 					</div>
-
-				</div>
 			</div>
 		</section>
 		<!-- End About Jensen Section -->
 
-		<!-- Instagram Reels Section -->
+		<!-- Instagram: single embed -->
 		<section class="instagram-reels-section">
 			<div class="auto-container">
 				<div class="sec-title centered">
-					<div class="title">On Instagram</div>
-					<h2>Follow Our Process</h2>
-					<p>See our latest projects and behind-the-scenes content.</p>
+					<div class="title">Instagram</div>
+					<h2>See more our process</h2>
+					<p>Short clips from my shop.</p>
 				</div>
-				<div class="instagram-reels-grid">
-					<div class="instagram-embed-wrapper minimized" data-reel="0">
-						<iframe class="instagram-media instagram-media-rendered" id="instagram-embed-0" src="https://www.instagram.com/reel/DNZdNDFNTv8/embed/captioned/?cr=1&amp;v=14&amp;wp=652&amp;rd=https%3A%2F%2Fjensentemplateone.vercel.app&amp;rp=%2F#%7B%22ci%22%3A0%2C%22os%22%3A463.19999998807907%2C%22ls%22%3A224.5%2C%22le%22%3A350.5%7D" allowtransparency="true" allowfullscreen="true" frameborder="0" height="809" data-instgrm-payload-id="instagram-media-payload-0" scrolling="no" style="background: white; max-width: 540px; width: calc(100% - 2px); border-radius: 3px; border: 1px solid rgb(219, 219, 219); box-shadow: none; display: block; margin: 0px 0px 12px; min-width: 326px; padding: 0px;"></iframe>
-					</div>
-					<div class="instagram-embed-wrapper expanded" data-reel="1">
-						<iframe class="instagram-media instagram-media-rendered" id="instagram-embed-1" src="https://www.instagram.com/reel/DRanVLmDmra/embed/captioned/?cr=1&amp;v=14&amp;wp=652&amp;rd=https%3A%2F%2Fjensentemplateone.vercel.app&amp;rp=%2F#%7B%22ci%22%3A1%2C%22os%22%3A465%2C%22ls%22%3A224.5%2C%22le%22%3A350.5%7D" allowtransparency="true" allowfullscreen="true" frameborder="0" height="749" data-instgrm-payload-id="instagram-media-payload-1" scrolling="no" style="background: white; max-width: 540px; width: calc(100% - 2px); border-radius: 3px; border: 1px solid rgb(219, 219, 219); box-shadow: none; display: block; margin: 0px 0px 12px; min-width: 326px; padding: 0px;"></iframe>
-					</div>
-					<div class="instagram-embed-wrapper minimized" data-reel="2">
-						<iframe class="instagram-media instagram-media-rendered" id="instagram-embed-2" src="https://www.instagram.com/reel/DKnVvphPt_t/embed/captioned/?cr=1&amp;v=14&amp;wp=652&amp;rd=https%3A%2F%2Fjensentemplateone.vercel.app&amp;rp=%2F#%7B%22ci%22%3A2%2C%22os%22%3A465.80000001192093%2C%22ls%22%3A224.5%2C%22le%22%3A350.5%7D" allowtransparency="true" allowfullscreen="true" frameborder="0" height="613" data-instgrm-payload-id="instagram-media-payload-2" scrolling="no" style="background: white; max-width: 540px; width: calc(100% - 2px); border-radius: 3px; border: 1px solid rgb(219, 219, 219); box-shadow: none; display: block; margin: 0px 0px 12px; min-width: 326px; padding: 0px;"></iframe>
+				<div class="instagram-spotlight">
+					<div class="instagram-spotlight-viewport">
+						<iframe title="Instagram reel from Jensen Woodworking" class="instagram-media" src="https://www.instagram.com/reel/DNZdNDFNTv8/embed/" allowtransparency="true" allowfullscreen="true" frameborder="0" scrolling="no"></iframe>
 					</div>
 				</div>
 				<div class="instagram-cta-wrap">
-					<a href="https://www.instagram.com/klauspnjensen/" target="_blank" rel="noopener noreferrer" class="theme-btn btn-style-one"><span class="txt">View on Instagram</span></a>
+					<a href="https://www.instagram.com/klauspnjensen/" target="_blank" rel="noopener noreferrer" class="theme-btn btn-style-one instagram-spotlight-cta"><span class="txt">Open Instagram</span></a>
 				</div>
 			</div>
 		</section>
-		<!-- End Instagram Reels Section -->
+		<!-- End Instagram section -->
 
 		<!-- Partners Section -->
 		<section class="sponsors-section">
@@ -795,7 +627,6 @@
 								<h3>Quick Links</h3>
 								<ul>
 									<li><a href="gallery.html">Gallery</a></li>
-									<li><a href="services.html">Services</a></li>
 									<li><a href="about.html">Our Story</a></li>
 									<li><a href="contact.html">Contact</a></li>
 									<li><a href="https://www.instagram.com/klauspnjensen/" target="_blank">Instagram</a></li>
@@ -852,32 +683,6 @@
 	<!-- Instagram Embed Script -->
 	<script async src="//www.instagram.com/embed.js"></script>
 	
-	<!-- Instagram Reels Toggle Script -->
-	<script>
-		document.addEventListener('DOMContentLoaded', function() {
-			const reelWrappers = document.querySelectorAll('.instagram-embed-wrapper');
-			
-			reelWrappers.forEach(function(wrapper) {
-				wrapper.addEventListener('click', function(e) {
-					// Don't trigger if clicking directly on the iframe
-					if (e.target.tagName === 'IFRAME') {
-						return;
-					}
-					
-					// Remove expanded class from all wrappers
-					reelWrappers.forEach(function(w) {
-						w.classList.remove('expanded');
-						w.classList.add('minimized');
-					});
-					
-					// Add expanded class to clicked wrapper
-					this.classList.remove('minimized');
-					this.classList.add('expanded');
-				});
-			});
-		});
-	</script>
-
 	<!-- Dynamic Client Portal URL Script -->
 	<script>
 		(function() {
@@ -926,4 +731,3 @@
 </body>
 
 </html>
-
