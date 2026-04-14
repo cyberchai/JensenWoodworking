@@ -94,6 +94,10 @@
 			background-size: cover !important;
 			background-position: center center !important;
 		}
+		/* No title in banner: match visible band on About/Gallery (their in-banner h1 adds height) */
+		.page-banner-section.page-banner-section--image-only {
+			min-height: clamp(260px, 32vh, 380px) !important;
+		}
 		/* Footer Contact column: sentence case (theme uses uppercase) */
 		.main-footer .contact-widget h3,
 		.main-footer .contact-widget ul li {
@@ -190,13 +194,51 @@
 			border-bottom: 1px solid rgba(122, 100, 62, 0.2);
 		}
 
-		.testimonials-intro .sec-title {
-			margin-bottom: 0;
+		/* Same h1 scale as .page-banner-section titles (main.css + responsive.css), on cream section */
+		.testimonials-tagline {
+			margin: 0 0 clamp(10px, 1.5vw, 14px);
+			max-width: min(20em, 96vw);
+			font-family: var(--jw-font-heading, 'Poppins', sans-serif);
+			font-weight: var(--jw-heading-weight, 600);
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			color: #3d2618;
+			text-transform: none;
+			font-size: 100px;
+		}
+
+		@media only screen and (max-width: 1140px) {
+			.testimonials-tagline {
+				font-size: 80px;
+			}
+		}
+
+		@media only screen and (max-width: 1023px) {
+			.testimonials-tagline {
+				font-size: 60px;
+			}
+		}
+
+		@media only screen and (max-width: 599px) {
+			.testimonials-tagline {
+				font-size: 40px;
+			}
+		}
+
+		@media only screen and (max-width: 479px) {
+			.testimonials-tagline {
+				font-size: 30px;
+			}
+		}
+
+		.testimonials-intro-lead-wrap {
+			min-width: 0;
+			margin-top: 12px;
 		}
 
 		.testimonials-lead {
-			max-width: 640px;
-			margin-top: 24px;
+			max-width: none;
+			margin-top: 0;
 			font-size: 18px;
 			line-height: 1.85;
 			color: var(--jw-body-color, #534433);
@@ -342,6 +384,14 @@
 		}
 
 		@media (max-width: 991px) {
+			.testimonials-intro {
+				padding-bottom: 28px;
+			}
+
+			.testimonials-intro-lead-wrap {
+				margin-top: 10px;
+			}
+
 			.testimonial-entry {
 				grid-template-columns: 1fr;
 				gap: 22px;
@@ -368,7 +418,6 @@
 
 			.testimonials-lead {
 				font-size: 16px;
-				margin-top: 18px;
 			}
 
 			.testimonial-entry {
@@ -599,11 +648,8 @@
 		<!--End Main Header -->
 
 		<!-- Page Banner Section -->
-		<section class="page-banner-section" style="background-image: url(/jw_projects/whatourclientssay.JPG);">
-			<div class="auto-container">
-				<div class="title">Testimonials</div>
-				<h1>What Our Clients Say</h1>
-			</div>
+		<section class="page-banner-section page-banner-section--image-only" style="background-image: url(/jw_projects/whatourclientssay.JPG);" aria-label="Testimonials">
+			<div class="auto-container"></div>
 		</section>
 		<!-- End Page Banner Section -->
 
@@ -612,14 +658,10 @@
 			<div class="auto-container">
 				<div class="testimonials-shell">
 					<div class="testimonials-intro">
-						<div class="testimonials-copy">
-							<div class="sec-title">
-								<div class="title">Client Notes</div>
-								<h2>Kind words from homes we have worked in</h2>
-							</div>
+						<h1 class="testimonials-tagline">From Our Clients</h1>
+						<div class="testimonials-intro-lead-wrap">
 							<p class="testimonials-lead">Every commission is built to be lived with daily. These notes come directly from the families and spaces that now use the work, from kitchen islands and dining tables to mantels, countertops, and one-off custom pieces.</p>
 						</div>
-
 					</div>
 
 					<!-- Testimonials Stream -->
