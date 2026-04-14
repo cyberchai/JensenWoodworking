@@ -163,55 +163,17 @@
 			}
 		}
 		
-		/* Contact page: compact dark header, always fixed at top */
-		.main-header {
-			position: fixed;
-			top: 0;
-			left: 0;
-			width: 100%;
-			z-index: 9999;
-			background-color: #1a1a1a;
-		}
-		.main-header .logo a img.logo-dark {
-			display: block;
-		}
-		.main-header .logo a img.logo-white {
-			display: none;
-		}
-		.main-header .header-upper .logo-box {
-			padding: 14px 0;
-		}
-		.main-header .main-menu .navigation > li > a {
-			padding: 25px 0;
-		}
-		.main-header .logo a img {
-			height: 50px;
-		}
-		/* Keep the same compact size even when JS adds fixed-header */
-		.main-header.fixed-header .header-upper {
-			animation: none;
-		}
-		.main-header.fixed-header .header-upper .logo-box {
-			padding: 14px 0;
-		}
-		.main-header.fixed-header .main-menu .navigation > li > a {
-			padding: 25px 0;
-		}
-		.main-header.fixed-header .logo a img {
-			height: 50px;
-		}
-
-		/* Full-width wood strip directly under fixed nav */
+		/* Full-width wood strip behind the shared header */
 		.contact-hero-strip {
-			margin-top: 78px;
+			margin-top: 0;
 			width: 100%;
-			height: clamp(48px, 7vh, 72px);
+			height: clamp(140px, 18vh, 190px);
 			background: #2a2419 url('/nordic/images/resource/woodpexels.jpg') center / cover no-repeat;
 			box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.12);
 		}
 		@media (max-width: 767px) {
 			.contact-hero-strip {
-				margin-top: 72px;
+				height: 132px;
 			}
 		}
 
@@ -871,6 +833,31 @@
 	<script src="/js/jquery.paroller.min.js"></script>
 	<script src="/js/jquery-ui.js"></script>
 	<script src="/js/script.js"></script>
+
+	<!-- Contact header scroll behavior -->
+	<script>
+		(function() {
+			var header = document.querySelector('.main-header');
+			var threshold = 32;
+
+			function syncContactHeader() {
+				if (!header) {
+					return;
+				}
+
+				var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+
+				if (scrollTop > threshold) {
+					header.classList.add('fixed-header');
+				} else {
+					header.classList.remove('fixed-header');
+				}
+			}
+
+			syncContactHeader();
+			window.addEventListener('scroll', syncContactHeader);
+		})();
+	</script>
 
 	<!-- Copy Address Functionality -->
 	<script>
