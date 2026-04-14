@@ -201,13 +201,57 @@
 			height: 50px;
 		}
 
+		/* Full-width wood strip directly under fixed nav */
+		.contact-hero-strip {
+			margin-top: 78px;
+			width: 100%;
+			height: clamp(48px, 7vh, 72px);
+			background: #2a2419 url('/nordic/images/resource/woodpexels.jpg') center / cover no-repeat;
+			box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.12);
+		}
+		@media (max-width: 767px) {
+			.contact-hero-strip {
+				margin-top: 72px;
+			}
+		}
+
 		/* Contact: Nordic two-column — text + form only, no image grid */
+		.contact-page-section {
+			min-height: calc(100vh - 70px);
+			padding-top: clamp(48px, 6vh, 82px);
+			padding-bottom: clamp(120px, 18vh, 220px);
+		}
+		.contact-page-section .auto-container {
+			width: 100%;
+			max-width: 1260px;
+			padding-left: 32px;
+			padding-right: 32px;
+		}
+		.contact-page-section .row {
+			display: grid;
+			grid-template-columns: minmax(340px, 540px) minmax(360px, 500px);
+			align-items: start;
+			justify-content: center;
+			column-gap: clamp(56px, 6vw, 96px);
+			margin-left: 0;
+			margin-right: 0;
+		}
 		.contact-page-section .info-column {
-			padding-right: clamp(28px, 4vw, 56px);
+			width: auto;
+			max-width: none;
+			padding-left: 0;
+			padding-right: clamp(44px, 6vw, 96px);
 			border-right: 1px solid var(--jw-border-soft, rgba(122, 100, 62, 0.14));
 		}
 		.contact-page-section .form-column {
-			padding-left: clamp(28px, 4vw, 56px);
+			width: min(100%, 500px);
+			max-width: none;
+			justify-self: end;
+			padding-left: 0;
+			padding-right: 0;
+		}
+		.contact-page-section .info-column .inner-column {
+			max-width: 620px;
 		}
 		.contact-info-inner h2 {
 			margin: 0 0 10px;
@@ -252,11 +296,23 @@
 			color: var(--jw-label-color, #6b5847);
 		}
 		.contact-page-section .contact-form .form-group {
-			margin-bottom: 12px;
+			margin-bottom: 16px;
 		}
 		
 		@media (max-width: 991px) {
+			.contact-page-section {
+				padding-top: 42px;
+				padding-bottom: 100px;
+			}
+			.contact-page-section .auto-container {
+				padding-left: 24px;
+				padding-right: 24px;
+			}
+			.contact-page-section .row {
+				display: block;
+			}
 			.contact-page-section .info-column {
+				width: 100%;
 				padding-right: 0;
 				border-right: none;
 				margin-bottom: 28px;
@@ -264,7 +320,9 @@
 				border-bottom: 1px solid var(--jw-border-soft, rgba(122, 100, 62, 0.14));
 			}
 			.contact-page-section .form-column {
+				width: 100%;
 				padding-left: 0;
+				justify-self: auto;
 			}
 		}
 		
@@ -635,8 +693,10 @@
 		</header>
 		<!--End Main Header -->
 
+		<div class="contact-hero-strip" role="presentation" aria-hidden="true"></div>
+
 		<!-- Contact Page Section -->
-		<section class="contact-page-section" style="padding-top: 140px;">
+		<section class="contact-page-section">
 			<div class="auto-container">
 				<div class="row clearfix">
 					

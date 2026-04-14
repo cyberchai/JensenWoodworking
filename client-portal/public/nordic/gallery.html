@@ -246,7 +246,11 @@
 			margin-bottom: 30px;
 			display: flex;
 			justify-content: flex-end;
-			padding-right: 60px;
+			width: min(calc(100vw - 48px), 1680px);
+			margin-left: 50%;
+			padding-right: clamp(24px, 4vw, 72px);
+			box-sizing: border-box;
+			transform: translateX(-50%);
 		}
 		
 		.gallery-filter-group {
@@ -722,7 +726,10 @@
 			}
 			
 			.gallery-filter-wrapper {
+				width: 100%;
+				margin-left: 0;
 				padding-right: 20px;
+				transform: none;
 			}
 			
 			.project-modal-image-section {
@@ -919,7 +926,6 @@
 		<!-- Page Banner Section -->
 		<section class="page-banner-section" style="background-image: url(/jw_projects/galleryimg.JPG);">
 			<div class="auto-container">
-			<div class="title">Jensen Woodworking</div>
 			<h1>Gallery</h1>
 			</div>
 		</section>
