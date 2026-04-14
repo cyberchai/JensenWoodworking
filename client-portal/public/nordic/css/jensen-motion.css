@@ -1,0 +1,83 @@
+:root {
+  --jensen-motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --jensen-motion-slow: 1100ms;
+  --jensen-motion-medium: 820ms;
+}
+
+html.luxury-scroll-ready .elegant-reveal {
+  opacity: 0;
+  transform: translate3d(0, 38px, 0);
+  filter: blur(8px);
+  transition:
+    opacity var(--jensen-motion-medium) var(--jensen-motion-ease) var(--reveal-delay, 0ms),
+    transform var(--jensen-motion-slow) var(--jensen-motion-ease) var(--reveal-delay, 0ms),
+    filter var(--jensen-motion-slow) var(--jensen-motion-ease) var(--reveal-delay, 0ms);
+  will-change: opacity, transform, filter;
+}
+
+html.luxury-scroll-ready .elegant-reveal[data-reveal-style="headline"] {
+  transform: translate3d(0, 54px, 0);
+  filter: blur(10px);
+}
+
+html.luxury-scroll-ready .elegant-reveal[data-reveal-style="soft"] {
+  transform: translate3d(0, 26px, 0);
+}
+
+html.luxury-scroll-ready .elegant-reveal[data-reveal-style="card"] {
+  transform: translate3d(0, 32px, 0) scale(0.985);
+}
+
+html.luxury-scroll-ready .elegant-reveal.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  filter: blur(0);
+}
+
+html.luxury-scroll-ready .elegant-image-reveal {
+  opacity: 0;
+  overflow: hidden;
+  clip-path: inset(7% 0 7% 0);
+  transform: translate3d(0, 34px, 0) scale(0.985);
+  transition:
+    opacity 780ms var(--jensen-motion-ease) var(--reveal-delay, 0ms),
+    clip-path 1200ms var(--jensen-motion-ease) var(--reveal-delay, 0ms),
+    transform 1200ms var(--jensen-motion-ease) var(--reveal-delay, 0ms);
+  will-change: opacity, clip-path, transform;
+}
+
+html.luxury-scroll-ready .elegant-image-reveal img {
+  transform: scale(1.055);
+  transition: transform 1400ms var(--jensen-motion-ease) var(--reveal-delay, 0ms);
+  will-change: transform;
+}
+
+html.luxury-scroll-ready .elegant-image-reveal.is-visible {
+  opacity: 1;
+  clip-path: inset(0);
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+html.luxury-scroll-ready .elegant-image-reveal.is-visible img {
+  transform: scale(1);
+}
+
+html.luxury-scroll-ready .elegant-image-reveal.is-visible:hover img {
+  transform: scale(1.035);
+}
+
+html.luxury-scroll-ready .elegant-parallax-bg {
+  background-position: center calc(50% + var(--elegant-bg-shift, 0px)) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.luxury-scroll-ready .elegant-reveal,
+  html.luxury-scroll-ready .elegant-image-reveal,
+  html.luxury-scroll-ready .elegant-image-reveal img {
+    opacity: 1;
+    clip-path: none;
+    filter: none;
+    transform: none;
+    transition: none;
+  }
+}
